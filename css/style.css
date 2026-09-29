@@ -164,7 +164,7 @@ p {
   border-bottom: 1px solid var(--line);
 }
 .logo img {
-  height: 38px;
+  height: 46px;
   width: auto;
 }
 .logo__light {
@@ -787,7 +787,7 @@ a.member:hover .member__photo img {
   padding-top: 90px;
 }
 .profile__photo {
-  height: 420px;
+  aspect-ratio: 4 / 5;
   border-radius: var(--radius-lg);
   overflow: hidden;
 }
@@ -795,7 +795,6 @@ a.member:hover .member__photo img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: top;
 }
 .profile__name {
   font-family: var(--font-serif);
@@ -808,6 +807,26 @@ a.member:hover .member__photo img {
   margin-top: 6px;
   font-size: 18px;
   color: var(--muted);
+}
+.profile__facts {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.profile__facts li {
+  display: grid;
+  grid-template-columns: 140px minmax(0, 1fr);
+  gap: 12px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--line);
+}
+.profile__facts span {
+  color: var(--muted);
+}
+.profile__back {
+  margin-top: 36px;
 }
 .profile .section-title {
   margin: 48px 0 16px;

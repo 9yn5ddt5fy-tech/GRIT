@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600&family=Instrument+Serif&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=18">
+  <link rel="stylesheet" href="css/style.css?v=19">
   <script>document.documentElement.classList.add("js");</script>
 </head>
 <body>
@@ -32,27 +32,19 @@
   </header>
 
   <main>
-    <section class="container profile">
-      <div class="profile__photo" data-reveal><img src="assets/img/member-portrait.png" alt=""></div>
+    <section class="container profile" id="profile">
+      <div class="profile__photo" data-reveal><img id="member-photo" src="assets/img/team-1.jpg" alt=""></div>
       <div>
-        <p class="eyebrow" data-reveal>GRIT team</p>
-        <h1 class="profile__name" data-reveal>Name</h1>
-        <p class="profile__school" data-reveal>School</p>
+        <p class="eyebrow" data-reveal>GRIT team · EduBridge</p>
+        <h1 class="profile__name" id="member-name" data-reveal>M. Namuunbayar</h1>
+        <p class="profile__school" id="member-role" data-reveal>Graphic Designer</p>
         <h2 class="section-title" data-reveal>Biography</h2>
-        <div class="prose" data-reveal>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-          <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+        <div class="prose" id="member-bio" data-reveal>
+          <p>Biography coming soon.</p>
         </div>
-      </div>
-    </section>
-
-    <section class="section" id="photos">
-      <div class="container"><h2 class="section-title" data-reveal>Photos</h2></div>
-      <div class="marquee" data-reveal>
-        <div class="photo"><img src="assets/img/member-photo-a.png" alt="GRIT program photo" loading="lazy"></div>
-        <div class="photo"><img src="assets/img/member-photo-b.png" alt="GRIT program photo" loading="lazy"></div>
-        <div class="photo"><img src="assets/img/member-photo-a.png" alt="GRIT program photo" loading="lazy"></div>
-        <div class="photo"><img src="assets/img/member-photo-b.png" alt="GRIT program photo" loading="lazy"></div>
+        <h2 class="section-title" data-reveal>At GRIT</h2>
+        <ul class="profile__facts" id="member-facts" data-reveal></ul>
+        <a class="btn btn--outline profile__back" href="index.html#team" data-reveal>← Back to the team</a>
       </div>
     </section>
 
@@ -83,6 +75,7 @@
     </div>
   </footer>
 
-  <script src="js/main.js?v=18"></script>
+  <script src="js/team.js?v=19"></script>
+  <script src="js/main.js?v=19"></script>
 </body>
 </html>

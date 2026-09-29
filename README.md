@@ -9,7 +9,7 @@ Figma дизайн (Desktop 10–13)-ийн агуулгыг [Stoic](https://aca
 | `index.html` | Desktop 10 | Нүүр: hero, тоонууд, Where we work, зургууд, Projects, Student success, Podcast, Speakers, Team, Contact |
 | `edu.html` | Desktop 11 | GRIT EDU: 2025 оны Өгийнуурын хөтөлбөрийн тайлан (тоонууд, баг, хичээл, судалгааны графикууд) |
 | `environment.html` | Desktop 12 | GRIT - ENVIRONMENT төслийн хуудас |
-| `member.html` | Desktop 13 | Багийн гишүүний намтар |
+| `member.html` | Desktop 13 | Багийн гишүүний намтар (`member.html?m=tulga` гэх мэт; өгөгдөл нь `js/team.js`-д) |
 
 ```
 css/style.css      бүх загвар (өнгөнүүд :root хэсэгт)
@@ -33,18 +33,16 @@ GitHub дээр: `assets/img` → **Add file → Upload files**. Файлын н
 
 | Файл | Хаана харагдах | Санал болгох хэмжээ |
 |---|---|---|
-| `logo-dark.png` | Цэс, footer дээрх лого (ногоон) | 290×139 (тунгалаг PNG) |
+| `logo.png`, `logo-dark.png` | Лого: цагаан (нүүр зураг дээр), хар (цагаан дэвсгэр дээр) | тунгалаг PNG |
 | `badge.png` | Статистикийн голын дугуй лого, favicon | 320×320 |
 | `hero.jpg` | Нүүр хуудасны том зураг | 2400×1260 (хэвтээ) |
 | `map.svg` | Монголын газрын зураг | — |
 | `photo-1.jpg` … `photo-4.jpg` | Гүйдэг зургийн мөрүүд | 800×1000 (босоо) |
 | `edu-cover-2.jpg`, `env-cover-2.jpg` | EDU / Environment хуудасны том зураг | 2400×1000 (хэвтээ) |
 | `podcast.png` | Подкастын картууд | 830×512 |
-| `member.png` | Нүүр хуудасны багийн гишүүд | 600×750 (босоо) |
-| `member-portrait.png` | Гишүүний хуудасны хөрөг | 680×840 (босоо) |
-| `member-photo-a.png`, `member-photo-b.png` | Гишүүний хуудасны зургууд | 600×760 |
 | `env-chart.png` | Environment хуудасны Impact график | 1420×574 |
 | `success-1.jpg` … `success-4.jpg` | Student success хэсгийн сурагчид | 900 өргөн (босоо) |
+| `team-1.jpg` … `team-5.jpg` | Team хэсэг, гишүүний намтрын хуудас | 720×900 (4:5) |
 
 Speakers хэсэгт одоогоор зургийн оронд дүрс байна. Зураг нэмэхдээ `index.html` доторх `speaker__photo` доторх `<svg>`-г `<img src="assets/img/speaker-1.jpg" alt="">`-ээр солино.
 
@@ -53,7 +51,7 @@ Speakers хэсэгт одоогоор зургийн оронд дүрс бай
 ## Агуулга засах
 
 - "Lorem ipsum", "Name", "School" зэрэг нь дизайн дахь түр текст — HTML файл дотор шууд солино.
-- Багийн гишүүн нэмэхдээ `index.html` доторх `<a class="member-card">` блокийг хуулна.
+- Багийн гишүүн нэмэхдээ `index.html` доторх `<a class="member">` блокийг хуулж, `js/team.js`-д нэр, үүрэг, зураг, намтрыг (`bio`) нэмнэ.
 - "Coming soon" цэс одоогоор холбоосгүй.
 - Гар утсан дээр (900px-ээс бага) цэс хураагдана.
 - Хэсгүүд гүйлгэхэд аажмаар гарч ирнэ (`data-reveal`), тоонууд 0-оос өсөж гүйнэ (`data-count`).
