@@ -945,18 +945,32 @@ a.member-card:hover img {
   display: flex;
   align-items: center;
   width: max-content;
-  animation: marquee var(--duration, 40s) linear infinite;
+  /* duration is set per row from js/main.js */
+  animation-name: marquee;
+  animation-duration: 40s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  will-change: transform;
 }
 .marquee__track > * {
   margin-right: var(--gap, 40px);
 }
-.marquee:hover .marquee__track,
+/* Pause on mouse hover only; on touch screens (iPhone Safari) :hover
+   "sticks" after a tap and would freeze the row. */
+@media (hover: hover) {
+  .marquee:hover .marquee__track {
+    animation-play-state: paused;
+  }
+}
 .marquee:focus-within .marquee__track {
   animation-play-state: paused;
 }
 @keyframes marquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
   to {
-    transform: translateX(-50%);
+    transform: translate3d(-50%, 0, 0);
   }
 }
 
@@ -967,10 +981,4 @@ a.member-card:hover img {
   }
 }
 
-/* Users who prefer less motion still see the rows move, but at half speed
-   (hovering or tapping a row pauses it). */
-@media (prefers-reduced-motion: reduce) {
-  .marquee__track {
-    animation-duration: calc(var(--duration, 40s) * 2);
-  }
-}
+

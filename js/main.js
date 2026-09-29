@@ -33,8 +33,11 @@ document.querySelectorAll(".marquee").forEach((row) => {
   }
   [...track.children].forEach((item) => track.append(cloneHidden(item)));
 
+  // Half speed for visitors who turned on "Reduce motion".
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const speed = reduce ? MARQUEE_SPEED / 2 : MARQUEE_SPEED;
   const setWidth = track.scrollWidth / 2;
-  track.style.setProperty("--duration", `${setWidth / MARQUEE_SPEED}s`);
+  track.style.animationDuration = `${setWidth / speed}s`;
 });
 
 function cloneHidden(node) {
