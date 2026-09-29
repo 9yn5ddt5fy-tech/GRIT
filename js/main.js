@@ -16,7 +16,7 @@ if (overlayHeader) {
 }
 
 // If an image file is missing, hide the broken-image icon.
-document.querySelectorAll("img").forEach((img) => {
+document.querySelectorAll("img[src]").forEach((img) => {
   const markMissing = () => img.classList.add("img-missing");
   if (img.complete && img.naturalWidth === 0) markMissing();
   else img.addEventListener("error", markMissing);
@@ -130,5 +130,67 @@ document.querySelectorAll("form[data-mailto]").forEach((form) => {
     const body = `${data.get("message")}\n\n${data.get("name")}\n${data.get("email")}\n${data.get("phone") || ""}`;
     window.location.href =
       `mailto:${form.dataset.mailto}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  });
+});
+
+// Photo album: show the first photos, "More photos" reveals the rest,
+// clicking a photo opens it full screen (arrows / swipe / Esc).
+document.querySelectorAll("#album").forEach((section) => {
+  const items = [...section.querySelectorAll(".album__item")];
+  const more = section.querySelector("[data-album-more]");
+  const FIRST = 9; // one large photo + eight small ones fill the grid evenly
+  if (items.length <= FIRST) {
+    more.parentElement.remove();
+  } else {
+    items.slice(FIRST).forEach((item) => item.classList.add("is-hidden"));
+    more.addEventListener("click", () => {
+      items.forEach((item) => item.classList.remove("is-hidden"));
+      more.parentElement.remove();
+    });
+  }
+
+  const box = document.getElementById("lightbox");
+  if (!box) return;
+  const img = box.querySelector("img");
+  const caption = box.querySelector("figcaption");
+  let index = 0;
+  const show = (i) => {
+    index = (i + items.length) % items.length;
+    const source = items[index].querySelector("img");
+    img.classList.remove("img-missing");
+    img.src = items[index].dataset.full;
+    img.alt = source.alt;
+    caption.textContent = `${source.alt} · ${index + 1} / ${items.length}`;
+  };
+  const close = () => {
+    box.hidden = true;
+    document.body.style.overflow = "";
+  };
+  items.forEach((item, i) =>
+    item.addEventListener("click", () => {
+      show(i);
+      box.hidden = false;
+      document.body.style.overflow = "hidden";
+    })
+  );
+  box.querySelector(".lightbox__close").addEventListener("click", close);
+  box.querySelector(".lightbox__nav--prev").addEventListener("click", () => show(index - 1));
+  box.querySelector(".lightbox__nav--next").addEventListener("click", () => show(index + 1));
+  box.addEventListener("click", (e) => {
+    if (e.target === box) close();
+  });
+  document.addEventListener("keydown", (e) => {
+    if (box.hidden) return;
+    if (e.key === "Escape") close();
+    if (e.key === "ArrowLeft") show(index - 1);
+    if (e.key === "ArrowRight") show(index + 1);
+  });
+  let startX = null;
+  box.addEventListener("touchstart", (e) => (startX = e.touches[0].clientX), { passive: true });
+  box.addEventListener("touchend", (e) => {
+    if (startX === null) return;
+    const dx = e.changedTouches[0].clientX - startX;
+    if (Math.abs(dx) > 50) show(index + (dx < 0 ? 1 : -1));
+    startX = null;
   });
 });

@@ -18,7 +18,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600&family=Instrument+Serif&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=22">
+  <link rel="stylesheet" href="css/style.css?v=25">
   <script>document.documentElement.classList.add("js");</script>
 </head>
 <body>
@@ -456,6 +456,31 @@
       </div>
     </section>
 
+    <section class="section container" id="album">
+      <div class="album__head">
+        <h2 class="section-title" data-reveal>Photo album</h2>
+        <p class="album__count" data-reveal>13 photos</p>
+      </div>
+      <div class="album" data-reveal>
+        <button class="album__item" type="button" data-full="assets/img/photo-5.jpg" aria-label="Open photo: Speech about Stanford University during the program"><img src="assets/img/photo-5.jpg" alt="Speech about Stanford University during the program" loading="lazy"></button>
+        <button class="album__item" type="button" data-full="assets/img/photo-6.jpg" aria-label="Open photo: A teacher with GRIT EDU students in class"><img src="assets/img/photo-6.jpg" alt="A teacher with GRIT EDU students in class" loading="lazy"></button>
+        <button class="album__item" type="button" data-full="assets/img/photo-7.jpg" aria-label="Open photo: GRIT team on the road to Ugiinuur"><img src="assets/img/photo-7.jpg" alt="GRIT team on the road to Ugiinuur" loading="lazy"></button>
+        <button class="album__item" type="button" data-full="assets/img/photo-8.jpg" aria-label="Open photo: GRIT teachers in front of Ugiinuur school"><img src="assets/img/photo-8.jpg" alt="GRIT teachers in front of Ugiinuur school" loading="lazy"></button>
+        <button class="album__item" type="button" data-full="assets/img/photo-9.jpg" aria-label="Open photo: English grammar lesson"><img src="assets/img/photo-9.jpg" alt="English grammar lesson" loading="lazy"></button>
+        <button class="album__item" type="button" data-full="assets/img/photo-10.jpg" aria-label="Open photo: Online speech from a student studying abroad"><img src="assets/img/photo-10.jpg" alt="Online speech from a student studying abroad" loading="lazy"></button>
+        <button class="album__item" type="button" data-full="assets/img/photo-11.jpg" aria-label="Open photo: Students listening to a speaker from abroad"><img src="assets/img/photo-11.jpg" alt="Students listening to a speaker from abroad" loading="lazy"></button>
+        <button class="album__item" type="button" data-full="assets/img/photo-12.jpg" aria-label="Open photo: A student taking notes in class"><img src="assets/img/photo-12.jpg" alt="A student taking notes in class" loading="lazy"></button>
+        <button class="album__item" type="button" data-full="assets/img/photo-13.jpg" aria-label="Open photo: GRIT team dinner after classes"><img src="assets/img/photo-13.jpg" alt="GRIT team dinner after classes" loading="lazy"></button>
+        <button class="album__item" type="button" data-full="assets/img/photo-1.jpg" aria-label="Open photo: GRIT program photo"><img src="assets/img/photo-1.jpg" alt="GRIT program photo" loading="lazy"></button>
+        <button class="album__item" type="button" data-full="assets/img/photo-2.jpg" aria-label="Open photo: GRIT program photo"><img src="assets/img/photo-2.jpg" alt="GRIT program photo" loading="lazy"></button>
+        <button class="album__item" type="button" data-full="assets/img/photo-3.jpg" aria-label="Open photo: GRIT program photo"><img src="assets/img/photo-3.jpg" alt="GRIT program photo" loading="lazy"></button>
+        <button class="album__item" type="button" data-full="assets/img/photo-4.jpg" aria-label="Open photo: GRIT program photo"><img src="assets/img/photo-4.jpg" alt="GRIT program photo" loading="lazy"></button>
+      </div>
+      <div class="album__more">
+        <button class="btn btn--outline" type="button" data-album-more>More photos</button>
+      </div>
+    </section>
+
     <section class="section container contact" id="contact">
       <h2 class="section-title contact__title" data-reveal>Contact</h2>
       <div data-reveal>
@@ -483,6 +508,12 @@
     </div>
   </footer>
 
-  <script src="js/main.js?v=22"></script>
+  <div class="lightbox" id="lightbox" hidden>
+    <button class="lightbox__close" type="button" aria-label="Close">×</button>
+    <button class="lightbox__nav lightbox__nav--prev" type="button" aria-label="Previous photo">‹</button>
+    <figure class="lightbox__figure"><img alt=""><figcaption></figcaption></figure>
+    <button class="lightbox__nav lightbox__nav--next" type="button" aria-label="Next photo">›</button>
+  </div>
+  <script src="js/main.js?v=25"></script>
 </body>
 </html>

@@ -1558,3 +1558,129 @@ img.img-missing {
     align-items: flex-start;
   }
 }
+
+/* --------------------------------------------------------------------------
+   Photo album + lightbox (EDU / Environment pages)
+   -------------------------------------------------------------------------- */
+.album__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+}
+.album__count {
+  color: var(--muted);
+}
+.album {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-auto-rows: 220px;
+  gap: 12px;
+}
+.album__item {
+  position: relative;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: var(--bg-soft);
+  cursor: zoom-in;
+}
+.album__item:first-child {
+  grid-column: span 2;
+  grid-row: span 2;
+}
+.album__item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s;
+}
+.album__item:hover img {
+  transform: scale(1.04);
+}
+.album__item.is-hidden {
+  display: none;
+}
+.album__more {
+  margin-top: 28px;
+  text-align: center;
+}
+.album__note {
+  margin-top: 16px;
+  text-align: center;
+  color: var(--muted);
+}
+
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 56px 72px;
+  background: rgba(10, 12, 10, 0.92);
+}
+.lightbox[hidden] {
+  display: none;
+}
+.lightbox__figure {
+  width: 100%;
+  margin: 0;
+  text-align: center;
+}
+.lightbox__figure img {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: calc(100vh - 150px);
+  border-radius: var(--radius-sm);
+  margin: 0 auto;
+}
+.lightbox__figure figcaption {
+  margin-top: 12px;
+  color: #ddd;
+  font-size: 15px;
+}
+.lightbox button {
+  position: absolute;
+  border: 0;
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  cursor: pointer;
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  font-size: 30px;
+  line-height: 1;
+}
+.lightbox button:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+.lightbox__close {
+  top: 16px;
+  right: 16px;
+}
+.lightbox__nav--prev {
+  left: 16px;
+}
+.lightbox__nav--next {
+  right: 16px;
+}
+
+@media (max-width: 900px) {
+  .album {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-auto-rows: 150px;
+    gap: 8px;
+  }
+  .lightbox {
+    padding: 56px 12px;
+  }
+  .lightbox__nav {
+    top: auto;
+    bottom: 16px;
+  }
+}
