@@ -21,8 +21,10 @@ const MN = {
 
   // Home: hero, statement, numbers
   "Opening the world to students from rural Mongolia.": "Хөдөө орон нутгийн сурагчдад дэлхийн боломжийг нээж өгнө.",
-  "We work in the soums of central Mongolia, where the nearest university is a day's drive away and scholarship information rarely reaches students.":
-    "Бид Монголын төвийн сумдад ажилладаг. Тэндээс хамгийн ойрын их сургууль хүртэл бүтэн өдрийн зам бөгөөд тэтгэлгийн мэдээлэл сурагчдад бараг хүрдэггүй.",
+  "Why we exist": "Бид яагаад ажилладаг вэ",
+  "We work in the soums of central Mongolia, where the nearest university is": "Бид Монголын төвийн сумдад ажилладаг. Тэндээс хамгийн ойрын их сургууль хүртэл",
+  "a day's drive away": "бүтэн өдрийн зам",
+  "and scholarship information rarely reaches students.": "бөгөөд тэтгэлгийн мэдээлэл сурагчдад бараг хүрдэггүй.",
   "Students": "Сурагч",
   "Weeks on the ground": "Долоо хоног газар дээр нь",
   "Teachers and volunteers": "Багш, сайн дурын ажилтан",

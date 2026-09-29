@@ -373,17 +373,48 @@ p {
 
 /* Large centered statement under the hero */
 .statement {
-  max-width: 760px;
-  text-wrap: balance;
+  position: relative;
+  max-width: 900px;
   margin-inline: auto;
-  text-align: center;
-  font-size: clamp(20px, 2.2vw, 28px);
-  line-height: 1.55;
+  padding: 56px 64px;
+  border-left: 4px solid var(--accent);
+  border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+  background: var(--bg-soft);
 }
-.statement em {
-  font-family: var(--font-serif);
-  font-size: 1.15em;
+.statement::before {
+  content: "“";
+  position: absolute;
+  top: -10px;
+  right: 40px;
+  font-family: var(--font-display);
+  font-size: 160px;
+  line-height: 1;
   color: var(--accent);
+  opacity: 0.15;
+}
+.statement .eyebrow {
+  margin-bottom: 14px;
+}
+.statement__text {
+  font-family: var(--font-display);
+  font-size: clamp(22px, 2.6vw, 32px);
+  font-weight: 600;
+  line-height: 1.4;
+  text-wrap: balance;
+}
+.statement mark {
+  padding: 0 4px;
+  background: linear-gradient(transparent 58%, var(--tint) 58%);
+  color: var(--accent);
+}
+@media (max-width: 900px) {
+  .statement {
+    padding: 36px 24px;
+  }
+  .statement::before {
+    font-size: 110px;
+    right: 16px;
+  }
 }
 
 /* --------------------------------------------------------------------------
