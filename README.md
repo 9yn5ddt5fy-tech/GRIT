@@ -7,7 +7,7 @@ Figma дизайн (Desktop 10–13)-ийн агуулгыг [Stoic](https://aca
 | Файл | Figma frame | Агуулга |
 |---|---|---|
 | `index.html` | Desktop 10 | Нүүр: hero, тоонууд, Where we work, зургууд, Projects, Student success, Podcast, Speakers, Team, Contact |
-| `edu.html` | Desktop 11 | GRIT - EDU төслийн хуудас |
+| `edu.html` | Desktop 11 | GRIT EDU: 2025 оны Өгийнуурын хөтөлбөрийн тайлан (тоонууд, баг, хичээл, судалгааны графикууд) |
 | `environment.html` | Desktop 12 | GRIT - ENVIRONMENT төслийн хуудас |
 | `member.html` | Desktop 13 | Багийн гишүүний намтар |
 
@@ -43,7 +43,7 @@ GitHub дээр: `assets/img` → **Add file → Upload files**. Файлын н
 | `member.png` | Нүүр хуудасны багийн гишүүд | 600×750 (босоо) |
 | `member-portrait.png` | Гишүүний хуудасны хөрөг | 680×840 (босоо) |
 | `member-photo-a.png`, `member-photo-b.png` | Гишүүний хуудасны зургууд | 600×760 |
-| `edu-chart.png`, `env-chart.png` | Impact график | 1420×574 |
+| `env-chart.png` | Environment хуудасны Impact график | 1420×574 |
 | `success-1.jpg` … `success-4.jpg` | Student success хэсгийн сурагчид | 900 өргөн (босоо) |
 
 Speakers хэсэгт одоогоор зургийн оронд дүрс байна. Зураг нэмэхдээ `index.html` доторх `speaker__photo` доторх `<svg>`-г `<img src="assets/img/speaker-1.jpg" alt="">`-ээр солино.
@@ -59,3 +59,5 @@ Speakers хэсэгт одоогоор зургийн оронд дүрс бай
 - Хэсгүүд гүйлгэхэд аажмаар гарч ирнэ (`data-reveal`), тоонууд 0-оос өсөж гүйнэ (`data-count`).
 - Contact форм сервергүй тул илгээхэд зочны имэйл апп нээгдэж, мессеж нь бөглөгдсөн байна.
 - Өнгө, фонт, зай `css/style.css`-ийн эхэнд (`:root`) байна. Гол ногоон өнгө: `--accent`.
+
+- EDU хуудасны графикууд зураг биш, HTML/CSS-ээр зурагдсан. Тоог `edu.html` доторх `bar__value` болон `--w` (хувь) утгаар засна.
