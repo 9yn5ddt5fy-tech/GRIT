@@ -1,6 +1,13 @@
 // Team members shown on member.html?m=<id>.
 // To add a biography, write it in `bio` (one string per paragraph).
 const TEAM = {
+  bayarmagnai: {
+    name: "U. Bayarmagnai",
+    role: "Coordinator",
+    photo: "assets/img/team-bayarmagnai.jpg",
+    responsibilities: "Program lead: finance, organization, university application classes",
+    bio: [],
+  },
   namuunbayar: {
     name: "M. Namuunbayar",
     role: "Graphic Designer",
@@ -34,6 +41,27 @@ const TEAM = {
     role: "English Teacher",
     photo: "assets/img/team-5.jpg",
     responsibilities: "English, cooking",
+    bio: [],
+  },
+  batzorigt: {
+    name: "G. Batzorigt",
+    role: "Teacher",
+    photo: "assets/img/team-batzorigt.jpg",
+    responsibilities: "Teaching",
+    bio: [],
+  },
+  nomin: {
+    name: "B. Nomin",
+    role: "Teacher",
+    photo: "assets/img/team-nomin.jpg",
+    responsibilities: "English, country information",
+    bio: [],
+  },
+  namuun: {
+    name: "J. Namuun",
+    role: "Teacher",
+    photo: "assets/img/team-namuun.jpg",
+    responsibilities: "University applications, country information",
     bio: [],
   },
 };
