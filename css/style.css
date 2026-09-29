@@ -864,55 +864,146 @@ a.member:hover .member__photo img {
   color: var(--accent);
 }
 
-/* Facts list */
+/* At a glance: icon cards */
 .facts {
-  margin: 0;
-  border-top: 1px solid var(--line);
-}
-.facts > div {
   display: grid;
-  grid-template-columns: 200px minmax(0, 1fr);
+  grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: 16px;
-  padding: 16px 0;
-  border-bottom: 1px solid var(--line);
 }
-.facts dt {
+.fact {
+  position: relative;
+  padding: 24px;
+  border-radius: var(--radius-md);
+  background: var(--bg-soft);
+  border: 1px solid #e6ece4;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.fact:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px -18px rgba(31, 77, 46, 0.45);
+}
+.fact--wide {
+  grid-column: span 3;
+}
+.fact--wide + .fact--wide {
+  grid-column: span 2;
+}
+.fact__icon {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  margin-bottom: 18px;
+  border-radius: 12px;
+  background: var(--accent);
+}
+.fact__icon svg {
+  width: 22px;
+  height: 22px;
+  fill: none;
+  stroke: #fff;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.fact__label {
+  font-size: 12px;
   font-weight: 600;
-}
-.facts dd {
-  margin: 0;
-  color: #2b2b2b;
-}
-
-/* Team table */
-.table-wrap {
-  margin-top: 28px;
-  overflow-x: auto;
-}
-.table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 16px;
-}
-.table th,
-.table td {
-  padding: 14px 16px 14px 0;
-  border-bottom: 1px solid var(--line);
-  text-align: left;
-  vertical-align: top;
-}
-.table thead th {
-  font-size: 13px;
-  font-weight: 500;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
+  color: var(--accent);
+}
+.fact__value {
+  margin-top: 6px;
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+.fact__meta {
+  margin-top: 4px;
+  font-size: 14px;
   color: var(--muted);
 }
-.table tbody th {
-  font-weight: 600;
-  white-space: nowrap;
+.fact--dark {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
 }
-.table td:last-child {
+.fact--dark .fact__icon {
+  background: rgba(255, 255, 255, 0.14);
+}
+.fact--dark .fact__label {
+  color: #cfe3d2;
+}
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 12px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.chips li {
+  padding: 7px 14px;
+  border-radius: 99px;
+  background: #fff;
+  border: 1px solid #dfe7dc;
+  font-size: 14px;
+  font-weight: 500;
+}
+.fact--dark .chips li {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.25);
+  color: #fff;
+}
+
+/* Team cards (EDU page) */
+.crew {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 28px;
+}
+.crew__card {
+  display: flex;
+  gap: 14px;
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  transition: border-color 0.2s;
+}
+.crew__card:hover {
+  border-color: var(--accent-soft);
+}
+.crew__card:first-child {
+  grid-column: 1 / -1;
+  background: var(--bg-soft);
+}
+.crew__avatar {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  flex: none;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #fff;
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 700;
+}
+.crew__name {
+  font-weight: 600;
+}
+.crew__role {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--accent);
+}
+.crew__does {
+  margin-top: 4px;
+  font-size: 14px;
   color: var(--muted);
 }
 
@@ -1344,6 +1435,13 @@ img.img-missing {
   .charts {
     grid-template-columns: minmax(0, 1fr);
   }
+  .facts {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .fact--wide,
+  .fact--wide + .fact--wide {
+    grid-column: 1 / -1;
+  }
   .where,
   .split,
   .impact,
@@ -1433,9 +1531,30 @@ img.img-missing {
   .kpi__label {
     font-size: 14px;
   }
-  .facts > div {
+  .facts {
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  .crew {
     grid-template-columns: minmax(0, 1fr);
-    gap: 2px;
+  }
+  .fact {
+    padding: 18px;
+  }
+  .fact:nth-child(5) {
+    grid-column: 1 / -1;
+  }
+  .fact__icon {
+    width: 36px;
+    height: 36px;
+    margin-bottom: 12px;
+  }
+  .fact__value {
+    font-size: 20px;
+  }
+  .chips li {
+    font-size: 13px;
+    padding: 6px 12px;
   }
   .tracks,
   .lessons,
