@@ -967,12 +967,10 @@ a.member-card:hover img {
   }
 }
 
-/* Users who prefer less motion get a normal swipeable row instead. */
+/* Users who prefer less motion still see the rows move, but at half speed
+   (hovering or tapping a row pauses it). */
 @media (prefers-reduced-motion: reduce) {
-  .marquee {
-    overflow-x: auto;
-  }
   .marquee__track {
-    animation: none;
+    animation-duration: calc(var(--duration, 40s) * 2);
   }
 }
