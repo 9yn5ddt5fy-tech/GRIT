@@ -1684,3 +1684,32 @@ img.img-missing {
     bottom: 16px;
   }
 }
+
+/* Podcast: video player and "coming soon" placeholders */
+.podcast__video {
+  background: #000;
+}
+.podcast__video video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: #000;
+}
+.podcast__soon {
+  display: grid;
+  place-items: center;
+  border: 1px dashed #cfd8cc;
+  background: var(--bg-soft);
+}
+.podcast__soon span {
+  padding: 6px 16px;
+  border-radius: 99px;
+  background: #fff;
+  border: 1px solid var(--line);
+  color: var(--accent);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
