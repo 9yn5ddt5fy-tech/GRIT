@@ -1697,10 +1697,28 @@ img.img-missing {
   background: #000;
 }
 .podcast__soon {
+  position: relative;
   display: grid;
   place-items: center;
-  border: 1px dashed #cfd8cc;
-  background: var(--bg-soft);
+  overflow: hidden;
+  background: #2f3a2c url("../assets/img/podcast-01-v2.jpg") center / cover no-repeat;
+}
+.podcast__soon::before {
+  content: "";
+  position: absolute;
+  inset: -12px;
+  background: inherit;
+  filter: blur(4px) grayscale(0.2);
+}
+.podcast__soon::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(10, 20, 10, 0.45);
+}
+.podcast__soon span {
+  position: relative;
+  z-index: 1;
 }
 .podcast__soon span {
   padding: 6px 16px;
