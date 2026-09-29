@@ -14,24 +14,17 @@ Figma дизайн (Desktop 10–13)-аас энгийн HTML, CSS, JavaScript �
 ```
 css/style.css      бүх загвар (өнгөнүүд :root хэсэгт)
 js/main.js         гар утасны цэс + татагдаагүй зургийн placeholder
-assets/img/        Figma-аас гаргасан зургууд
-download-assets.sh зургуудыг Figma-аас татах скрипт
+assets/img/        Figma-аас гаргасан зургууд (вэбэд зориулж шахсан)
 ```
 
 ## Ажиллуулах
 
-1. Зургуудыг татах:
-   ```bash
-   ./download-assets.sh
-   ```
-   Figma-гийн зургийн холбоос ~7 хоногийн дараа хүчингүй болно. Тэгвэл Figma дээр зураг бүрийг сонгоод Export → PNG/SVG хийж, `download-assets.sh` дотор бичсэн нэрээр нь `assets/img/` хавтаст хадгална.
-2. Браузерт нээх:
-   ```bash
-   python3 -m http.server 8000
-   # http://localhost:8000
-   ```
+```bash
+python3 -m http.server 8000
+# http://localhost:8000
+```
 
-Зураг татагдаагүй үед тухайн байрлалд цайвар ногоон placeholder харагдана.
+Эсвэл `index.html`-ийг браузерт шууд нээнэ.
 
 ## Агуулга засах
 
