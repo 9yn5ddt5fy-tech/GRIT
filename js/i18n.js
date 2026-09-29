@@ -356,6 +356,9 @@ const MN_ATTR = {
   "Next photo": "Дараах зураг",
 };
 
+// Mongolian is turned off for now: set to true to show the МН/EN button again.
+const MN_ENABLED = false;
+
 (function () {
   const root = document.documentElement;
   const EN = {};
@@ -435,6 +438,6 @@ const MN_ATTR = {
   );
 
   setTheme(root.getAttribute("data-theme") === "dark" ? "dark" : "light", false);
-  setLang(root.getAttribute("data-lang") === "mn" ? "mn" : "en", false);
+  if (MN_ENABLED) setLang(root.getAttribute("data-lang") === "mn" ? "mn" : "en", false);
   window.addEventListener("load", () => window.GRIT_I18N.apply());
 })();
