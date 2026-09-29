@@ -18,7 +18,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600&family=Instrument+Serif&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=25">
+  <link rel="stylesheet" href="css/style.css?v=31">
   <script>document.documentElement.classList.add("js");</script>
 </head>
 <body>
@@ -481,6 +481,40 @@
       </div>
     </section>
 
+    <section class="section container" id="report">
+      <div class="album__head">
+        <h2 class="section-title" data-reveal>Full report</h2>
+        <p class="album__count" data-reveal>GRIT EDU Arkhangai · Results report · 15 pages</p>
+      </div>
+      <div class="book-wrap" data-reveal>
+        <div class="book" id="book">
+          <div class="book__page"><img src="assets/report/page-01.jpg" alt="GRIT EDU results report, page 1 of 15" loading="lazy"></div>
+          <div class="book__page"><img src="assets/report/page-02.jpg" alt="GRIT EDU results report, page 2 of 15" loading="lazy"></div>
+          <div class="book__page"><img src="assets/report/page-03.jpg" alt="GRIT EDU results report, page 3 of 15" loading="lazy"></div>
+          <div class="book__page"><img src="assets/report/page-04.jpg" alt="GRIT EDU results report, page 4 of 15" loading="lazy"></div>
+          <div class="book__page"><img src="assets/report/page-05.jpg" alt="GRIT EDU results report, page 5 of 15" loading="lazy"></div>
+          <div class="book__page"><img src="assets/report/page-06.jpg" alt="GRIT EDU results report, page 6 of 15" loading="lazy"></div>
+          <div class="book__page"><img src="assets/report/page-07.jpg" alt="GRIT EDU results report, page 7 of 15" loading="lazy"></div>
+          <div class="book__page"><img src="assets/report/page-08.jpg" alt="GRIT EDU results report, page 8 of 15" loading="lazy"></div>
+          <div class="book__page"><img src="assets/report/page-09.jpg" alt="GRIT EDU results report, page 9 of 15" loading="lazy"></div>
+          <div class="book__page"><img src="assets/report/page-10.jpg" alt="GRIT EDU results report, page 10 of 15" loading="lazy"></div>
+          <div class="book__page"><img src="assets/report/page-11.jpg" alt="GRIT EDU results report, page 11 of 15" loading="lazy"></div>
+          <div class="book__page"><img src="assets/report/page-12.jpg" alt="GRIT EDU results report, page 12 of 15" loading="lazy"></div>
+          <div class="book__page"><img src="assets/report/page-13.jpg" alt="GRIT EDU results report, page 13 of 15" loading="lazy"></div>
+          <div class="book__page"><img src="assets/report/page-14.jpg" alt="GRIT EDU results report, page 14 of 15" loading="lazy"></div>
+          <div class="book__page"><img src="assets/report/page-15.jpg" alt="GRIT EDU results report, page 15 of 15" loading="lazy"></div>
+        </div>
+      </div>
+      <div class="book__controls">
+        <button class="btn btn--outline btn--small" type="button" data-book="prev" aria-label="Previous page">← Prev</button>
+        <span class="book__counter" id="book-counter">1 / 15</span>
+        <button class="btn btn--outline btn--small" type="button" data-book="next" aria-label="Next page">Next →</button>
+        <button class="btn btn--outline btn--small" type="button" data-book="full">Full screen</button>
+        <a class="btn btn--dark btn--small" href="https://drive.google.com/file/d/1kYMZBtsNZjfyVwwNffixeMsmkNZICdT5/view?usp=sharing" target="_blank" rel="noopener">Download PDF</a>
+      </div>
+      <p class="book__hint">The report is in Mongolian. Click a page corner, use the arrows, or swipe to turn pages.</p>
+    </section>
+
     <section class="section container contact" id="contact">
       <h2 class="section-title contact__title" data-reveal>Contact</h2>
       <div data-reveal>
@@ -514,6 +548,7 @@
     <figure class="lightbox__figure"><img alt=""><figcaption></figcaption></figure>
     <button class="lightbox__nav lightbox__nav--next" type="button" aria-label="Next photo">›</button>
   </div>
-  <script src="js/main.js?v=25"></script>
+  <script src="js/vendor/page-flip.browser.js"></script>
+  <script src="js/main.js?v=31"></script>
 </body>
 </html>

@@ -1813,3 +1813,62 @@ img.img-missing {
     align-items: flex-start;
   }
 }
+
+/* Report flip-book (EDU page) */
+.book-wrap {
+  display: flex;
+  justify-content: center;
+  padding: 32px 0;
+  border-radius: var(--radius-lg);
+  background: var(--bg-soft);
+}
+.book {
+  width: 100%;
+  max-width: 1000px;
+}
+.book__page {
+  background: #fff;
+  overflow: hidden;
+}
+.book__page img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.book:not(.stf__parent) {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+}
+.book-wrap:fullscreen {
+  align-items: center;
+  border-radius: 0;
+  padding: 16px;
+}
+.book-wrap:fullscreen .book {
+  max-width: calc((100vh - 32px) * 1.414);
+}
+.book__controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 20px;
+}
+.book__counter {
+  min-width: 70px;
+  text-align: center;
+  font-weight: 600;
+}
+.book__hint {
+  margin-top: 12px;
+  text-align: center;
+  font-size: 14px;
+  color: var(--muted);
+}
+@media (max-width: 900px) {
+  .book-wrap {
+    padding: 12px;
+  }
+}

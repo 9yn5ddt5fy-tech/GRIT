@@ -194,3 +194,49 @@ document.querySelectorAll("#album").forEach((section) => {
     startX = null;
   });
 });
+
+// Report flip-book (EDU page). Falls back to a plain grid of pages if the
+// page-flip library could not load.
+(function initBook() {
+  const el = document.getElementById("book");
+  if (!el || !window.St) return;
+  const pages = el.querySelectorAll(".book__page");
+  // Size each page so the whole spread fits on screen (A4 ratio 1 : 1.414).
+  const pageH = Math.min(window.innerHeight * 0.78, 900);
+  const pageW = Math.round(pageH / 1.414);
+  el.style.maxWidth = `${pageW * 2}px`;
+  const book = new St.PageFlip(el, {
+    width: pageW,
+    height: Math.round(pageH),
+    size: "stretch",
+    minWidth: 240,
+    maxWidth: pageW,
+    minHeight: 340,
+    maxHeight: Math.round(pageH),
+    showCover: true,
+    usePortrait: true,
+    mobileScrollSupport: true,
+    maxShadowOpacity: 0.4,
+    flippingTime: 700,
+  });
+  book.loadFromHTML(pages);
+  const counter = document.getElementById("book-counter");
+  const total = book.getPageCount();
+  const update = () => (counter.textContent = `${book.getCurrentPageIndex() + 1} / ${total}`);
+  book.on("flip", update);
+  update();
+  document.querySelector('[data-book="prev"]').addEventListener("click", () => book.flipPrev());
+  document.querySelector('[data-book="next"]').addEventListener("click", () => book.flipNext());
+  const wrap = el.closest(".book-wrap");
+  document.querySelector('[data-book="full"]').addEventListener("click", () => {
+    if (document.fullscreenElement) document.exitFullscreen();
+    else if (wrap.requestFullscreen) wrap.requestFullscreen();
+    else if (wrap.webkitRequestFullscreen) wrap.webkitRequestFullscreen();
+  });
+  document.addEventListener("keydown", (e) => {
+    const r = wrap.getBoundingClientRect();
+    if (r.bottom < 0 || r.top > window.innerHeight) return;
+    if (e.key === "ArrowRight") book.flipNext();
+    if (e.key === "ArrowLeft") book.flipPrev();
+  });
+})();
