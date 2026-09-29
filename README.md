@@ -9,6 +9,7 @@ Figma дизайн (Desktop 10–13)-ийн агуулгыг [Stoic](https://aca
 | `index.html` | Desktop 10 | Нүүр: hero, тоонууд, Where we work, зургууд, Projects, Student success, Podcast, Speakers, Team, Contact |
 | `edu.html` | Desktop 11 | GRIT EDU: 2025 оны Өгийнуурын хөтөлбөрийн тайлан (тоонууд, баг, хичээл, судалгааны графикууд) |
 | `environment.html` | Desktop 12 | GRIT - ENVIRONMENT төслийн хуудас |
+| `plan.html` | — | Coming soon: 2027 оны Хархорины хөтөлбөрийн нэгдсэн төлөвлөгөө (ном хэлбэрээр) |
 | `member.html` | Desktop 13 | Багийн гишүүний намтар (`member.html?m=tulga` гэх мэт; өгөгдөл нь `js/team.js`-д) |
 
 ```
@@ -52,7 +53,6 @@ Speakers хэсэгт одоогоор зургийн оронд дүрс бай
 
 - "Lorem ipsum", "Name", "School" зэрэг нь дизайн дахь түр текст — HTML файл дотор шууд солино.
 - Багийн гишүүн нэмэхдээ `index.html` доторх `<a class="member">` блокийг хуулж, `js/team.js`-д нэр, үүрэг, зураг, намтрыг (`bio`) нэмнэ.
-- "Coming soon" цэс одоогоор холбоосгүй.
 - Гар утсан дээр (900px-ээс бага) цэс хураагдана.
 - Хэсгүүд гүйлгэхэд аажмаар гарч ирнэ (`data-reveal`), тоонууд 0-оос өсөж гүйнэ (`data-count`).
 - Contact форм сервергүй тул илгээхэд зочны имэйл апп нээгдэж, мессеж нь бөглөгдсөн байна.

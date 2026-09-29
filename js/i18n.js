@@ -263,6 +263,12 @@ const MN = {
   "Download PDF": "PDF татах",
   "The report is in Mongolian. Click a page corner, use the arrows, or swipe to turn pages.": "Хуудасны булан дээр дарах, сум ашиглах эсвэл шудрах замаар хуудсыг эргүүлнэ.",
 
+  // Plan page
+  "GRIT EDU Kharkhorin": "GRIT EDU Хархорин",
+  "The full plan for our next program: a 21-day summer camp for 30 students in Kharkhorin, Uvurkhangai.": "Дараагийн хөтөлбөрийн нэгдсэн төлөвлөгөө: Өвөрхангайн Хархорин дахь 30 сурагчийн 21 хоногийн зуслан.",
+  "Program plan": "Хөтөлбөрийн төлөвлөгөө",
+  "GRIT EDU Uvurkhangai · Program plan · 22 pages": "GRIT EDU Өвөрхангай · Нэгдсэн төлөвлөгөө · 22 хуудас",
+
   // Environment page
   "A community recycling program on the shore of Ugii Lake.": "Өгий нуурын эрэг дээрх олон нийтийн дахин боловсруулалтын хөтөлбөр.",
   "Why Ugii Lake": "Яагаад Өгий нуур вэ",
