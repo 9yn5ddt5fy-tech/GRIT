@@ -2,8 +2,8 @@
 // To add a biography, write it in `bio` (one string per paragraph).
 const TEAM = {
   bayarmagnai: {
-    name: "U. Bayarmagnai",
-    role: "Coordinator",
+    name: "Bayarmagnai Usukhgerel",
+    role: "Founder of GRIT",
     photo: "assets/img/team-bayarmagnai.jpg",
     responsibilities: "Program lead: finance, organization, university application classes",
     bio: [],
@@ -90,7 +90,7 @@ const TEAM = {
     }));
   });
   set("member-facts", (el) => {
-    const rows = [["Program", "EduBridge (GRIT EDU)"], ["Role", member.role], ["Responsible for", member.responsibilities]];
+    const rows = [["Program", "GRIT EDU program"], ["Role", member.role], ["Responsible for", member.responsibilities]];
     el.replaceChildren(...rows.map(([label, value]) => {
       const li = document.createElement("li");
       const span = document.createElement("span");
