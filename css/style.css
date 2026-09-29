@@ -955,16 +955,6 @@ a.member-card:hover img {
 .marquee__track > * {
   margin-right: var(--gap, 40px);
 }
-/* Pause on mouse hover only; on touch screens (iPhone Safari) :hover
-   "sticks" after a tap and would freeze the row. */
-@media (hover: hover) {
-  .marquee:hover .marquee__track {
-    animation-play-state: paused;
-  }
-}
-.marquee:focus-within .marquee__track {
-  animation-play-state: paused;
-}
 @keyframes marquee {
   from {
     transform: translate3d(0, 0, 0);
