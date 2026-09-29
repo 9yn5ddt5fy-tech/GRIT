@@ -5,224 +5,227 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>GRIT — Opening the world to students from rural Mongolia</title>
   <meta name="description" content="GRIT runs scholarships, learning programs and environmental projects for students in rural Mongolia.">
-  <link rel="icon" href="assets/img/logo.png">
+  <link rel="icon" href="assets/img/badge.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=5">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Instrument+Serif&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css?v=6">
+  <script>document.documentElement.classList.add("js");</script>
 </head>
 <body>
-  <div class="page">
-    <div class="deco" style="left:-26px;top:442px"><img src="assets/img/dash-lines.png" alt=""></div>
-    <div class="deco" style="left:-17px;top:1012px"><img src="assets/img/dash-lines.png" alt=""></div>
-    <div class="deco" style="left:0px;top:1626px"><img src="assets/img/dash-lines.png" alt=""></div>
-    <div class="deco" style="left:-45px;top:2265px"><img src="assets/img/dash-lines.png" alt=""></div>
-    <div class="deco" style="left:-66px;top:2950px"><img src="assets/img/dash-lines.png" alt=""></div>
   <header class="site-header">
-    <img class="site-header__bar" src="assets/img/nav-bar.svg" alt="">
     <div class="site-header__inner">
-      <a class="logo" href="index.html" aria-label="GRIT home"><img src="assets/img/logo.png" alt="GRIT"></a>
-      <button class="nav-toggle" aria-controls="site-nav" aria-expanded="false" aria-label="Open menu">
-        <span></span><span></span><span></span>
-      </button>
+      <a class="logo" href="index.html" aria-label="GRIT home"><img src="assets/img/logo-dark.png" alt="GRIT"></a>
       <nav class="nav" id="site-nav">
         <a href="index.html" aria-current="page">Home</a>
         <a href="index.html#where">Where we work</a>
         <a href="index.html#projects">GRIT</a>
+        <a href="index.html#team">Team</a>
         <a href="#" class="is-disabled" aria-disabled="true">Coming soon</a>
       </nav>
+      <a class="header-cta" href="#contact">Contact</a>
+      <button class="nav-toggle" aria-controls="site-nav" aria-expanded="false" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
     </div>
   </header>
 
-    <section class="hero">
-      <div class="hero__bg"><img src="assets/img/hero.jpg" alt=""></div>
-      <h1 class="hero__title">Grow. Reach. Inspire. Teach.<br>Opening the world to students from rural Mongolia.</h1>
-      <ul class="hero__stats">
-        <li>20 Students</li>
-        <li>4 weeks on the ground</li>
-        <li>7 teachers and volunteers</li>
-        <li>380 km</li>
-      </ul>
+  <main>
+    <section class="hero container">
+      <h1 class="hero__title" data-reveal>Grow. Reach.<br>Inspire. Teach.</h1>
+      <p class="hero__subtitle" data-reveal>Opening the world to students from rural Mongolia.</p>
+      <div class="hero__actions" data-reveal>
+        <a class="btn btn--dark" href="#projects">Our projects</a>
+        <a class="btn btn--outline" href="#contact">Contact</a>
+      </div>
+      <div class="hero__image" data-reveal><img src="assets/img/hero.jpg" alt="Horse grazing on the Mongolian steppe"></div>
     </section>
 
-    <section class="where" id="where">
-      <div class="where__card">
+    <section class="section container">
+      <p class="statement" data-reveal>We work where the distance is greatest — in the soums of central Mongolia, where a student's nearest university is <em>a day's drive away</em> and scholarship information rarely arrives at all.</p>
+    </section>
+
+    <section class="section container" aria-label="GRIT in numbers">
+      <div class="stats" data-reveal>
+      <div class="stat">
+        <p class="stat__value" data-count="20" data-suffix="">20</p>
+        <p class="stat__label">Students</p>
+      </div>
+      <div class="stat">
+        <p class="stat__value" data-count="4" data-suffix="">4</p>
+        <p class="stat__label">Weeks on the ground</p>
+      </div>
+      <div class="stat">
+        <p class="stat__value" data-count="7" data-suffix="">7</p>
+        <p class="stat__label">Teachers and volunteers</p>
+      </div>
+      <div class="stat">
+        <p class="stat__value" data-count="380" data-suffix=" km">380 km</p>
+        <p class="stat__label">Distance we travel</p>
+      </div>
+        <div class="stats__center"><img src="assets/img/badge.png" alt=""></div>
+        <span class="stats__tip" style="left:0;top:50%"></span>
+        <span class="stats__tip" style="left:100%;top:50%"></span>
+        <span class="stats__tip" style="left:50%;top:0"></span>
+        <span class="stats__tip" style="left:50%;top:100%"></span>
+      </div>
+    </section>
+
+    <section class="section container" id="where">
+      <h2 class="section-title" data-reveal>Where we work</h2>
+      <div class="card where" data-reveal>
         <div class="map" role="img" aria-label="Map of Mongolia showing Ugiinuur, Kharkhorin, Khujirt and Arvaikheer soums">
           <img class="map__outline" src="assets/img/map.svg" alt="">
           <svg class="map__route" viewBox="0 0 719 375" aria-hidden="true">
-            <polyline points="316.6,154 347.6,182.5 349.4,189.7 328.7,244" fill="none" stroke="#000" stroke-width="0.6" stroke-dasharray="1.6 1.2"/>
+            <polyline points="316.6,154 347.6,182.5 349.4,189.7 328.7,244" fill="none" stroke="#1f4d2e" stroke-width="0.8" stroke-dasharray="2 2"/>
           </svg>
-            <span class="map__pin" style="left:42.46%;top:37.61%"><img src="assets/img/map-star-ugii.svg" alt=""></span>
-            <span class="map__pin" style="left:47.49%;top:46.61%"><img src="assets/img/map-star.svg" alt=""></span>
-            <span class="map__pin" style="left:46.89%;top:52.48%"><img src="assets/img/map-star.svg" alt=""></span>
-            <span class="map__pin" style="left:44.38%;top:64.43%"><img src="assets/img/map-star.svg" alt=""></span>
-            <span class="map__label" style="left:44.55%;top:40.56%">UGIINUUR SOUM</span>
-            <span class="map__label" style="left:49.53%;top:49.35%">KHARKHORIN SOUM</span>
-            <span class="map__label" style="left:41.84%;top:56.03%">KHUJIRT SOUM</span>
-            <span class="map__label" style="left:46.74%;top:68.09%">ARVAIKHEER SOUM</span>
+          <span class="map__pin map__pin--main" style="left:42.46%;top:37.61%"><span class="map__label">UGIINUUR SOUM</span></span>
+          <span class="map__pin" style="left:47.49%;top:46.61%"><span class="map__label">KHARKHORIN SOUM</span></span>
+          <span class="map__pin" style="left:46.89%;top:52.48%"><span class="map__label map__label--left">KHUJIRT SOUM</span></span>
+          <span class="map__pin" style="left:44.38%;top:64.43%"><span class="map__label">ARVAIKHEER SOUM</span></span>
         </div>
-
-        <div class="where__text">
-          <h2 class="where__title"><img src="assets/img/star-where.svg" alt="">Where we work</h2>
-          <div class="where__body">
-            <p>We work where the distance is greatest — in the soums of central Mongolia, where a student's nearest university is a day's drive away and scholarship information rarely arrives at all.</p>
-            <p>We started in the community our founder grew up in, and we are expanding outward.</p>
-            <p>Ugiinuur, Arkhangai · Completed<br>Our first program: 20 students, four weeks, a team of seven.</p>
-            <p>Kharkhorin, Uvurkhangai · In preparation<br>A three-week residential camp for 30 students from three different soums (Arvaikheer, Kharkhorin, Khujirt), currently being planned.</p>
-          </div>
-
+        <div>
+          <p class="where__intro">We started in the community our founder grew up in, and we are expanding outward.</p>
           <div class="program">
-            <h3 class="program__name">Ugiinuur, Arkhangai
-              <span class="program__status"><img src="assets/img/star-completed.svg" alt="">Completed</span>
-            </h3>
-            <p class="program__meta">First program, 2025</p>
+            <span class="program__num">1</span>
+            <div>
+              <h3 class="program__name">Ugiinuur, Arkhangai <span class="tag tag--done">Completed</span></h3>
+              <p class="program__meta">First program, 2025 · 20 students, four weeks, a team of seven.</p>
+            </div>
           </div>
           <div class="program">
-            <h3 class="program__name">Kharkhorin, Uvurkhangai</h3>
-            <p class="program__meta">Second program, 2027</p>
+            <span class="program__num">2</span>
+            <div>
+              <h3 class="program__name">Kharkhorin, Uvurkhangai <span class="tag tag--soon">In preparation</span></h3>
+              <p class="program__meta">Second program, 2027 · A three-week residential camp for 30 students from Arvaikheer, Kharkhorin and Khujirt.</p>
+            </div>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="strip marquee" aria-label="Program photos">
-        <div class="photo photo--tint"><img src="assets/img/photo-1.jpg" alt="GRIT program photo"></div>
-        <div class="photo photo--tint"><img src="assets/img/photo-2.jpg" alt="GRIT program photo"></div>
-        <div class="photo photo--tint"><img src="assets/img/photo-3.jpg" alt="GRIT program photo"></div>
-        <div class="photo photo--tint"><img src="assets/img/photo-4.jpg" alt="GRIT program photo"></div>
+    <section class="section" aria-label="Program photos">
+      <div class="marquee" data-reveal>
+        <div class="photo"><img src="assets/img/photo-1.jpg" alt="GRIT program photo" loading="lazy"></div>
+        <div class="photo"><img src="assets/img/photo-2.jpg" alt="GRIT program photo" loading="lazy"></div>
+        <div class="photo"><img src="assets/img/photo-3.jpg" alt="GRIT program photo" loading="lazy"></div>
+        <div class="photo"><img src="assets/img/photo-4.jpg" alt="GRIT program photo" loading="lazy"></div>
+      </div>
     </section>
 
-    <section class="projects" id="projects">
-      <h2 class="pill-title"><span class="pill-title__inner"><img class="pill-title__star star" src="assets/img/star-title.svg" alt="">GRIT&nbsp;&nbsp;Projects</span></h2>
-      <div class="projects__grid">
-        <a class="project-card project-card--bordered" href="edu.html">
-          <div class="project-card__media"><img src="assets/img/edu-cover.jpg" alt=""></div>
-          <div class="project-card__band project-card__band--top"></div>
-          <div class="project-card__band project-card__band--bottom"></div>
-          <h3 class="project-card__title">GRIT EDU</h3>
-          <p class="project-card__subtitle">Scholarships and learning for rural students</p>
-          <div class="project-card__badge"><img src="assets/img/badge.png" alt=""></div>
+    <section class="section container" id="projects">
+      <h2 class="section-title" data-reveal>Projects</h2>
+      <div class="projects">
+        <a class="project project--dark" href="edu.html" data-reveal>
+          <h3 class="project__title">GRIT EDU</h3>
+          <p class="project__text">Scholarships and learning for rural students.</p>
+          <span class="btn btn--light btn--small">Read more</span>
         </a>
-        <a class="project-card" href="environment.html">
-          <div class="project-card__media"><img src="assets/img/env-cover.jpg" alt=""></div>
-          <div class="project-card__band project-card__band--top"></div>
-          <div class="project-card__band project-card__band--bottom"></div>
-          <h3 class="project-card__title">GRIT ENVIRONMENT</h3>
-          <p class="project-card__subtitle">Protecting Ugii Lake and the steppe</p>
-          <div class="project-card__badge"><img src="assets/img/badge.png" alt=""></div>
+        <a class="project" href="environment.html" data-reveal>
+          <h3 class="project__title">GRIT Environment</h3>
+          <p class="project__text">Protecting Ugii Lake and the steppe.</p>
+          <span class="btn btn--dark btn--small">Read more</span>
         </a>
       </div>
     </section>
 
-    <section class="podcast" id="podcast">
-      <h2 class="pill-title"><span class="pill-title__inner"><img class="pill-title__star star" src="assets/img/star-title.svg" alt="">GRIT&nbsp;&nbsp;PODCAST</span></h2>
-      <div class="podcast__grid">
-        <article class="podcast-card">
-          <div class="photo"><img src="assets/img/podcast.png" alt=""></div>
-          <h3 class="podcast-card__title">Podcast #00 Talk with (insert name)</h3>
+    <section class="section container" id="podcast">
+      <h2 class="section-title" data-reveal>Podcast</h2>
+      <div class="podcasts">
+        <article class="podcast" data-reveal>
+          <div class="podcast__image"><img src="assets/img/podcast.png" alt="" loading="lazy"></div>
+          <h3 class="podcast__title">Podcast #01</h3>
+          <p class="podcast__meta">Talk with (insert name)</p>
         </article>
-        <article class="podcast-card">
-          <div class="photo"><img src="assets/img/podcast.png" alt=""></div>
-          <h3 class="podcast-card__title">Podcast #00 Talk with (insert name)</h3>
+        <article class="podcast" data-reveal>
+          <div class="podcast__image"><img src="assets/img/podcast.png" alt="" loading="lazy"></div>
+          <h3 class="podcast__title">Podcast #02</h3>
+          <p class="podcast__meta">Talk with (insert name)</p>
         </article>
-        <article class="podcast-card">
-          <div class="photo"><img src="assets/img/podcast.png" alt=""></div>
-          <h3 class="podcast-card__title">Podcast #00 Talk with (insert name)</h3>
+        <article class="podcast" data-reveal>
+          <div class="podcast__image"><img src="assets/img/podcast.png" alt="" loading="lazy"></div>
+          <h3 class="podcast__title">Podcast #03</h3>
+          <p class="podcast__meta">Talk with (insert name)</p>
         </article>
       </div>
     </section>
 
-    <section class="team" id="team">
-      <h2 class="pill-title"><span class="pill-title__inner"><img class="pill-title__star star" src="assets/img/star-title.svg" alt="">GRIT&nbsp;&nbsp;team</span></h2>
-      <p class="team__intro">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat </p>
-      <div class="team__row marquee">
-        <a class="member-card" href="member.html">
-          <img src="assets/img/member.png" alt="">
-          <div class="member-card__text">
-            <p class="member-card__name">Name</p>
-            <p class="member-card__school">School</p>
-          </div>
-        </a>
-        <a class="member-card" href="member.html">
-          <img src="assets/img/member.png" alt="">
-          <div class="member-card__text">
-            <p class="member-card__name">Name</p>
-            <p class="member-card__school">School</p>
-          </div>
-        </a>
-        <a class="member-card" href="member.html">
-          <img src="assets/img/member.png" alt="">
-          <div class="member-card__text">
-            <p class="member-card__name">Name</p>
-            <p class="member-card__school">School</p>
-          </div>
-        </a>
-        <a class="member-card" href="member.html">
-          <img src="assets/img/member.png" alt="">
-          <div class="member-card__text">
-            <p class="member-card__name">Name</p>
-            <p class="member-card__school">School</p>
-          </div>
-        </a>
-        <a class="member-card" href="member.html">
-          <img src="assets/img/member.png" alt="">
-          <div class="member-card__text">
-            <p class="member-card__name">Name</p>
-            <p class="member-card__school">School</p>
-          </div>
-        </a>
+    <section class="section" id="team">
+      <div class="container">
+        <h2 class="section-title" data-reveal>Team</h2>
+        <p class="team__intro" data-reveal>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
       </div>
-      <div class="team__row marquee">
-        <a class="member-card" href="member.html">
-          <img src="assets/img/member.png" alt="">
-          <div class="member-card__text">
-            <p class="member-card__name">Name</p>
-            <p class="member-card__school">School</p>
-          </div>
+      <div class="marquee" data-reveal>
+        <a class="member" href="member.html">
+          <div class="member__photo"><img src="assets/img/member.png" alt="" loading="lazy"></div>
+          <p class="member__name">Name</p>
+          <p class="member__school">School</p>
         </a>
-        <a class="member-card" href="member.html">
-          <img src="assets/img/member.png" alt="">
-          <div class="member-card__text">
-            <p class="member-card__name">Name</p>
-            <p class="member-card__school">School</p>
-          </div>
+        <a class="member" href="member.html">
+          <div class="member__photo"><img src="assets/img/member.png" alt="" loading="lazy"></div>
+          <p class="member__name">Name</p>
+          <p class="member__school">School</p>
         </a>
-        <a class="member-card" href="member.html">
-          <img src="assets/img/member.png" alt="">
-          <div class="member-card__text">
-            <p class="member-card__name">Name</p>
-            <p class="member-card__school">School</p>
-          </div>
+        <a class="member" href="member.html">
+          <div class="member__photo"><img src="assets/img/member.png" alt="" loading="lazy"></div>
+          <p class="member__name">Name</p>
+          <p class="member__school">School</p>
         </a>
-        <a class="member-card" href="member.html">
-          <img src="assets/img/member.png" alt="">
-          <div class="member-card__text">
-            <p class="member-card__name">Name</p>
-            <p class="member-card__school">School</p>
-          </div>
+        <a class="member" href="member.html">
+          <div class="member__photo"><img src="assets/img/member.png" alt="" loading="lazy"></div>
+          <p class="member__name">Name</p>
+          <p class="member__school">School</p>
         </a>
-        <a class="member-card" href="member.html">
-          <img src="assets/img/member.png" alt="">
-          <div class="member-card__text">
-            <p class="member-card__name">Name</p>
-            <p class="member-card__school">School</p>
-          </div>
+        <a class="member" href="member.html">
+          <div class="member__photo"><img src="assets/img/member.png" alt="" loading="lazy"></div>
+          <p class="member__name">Name</p>
+          <p class="member__school">School</p>
+        </a>
+        <a class="member" href="member.html">
+          <div class="member__photo"><img src="assets/img/member.png" alt="" loading="lazy"></div>
+          <p class="member__name">Name</p>
+          <p class="member__school">School</p>
+        </a>
+        <a class="member" href="member.html">
+          <div class="member__photo"><img src="assets/img/member.png" alt="" loading="lazy"></div>
+          <p class="member__name">Name</p>
+          <p class="member__school">School</p>
+        </a>
+        <a class="member" href="member.html">
+          <div class="member__photo"><img src="assets/img/member.png" alt="" loading="lazy"></div>
+          <p class="member__name">Name</p>
+          <p class="member__school">School</p>
         </a>
       </div>
     </section>
-  </div>
 
-  <footer class="site-footer" id="contact">
-    <div class="site-footer__inner">
-      <h2>Contact</h2>
-      <ul class="contact-list">
-        <li><a href="tel:+97688043548"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>+976 8804-3548</a></li>
-        <li><a href="mailto:gritedu22@gmail.com"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 6-10 7L2 6"/></svg>gritedu22@gmail.com</a></li>
-        <li><a href="https://www.instagram.com/grit_edu_/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>@grit_edu_</a></li>
-      </ul>
+    <section class="section container contact" id="contact">
+      <h2 class="section-title contact__title" data-reveal>Contact</h2>
+      <div data-reveal>
+        <p class="contact__lead">Start your journey today. Get in touch with us and let's talk about how we can help students in rural Mongolia.</p>
+        <dl class="contact__list">
+          <div><dt>Email</dt><dd><a href="mailto:gritedu22@gmail.com">gritedu22@gmail.com</a></dd></div>
+          <div><dt>Phone</dt><dd><a href="tel:+97688043548">+976 8804-3548</a></dd></div>
+          <div><dt>Instagram</dt><dd><a href="https://www.instagram.com/grit_edu_/" target="_blank" rel="noopener">@grit_edu_</a></dd></div>
+        </dl>
+      </div>
+      <form class="form" data-mailto="gritedu22@gmail.com" data-reveal>
+        <label>Name *<input name="name" required autocomplete="name" placeholder="Your name"></label>
+        <label>Email *<input name="email" type="email" required autocomplete="email" placeholder="example@email.com"></label>
+        <label>Phone<input name="phone" type="tel" autocomplete="tel" placeholder="9900 0000"></label>
+        <label>Message *<textarea name="message" required placeholder="Tell us about yourself…"></textarea></label>
+        <button class="btn btn--dark" type="submit">Send message</button>
+      </form>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container site-footer__inner">
+      <img src="assets/img/logo-dark.png" alt="GRIT">
+      <p>© 2026 GRIT · Grow. Reach. Inspire. Teach.</p>
     </div>
   </footer>
 
-  <script src="js/main.js?v=5"></script>
+  <script src="js/main.js?v=6"></script>
 </body>
 </html>

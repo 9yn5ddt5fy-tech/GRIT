@@ -7,8 +7,7 @@ document.querySelectorAll(".nav-toggle").forEach((btn) => {
   });
 });
 
-// If an image from assets/img has not been downloaded yet, hide the broken
-// image; photo/card containers then show a soft green placeholder (see CSS).
+// If an image file is missing, hide the broken-image icon.
 document.querySelectorAll("img").forEach((img) => {
   const markMissing = () => img.classList.add("img-missing");
   if (img.complete && img.naturalWidth === 0) markMissing();
@@ -46,3 +45,68 @@ function cloneHidden(node) {
   if (clone.matches("a")) clone.tabIndex = -1;
   return clone;
 }
+
+// Fade sections in as they scroll into view. Siblings that reveal together
+// get a small stagger so cards appear one after another.
+const revealEls = document.querySelectorAll("[data-reveal]");
+revealEls.forEach((el) => {
+  const siblings = [...el.parentElement.children].filter((c) => c.hasAttribute("data-reveal"));
+  const index = siblings.indexOf(el);
+  if (index > 0) el.style.setProperty("--delay", `${Math.min(index, 6) * 0.08}s`);
+});
+
+if ("IntersectionObserver" in window) {
+  const revealObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add("is-visible");
+        revealObserver.unobserve(entry.target);
+      });
+    },
+    { threshold: 0.12, rootMargin: "0px 0px -40px 0px" }
+  );
+  revealEls.forEach((el) => revealObserver.observe(el));
+} else {
+  revealEls.forEach((el) => el.classList.add("is-visible"));
+}
+
+// Stats count up from 0 when they come into view.
+const counters = document.querySelectorAll("[data-count]");
+if ("IntersectionObserver" in window) {
+  const countObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      countObserver.unobserve(entry.target);
+      countUp(entry.target);
+    });
+  }, { threshold: 0.5 });
+  counters.forEach((el) => countObserver.observe(el));
+}
+
+function countUp(el) {
+  const target = Number(el.dataset.count);
+  const suffix = el.dataset.suffix || "";
+  const duration = 1400;
+  const start = performance.now();
+  const tick = (now) => {
+    const t = Math.min((now - start) / duration, 1);
+    const eased = 1 - Math.pow(1 - t, 3);
+    el.textContent = Math.round(target * eased) + suffix;
+    if (t < 1) requestAnimationFrame(tick);
+  };
+  requestAnimationFrame(tick);
+}
+
+// Contact form: there is no server, so open the visitor's email app with
+// the message filled in.
+document.querySelectorAll("form[data-mailto]").forEach((form) => {
+  form.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const data = new FormData(form);
+    const subject = `GRIT website: ${data.get("name")}`;
+    const body = `${data.get("message")}\n\n${data.get("name")}\n${data.get("email")}\n${data.get("phone") || ""}`;
+    window.location.href =
+      `mailto:${form.dataset.mailto}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  });
+});

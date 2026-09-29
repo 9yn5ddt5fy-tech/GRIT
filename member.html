@@ -5,70 +5,83 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Team member — GRIT</title>
   <meta name="description" content="Biography of a GRIT team member.">
-  <link rel="icon" href="assets/img/logo.png">
+  <link rel="icon" href="assets/img/badge.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=5">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Instrument+Serif&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css?v=6">
+  <script>document.documentElement.classList.add("js");</script>
 </head>
 <body>
-  <div class="page">
-  <header class="site-header site-header--photo">
-    <div class="site-header__photo"><img src="assets/img/nav-photo.jpg" alt=""></div>
-    <img class="site-header__bar" src="assets/img/nav-bar.svg" alt="">
+  <header class="site-header">
     <div class="site-header__inner">
-      <a class="logo" href="index.html" aria-label="GRIT home"><img src="assets/img/logo.png" alt="GRIT"></a>
-      <button class="nav-toggle" aria-controls="site-nav" aria-expanded="false" aria-label="Open menu">
-        <span></span><span></span><span></span>
-      </button>
+      <a class="logo" href="index.html" aria-label="GRIT home"><img src="assets/img/logo-dark.png" alt="GRIT"></a>
       <nav class="nav" id="site-nav">
         <a href="index.html">Home</a>
         <a href="index.html#where">Where we work</a>
         <a href="index.html#projects">GRIT</a>
+        <a href="index.html#team" aria-current="page">Team</a>
         <a href="#" class="is-disabled" aria-disabled="true">Coming soon</a>
       </nav>
+      <a class="header-cta" href="#contact">Contact</a>
+      <button class="nav-toggle" aria-controls="site-nav" aria-expanded="false" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
     </div>
   </header>
-    <div class="deco" style="left:-41px;top:173px"><img src="assets/img/dash-lines-3.png" alt=""></div>
-    <div class="deco" style="left:0px;top:773px"><img src="assets/img/dash-lines-3.png" alt=""></div>
 
-    <section class="bio container">
-        <div class="member-card">
-          <img src="assets/img/member-portrait.png" alt="">
-          <div class="member-card__text">
-            <p class="member-card__name">Name</p>
-            <p class="member-card__school">School</p>
-          </div>
-        </div>
+  <main>
+    <section class="container profile">
+      <div class="profile__photo" data-reveal><img src="assets/img/member-portrait.png" alt=""></div>
       <div>
-        <h1 class="star-heading"><img class="star-heading__star" src="assets/img/star-title.svg" alt="">Biography</h1>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+        <p class="eyebrow" data-reveal>GRIT team</p>
+        <h1 class="profile__name" data-reveal>Name</h1>
+        <p class="profile__school" data-reveal>School</p>
+        <h2 class="section-title" data-reveal>Biography</h2>
+        <div class="prose" data-reveal>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+          <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+        </div>
       </div>
     </section>
 
-    <section class="photos">
-      <h2 class="heading-sm">Photos</h2>
-      <div class="photos__row photos__row--bleed marquee">
-        <div class="photo"><img src="assets/img/member-photo-a.png" alt="GRIT program photo"></div>
-        <div class="photo"><img src="assets/img/member-photo-b.png" alt="GRIT program photo"></div>
-        <div class="photo"><img src="assets/img/member-photo-a.png" alt="GRIT program photo"></div>
-        <div class="photo"><img src="assets/img/member-photo-b.png" alt="GRIT program photo"></div>
-        <div class="photo"><img src="assets/img/member-photo-a.png" alt="GRIT program photo"></div>
+    <section class="section" id="photos">
+      <div class="container"><h2 class="section-title" data-reveal>Photos</h2></div>
+      <div class="marquee" data-reveal>
+        <div class="photo"><img src="assets/img/member-photo-a.png" alt="GRIT program photo" loading="lazy"></div>
+        <div class="photo"><img src="assets/img/member-photo-b.png" alt="GRIT program photo" loading="lazy"></div>
+        <div class="photo"><img src="assets/img/member-photo-a.png" alt="GRIT program photo" loading="lazy"></div>
+        <div class="photo"><img src="assets/img/member-photo-b.png" alt="GRIT program photo" loading="lazy"></div>
       </div>
     </section>
-  </div>
 
-  <footer class="site-footer" id="contact">
-    <div class="site-footer__inner">
-      <h2>Contact</h2>
-      <ul class="contact-list">
-        <li><a href="tel:+97688043548"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>+976 8804-3548</a></li>
-        <li><a href="mailto:gritedu22@gmail.com"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 6-10 7L2 6"/></svg>gritedu22@gmail.com</a></li>
-        <li><a href="https://www.instagram.com/grit_edu_/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>@grit_edu_</a></li>
-      </ul>
+    <section class="section container contact" id="contact">
+      <h2 class="section-title contact__title" data-reveal>Contact</h2>
+      <div data-reveal>
+        <p class="contact__lead">Start your journey today. Get in touch with us and let's talk about how we can help students in rural Mongolia.</p>
+        <dl class="contact__list">
+          <div><dt>Email</dt><dd><a href="mailto:gritedu22@gmail.com">gritedu22@gmail.com</a></dd></div>
+          <div><dt>Phone</dt><dd><a href="tel:+97688043548">+976 8804-3548</a></dd></div>
+          <div><dt>Instagram</dt><dd><a href="https://www.instagram.com/grit_edu_/" target="_blank" rel="noopener">@grit_edu_</a></dd></div>
+        </dl>
+      </div>
+      <form class="form" data-mailto="gritedu22@gmail.com" data-reveal>
+        <label>Name *<input name="name" required autocomplete="name" placeholder="Your name"></label>
+        <label>Email *<input name="email" type="email" required autocomplete="email" placeholder="example@email.com"></label>
+        <label>Phone<input name="phone" type="tel" autocomplete="tel" placeholder="9900 0000"></label>
+        <label>Message *<textarea name="message" required placeholder="Tell us about yourself…"></textarea></label>
+        <button class="btn btn--dark" type="submit">Send message</button>
+      </form>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container site-footer__inner">
+      <img src="assets/img/logo-dark.png" alt="GRIT">
+      <p>© 2026 GRIT · Grow. Reach. Inspire. Teach.</p>
     </div>
   </footer>
 
-  <script src="js/main.js?v=5"></script>
+  <script src="js/main.js?v=6"></script>
 </body>
 </html>
