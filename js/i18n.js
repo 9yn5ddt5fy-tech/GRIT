@@ -263,6 +263,24 @@ const MN = {
   "Download PDF": "PDF татах",
   "The report is in Mongolian. Click a page corner, use the arrows, or swipe to turn pages.": "Хуудасны булан дээр дарах, сум ашиглах эсвэл шудрах замаар хуудсыг эргүүлнэ.",
 
+  // Research page
+  "Research": "Судалгаа",
+  "Library": "Номын сан",
+  "Research & articles": "Судалгаа, нийтлэл",
+  "Our research, reports and plans — what we learn from our work in rural Mongolia.": "Бидний судалгаа, тайлан, төлөвлөгөө — хөдөө орон нутагт ажилласан туршлагаас сурсан зүйлс.",
+  "Report": "Тайлан",
+  "Plan": "Төлөвлөгөө",
+  "Read": "Унших",
+  "New research paper": "Шинэ судалгааны ажил",
+  "Research by the founder of GRIT is being finalised and will be published here soon.": "GRIT-ийг үүсгэн байгуулагчийн судалгааны ажил эцэслэгдэж байгаа бөгөөд удахгүй энд нийтлэгдэнэ.",
+  "Bayarmagnai Usukhgerel · 2026": "Ө. Баярмагнай · 2026",
+  "GRIT EDU Arkhangai: Results report": "GRIT EDU Архангай: Үр дүнгийн тайлан",
+  "One year after the 2025 Ugiinuur program: survey of 16 graduates on English level, study plans and long-term impact.": "2025 оны Өгийнуурын хөтөлбөрөөс нэг жилийн дараа: 16 төгсөгчийн англи хэл, суралцах төлөвлөгөө, урт хугацааны нөлөөний судалгаа.",
+  "GRIT EDU · April 2026 · 15 pages": "GRIT EDU · 2026 оны 4-р сар · 15 хуудас",
+  "GRIT EDU Uvurkhangai: Program plan": "GRIT EDU Өвөрхангай: Хөтөлбөрийн төлөвлөгөө",
+  "The full plan for the 21-day summer camp for 30 students in Kharkhorin.": "Хархорин дахь 30 сурагчийн 21 хоногийн зуслангийн нэгдсэн төлөвлөгөө.",
+  "GRIT EDU · 22 pages": "GRIT EDU · 22 хуудас",
+
   // Plan page
   "GRIT EDU Kharkhorin": "GRIT EDU Хархорин",
   "The full plan for our next program: a 21-day summer camp for 30 students in Kharkhorin, Uvurkhangai.": "Дараагийн хөтөлбөрийн нэгдсэн төлөвлөгөө: Өвөрхангайн Хархорин дахь 30 сурагчийн 21 хоногийн зуслан.",
