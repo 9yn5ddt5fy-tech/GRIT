@@ -240,3 +240,19 @@ document.querySelectorAll("#album").forEach((section) => {
     if (e.key === "ArrowLeft") book.flipPrev();
   });
 })();
+
+// Famous quotes: show one at a time, change every 7 seconds.
+document.querySelectorAll(".famous").forEach((box) => {
+  const items = [...box.querySelectorAll(".famous__item")];
+  const dots = [...box.querySelectorAll(".famous__dot")];
+  let i = 0;
+  const show = (n) => {
+    i = (n + items.length) % items.length;
+    items.forEach((el, k) => el.classList.toggle("is-active", k === i));
+    dots.forEach((el, k) => el.classList.toggle("is-active", k === i));
+  };
+  dots.forEach((d, k) => d.addEventListener("click", () => { show(k); restart(); }));
+  let timer;
+  const restart = () => { clearInterval(timer); timer = setInterval(() => show(i + 1), 7000); };
+  restart();
+});
