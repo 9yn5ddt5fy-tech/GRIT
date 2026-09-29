@@ -21,10 +21,8 @@ const MN = {
 
   // Home: hero, statement, numbers
   "Opening the world to students from rural Mongolia.": "Хөдөө орон нутгийн сурагчдад дэлхийн боломжийг нээж өгнө.",
-  "We work where the distance is greatest — in the soums of central Mongolia, where a student's nearest university is":
-    "Бид хамгийн алслагдсан газарт — Монголын төвийн сумдад ажилладаг. Тэнд сурагчдад хамгийн ойрын их сургууль хүртэл",
-  "a day's drive away": "бүтэн өдрийн зам",
-  "and scholarship information rarely arrives at all.": "туулах шаардлагатай бөгөөд тэтгэлгийн мэдээлэл бараг хүрдэггүй.",
+  "We work in the soums of central Mongolia, where the nearest university is a day's drive away and scholarship information rarely reaches students.":
+    "Бид Монголын төвийн сумдад ажилладаг. Тэндээс хамгийн ойрын их сургууль хүртэл бүтэн өдрийн зам бөгөөд тэтгэлгийн мэдээлэл сурагчдад бараг хүрдэггүй.",
   "Students": "Сурагч",
   "Weeks on the ground": "Долоо хоног газар дээр нь",
   "Teachers and volunteers": "Багш, сайн дурын ажилтан",

@@ -374,6 +374,7 @@ p {
 /* Large centered statement under the hero */
 .statement {
   max-width: 760px;
+  text-wrap: balance;
   margin-inline: auto;
   text-align: center;
   font-size: clamp(20px, 2.2vw, 28px);
