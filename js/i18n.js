@@ -85,7 +85,7 @@ const MN = {
   "Manager, GRIT EDU program": "Менежер, GRIT EDU хөтөлбөр",
 
   // Contact
-  "Start your journey today. Get in touch with us and let's talk about how we can help students in rural Mongolia.":
+  "Have a question, want to volunteer, or support our work? Write to us — we would love to hear from you.":
     "Өнөөдрөөс эхлээрэй. Бидэнтэй холбогдож, хөдөөгийн сурагчдад хэрхэн туслах талаар ярилцъя.",
   "Email": "Имэйл",
   "Phone": "Утас",
