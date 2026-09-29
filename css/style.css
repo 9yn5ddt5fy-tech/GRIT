@@ -1411,11 +1411,7 @@ a.member:hover .member__photo img {
   display: flex;
   align-items: flex-start;
   width: max-content;
-  /* duration is set per row from js/main.js */
-  animation-name: marquee;
-  animation-duration: 40s;
-  animation-timing-function: linear;
-  animation-iteration-count: infinite;
+  /* moved by js/main.js (auto-scroll + drag) */
   will-change: transform;
 }
 .marquee__track > * {
@@ -2148,4 +2144,74 @@ a.pub:hover {
 
 [hidden] {
   display: none !important;
+}
+
+/* Draggable rows + arrow buttons */
+.marquee {
+  position: relative;
+  cursor: grab;
+  touch-action: pan-y;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.marquee.is-dragging {
+  cursor: grabbing;
+}
+.marquee img {
+  -webkit-user-drag: none;
+}
+.marquee__btn,
+.famous__arrow {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0 0 3px;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: var(--bg);
+  color: var(--ink);
+  font-size: 26px;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 0 6px 18px -10px rgba(0, 0, 0, 0.4);
+  transition: transform 0.2s, background-color 0.2s;
+}
+.marquee__btn:hover,
+.famous__arrow:hover {
+  transform: scale(1.08);
+}
+.marquee__btn {
+  position: absolute;
+  top: 40%;
+  z-index: 2;
+  opacity: 0.9;
+}
+.marquee__btn--prev {
+  left: 16px;
+}
+.marquee__btn--next {
+  right: 16px;
+}
+.famous__dots {
+  align-items: center;
+}
+.famous__arrow {
+  width: 36px;
+  height: 36px;
+  font-size: 22px;
+  margin: 0 8px;
+}
+@media (max-width: 900px) {
+  .marquee__btn {
+    width: 36px;
+    height: 36px;
+    font-size: 22px;
+  }
+  .marquee__btn--prev {
+    left: 8px;
+  }
+  .marquee__btn--next {
+    right: 8px;
+  }
 }

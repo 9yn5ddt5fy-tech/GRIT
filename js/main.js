@@ -43,8 +43,101 @@ document.querySelectorAll(".marquee").forEach((row) => {
   // Half speed for visitors who turned on "Reduce motion".
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const speed = reduce ? MARQUEE_SPEED / 2 : MARQUEE_SPEED;
-  const setWidth = track.scrollWidth / 2;
-  track.style.animationDuration = `${setWidth / speed}s`;
+  const setWidth = () => track.scrollWidth / 2;
+
+  // The row moves on its own, and visitors can also drag / swipe it,
+  // scroll it sideways with a trackpad, or use the arrow buttons.
+  let offset = 0;
+  let remaining = 0; // distance still to travel after an arrow click
+  let pausedUntil = 0;
+  let last = performance.now();
+  const wrap = (x) => {
+    const w = setWidth();
+    return ((x % w) + w) % w;
+  };
+  const render = () => (track.style.transform = `translate3d(${-offset}px, 0, 0)`);
+  const pause = (ms = 2500) => (pausedUntil = performance.now() + ms);
+
+  function frame(now) {
+    const dt = Math.min((now - last) / 1000, 0.1);
+    last = now;
+    if (remaining) {
+      const move = Math.abs(remaining) < 0.5 ? remaining : remaining * Math.min(1, dt * 8);
+      offset += move;
+      remaining -= move;
+    } else if (!dragging && now > pausedUntil) {
+      offset += speed * dt;
+    }
+    offset = wrap(offset);
+    render();
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+
+  // Drag with mouse or finger.
+  let dragging = false;
+  let startX = 0;
+  let startOffset = 0;
+  let moved = 0;
+  row.addEventListener("pointerdown", (e) => {
+    if (e.button !== 0) return;
+    dragging = true;
+    moved = 0;
+    startX = e.clientX;
+    startOffset = offset;
+    remaining = 0;
+    row.classList.add("is-dragging");
+  });
+  window.addEventListener("pointermove", (e) => {
+    if (!dragging) return;
+    const dx = e.clientX - startX;
+    moved = Math.max(moved, Math.abs(dx));
+    offset = wrap(startOffset - dx);
+  });
+  const endDrag = () => {
+    if (!dragging) return;
+    dragging = false;
+    row.classList.remove("is-dragging");
+    pause();
+    setTimeout(() => (moved = 0), 0);
+  };
+  window.addEventListener("pointerup", endDrag);
+  window.addEventListener("pointercancel", endDrag);
+  // A drag should not count as a click on a card or photo.
+  row.addEventListener("click", (e) => {
+    if (moved > 6) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+  }, true);
+  row.addEventListener("dragstart", (e) => e.preventDefault());
+
+  // Sideways trackpad / shift+wheel scrolling.
+  row.addEventListener("wheel", (e) => {
+    const dx = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.shiftKey ? e.deltaY : 0;
+    if (!dx) return;
+    e.preventDefault();
+    remaining = 0;
+    offset = wrap(offset + dx);
+    pause();
+  }, { passive: false });
+
+  // Arrow buttons.
+  const step = () => (originals[0] ? originals[0].getBoundingClientRect().width + 24 : 300);
+  const makeBtn = (dir, label, text) => {
+    const b = document.createElement("button");
+    b.type = "button";
+    b.className = `marquee__btn marquee__btn--${dir}`;
+    b.setAttribute("aria-label", label);
+    b.textContent = text;
+    b.addEventListener("pointerdown", (e) => e.stopPropagation());
+    b.addEventListener("click", () => {
+      remaining += dir === "next" ? step() : -step();
+      pause(4000);
+    });
+    return b;
+  };
+  row.append(makeBtn("prev", "Scroll left", "‹"), makeBtn("next", "Scroll right", "›"));
 });
 
 function cloneHidden(node) {
@@ -242,17 +335,47 @@ document.querySelectorAll("#album").forEach((section) => {
 })();
 
 // Famous quotes: show one at a time, change every 7 seconds.
+// Visitors can also use the dots, the arrows, or swipe.
 document.querySelectorAll(".famous").forEach((box) => {
   const items = [...box.querySelectorAll(".famous__item")];
   const dots = [...box.querySelectorAll(".famous__dot")];
   let i = 0;
+  let timer;
   const show = (n) => {
     i = (n + items.length) % items.length;
     items.forEach((el, k) => el.classList.toggle("is-active", k === i));
     dots.forEach((el, k) => el.classList.toggle("is-active", k === i));
   };
-  dots.forEach((d, k) => d.addEventListener("click", () => { show(k); restart(); }));
-  let timer;
-  const restart = () => { clearInterval(timer); timer = setInterval(() => show(i + 1), 7000); };
+  const restart = () => {
+    clearInterval(timer);
+    timer = setInterval(() => show(i + 1), 7000);
+  };
+  const go = (n) => {
+    show(n);
+    restart();
+  };
+  dots.forEach((d, k) => d.addEventListener("click", () => go(k)));
+  const nav = box.querySelector(".famous__dots");
+  const prev = document.createElement("button");
+  const next = document.createElement("button");
+  prev.type = next.type = "button";
+  prev.className = "famous__arrow";
+  next.className = "famous__arrow";
+  prev.setAttribute("aria-label", "Previous quote");
+  next.setAttribute("aria-label", "Next quote");
+  prev.textContent = "‹";
+  next.textContent = "›";
+  prev.addEventListener("click", () => go(i - 1));
+  next.addEventListener("click", () => go(i + 1));
+  nav.prepend(prev);
+  nav.append(next);
+  let sx = null;
+  box.addEventListener("touchstart", (e) => (sx = e.touches[0].clientX), { passive: true });
+  box.addEventListener("touchend", (e) => {
+    if (sx === null) return;
+    const dx = e.changedTouches[0].clientX - sx;
+    if (Math.abs(dx) > 40) go(i + (dx < 0 ? 1 : -1));
+    sx = null;
+  });
   restart();
 });
