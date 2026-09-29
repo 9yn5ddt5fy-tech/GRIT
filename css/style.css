@@ -599,9 +599,6 @@ img.img-missing {
   gap: 84px;
   margin-bottom: 73px;
 }
-.team__row:nth-child(even) {
-  transform: translateX(-12px);
-}
 
 .member-card {
   position: relative;
@@ -904,9 +901,6 @@ a.member-card:hover img {
     gap: 20px;
     scroll-snap-type: x mandatory;
   }
-  .team__row:nth-child(even) {
-    transform: none;
-  }
   .team__row > *,
   .photos__row > * {
     scroll-snap-align: center;
@@ -921,5 +915,64 @@ a.member-card:hover img {
   }
   .contact-list {
     font-size: 16px;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Auto-scrolling rows (team cards, photos). js/main.js wraps the items in a
+   .marquee__track and duplicates them so the loop is seamless.
+   -------------------------------------------------------------------------- */
+.marquee {
+  overflow: hidden;
+  justify-content: flex-start;
+  gap: 0;
+  padding-inline: 0;
+  scroll-snap-type: none;
+}
+.strip.marquee {
+  --gap: 39px;
+}
+.team__row.marquee {
+  --gap: 84px;
+}
+.photos__row.marquee {
+  --gap: 27.6px;
+}
+.photos__row--bleed.marquee {
+  --gap: 64px;
+}
+.marquee__track {
+  display: flex;
+  align-items: center;
+  width: max-content;
+  animation: marquee var(--duration, 40s) linear infinite;
+}
+.marquee__track > * {
+  margin-right: var(--gap, 40px);
+}
+.marquee:hover .marquee__track,
+.marquee:focus-within .marquee__track {
+  animation-play-state: paused;
+}
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (max-width: 900px) {
+  .team__row.marquee,
+  .photos__row.marquee {
+    --gap: 20px;
+  }
+}
+
+/* Users who prefer less motion get a normal swipeable row instead. */
+@media (prefers-reduced-motion: reduce) {
+  .marquee {
+    overflow-x: auto;
+  }
+  .marquee__track {
+    animation: none;
   }
 }

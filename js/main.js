@@ -14,3 +14,32 @@ document.querySelectorAll("img").forEach((img) => {
   if (img.complete && img.naturalWidth === 0) markMissing();
   else img.addEventListener("error", markMissing);
 });
+
+// Rows marked .marquee scroll slowly and endlessly to the left.
+const MARQUEE_SPEED = 40; // pixels per second
+
+document.querySelectorAll(".marquee").forEach((row) => {
+  const track = document.createElement("div");
+  track.className = "marquee__track";
+  track.append(...row.children);
+  row.append(track);
+
+  // Repeat the items until one set is wider than the widest likely screen,
+  // then duplicate that set so shifting by -50% loops without a jump.
+  const originals = [...track.children];
+  const minWidth = Math.max(row.clientWidth, window.screen.width, 1440);
+  while (track.scrollWidth < minWidth) {
+    originals.forEach((item) => track.append(cloneHidden(item)));
+  }
+  [...track.children].forEach((item) => track.append(cloneHidden(item)));
+
+  const setWidth = track.scrollWidth / 2;
+  track.style.setProperty("--duration", `${setWidth / MARQUEE_SPEED}s`);
+});
+
+function cloneHidden(node) {
+  const clone = node.cloneNode(true);
+  clone.setAttribute("aria-hidden", "true");
+  if (clone.matches("a")) clone.tabIndex = -1;
+  return clone;
+}
