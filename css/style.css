@@ -11,6 +11,11 @@
   --accent-soft: rgba(31, 77, 46, 0.3);
   --bg: #ffffff;
   --bg-soft: #f6f8f5;
+  --text: #2b2b2b; /* body copy */
+  --tint: #e3efe4; /* soft green chips */
+  --tint-gray: #f1f1ef;
+  --header-bg: rgba(255, 255, 255, 0.94);
+  --on-ink: #fff; /* text on var(--ink) buttons */
   --chart: #1a1a1a; /* bar color: near-black, like the printed report */
   --chart-track: #f0f0ee;
 
@@ -106,10 +111,10 @@ p {
 }
 .btn--dark {
   background: var(--ink);
-  color: #fff;
+  color: var(--on-ink);
 }
 .btn--dark:hover {
-  background: #262626;
+  opacity: 0.88;
 }
 .btn--outline {
   background: transparent;
@@ -117,7 +122,7 @@ p {
 }
 .btn--outline:hover {
   background: var(--ink);
-  color: #fff;
+  color: var(--on-ink);
 }
 .btn--small {
   min-width: 0;
@@ -150,7 +155,7 @@ p {
   position: sticky;
   top: 0;
   z-index: 50;
-  background: rgba(255, 255, 255, 0.92);
+  background: var(--header-bg);
   backdrop-filter: saturate(180%) blur(10px);
   -webkit-backdrop-filter: saturate(180%) blur(10px);
 }
@@ -200,13 +205,13 @@ p {
 }
 .site-header--overlay:not(.is-scrolled) .header-cta {
   background: #fff;
-  color: var(--ink);
+  color: #0a0a0a;
 }
 .site-header--overlay:not(.is-scrolled) .nav-toggle span {
   background: #fff;
 }
 .site-header--overlay.is-scrolled {
-  background: rgba(255, 255, 255, 0.94);
+  background: var(--header-bg);
   backdrop-filter: saturate(180%) blur(10px);
   -webkit-backdrop-filter: saturate(180%) blur(10px);
 }
@@ -243,9 +248,53 @@ p {
   padding: 0 16px;
   border-radius: var(--radius-sm);
   background: var(--ink);
-  color: #fff;
+  color: var(--on-ink);
   font-weight: 500;
   font-size: 15px;
+}
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.pill-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 40px;
+  height: 34px;
+  padding: 0 10px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--ink);
+  font: 600 13px/1 var(--font-sans);
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: background-color 0.2s, border-color 0.2s;
+}
+.pill-btn:hover {
+  border-color: var(--ink);
+}
+.pill-btn svg {
+  width: 17px;
+  height: 17px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.theme-toggle .icon-sun,
+[data-theme="dark"] .theme-toggle .icon-moon {
+  display: none;
+}
+[data-theme="dark"] .theme-toggle .icon-sun {
+  display: block;
+}
+.site-header--overlay:not(.is-scrolled) .pill-btn {
+  border-color: rgba(255, 255, 255, 0.45);
+  color: #fff;
 }
 
 .nav-toggle {
@@ -417,11 +466,11 @@ p {
   vertical-align: middle;
 }
 .tag--done {
-  background: #e3efe4;
+  background: var(--tint);
   color: var(--accent);
 }
 .tag--soon {
-  background: #f1f1ef;
+  background: var(--tint-gray);
   color: var(--muted);
 }
 
@@ -598,7 +647,7 @@ p {
   display: inline-block;
   padding: 3px 12px;
   border-radius: 99px;
-  background: #e3efe4;
+  background: var(--tint);
   color: var(--accent);
   font-size: 14px;
   font-weight: 600;
@@ -753,7 +802,7 @@ a.member:hover .member__photo img {
 }
 .prose {
   font-size: 17px;
-  color: #2b2b2b;
+  color: var(--text);
 }
 .prose p + p {
   margin-top: 16px;
@@ -775,7 +824,7 @@ a.member:hover .member__photo img {
 .impact__summary {
   margin-top: 40px;
   font-size: 17px;
-  color: #2b2b2b;
+  color: var(--text);
 }
 
 /* Member page */
@@ -840,7 +889,7 @@ a.member:hover .member__photo img {
   max-width: 760px;
   margin: -12px 0 40px;
   font-size: 17px;
-  color: #2b2b2b;
+  color: var(--text);
 }
 
 /* Key results: six numbers in a bordered grid */
@@ -900,7 +949,7 @@ a.member:hover .member__photo img {
 }
 .facts dd {
   margin: 0;
-  color: #2b2b2b;
+  color: var(--text);
 }
 
 /* Team table */
@@ -964,12 +1013,12 @@ a.member:hover .member__photo img {
   height: 30px;
   flex: none;
   border-radius: 50%;
-  background: #e3efe4;
+  background: var(--tint);
   color: var(--accent);
   font-size: 15px;
 }
 .track p {
-  color: #3a3a3a;
+  color: var(--text);
 }
 
 /* Horizontal bar charts (single series: respondents out of 16) */
@@ -1012,7 +1061,7 @@ a.member:hover .member__photo img {
   font-size: 14px;
 }
 .bar__label {
-  color: #2b2b2b;
+  color: var(--text);
 }
 .bar__track {
   height: 20px;
@@ -1110,7 +1159,7 @@ a.member:hover .member__photo img {
 .lessons__list li {
   position: relative;
   padding-left: 22px;
-  color: #2b2b2b;
+  color: var(--text);
 }
 .lessons__list li::before {
   content: "";
@@ -1168,7 +1217,7 @@ a.member:hover .member__photo img {
 }
 .step__meta {
   margin: 8px 0 18px;
-  color: #2b2b2b;
+  color: var(--text);
 }
 .step .tag {
   margin-left: 0;
@@ -1398,7 +1447,7 @@ img.img-missing {
     flex-direction: column;
     align-items: stretch;
     gap: 0;
-    background: #fff;
+    background: var(--bg);
     border-bottom: 1px solid var(--line);
     display: none;
   }
@@ -1771,7 +1820,7 @@ img.img-missing {
   font-weight: 700;
 }
 .flow__step p {
-  color: #3a3a3a;
+  color: var(--text);
   font-size: 15px;
 }
 
@@ -1871,4 +1920,53 @@ img.img-missing {
   .book-wrap {
     padding: 12px;
   }
+}
+
+/* --------------------------------------------------------------------------
+   Night mode (html[data-theme="dark"], toggled by the moon/sun button)
+   -------------------------------------------------------------------------- */
+[data-theme="dark"] {
+  color-scheme: dark;
+  --ink: #ececea;
+  --muted: #9aa39a;
+  --line: #2b322c;
+  --accent: #8cc79a;
+  --accent-soft: rgba(140, 199, 154, 0.35);
+  --bg: #101311;
+  --bg-soft: #181d19;
+  --text: #d6d9d4;
+  --tint: #1f3325;
+  --tint-gray: #24282a;
+  --header-bg: rgba(16, 19, 17, 0.92);
+  --on-ink: #101311;
+  --chart: #e6e6e3;
+  --chart-track: #262b27;
+}
+[data-theme="dark"] .logo__dark,
+[data-theme="dark"] .logo img:only-child,
+[data-theme="dark"] .site-footer img {
+  filter: invert(1);
+}
+[data-theme="dark"] .map__outline {
+  filter: grayscale(1) invert(0.85);
+}
+[data-theme="dark"] .speaker__photo svg {
+  fill: #3a4a3d;
+}
+[data-theme="dark"] .fact,
+[data-theme="dark"] .book__page {
+  border-color: var(--line);
+}
+[data-theme="dark"] .bar::after {
+  background: #ececea;
+  color: #101311;
+}
+body,
+.site-header,
+.card,
+.kpis,
+.track,
+.step,
+.sponsor {
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s;
 }
