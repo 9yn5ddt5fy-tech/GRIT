@@ -569,12 +569,9 @@ p {
 }
 
 /* Student success */
-.successes {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 24px;
-}
 .success {
+  flex: none;
+  width: 288px;
   margin: 0;
 }
 .success__photo {
@@ -963,9 +960,6 @@ img.img-missing {
   .nav {
     gap: 22px;
   }
-  .successes {
-    grid-template-columns: 1fr 1fr;
-  }
   .where,
   .split,
   .impact,
@@ -1057,7 +1051,9 @@ img.img-missing {
   .podcasts {
     grid-template-columns: minmax(0, 1fr);
   }
-  .successes,
+  .success {
+    width: 230px;
+  }
   .speakers {
     grid-template-columns: 1fr 1fr;
     gap: 28px 16px;
