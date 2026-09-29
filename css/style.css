@@ -11,8 +11,8 @@
   --accent-soft: rgba(31, 77, 46, 0.3);
   --bg: #ffffff;
   --bg-soft: #f6f8f5;
-  --chart: #3a8a4b; /* bar color, validated for contrast on white */
-  --chart-track: #eef3ec;
+  --chart: #1a1a1a; /* bar color: near-black, like the printed report */
+  --chart-track: #f0f0ee;
 
   --radius-sm: 8px;
   --radius-md: 14px;
@@ -1038,7 +1038,7 @@ a.member:hover .member__photo img {
   transform: none;
 }
 .bar:hover .bar__fill {
-  filter: brightness(0.92);
+  opacity: 0.8;
 }
 
 /* Student quotes */
