@@ -1,0 +1,925 @@
+/* ==========================================================================
+   GRIT — Figma "Desktop 10–13" frames implemented as plain HTML/CSS.
+   Design width: 1440px. Fonts: Montserrat (UI), Cinzel (hero title).
+   ========================================================================== */
+
+:root {
+  --c-black: #000;
+  --c-white: #fff;
+  --c-nav-text: #e7e7e7;
+  --c-pill: #cee168;
+  --c-link: #2a842d;
+  --c-placeholder: #e6f1e6;
+  --c-strip: rgba(254, 254, 254, 0.8);
+
+  --overlay-card: rgba(0, 0, 0, 0.3);
+  --overlay-band: rgba(0, 0, 0, 0.25);
+
+  --radius-lg: 20px;
+  --radius-md: 12px;
+  --radius-sm: 10px;
+
+  --font-body: "Montserrat", system-ui, sans-serif;
+  --font-display: "Cinzel", Georgia, serif;
+
+  --page-width: 1440px;
+  --content-width: 1100px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--c-white);
+  color: var(--c-black);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 14px;
+  line-height: normal;
+  overflow-x: hidden;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+p {
+  margin: 0;
+}
+
+h1,
+h2,
+h3 {
+  margin: 0;
+  font-weight: 700;
+}
+
+/* Shows a soft green block when an image file is not downloaded yet. */
+img.img-missing {
+  visibility: hidden;
+}
+.photo:has(> img.img-missing),
+.impact__chart:has(> img.img-missing),
+.project-card__media:has(> img.img-missing),
+.project-card__badge:has(> img.img-missing),
+.logo:has(> img.img-missing) {
+  background: var(--c-placeholder);
+}
+
+.page {
+  position: relative;
+  overflow: hidden;
+}
+
+.container {
+  width: min(var(--content-width), 100% - 32px);
+  margin-inline: auto;
+}
+
+/* --------------------------------------------------------------------------
+   Decorative dashed lines (Rectangle 22/24/30 in Figma)
+   -------------------------------------------------------------------------- */
+.deco {
+  position: absolute;
+  width: 1491px;
+  height: 709px;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  pointer-events: none;
+  z-index: 0;
+}
+.deco img {
+  position: absolute;
+  left: 0.06%;
+  top: -11.26%;
+  width: 99.94%;
+  height: 122.52%;
+  max-width: none;
+}
+.page > section,
+.page > .section {
+  position: relative;
+  z-index: 1;
+}
+
+/* --------------------------------------------------------------------------
+   Header / navigation
+   -------------------------------------------------------------------------- */
+.site-header {
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 67px;
+  z-index: 20;
+}
+.site-header__bar {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  pointer-events: none;
+}
+
+/* Sub pages: header sits on a blurred landscape photo with a 20% dark tint. */
+.site-header--photo {
+  position: relative;
+}
+.site-header--photo .site-header__photo {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: #8aa28a;
+}
+.site-header--photo .site-header__photo img {
+  position: absolute;
+  left: 0.03%;
+  top: -140%;
+  width: 100%;
+  height: 1447.03%;
+  max-width: none;
+}
+.site-header--photo .site-header__photo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.site-header__inner {
+  position: relative;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 88px 0 51px;
+}
+
+.logo {
+  display: block;
+  width: 106px;
+  height: 51px;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+.logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.nav {
+  display: flex;
+  gap: 40px;
+}
+.nav a {
+  font-weight: 700;
+  font-size: 18px;
+  color: var(--c-nav-text);
+  white-space: nowrap;
+  transition: color 0.2s;
+}
+.nav a:hover,
+.nav a[aria-current="page"] {
+  color: var(--c-white);
+}
+.nav a.is-disabled {
+  cursor: default;
+}
+
+.nav-toggle {
+  display: none;
+  background: none;
+  border: 0;
+  padding: 8px;
+  cursor: pointer;
+}
+.nav-toggle span {
+  display: block;
+  width: 26px;
+  height: 3px;
+  margin: 5px 0;
+  background: var(--c-white);
+  border-radius: 2px;
+}
+
+/* --------------------------------------------------------------------------
+   Hero (home)
+   -------------------------------------------------------------------------- */
+.hero {
+  position: relative;
+  height: 759px;
+  color: var(--c-white);
+  overflow: hidden;
+  background: #6f8a6a;
+}
+.hero__bg {
+  position: absolute;
+  inset: 0;
+}
+.hero__bg img {
+  position: absolute;
+  left: 0.03%;
+  top: -11.99%;
+  width: 100%;
+  height: 123.92%;
+  max-width: none;
+}
+.hero__bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  /* 20% black layer + 21% dark-green layer from the design */
+  background: linear-gradient(rgba(7, 14, 6, 0.21), rgba(7, 14, 6, 0.21)),
+    rgba(0, 0, 0, 0.2);
+}
+.hero__title {
+  position: absolute;
+  left: 54px;
+  top: 270px;
+  max-width: 1080px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 52px;
+  mix-blend-mode: hard-light;
+}
+.hero__stats {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 697px;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 175px 0 217px;
+  list-style: none;
+  margin: 0;
+  font-weight: 700;
+  font-size: 20px;
+}
+.hero__stats li {
+  opacity: 0.8;
+}
+
+/* --------------------------------------------------------------------------
+   Section titles ("GRIT  Projects" pill with star)
+   -------------------------------------------------------------------------- */
+.pill-title {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 40px;
+}
+.pill-title__inner {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 405px;
+  height: 66px;
+  padding: 0 40px;
+  background: var(--c-pill);
+  border-radius: var(--radius-md);
+  font-weight: 700;
+  font-size: 25px;
+}
+.pill-title__star {
+  width: 36px;
+  margin-right: 8px;
+  flex: none;
+}
+
+.star {
+  display: inline-block;
+  transform: rotate(-38.66deg);
+}
+
+/* Plain centered section heading ("Impact", "Photos") */
+.heading-sm {
+  text-align: center;
+  font-weight: 700;
+  font-size: 20px;
+  margin-bottom: 44px;
+}
+
+/* Heading with the yellow blob behind the first letter ("GRIT - EDU", "Biography") */
+.star-heading {
+  position: relative;
+  display: inline-block;
+  font-weight: 700;
+  font-size: 33px;
+}
+.star-heading__star {
+  position: absolute;
+  left: -14px;
+  top: -12px;
+  width: 30px;
+  z-index: -1;
+  transform: rotate(-38.66deg);
+}
+
+/* --------------------------------------------------------------------------
+   Where we work
+   -------------------------------------------------------------------------- */
+.where {
+  padding-top: 44px;
+}
+.where__card {
+  position: relative;
+  width: min(1337px, 100% - 32px);
+  min-height: 575px;
+  margin-inline: auto;
+  display: grid;
+  grid-template-columns: minmax(0, 719px) minmax(0, 465px);
+  justify-content: space-between;
+  gap: 60px;
+  padding: 90px 24px 110px;
+  background: var(--c-white) url("../assets/img/where-card.png") center / 100% 100% no-repeat;
+  border-radius: var(--radius-lg);
+}
+
+.map {
+  position: relative;
+  width: 100%;
+  max-width: 719px;
+  aspect-ratio: 719 / 375;
+}
+.map__outline {
+  width: 100%;
+  height: 100%;
+}
+.map__route {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+.map__label {
+  position: absolute;
+  font-weight: 700;
+  font-size: 8px;
+  white-space: nowrap;
+  transform: translateY(-50%);
+}
+.map__pin {
+  position: absolute;
+  width: 17px;
+  height: 17px;
+  display: grid;
+  place-items: center;
+}
+.map__pin img {
+  width: 12.2px;
+  height: 12.2px;
+  transform: rotate(-39.56deg) skewX(-1.54deg);
+}
+
+.where__text {
+  padding-top: 0;
+  max-width: 465px;
+}
+.where__title {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 25px;
+  margin: 0 0 8px -46px;
+}
+.where__title img {
+  width: 50px;
+  transform: rotate(-38.79deg);
+}
+.where__body p {
+  margin-bottom: 0;
+}
+.where__body p + p {
+  margin-top: 0;
+}
+.program {
+  margin-top: 20px;
+}
+.program__name {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-weight: 700;
+  font-size: 19px;
+}
+.program__status {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-weight: 600;
+  font-size: 12px;
+}
+.program__status img {
+  width: 20px;
+  height: 18px;
+}
+.program__meta {
+  margin-top: 4px;
+}
+
+/* --------------------------------------------------------------------------
+   Photo strip (4 large photos in a translucent band)
+   -------------------------------------------------------------------------- */
+.strip {
+  margin-top: 64px;
+  height: 609px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 39px;
+  background: var(--c-strip);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+.photo {
+  position: relative;
+  flex: none;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+.photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.photo--tint::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--overlay-card);
+}
+.strip .photo {
+  width: 378px;
+  height: 481px;
+}
+
+/* --------------------------------------------------------------------------
+   Project cards (GRIT EDU / GRIT ENVIRONMENT)
+   -------------------------------------------------------------------------- */
+.projects {
+  padding-top: 70px;
+}
+.projects__grid {
+  display: flex;
+  justify-content: center;
+  gap: 164px;
+  padding-top: 20px;
+}
+
+.project-card {
+  position: relative;
+  display: block;
+  width: 369px;
+  height: 442px;
+  color: var(--c-white);
+  transition: transform 0.25s;
+}
+.project-card:hover {
+  transform: translateY(-6px);
+}
+.project-card__media {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: #555;
+}
+.project-card--bordered .project-card__media {
+  border: 2px solid var(--c-black);
+}
+.project-card__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: blur(3.5px);
+  transform: scale(1.04);
+}
+.project-card__band {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 108px;
+  background: var(--overlay-band);
+  border-radius: var(--radius-lg);
+}
+.project-card__band--top {
+  top: 0;
+}
+.project-card__band--bottom {
+  bottom: 0;
+  height: 133px;
+}
+.project-card__title {
+  position: absolute;
+  left: 28px;
+  top: 32px;
+  right: 28px;
+  font-weight: 800;
+  font-size: 33px;
+}
+.project-card__subtitle {
+  position: absolute;
+  left: 28px;
+  right: 40px;
+  bottom: 30px;
+  font-weight: 800;
+  font-size: 24px;
+}
+.project-card__badge {
+  position: absolute;
+  right: -46px;
+  top: -52px;
+  width: 113.5px;
+  height: 113.5px;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  transform: rotate(11.05deg);
+}
+.project-card__badge img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* --------------------------------------------------------------------------
+   Podcast
+   -------------------------------------------------------------------------- */
+.podcast {
+  padding-top: 110px;
+  background: var(--c-white);
+}
+.podcast__grid {
+  display: flex;
+  justify-content: center;
+  gap: 58px;
+}
+.podcast-card {
+  width: 414px;
+  text-align: center;
+}
+.podcast-card .photo {
+  width: 100%;
+  height: 256px;
+}
+.podcast-card__title {
+  margin-top: 36px;
+  font-weight: 800;
+  font-size: 20px;
+}
+
+/* --------------------------------------------------------------------------
+   Team
+   -------------------------------------------------------------------------- */
+.team {
+  padding-top: 100px;
+}
+.team__intro {
+  width: min(800px, 100% - 32px);
+  margin: -8px auto 40px;
+  text-align: center;
+}
+.team__row {
+  display: flex;
+  justify-content: center;
+  gap: 84px;
+  margin-bottom: 73px;
+}
+.team__row:nth-child(even) {
+  transform: translateX(-12px);
+}
+
+.member-card {
+  position: relative;
+  flex: none;
+  display: block;
+  width: 288px;
+  height: 335px;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  color: var(--c-white);
+  background: var(--c-placeholder);
+}
+.member-card img {
+  position: absolute;
+  left: 0;
+  top: -6.75%;
+  width: 100%;
+  height: 135.51%;
+  max-width: none;
+  object-fit: cover;
+}
+.member-card::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 104px;
+  background: var(--overlay-band);
+  border-radius: var(--radius-lg);
+}
+.member-card__text {
+  position: absolute;
+  right: 26px;
+  bottom: 28px;
+  z-index: 1;
+  text-align: right;
+  font-weight: 700;
+}
+.member-card__name {
+  font-size: 25px;
+}
+.member-card__school {
+  font-size: 14px;
+}
+a.member-card:hover img {
+  transform: scale(1.03);
+}
+.member-card img {
+  transition: transform 0.3s;
+}
+
+/* --------------------------------------------------------------------------
+   Sub pages (GRIT EDU / GRIT ENVIRONMENT / member)
+   -------------------------------------------------------------------------- */
+.page-title {
+  text-align: center;
+  padding-top: 45px;
+}
+
+.intro {
+  display: grid;
+  grid-template-columns: 369px 634px;
+  justify-content: center;
+  gap: 97px;
+  align-items: start;
+  padding-top: 60px;
+}
+.intro__text {
+  padding-top: 40px;
+}
+.report-link {
+  display: inline-block;
+  margin-top: 16px;
+  font-weight: 700;
+  color: var(--c-link);
+  text-decoration: underline;
+}
+
+.impact {
+  padding-top: 68px;
+}
+.impact__grid {
+  display: grid;
+  grid-template-columns: 371px 710px;
+  justify-content: center;
+  gap: 19px;
+  align-items: center;
+}
+.impact__chart {
+  height: 287px;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+.impact__chart img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.impact__summary {
+  width: min(905px, 100% - 32px);
+  margin: 55px auto 0;
+  text-align: center;
+}
+
+.photos {
+  padding: 80px 0 130px;
+}
+.photos__row {
+  display: flex;
+  justify-content: center;
+  gap: 27.6px;
+}
+.photos__row .photo {
+  width: 268px;
+  height: 341px;
+}
+/* Member page: wider photos bleeding off both edges */
+.photos__row--bleed {
+  gap: 64px;
+}
+.photos__row--bleed .photo {
+  width: 299px;
+  height: 332px;
+}
+
+.bio {
+  display: grid;
+  grid-template-columns: 288px 634px;
+  justify-content: center;
+  gap: 134px;
+  padding-top: 113px;
+}
+.bio .star-heading {
+  font-size: 25px;
+  margin: -22px 0 32px;
+}
+
+/* --------------------------------------------------------------------------
+   Footer / contact
+   -------------------------------------------------------------------------- */
+.site-footer {
+  position: relative;
+  z-index: 1;
+  height: 222px;
+  margin-top: 60px;
+  color: var(--c-white);
+  background: #7b9a5a url("../assets/img/footer.png") center / cover no-repeat;
+}
+.site-footer__inner {
+  padding: 18px 0 0 204px;
+}
+.site-footer h2 {
+  font-size: 25px;
+  margin-bottom: 18px;
+}
+.contact-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 14px;
+  font-weight: 700;
+  font-size: 19px;
+}
+.contact-list a {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+.contact-list a:hover {
+  text-decoration: underline;
+}
+.contact-list svg {
+  width: 26px;
+  height: 26px;
+  flex: none;
+}
+
+/* --------------------------------------------------------------------------
+   Responsive
+   -------------------------------------------------------------------------- */
+@media (max-width: 1200px) {
+  .where__card {
+    grid-template-columns: minmax(0, 719px);
+    justify-content: center;
+    justify-items: center;
+    gap: 30px;
+    padding: 60px 24px 140px;
+  }
+  .where__title {
+    margin-left: -30px;
+  }
+  .intro,
+  .impact__grid,
+  .bio {
+    grid-template-columns: minmax(0, 1fr);
+    justify-items: center;
+    gap: 40px;
+    width: min(710px, 100% - 32px);
+    margin-inline: auto;
+  }
+  .projects__grid {
+    gap: 80px;
+  }
+}
+
+@media (max-width: 900px) {
+  .deco {
+    display: none;
+  }
+
+  .site-header__inner {
+    padding: 0 16px;
+  }
+  .nav-toggle {
+    display: block;
+  }
+  .nav {
+    position: absolute;
+    top: 67px;
+    right: 0;
+    left: 0;
+    flex-direction: column;
+    gap: 0;
+    background: rgba(20, 35, 20, 0.92);
+    display: none;
+  }
+  .nav.is-open {
+    display: flex;
+  }
+  .nav a {
+    padding: 16px 24px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .hero {
+    height: 620px;
+  }
+  .hero__title {
+    left: 16px;
+    right: 16px;
+    top: 180px;
+    font-size: 34px;
+  }
+  .hero__stats {
+    top: auto;
+    bottom: 32px;
+    padding: 0 16px;
+    flex-wrap: wrap;
+    gap: 12px 24px;
+    font-size: 16px;
+  }
+
+  .where__card {
+    padding: 40px 16px 120px;
+  }
+  .where__title {
+    margin-left: 0;
+  }
+
+  .strip {
+    height: auto;
+    padding: 24px 16px;
+    justify-content: flex-start;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+  }
+  .strip .photo {
+    width: 260px;
+    height: 330px;
+    scroll-snap-align: center;
+  }
+
+  .projects__grid,
+  .podcast__grid {
+    flex-direction: column;
+    align-items: center;
+    gap: 70px;
+  }
+  .project-card {
+    width: min(369px, 100% - 60px);
+  }
+  .podcast-card {
+    width: min(414px, 100% - 32px);
+  }
+
+  .pill-title__inner {
+    min-width: 0;
+    height: 56px;
+    font-size: 21px;
+    padding: 0 28px;
+  }
+
+  .team__row,
+  .photos__row {
+    justify-content: flex-start;
+    overflow-x: auto;
+    padding: 0 16px;
+    gap: 20px;
+    scroll-snap-type: x mandatory;
+  }
+  .team__row:nth-child(even) {
+    transform: none;
+  }
+  .team__row > *,
+  .photos__row > * {
+    scroll-snap-align: center;
+  }
+
+  .intro__text {
+    padding-top: 0;
+  }
+
+  .site-footer__inner {
+    padding: 18px 16px 0;
+  }
+  .contact-list {
+    font-size: 16px;
+  }
+}
