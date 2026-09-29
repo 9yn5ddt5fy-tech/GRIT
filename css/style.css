@@ -1041,6 +1041,158 @@ a.member:hover .member__photo img {
   filter: brightness(0.92);
 }
 
+/* Student quotes */
+.quotes {
+  columns: 2;
+  column-gap: 24px;
+}
+.quote {
+  break-inside: avoid;
+  margin: 0 0 24px;
+  padding: 24px 28px;
+  border-left: 3px solid var(--accent);
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  background: var(--bg-soft);
+}
+.quote p {
+  font-family: var(--font-serif);
+  font-size: 22px;
+  line-height: 1.4;
+}
+.quote footer {
+  margin-top: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+/* Challenges and lessons */
+.lessons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+.lessons__title {
+  margin-bottom: 16px;
+  font-size: 20px;
+  font-weight: 600;
+}
+.lessons--next {
+  border-color: var(--accent-soft);
+  background: var(--bg-soft);
+}
+.lessons__list {
+  display: grid;
+  gap: 14px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.lessons__list li {
+  position: relative;
+  padding-left: 22px;
+  color: #2b2b2b;
+}
+.lessons__list li::before {
+  content: "";
+  position: absolute;
+  left: 2px;
+  top: 0.65em;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--muted);
+}
+.lessons__list strong {
+  display: block;
+  font-weight: 600;
+}
+.lessons__list--check li::before {
+  content: "✓";
+  top: 0;
+  width: auto;
+  height: auto;
+  background: none;
+  color: var(--accent);
+  font-weight: 600;
+}
+
+/* Roadmap */
+.steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+.step {
+  position: relative;
+  padding: 28px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+}
+.step--next {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 1px var(--accent);
+}
+.step__when {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.step__title {
+  margin-top: 8px;
+  font-family: var(--font-display);
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+.step__meta {
+  margin: 8px 0 18px;
+  color: #2b2b2b;
+}
+.step .tag {
+  margin-left: 0;
+}
+
+/* Thanks */
+.sponsors {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 32px;
+}
+.sponsor {
+  padding: 22px 24px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+}
+.sponsor__kind {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.sponsor__name {
+  margin-top: 6px;
+  font-size: 20px;
+  font-weight: 600;
+}
+.sponsor__what {
+  color: var(--muted);
+  font-size: 15px;
+}
+.signoff {
+  margin-top: 28px;
+  font-weight: 600;
+}
+.signoff span {
+  font-weight: 400;
+  font-size: 14px;
+  color: var(--muted);
+}
+
 /* --------------------------------------------------------------------------
    Contact + footer
    -------------------------------------------------------------------------- */
@@ -1285,8 +1437,17 @@ img.img-missing {
     grid-template-columns: minmax(0, 1fr);
     gap: 2px;
   }
-  .tracks {
+  .tracks,
+  .lessons,
+  .steps,
+  .sponsors {
     grid-template-columns: minmax(0, 1fr);
+  }
+  .quotes {
+    columns: 1;
+  }
+  .quote p {
+    font-size: 19px;
   }
   .track,
   .chart {
