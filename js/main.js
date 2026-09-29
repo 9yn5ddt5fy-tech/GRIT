@@ -303,6 +303,13 @@ document.querySelectorAll("#album").forEach((section) => {
   items.forEach((item, i) => item.addEventListener("click", () => openLightbox(list, i)));
 });
 
+// Scholarships section: photos open full size.
+document.querySelectorAll("#scholarships").forEach((sec) => {
+  const btns = [...sec.querySelectorAll("[data-full]")];
+  const list = btns.map((b) => ({ src: b.dataset.full, alt: b.querySelector("img").alt }));
+  btns.forEach((b, i) => b.addEventListener("click", () => openLightbox(list, i)));
+});
+
 // Photo rows: clicking a photo opens it full size (a drag does not count).
 document.querySelectorAll(".marquee").forEach((row) => {
   const photos = [...row.querySelectorAll(".photo:not([aria-hidden]) img")];
