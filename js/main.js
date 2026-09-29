@@ -226,46 +226,37 @@ document.querySelectorAll("form[data-mailto]").forEach((form) => {
   });
 });
 
-// Photo album: show the first photos, "More photos" reveals the rest,
-// clicking a photo opens it full screen (arrows / swipe / Esc).
-document.querySelectorAll("#album").forEach((section) => {
-  const items = [...section.querySelectorAll(".album__item")];
-  const more = section.querySelector("[data-album-more]");
-  const FIRST = 9; // one large photo + eight small ones fill the grid evenly
-  if (items.length <= FIRST) {
-    more.parentElement.remove();
-  } else {
-    items.slice(FIRST).forEach((item) => item.classList.add("is-hidden"));
-    more.addEventListener("click", () => {
-      items.forEach((item) => item.classList.remove("is-hidden"));
-      more.parentElement.remove();
-    });
+// Full-screen photo viewer, shared by the album and the photo rows.
+// openLightbox(list, i): list is [{ src, alt }]; arrows / swipe / Esc work.
+const openLightbox = (() => {
+  let box = document.getElementById("lightbox");
+  if (!box) {
+    box = document.createElement("div");
+    box.className = "lightbox";
+    box.id = "lightbox";
+    box.hidden = true;
+    box.innerHTML =
+      '<button class="lightbox__close" type="button" aria-label="Close">×</button>' +
+      '<button class="lightbox__nav lightbox__nav--prev" type="button" aria-label="Previous photo">‹</button>' +
+      '<figure class="lightbox__figure"><img alt=""><figcaption></figcaption></figure>' +
+      '<button class="lightbox__nav lightbox__nav--next" type="button" aria-label="Next photo">›</button>';
+    document.body.append(box);
   }
-
-  const box = document.getElementById("lightbox");
-  if (!box) return;
   const img = box.querySelector("img");
   const caption = box.querySelector("figcaption");
+  let list = [];
   let index = 0;
   const show = (i) => {
-    index = (i + items.length) % items.length;
-    const source = items[index].querySelector("img");
+    index = (i + list.length) % list.length;
     img.classList.remove("img-missing");
-    img.src = items[index].dataset.full;
-    img.alt = source.alt;
-    caption.textContent = `${source.alt} · ${index + 1} / ${items.length}`;
+    img.src = list[index].src;
+    img.alt = list[index].alt;
+    caption.textContent = `${list[index].alt ? list[index].alt + " · " : ""}${index + 1} / ${list.length}`;
   };
   const close = () => {
     box.hidden = true;
     document.body.style.overflow = "";
   };
-  items.forEach((item, i) =>
-    item.addEventListener("click", () => {
-      show(i);
-      box.hidden = false;
-      document.body.style.overflow = "hidden";
-    })
-  );
   box.querySelector(".lightbox__close").addEventListener("click", close);
   box.querySelector(".lightbox__nav--prev").addEventListener("click", () => show(index - 1));
   box.querySelector(".lightbox__nav--next").addEventListener("click", () => show(index + 1));
@@ -285,6 +276,43 @@ document.querySelectorAll("#album").forEach((section) => {
     const dx = e.changedTouches[0].clientX - startX;
     if (Math.abs(dx) > 50) show(index + (dx < 0 ? 1 : -1));
     startX = null;
+  });
+  return (items, i) => {
+    list = items;
+    show(i);
+    box.hidden = false;
+    document.body.style.overflow = "hidden";
+  };
+})();
+
+// Photo album: show the first photos, "More photos" reveals the rest.
+document.querySelectorAll("#album").forEach((section) => {
+  const items = [...section.querySelectorAll(".album__item")];
+  const more = section.querySelector("[data-album-more]");
+  const FIRST = 9; // one large photo + eight small ones fill the grid evenly
+  if (items.length <= FIRST) {
+    more.parentElement.remove();
+  } else {
+    items.slice(FIRST).forEach((item) => item.classList.add("is-hidden"));
+    more.addEventListener("click", () => {
+      items.forEach((item) => item.classList.remove("is-hidden"));
+      more.parentElement.remove();
+    });
+  }
+  const list = items.map((item) => ({ src: item.dataset.full, alt: item.querySelector("img").alt }));
+  items.forEach((item, i) => item.addEventListener("click", () => openLightbox(list, i)));
+});
+
+// Photo rows: clicking a photo opens it full size (a drag does not count).
+document.querySelectorAll(".marquee").forEach((row) => {
+  const photos = [...row.querySelectorAll(".photo:not([aria-hidden]) img")];
+  if (!photos.length) return;
+  const list = photos.map((img) => ({ src: img.getAttribute("src"), alt: img.alt }));
+  row.addEventListener("click", (e) => {
+    const img = e.target.closest(".photo")?.querySelector("img");
+    if (!img) return;
+    const i = list.findIndex((p) => p.src === img.getAttribute("src"));
+    openLightbox(list, Math.max(0, i));
   });
 });
 

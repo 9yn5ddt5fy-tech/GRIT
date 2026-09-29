@@ -2215,3 +2215,7 @@ a.pub:hover {
     right: 8px;
   }
 }
+
+.marquee .photo {
+  cursor: zoom-in;
+}
