@@ -40,7 +40,7 @@ GitHub дээр: `assets/img` → **Add file → Upload files**. Файлын н
 | `photo-1.jpg` … `photo-4.jpg` | Гүйдэг зургийн мөрүүд | 800×1000 (босоо) |
 | `edu-cover-2.jpg`, `env-cover-2.jpg` | EDU / Environment хуудасны том зураг | 2400×1000 (хэвтээ) |
 | `podcast.png` | Подкастын картууд | 830×512 |
-| `env-chart.png` | Environment хуудасны Impact график | 1420×574 |
+| `env-hero.jpg`, `env-*.jpg` | Environment хуудасны зургууд | 1100+ өргөн |
 | `success-1.jpg` … `success-4.jpg` | Student success хэсгийн сурагчид | 900 өргөн (босоо) |
 | `team-1.jpg` … `team-5.jpg` | Team хэсэг, гишүүний намтрын хуудас | 720×900 (4:5) |
 
