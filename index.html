@@ -8,14 +8,14 @@
   <link rel="icon" href="assets/img/badge.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Instrument+Serif&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=6">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600&family=Instrument+Serif&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css?v=8">
   <script>document.documentElement.classList.add("js");</script>
 </head>
 <body>
-  <header class="site-header">
+  <header class="site-header site-header--overlay">
     <div class="site-header__inner">
-      <a class="logo" href="index.html" aria-label="GRIT home"><img src="assets/img/logo-dark.png" alt="GRIT"></a>
+      <a class="logo" href="index.html" aria-label="GRIT home"><img class="logo__light" src="assets/img/logo.png" alt="GRIT"><img class="logo__dark" src="assets/img/logo-dark.png" alt=""></a>
       <nav class="nav" id="site-nav">
         <a href="index.html" aria-current="page">Home</a>
         <a href="index.html#where">Where we work</a>
@@ -31,44 +31,26 @@
   </header>
 
   <main>
-    <section class="hero container">
-      <h1 class="hero__title" data-reveal>Grow. Reach.<br>Inspire. Teach.</h1>
-      <p class="hero__subtitle" data-reveal>Opening the world to students from rural Mongolia.</p>
-      <div class="hero__actions" data-reveal>
-        <a class="btn btn--dark" href="#projects">Our projects</a>
-        <a class="btn btn--outline" href="#contact">Contact</a>
+    <section class="hero">
+      <div class="hero__bg"><img src="assets/img/hero.jpg" alt="Horse grazing on the Mongolian steppe"></div>
+      <div class="container hero__content">
+        <h1 class="hero__title" data-reveal>Grow. Reach. Inspire. Teach.</h1>
+        <p class="hero__subtitle" data-reveal>Opening the world to students from rural Mongolia.</p>
+        <div class="hero__actions" data-reveal>
+          <a class="btn btn--white" href="#projects">Our projects</a>
+          <a class="btn btn--light" href="#contact">Contact</a>
+        </div>
       </div>
-      <div class="hero__image" data-reveal><img src="assets/img/hero.jpg" alt="Horse grazing on the Mongolian steppe"></div>
+      <ul class="container hero__stats" data-reveal>
+        <li><span data-count="20">20</span> Students</li>
+        <li><span data-count="4">4</span> weeks on the ground</li>
+        <li><span data-count="7">7</span> teachers and volunteers</li>
+        <li><span data-count="380" data-suffix=" km">380 km</span> travelled</li>
+      </ul>
     </section>
 
     <section class="section container">
       <p class="statement" data-reveal>We work where the distance is greatest — in the soums of central Mongolia, where a student's nearest university is <em>a day's drive away</em> and scholarship information rarely arrives at all.</p>
-    </section>
-
-    <section class="section container" aria-label="GRIT in numbers">
-      <div class="stats" data-reveal>
-      <div class="stat">
-        <p class="stat__value" data-count="20" data-suffix="">20</p>
-        <p class="stat__label">Students</p>
-      </div>
-      <div class="stat">
-        <p class="stat__value" data-count="4" data-suffix="">4</p>
-        <p class="stat__label">Weeks on the ground</p>
-      </div>
-      <div class="stat">
-        <p class="stat__value" data-count="7" data-suffix="">7</p>
-        <p class="stat__label">Teachers and volunteers</p>
-      </div>
-      <div class="stat">
-        <p class="stat__value" data-count="380" data-suffix=" km">380 km</p>
-        <p class="stat__label">Distance we travel</p>
-      </div>
-        <div class="stats__center"><img src="assets/img/badge.png" alt=""></div>
-        <span class="stats__tip" style="left:0;top:50%"></span>
-        <span class="stats__tip" style="left:100%;top:50%"></span>
-        <span class="stats__tip" style="left:50%;top:0"></span>
-        <span class="stats__tip" style="left:50%;top:100%"></span>
-      </div>
     </section>
 
     <section class="section container" id="where">
@@ -116,15 +98,21 @@
     <section class="section container" id="projects">
       <h2 class="section-title" data-reveal>Projects</h2>
       <div class="projects">
-        <a class="project project--dark" href="edu.html" data-reveal>
-          <h3 class="project__title">GRIT EDU</h3>
-          <p class="project__text">Scholarships and learning for rural students.</p>
-          <span class="btn btn--light btn--small">Read more</span>
+        <a class="project" href="edu.html" data-reveal>
+          <img class="project__bg" src="assets/img/edu-cover-2.jpg" alt="" loading="lazy">
+          <div class="project__body">
+            <h3 class="project__title">GRIT EDU</h3>
+            <p class="project__text">Scholarships and learning for rural students.</p>
+            <span class="project__link">Read more <span aria-hidden="true">→</span></span>
+          </div>
         </a>
         <a class="project" href="environment.html" data-reveal>
-          <h3 class="project__title">GRIT Environment</h3>
-          <p class="project__text">Protecting Ugii Lake and the steppe.</p>
-          <span class="btn btn--dark btn--small">Read more</span>
+          <img class="project__bg" src="assets/img/env-cover-2.jpg" alt="" loading="lazy">
+          <div class="project__body">
+            <h3 class="project__title">GRIT Environment</h3>
+            <p class="project__text">Protecting Ugii Lake and the steppe.</p>
+            <span class="project__link">Read more <span aria-hidden="true">→</span></span>
+          </div>
         </a>
       </div>
     </section>
@@ -226,6 +214,6 @@
     </div>
   </footer>
 
-  <script src="js/main.js?v=6"></script>
+  <script src="js/main.js?v=8"></script>
 </body>
 </html>

@@ -7,6 +7,14 @@ document.querySelectorAll(".nav-toggle").forEach((btn) => {
   });
 });
 
+// Home page: the header sits on the hero photo and turns white on scroll.
+const overlayHeader = document.querySelector(".site-header--overlay");
+if (overlayHeader) {
+  const update = () => overlayHeader.classList.toggle("is-scrolled", window.scrollY > 40);
+  update();
+  window.addEventListener("scroll", update, { passive: true });
+}
+
 // If an image file is missing, hide the broken-image icon.
 document.querySelectorAll("img").forEach((img) => {
   const markMissing = () => img.classList.add("img-missing");
@@ -70,6 +78,20 @@ if ("IntersectionObserver" in window) {
 } else {
   revealEls.forEach((el) => el.classList.add("is-visible"));
 }
+
+// Safety net for fast scrolling: anything already above the bottom of the
+// screen is shown, even if the observer skipped over it.
+let revealQueued = false;
+window.addEventListener("scroll", () => {
+  if (revealQueued) return;
+  revealQueued = true;
+  requestAnimationFrame(() => {
+    revealQueued = false;
+    document.querySelectorAll("[data-reveal]:not(.is-visible)").forEach((el) => {
+      if (el.getBoundingClientRect().top < window.innerHeight) el.classList.add("is-visible");
+    });
+  });
+}, { passive: true });
 
 // Stats count up from 0 when they come into view.
 const counters = document.querySelectorAll("[data-count]");
