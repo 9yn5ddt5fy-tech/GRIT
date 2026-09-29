@@ -6,7 +6,7 @@ Figma дизайн (Desktop 10–13)-ийн агуулгыг [Stoic](https://aca
 
 | Файл | Figma frame | Агуулга |
 |---|---|---|
-| `index.html` | Desktop 10 | Нүүр: hero, Where we work (газрын зураг), зургууд, Projects, Podcast, Team, Contact |
+| `index.html` | Desktop 10 | Нүүр: hero, тоонууд, Where we work, зургууд, Projects, Student success, Podcast, Speakers, Team, Contact |
 | `edu.html` | Desktop 11 | GRIT - EDU төслийн хуудас |
 | `environment.html` | Desktop 12 | GRIT - ENVIRONMENT төслийн хуудас |
 | `member.html` | Desktop 13 | Багийн гишүүний намтар |
@@ -44,6 +44,9 @@ GitHub дээр: `assets/img` → **Add file → Upload files**. Файлын н
 | `member-portrait.png` | Гишүүний хуудасны хөрөг | 680×840 (босоо) |
 | `member-photo-a.png`, `member-photo-b.png` | Гишүүний хуудасны зургууд | 600×760 |
 | `edu-chart.png`, `env-chart.png` | Impact график | 1420×574 |
+| `success-1.jpg` … `success-4.jpg` | Student success хэсгийн сурагчид | 900 өргөн (босоо) |
+
+Speakers хэсэгт одоогоор зургийн оронд дүрс байна. Зураг нэмэхдээ `index.html` доторх `speaker__photo` доторх `<svg>`-г `<img src="assets/img/speaker-1.jpg" alt="">`-ээр солино.
 
 Өөр өргөтгөлтэй (жишээ нь `.png`-ийн оронд `.jpg`) файл оруулбал HTML дотор нэрийг нь солих хэрэгтэй. Эсвэл надад хэлээрэй.
 
