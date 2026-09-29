@@ -604,10 +604,15 @@ p {
   font-size: 14px;
   font-weight: 600;
 }
-.success__where {
-  margin-top: 8px;
-  font-size: 18px;
+.success__name {
+  margin-bottom: 8px;
+  font-size: 20px;
   font-weight: 600;
+}
+.success__where {
+  margin-top: 6px;
+  color: var(--muted);
+  font-size: 16px;
 }
 
 /* Speakers */
@@ -1057,8 +1062,11 @@ img.img-missing {
     grid-template-columns: 1fr 1fr;
     gap: 28px 16px;
   }
+  .success__name {
+    font-size: 17px;
+  }
   .success__where {
-    font-size: 16px;
+    font-size: 14px;
   }
   .success__award {
     font-size: 12px;
