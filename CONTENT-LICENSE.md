@@ -1,6 +1,6 @@
 # Content license
 
-The MIT License above covers the website's source code only: the HTML, CSS
+The MIT License in LICENSE covers the website's source code only: the HTML, CSS
 and JavaScript files (*.html, css/, js/).
 
 It does NOT cover the content, which is licensed separately:
