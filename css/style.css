@@ -2377,3 +2377,10 @@ a.pub:hover {
 .speakers {
   justify-content: start;
 }
+
+.speaker__school--text {
+  width: auto;
+  padding: 0 10px;
+  font: 800 12px/1 var(--font-sans);
+  letter-spacing: 0.06em;
+}
