@@ -2342,7 +2342,6 @@ a.pub:hover {
 .cert::after,
 .podcast__image:not(.podcast__soon)::after,
 .speaker__photo::after,
-.hero::after,
 .project::before {
   content: "© GRIT";
   position: absolute;
@@ -2361,10 +2360,6 @@ a.pub:hover {
   top: 12px;
   right: 12px;
   bottom: auto;
-}
-.hero::after {
-  right: 16px;
-  bottom: 16px;
 }
 .podcast__image:not(.podcast__soon)::after {
   bottom: auto;

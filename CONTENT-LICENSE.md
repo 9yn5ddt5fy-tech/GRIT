@@ -18,3 +18,7 @@ It does NOT cover the content, which is licensed separately:
 
 js/vendor/page-flip.browser.js is a third-party library (StPageFlip by
 Nodlik) distributed under its own MIT License.
+
+Exception: the landscape cover photo on the home page (assets/img/hero.jpg,
+also used in assets/img/share.jpg) is by Ariungoo, from Unsplash, used under
+the Unsplash License (https://unsplash.com/license). It is not © GRIT.
