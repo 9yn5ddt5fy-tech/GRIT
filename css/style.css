@@ -2302,3 +2302,68 @@ a.pub:hover {
 .site-footer a {
   text-decoration: underline;
 }
+
+/* © notice in the corner of every photo */
+.photo,
+.member__photo,
+.success__photo,
+.album__item,
+.flow__photo,
+.project,
+.page-hero__image,
+.scholar__photo,
+.cert,
+.podcast__image:not(.podcast__soon),
+.hero {
+  position: relative;
+}
+.photo::after,
+.member__photo::after,
+.success__photo::after,
+.album__item::after,
+.flow__photo::after,
+.page-hero__image::after,
+.scholar__photo::after,
+.cert::after,
+.podcast__image:not(.podcast__soon)::after,
+.speaker__photo::after,
+.hero::after,
+.project::before {
+  content: "© GRIT";
+  position: absolute;
+  right: 8px;
+  bottom: 8px;
+  z-index: 3;
+  padding: 2px 7px;
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.45);
+  color: rgba(255, 255, 255, 0.92);
+  font: 500 11px/1.4 var(--font-sans);
+  letter-spacing: 0.02em;
+  pointer-events: none;
+}
+.project::before {
+  top: 12px;
+  right: 12px;
+  bottom: auto;
+}
+.hero::after {
+  right: 16px;
+  bottom: 16px;
+}
+.podcast__image:not(.podcast__soon)::after {
+  bottom: auto;
+  top: 8px;
+}
+.speaker__photo {
+  position: relative;
+}
+.speaker__photo::after {
+  right: 50%;
+  bottom: 10px;
+  transform: translateX(50%);
+  font-size: 10px;
+}
+.speakers {
+  justify-content: start;
+}

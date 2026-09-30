@@ -251,7 +251,7 @@ const openLightbox = (() => {
     img.classList.remove("img-missing");
     img.src = list[index].src;
     img.alt = list[index].alt;
-    caption.textContent = `${list[index].alt ? list[index].alt + " · " : ""}${index + 1} / ${list.length}`;
+    caption.textContent = `${list[index].alt ? list[index].alt + " · " : ""}${index + 1} / ${list.length} · © GRIT, all rights reserved`;
   };
   const close = () => {
     box.hidden = true;
