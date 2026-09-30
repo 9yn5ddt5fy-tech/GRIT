@@ -63,4 +63,6 @@ Speakers хэсэгт одоогоор зургийн оронд дүрс бай
 
 ## License
 
-Сайтын код (HTML, CSS, JavaScript) нь [MIT License](LICENSE)-тэй. Зураг, бичлэг, GRIT лого, тайлан болон хуудасны текст MIT-д хамаарахгүй — © GRIT, бүх эрх хуулиар хамгаалагдсан.
+- Код (HTML, CSS, JavaScript): [MIT License](LICENSE)
+- Тайлан, төлөвлөгөө, судалгаа: [CC BY-NC-ND 4.0](https://creativecommons.org/licenses/by-nc-nd/4.0/)
+- Зураг, бичлэг, GRIT лого, хуудасны текст: © GRIT, бүх эрх хуулиар хамгаалагдсан

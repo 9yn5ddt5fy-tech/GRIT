@@ -2291,3 +2291,14 @@ a.pub:hover {
     gap: 8px;
   }
 }
+
+.book__license {
+  margin-top: 6px;
+  text-align: center;
+  font-size: 13px;
+  color: var(--muted);
+}
+.book__license a,
+.site-footer a {
+  text-decoration: underline;
+}
