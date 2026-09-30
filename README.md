@@ -66,3 +66,5 @@ Speakers хэсэгт одоогоор зургийн оронд дүрс бай
 - Код (HTML, CSS, JavaScript): [MIT License](LICENSE)
 - Тайлан, төлөвлөгөө, судалгаа: [CC BY-NC-ND 4.0](https://creativecommons.org/licenses/by-nc-nd/4.0/)
 - Зураг, бичлэг, GRIT лого, хуудасны текст: © GRIT, бүх эрх хуулиар хамгаалагдсан
+
+Дэлгэрэнгүй: [LICENSE](LICENSE) (код), [CONTENT-LICENSE.md](CONTENT-LICENSE.md) (контент).
