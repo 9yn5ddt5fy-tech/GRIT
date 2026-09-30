@@ -2421,3 +2421,8 @@ a.pub:hover {
 @media (prefers-reduced-motion: reduce) {
   .speaker:hover .speaker__photo, .speaker:hover .speaker__photo > img { transform: none; }
 }
+
+@media (max-width: 640px) {
+  .speaker__school { top: 8px; right: 8px; width: 40px; height: 40px; border-radius: 9px; }
+  .speaker__school img { height: 30px; }
+}
