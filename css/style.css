@@ -2877,3 +2877,37 @@ body {
 :root:not([data-theme="dark"]) .famous__dot.is-active { background: var(--accent); }
 :root:not([data-theme="dark"]) .famous__arrow { border-color: var(--line); background: #fff; color: var(--ink); }
 :root:not([data-theme="dark"]) .famous__arrow:hover { background: var(--tint-gray); }
+
+/* Program photos: tinted frame around the photo row */
+.photo-band {
+  position: relative;
+  padding: 28px 0 32px;
+  border: 1px solid var(--accent-soft);
+  border-radius: 20px;
+  overflow: hidden;
+  background:
+    radial-gradient(60% 120% at 0% 0%, rgba(156,197,164,0.35), transparent 60%),
+    radial-gradient(50% 120% at 100% 100%, rgba(47,93,58,0.14), transparent 60%),
+    var(--tint);
+}
+.photo-band__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 16px;
+  padding: 0 32px 22px;
+}
+.photo-band .eyebrow { color: var(--accent); }
+.photo-band__note { font-size: 13px; color: var(--muted); }
+.photo-band .marquee { padding: 0 0 0 0; }
+.photo-band .photo img { border-radius: 14px; }
+[data-theme="dark"] .photo-band {
+  background:
+    radial-gradient(60% 120% at 0% 0%, rgba(156,197,164,0.16), transparent 60%),
+    radial-gradient(50% 120% at 100% 100%, rgba(47,93,58,0.25), transparent 60%),
+    #0f1411;
+}
+@media (max-width: 640px) {
+  .photo-band { padding: 20px 0 22px; border-radius: 16px; }
+  .photo-band__head { padding: 0 18px 16px; flex-direction: column; gap: 4px; }
+}
