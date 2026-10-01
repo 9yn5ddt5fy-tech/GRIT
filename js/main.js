@@ -218,7 +218,8 @@ document.querySelectorAll("tr[data-href]").forEach((row) => {
 
 function countUp(el) {
   const target = Number(el.dataset.count);
-  const suffix = el.dataset.suffix || "";
+  let suffix = el.dataset.suffix || "";
+  if (document.documentElement.getAttribute("data-lang") === "mn") suffix = suffix.replace("km", "км");
   const duration = 1400;
   const start = performance.now();
   const tick = (now) => {

@@ -3114,3 +3114,24 @@ tr[data-href]:hover a { color: var(--accent); text-decoration-color: currentColo
   .speakers-row .speaker { width: 220px; }
   .speakers-row .speaker__photo { height: 275px; }
 }
+
+/* Mongolian: Cyrillic-friendly serif for quotes */
+[data-lang="mn"] { --font-serif: "PT Serif", Georgia, "Times New Roman", serif; }
+/* Mongolian nav labels are longer: keep them clear of the header buttons */
+[data-lang="mn"] .nav { gap: 24px; }
+@media (min-width: 1181px) and (max-width: 1360px) {
+  [data-lang="mn"] .nav { position: static; transform: none; margin: 0 auto; gap: 16px; }
+  [data-lang="mn"] .nav a { font-size: 14px; white-space: nowrap; }
+}
+/* Below 1180px the Mongolian menu folds into the burger, like on phones */
+@media (min-width: 901px) and (max-width: 1180px) {
+  [data-lang="mn"] .nav-toggle { display: block; }
+  [data-lang="mn"] .header-actions { margin-left: auto; margin-right: 16px; }
+  [data-lang="mn"] .nav {
+    position: absolute; top: 100%; left: 0; right: 0; transform: none;
+    flex-direction: column; align-items: stretch; gap: 0;
+    background: var(--bg); border-bottom: 1px solid var(--line); display: none;
+  }
+  [data-lang="mn"] .nav.is-open { display: flex; }
+  [data-lang="mn"] .nav a { padding: 14px 24px; border-top: 1px solid var(--line); color: var(--ink); }
+}

@@ -5,7 +5,7 @@
 const MN = {
   // Navigation, buttons, footer
   "Home": "Нүүр",
-  "Where we work": "Хаана ажилладаг вэ",
+  "Where we work": "Бидний ажилладаг газар",
   "Success": "Амжилт",
   "Team": "Баг",
   "Coming soon": "Тун удахгүй",
@@ -20,15 +20,15 @@ const MN = {
   "© 2026 GRIT · Grow. Reach. Inspire. Teach.": "© 2026 GRIT · Grow. Reach. Inspire. Teach.",
 
   // Home: hero, statement, numbers
-  "Opening the world to students from rural Mongolia.": "Хөдөө орон нутгийн сурагчдад дэлхийн боломжийг нээж өгнө.",
-  "Why we exist": "Бид яагаад ажилладаг вэ",
-  "We work in the soums of central Mongolia, where the nearest university is": "Бид Монголын төвийн сумдад ажилладаг. Тэндээс хамгийн ойрын их сургууль хүртэл",
-  "a day's drive away": "бүтэн өдрийн зам",
-  "and scholarship information rarely reaches students.": "бөгөөд тэтгэлгийн мэдээлэл сурагчдад бараг хүрдэггүй.",
+  "Opening the world to students from rural Mongolia.": "Орон нутгийн сурагчдад дэлхийн боломжийн үүдийг нээнэ.",
+  "Why we exist": "Бидний зорилго",
+  "We work in the soums of central Mongolia, where the nearest university is": "Бид Монголын төв бүсийн сумдад ажилладаг. Тэндээс хамгийн ойрын их сургууль",
+  "a day's drive away": "бүтэн өдрийн замд оршдог",
+  "and scholarship information rarely reaches students.": "бөгөөд тэтгэлгийн мэдээлэл сурагчдад төдийлөн хүрдэггүй.",
   "Students": "Сурагч",
-  "Weeks on the ground": "Долоо хоног газар дээр нь",
-  "Teachers and volunteers": "Багш, сайн дурын ажилтан",
-  "Distance we travel": "Туулсан зам",
+  "Weeks on the ground": "Долоо хоног орон нутагт",
+  "Teachers and volunteers": "Багш, сайн дурынхан",
+  "Distance we travel": "Бидний туулдаг зам",
 
   // Home: where we work
   "UGIINUUR SOUM": "ӨГИЙНУУР СУМ",
@@ -41,14 +41,14 @@ const MN = {
   "Completed": "Хэрэгжсэн",
   "First program, 2025 · 20 students, four weeks, a team of seven.": "Анхны хөтөлбөр, 2025 · 20 сурагч, 4 долоо хоног, 7 хүний баг.",
   "Kharkhorin, Uvurkhangai": "Хархорин, Өвөрхангай",
-  "In preparation": "Бэлтгэл хийгдэж байна",
+  "In preparation": "Бэлтгэл үе шатанд",
   "Second program, 2027 · A 21-day residential summer camp for 30 students from Arvaikheer, Kharkhorin and Khujirt.":
-    "Хоёр дахь хөтөлбөр, 2027 · Арвайхээр, Хархорин, Хужирт сумын 30 сурагчид зориулсан 21 хоногийн зуслан.",
+    "Хоёр дахь хөтөлбөр, 2027 · Арвайхээр, Хархорин, Хужиртын 30 сурагчид зориулсан 21 хоногийн зуны лагерь.",
 
   // Home: projects
   "Projects": "Төслүүд",
-  "Scholarships and learning for rural students.": "Хөдөөгийн сурагчдад зориулсан тэтгэлэг, сургалт.",
-  "Protecting Ugii Lake and the steppe.": "Өгий нуур болон тал нутгаа хамгаалъя.",
+  "Scholarships and learning for rural students.": "Орон нутгийн сурагчдад тэтгэлэг, боловсролын боломж.",
+  "Protecting Ugii Lake and the steppe.": "Өгий нуур, тал хээрээ хамгаалъя.",
 
   // Home: student success
   "Student success": "Сурагчдын амжилт",
@@ -65,7 +65,7 @@ const MN = {
   // Home: podcast, speakers, team
   "Podcast": "Подкаст",
   "A day at GRIT EDU": "GRIT EDU-гийн нэг өдөр",
-  "How we spent a day in Ugiinuur": "Өгийнуурт нэг өдрийг хэрхэн өнгөрүүлсэн бэ",
+  "How we spent a day in Ugiinuur": "Өгийнуурт өнгөрүүлсэн нэгэн өдөр",
   "Speakers": "Илтгэгчид",
   "Speaker name": "Илтгэгчийн нэр",
   "Title, organization": "Албан тушаал, байгууллага",
@@ -79,14 +79,14 @@ const MN = {
   "G. Batzorigt": "Г. Батзориг",
   "B. Nomin": "Б. Номин",
   "J. Namuun": "Ж. Намуун",
-  "Founder of GRIT": "GRIT-ийг үүсгэн байгуулагч",
+  "Founder of GRIT": "GRIT-ийн үүсгэн байгуулагч",
   "Graphic Designer, GRIT EDU program": "График дизайнер, GRIT EDU хөтөлбөр",
   "Teacher, GRIT EDU program": "Багш, GRIT EDU хөтөлбөр",
   "Manager, GRIT EDU program": "Менежер, GRIT EDU хөтөлбөр",
 
   // Contact
   "Have a question, want to volunteer, or support our work? Write to us — we would love to hear from you.":
-    "Өнөөдрөөс эхлээрэй. Бидэнтэй холбогдож, хөдөөгийн сурагчдад хэрхэн туслах талаар ярилцъя.",
+    "Асуух зүйл байна уу, сайн дурын ажилтнаар ажиллах эсвэл бидний үйл ажиллагааг дэмжихийг хүсэж байна уу? Бидэнд бичээрэй — тантай холбогдоход таатай байх болно.",
   "Email": "Имэйл",
   "Phone": "Утас",
   "Name *": "Нэр *",
@@ -94,7 +94,7 @@ const MN = {
   "Message *": "Зурвас *",
   "Your name": "Таны нэр",
   "Tell us about yourself…": "Өөрийнхөө тухай бичээрэй…",
-  "Send message": "Илгээх",
+  "Send message": "Зурвас илгээх",
 
   // EDU page
   "GRIT project": "GRIT төсөл",
@@ -102,7 +102,7 @@ const MN = {
   "In June 2025, GRIT EDU ran its first education program in Ugiinuur soum, Arkhangai province. One year later we surveyed the graduates to measure its results and its long-term impact.":
     "2025 оны 6-р сард GRIT EDU Архангай аймгийн Өгийнуур суманд анхны боловсролын хөтөлбөрөө хэрэгжүүлсэн. Нэг жилийн дараа төгсөгчдөөс судалгаа авч, үр дүн болон урт хугацааны нөлөөг нь хэмжлээ.",
   "This page shares the key findings, the students' own feedback, and the evidence behind our next step — expanding to a summer camp in Kharkhorin.":
-    "Энэ хуудсанд гол үр дүн, сурагчдын өөрсдийн санал болон дараагийн алхам болох Хархорин дахь зуслангийн хөтөлбөрийн үндэслэлийг хүргэж байна.",
+    "Энэ хуудсанд гол үр дүн, сурагчдын өөрсдийн санал, мөн дараагийн алхам болох Хархорин дахь зуны лагерийн үндэслэлийг хүргэж байна.",
   "Students took part": "Сурагч хамрагдсан",
   "Would recommend it to a friend": "Найздаа санал болгоно",
   "Will join the next camp": "Дараагийн зусланд оролцоно",
@@ -119,51 +119,51 @@ const MN = {
   "Format": "Хэлбэр",
   "Learning centre · day program": "Сургалтын төв · өдрийн хөтөлбөр",
   "20 · grades 7–11": "20 · 7–11-р анги",
-  "Focus": "Хичээлийн чиглэл",
+  "Focus": "Гол чиглэл",
   "English (grammar, speaking, listening, reading, writing) · University applications · Advice from students studying abroad · Cognitive and teamwork workshops · Games and competitions · Information on 28 countries":
-    "Англи хэл (дүрэм, ярих, сонсох, унших, бичих) · Их сургуулийн өргөдлийн үйл явц · Гадаадад суралцаж буй оюутнуудын зөвлөгөө · Танин мэдэхүй, багаар ажиллах workshop · Зорилготой тоглоом, тэмцээн · 28 улсын мэдээлэл",
+    "Англи хэл (дүрэм, ярих, сонсох, унших, бичих) · Их сургуульд өргөдөл гаргах · Гадаадад суралцаж буй оюутнуудын зөвлөгөө · Сэтгэн бодох чадвар, багаар ажиллах семинар · Тоглоом, тэмцээн · 28 улсын мэдээлэл",
   "7 people": "7 хүн",
-  "Sponsors & partners": "Спонсор, түнш",
+  "Sponsors & partners": "Ивээн тэтгэгч, хамтрагч",
   "Stoic · Absolute School of English": "Stoic · Absolute School of English",
   "The team": "Баг",
   "A core team of seven ran the program: students and graduates studying abroad, a cook, a designer and a manager. With limited resources they covered everything from lessons and meals to content and safety.":
-    "Хөтөлбөрийг 7 хүний үндсэн баг хэрэгжүүлсэн: гадаадад суралцаж буй оюутан, төгсөгчид, тогооч, дизайнер, менежер. Хязгаарлагдмал нөөцөөр хичээл, хоолноос эхлээд контент, аюулгүй байдал хүртэл бүгдийг хариуцсан.",
+    "Хөтөлбөрийг долоон хүний үндсэн баг хэрэгжүүлсэн. Тэдний дунд гадаадад суралцаж буй оюутан, төгсөгчид, тогооч, дизайнер, менежер бий. Хязгаарлагдмал нөөцтэй ч хичээл, хоолноос эхлээд контент, аюулгүй байдал хүртэл бүгдийг хариуцан ажилласан.",
   "Name": "Нэр",
   "Role": "Үүрэг",
   "Responsible for": "Хариуцсан ажил",
-  "Founder of GRIT, program lead": "GRIT-ийг үүсгэн байгуулагч, хөтөлбөрийн удирдагч",
-  "Finance, organization, university application classes": "Санхүү, зохион байгуулалт, их сургуулийн өргөдлийн хичээл",
+  "Founder of GRIT, program lead": "GRIT-ийн үүсгэн байгуулагч, хөтөлбөрийн удирдагч",
+  "Finance, organization, university application classes": "Санхүү, зохион байгуулалт, их сургуульд өргөдөл гаргах хичээл",
   "English teacher": "Англи хэлний багш",
-  "English, cooking": "Англи хэл, хоол",
+  "English, cooking": "Англи хэл, хоол хүнс",
   "Teacher": "Багш",
-  "University applications, country information": "Их сургуулийн өргөдөл, улс орны мэдээлэл",
-  "English, country information": "Англи хэл, улс орны мэдээлэл",
+  "University applications, country information": "Их сургуульд өргөдөл гаргах, улс орнуудын мэдээлэл",
+  "English, country information": "Англи хэл, улс орнуудын мэдээлэл",
   "Program manager": "Хөтөлбөрийн менежер",
-  "Organization, country information": "Зохион байгуулалт, улс орны мэдээлэл",
+  "Organization, country information": "Зохион байгуулалт, улс орнуудын мэдээлэл",
   "Designer": "Дизайнер",
   "Content": "Контент",
   "What students learned": "Сурагчид юу сурсан бэ",
-  "Over four weeks, students joined five tracks of lessons and activities every day.": "Дөрвөн долоо хоногийн турш сурагчид өдөр бүр 5 чиглэлийн хичээл, үйл ажиллагаанд хамрагдсан.",
-  "Speech series": "Speech цуврал",
+  "Over four weeks, students joined five tracks of lessons and activities every day.": "Дөрвөн долоо хоногийн турш сурагчид өдөр бүр таван чиглэлийн хичээл, үйл ажиллагаанд хамрагдсан.",
+  "Speech series": "Илтгэлийн цуврал",
   "15+ talks by students and graduates studying abroad — Harvard, Yonsei, Vanderbilt, universities in Japan and Taiwan, the National University of Mongolia and more.":
-    "Гадаадад суралцаж буй болон төгссөн ах эгч нарын 15+ илтгэл — Harvard, Yonsei, Vanderbilt, Япон, Тайваний их сургуулиуд, МУИС зэрэг.",
+    "Гадаадад суралцаж буй оюутан, төгсөгчдийн 15 гаруй илтгэл — Харвард, Ёнсэй, Вандербилт, Япон, Тайваний их сургуулиуд, МУИС болон бусад.",
   "English grammar": "Англи хэлний дүрэм",
-  "Workshops": "Workshop",
-  "University applications": "Их сургуулийн өргөдөл",
+  "Workshops": "Семинар",
+  "University applications": "Их сургуульд өргөдөл гаргах",
   "Studying abroad": "Гадаадад суралцах",
   "Universities and scholarships in 24 countries, including the Netherlands, Taiwan, Korea, Japan, Hong Kong, Singapore, Poland, Czechia, Canada, Turkey, China, Malaysia and the USA.":
-    "Нидерланд, Тайвань, Солонгос, Япон, Хонг Конг, Сингапур, Польш, Чех, Канад, Турк, Хятад, Малайз, АНУ зэрэг 24 улсын их сургууль, тэтгэлгийн мэдээлэл.",
+    "Нидерланд, Тайвань, Солонгос, Япон, Хонконг, Сингапур, Польш, Чех, Канад, Турк, Хятад, Малайз, АНУ зэрэг 24 орны их сургууль, тэтгэлгийн мэдээлэл.",
   "Impact, one year later": "Нэг жилийн дараах үр нөлөө",
   "In April 2026 we ran an online survey of the graduates: 16 of 20 students responded (an 80% response rate). The 16 questions covered their English level before and after, lesson quality, the concrete steps they have taken since, and how their plans for the future have changed. Because it was taken about a year after the program, it shows long-term impact.":
-    "2026 оны 4-р сард төгсөгчдөөс онлайн судалгаа авсан: 20 сурагчаас 16 нь хариулсан (80%). 16 асуулт нь англи хэлний өмнөх болон одоогийн түвшин, хичээлийн чанар, түүнээс хойш хийсэн бодит алхам, ирээдүйн төлөвлөгөөний өөрчлөлтийг хамарсан. Хөтөлбөрөөс хойш бараг нэг жилийн дараа авсан тул урт хугацааны нөлөөг харуулж байна.",
-  "Changed “a lot” since the program": "Хөтөлбөрөөс хойш “их өөрчлөгдсөн”",
-  "Respondents who answered “changed a lot”": "“Их өөрчлөгдсөн” гэж хариулсан",
+    "2026 оны 4-р сард төгсөгчдөөс цахим судалгаа авахад 20 сурагчаас 16 нь хариулсан (хариултын хувь 80%). Судалгааны 16 асуулт англи хэлний өмнөх болон одоогийн түвшин, хичээлийн чанар, хөтөлбөрөөс хойш хийсэн бодит алхам, ирээдүйн төлөвлөгөөний өөрчлөлтийг хамарсан. Судалгааг хөтөлбөрөөс бараг нэг жилийн дараа авсан тул урт хугацааны үр нөлөөг харуулж байна.",
+  "Changed “a lot” since the program": "Хөтөлбөрийн дараа “эрс өөрчлөгдсөн” зүйлс",
+  "Respondents who answered “changed a lot”": "“Эрс өөрчлөгдсөн” гэж хариулсан хүний тоо",
   "Interest in studying abroad": "Гадаадад суралцах сонирхол",
   "Confidence speaking English": "Англиар ярих итгэл",
   "Understanding of a future career": "Ирээдүйн мэргэжлийн тухай ойлголт",
   "Confidence to express themselves": "Өөрийгөө илэрхийлэх итгэл",
   "English skills that improved": "Сайжирсан англи хэлний ур чадвар",
-  "Respondents who marked each skill (multiple choice)": "Ур чадвар бүрийг сонгосон хүний тоо (олон сонголттой)",
+  "Respondents who marked each skill (multiple choice)": "Ур чадвар тус бүрийг сонгосон хүний тоо (олон сонголттой)",
   "Grammar": "Дүрэм",
   "Reading": "Унших",
   "Listening": "Сонсох",
@@ -175,21 +175,21 @@ const MN = {
   "Elementary — understood simple sentences": "Бага — энгийн өгүүлбэр ойлгодог",
   "Intermediate — understood simple conversation": "Дунд — энгийн яриа ойлгодог",
   "94% started at beginner or elementary level — the program truly reached beginners.": "94% нь анхан болон бага түвшнээс эхэлсэн — хөтөлбөр үнэхээр эхлэн суралцагчдад хүрсэн.",
-  "Lessons rated “very helpful”": "“Маш хэрэгтэй” гэж үнэлэгдсэн хичээл",
-  "Each activity rated from 1 to 5": "Үйл ажиллагаа бүрийг 1–5 оноогоор үнэлсэн",
-  "Cognitive and teamwork workshops": "Танин мэдэхүй, багаар ажиллах workshop",
+  "Lessons rated “very helpful”": "“Маш хэрэгтэй” гэж үнэлсэн хичээл",
+  "Each activity rated from 1 to 5": "Үйл ажиллагаа бүрийг 1-5 оноогоор үнэлсэн",
+  "Cognitive and teamwork workshops": "Сэтгэн бодох чадвар, багаар ажиллах семинар",
   "University admissions information": "Их сургуулийн элсэлтийн мэдээлэл",
   "Advice from students studying abroad": "Гадаадад суралцаж буй оюутнуудын зөвлөгөө",
   "English lessons": "Англи хэлний хичээл",
   "Games and competitions": "Тоглоом, тэмцээн",
-  "Teaching methods": "Заах арга",
+  "Teaching methods": "Заах арга зүй",
   "How clearly teachers explained": "Багш нар хэр ойлгомжтой тайлбарласан бэ",
   "Very good — everyone understood": "Маш сайн — бүгд ойлгосон",
   "Mostly good": "Ихэнхдээ сайн",
   "Average": "Дунд зэрэг",
   "No graduate rated the teaching negatively. Asked “What was missing?”, most answered “nothing”.":
     "Нэг ч төгсөгч заах аргыг сөрөг үнэлээгүй. “Юу дутуу байсан бэ?” гэхэд ихэнх нь “юу ч үгүй” гэж хариулсан.",
-  "Respondents by grade": "Анги тус бүрээр",
+  "Respondents by grade": "Оролцогчид ангиар",
   "Grade in April 2026": "2026 оны 4-р сарын байдлаар",
   "Grade 9": "9-р анги",
   "Grade 10": "10-р анги",
@@ -215,37 +215,37 @@ const MN = {
   "“I now have real, active goals in life.”": "“Одоо амьдралд бодит, идэвхтэй зорилготой болсон.”",
   "— Naransolonsho · Grade 9": "— Нарансолонго · 9-р анги",
   "Challenges and lessons": "Бэрхшээл ба сургамж",
-  "What we heard": "Бидний сонссон зүйл",
-  "Transport and timing": "Тээвэр, цаг хугацаа",
+  "What we heard": "Сурагчдын санал",
+  "Transport and timing": "Тээвэр, цагийн хуваарь",
   "A few students found getting there inconvenient or difficult.": "Цөөн сурагчид ирж очих нь тохиромжгүй, хүндрэлтэй байсан.",
-  "Clarity of speech": "Ярианы ойлгомж",
+  "Clarity of speech": "Ярианы тодорхой байдал",
   "One student felt some teachers “could have spoken a bit more clearly”.": "Нэг сурагч зарим багш “арай илүү ойлгомжтой ярьж болох байсан” гэсэн.",
-  "Missed lessons": "Хоцорсон хичээл",
+  "Missed lessons": "Тасалсан хичээл",
   "One student mentioned they “couldn't attend every lesson”.": "Нэг сурагч “бүх хичээлд суух боломжгүй байсан” гэж дурдсан.",
   "Games vs. learning": "Тоглоом ба хичээл",
   "One student suggested there should be “fewer games”.": "Нэг сурагч “тоглоом арай цөөн байх” санал өгсөн.",
-  "What we'll do in 2027": "2027 онд юу хийх вэ",
-  "Move to a residential camp (overnight, 21 days) to remove transport problems completely.": "Тээврийн асуудлыг бүрэн арилгахын тулд хоноглох зуслан (21 хоног) болгоно.",
+  "What we'll do in 2027": "2027 онд хэрэгжүүлэх өөрчлөлт",
+  "Move to a residential camp (overnight, 21 days) to remove transport problems completely.": "Тээврийн асуудлыг бүрэн шийдэхийн тулд хоноглох хэлбэрийн 21 хоногийн лагерь болгоно.",
   "Make communication skills — speaking clearly and understandably — a key criterion when selecting teachers.": "Багш сонгохдоо тод, ойлгомжтой ярих харилцааны ур чадварыг гол шалгуур болгоно.",
   "Set the lesson-to-game ratio at 70:30, with games built around the lesson goals.": "Хичээл, тоглоомын харьцааг 70:30 болгож, тоглоомыг хичээлийн зорилготой уялдуулна.",
   "Few students were at intermediate level, so we recommend A2+ as a selection criterion in 2027.": "Дунд түвшний сурагч цөөн байсан тул 2027 онд A2+ түвшнийг сонгон шалгаруулалтын шалгуур болгохыг зөвлөж байна.",
   "The one-year follow-up survey proved very valuable, so the 2027 program will have the same follow-up system.": "Нэг жилийн дараах судалгаа маш үр өгөөжтэй байсан тул 2027 оны хөтөлбөрт мөн адил тогтолцоо байна.",
   "Next step — Kharkhorin 2027": "Дараагийн алхам — Хархорин 2027",
   "The first program in Ugiinuur laid the foundation of the GRIT EDU model. In 2027 we move to a deeper, more sustainable format in Kharkhorin soum, Uvurkhangai province.":
-    "Өгийнуур дахь анхны хөтөлбөр GRIT EDU загварын суурийг тавьсан. 2027 онд Өвөрхангай аймгийн Хархорин суманд илүү гүнзгий, тогтвортой хэлбэрт шилжинэ.",
+    "Өгийнуур дахь анхны хөтөлбөр GRIT EDU загварын суурийг тавьсан. 2027 онд Өвөрхангай аймгийн Хархорин суманд илүү гүнзгий, тогтвортой хэлбэрээр үргэлжилнэ.",
   "2025 · Ugiinuur": "2025 · Өгийнуур",
   "Learning centre": "Сургалтын төв",
   "20 students · 4 weeks · day program": "20 сурагч · 4 долоо хоног · өдрийн хөтөлбөр",
   "2027 · Kharkhorin": "2027 · Хархорин",
-  "Summer camp": "Зуслан",
-  "30 students · 21 days · full board": "30 сурагч · 21 хоног · бүрэн хоол, байр",
-  "Next": "Дараагийнх",
+  "Summer camp": "Зуны лагерь",
+  "30 students · 21 days · full board": "30 сурагч · 21 хоног · хоол, байр бүрэн",
+  "Next": "Дараагийн шат",
   "2028+ · Expansion": "2028+ · Өргөжилт",
   "Nationwide": "Улсын хэмжээнд",
   "5+ provinces · 200+ students · a sustainable model": "5+ аймаг · 200+ сурагч · тогтвортой загвар",
-  "Planned": "Төлөвлөгдсөн",
+  "Planned": "Төлөвлөж буй",
   "Thank you": "Талархал",
-  "Main sponsor": "Ерөнхий спонсор",
+  "Main sponsor": "Ерөнхий ивээн тэтгэгч",
   "STOIC Ivekh Erdene LLC": "СТОИК Ивээх Эрдэнэ ХХК",
   "Advice, strategic support, funding": "Зөвлөгөө, стратегийн дэмжлэг, санхүүжилт",
   "English teaching rights, funding": "Англи хэл заах эрх, санхүүжилт",
@@ -255,7 +255,7 @@ const MN = {
     "Хамгийн гол нь энэ хөтөлбөрийг бодит болгосон багийн гишүүд, багш нар болон бүх сэтгэлээ зориулан оролцож, чин сэтгэлийн сэтгэгдлээ хуваалцсан 20 сурагчдаа баярлалаа. Та нарын үг, ахиц дэвшил бол дараагийн хөтөлбөрийг илүү сайн болгох хамгийн бат суурь юм.",
   "Bayarmagnai Usukhgerel · Founder of GRIT, GRIT EDU program lead": "Ө. Баярмагнай · GRIT-ийг үүсгэн байгуулагч, GRIT EDU хөтөлбөрийн удирдагч",
   "Report published April 2026 · 16 graduates responded · 80% response rate (of 20)": "Тайлан 2026 оны 4-р сард · 16 төгсөгч хариулсан · хариултын хувь 80% (20-оос)",
-  "Full report": "Нэгдсэн тайлан",
+  "Full report": "Тайлан бүтнээрээ",
   "GRIT EDU Arkhangai · Results report · 15 pages": "GRIT EDU Архангай · Үр дүнгийн тайлан · 15 хуудас",
   "← Prev": "← Өмнөх",
   "Next →": "Дараах →",
@@ -278,29 +278,29 @@ const MN = {
   "One year after the 2025 Ugiinuur program: survey of 16 graduates on English level, study plans and long-term impact.": "2025 оны Өгийнуурын хөтөлбөрөөс нэг жилийн дараа: 16 төгсөгчийн англи хэл, суралцах төлөвлөгөө, урт хугацааны нөлөөний судалгаа.",
   "GRIT EDU · April 2026 · 15 pages": "GRIT EDU · 2026 оны 4-р сар · 15 хуудас",
   "GRIT EDU Uvurkhangai: Program plan": "GRIT EDU Өвөрхангай: Хөтөлбөрийн төлөвлөгөө",
-  "The full plan for the 21-day summer camp for 30 students in Kharkhorin.": "Хархорин дахь 30 сурагчийн 21 хоногийн зуслангийн нэгдсэн төлөвлөгөө.",
+  "The full plan for the 21-day summer camp for 30 students in Kharkhorin.": "Хархорин дахь 30 сурагчийн 21 хоногийн зуны лагерийн бүрэн төлөвлөгөө.",
   "GRIT EDU · 22 pages": "GRIT EDU · 22 хуудас",
 
   // Plan page
   "GRIT EDU Kharkhorin": "GRIT EDU Хархорин",
-  "The full plan for our next program: a 21-day summer camp for 30 students in Kharkhorin, Uvurkhangai.": "Дараагийн хөтөлбөрийн нэгдсэн төлөвлөгөө: Өвөрхангайн Хархорин дахь 30 сурагчийн 21 хоногийн зуслан.",
+  "The full plan for our next program: a 21-day summer camp for 30 students in Kharkhorin, Uvurkhangai.": "Дараагийн хөтөлбөрийн бүрэн төлөвлөгөө: Өвөрхангай аймгийн Хархорин суманд 30 сурагчийн 21 хоногийн зуны лагерь.",
   "Program plan": "Хөтөлбөрийн төлөвлөгөө",
-  "GRIT EDU Uvurkhangai · Program plan · 22 pages": "GRIT EDU Өвөрхангай · Нэгдсэн төлөвлөгөө · 22 хуудас",
+  "GRIT EDU Uvurkhangai · Program plan · 22 pages": "GRIT EDU Өвөрхангай · Хөтөлбөрийн төлөвлөгөө · 22 хуудас",
 
   // Environment page
   "A community recycling program on the shore of Ugii Lake.": "Өгий нуурын эрэг дээрх олон нийтийн дахин боловсруулалтын хөтөлбөр.",
   "Why Ugii Lake": "Яагаад Өгий нуур вэ",
   "Ugii Lake in Arkhangai is one of Mongolia's protected freshwater lakes and a major summer tourism destination. Every summer, camps and resorts along its shore welcome visitors — and with them comes waste that has nowhere to go.":
-    "Архангай аймгийн Өгий нуур нь Монголын тусгай хамгаалалттай цэнгэг усны нуурын нэг бөгөөд зуны аялал жуулчлалын томоохон газар юм. Зун бүр эргийн дагуух бааз, амралтын газрууд зочдыг хүлээн авдаг — тэдэнтэй хамт очих газаргүй хог хаягдал ирдэг.",
+    "Архангай аймгийн Өгий нуур нь Монгол Улсын тусгай хамгаалалттай цэнгэг усны нууруудын нэг бөгөөд зуны аялал жуулчлалын томоохон төв юм. Зун бүр эргийн дагуух жуулчны бааз, амралтын газрууд олон зочин хүлээн авдаг ч тэдэнтэй хамт хаях газаргүй хог хаягдал ч ирдэг.",
   "GRIT Environment was founded to change that. We set up a community recycling program on the shore of the lake, working together with the local government, tourist camps and the school in Ugiinuur soum.":
-    "GRIT Environment үүнийг өөрчлөхийн тулд байгуулагдсан. Бид Өгийнуур сумын орон нутгийн засаг захиргаа, жуулчны баазууд, сургуультай хамтран нуурын эрэг дээр олон нийтийн дахин боловсруулалтын хөтөлбөр хэрэгжүүлсэн.",
+    "GRIT Environment үүнийг өөрчлөх зорилгоор байгуулагдсан. Бид Өгийнуур сумын Засаг даргын Тамгын газар, жуулчны баазууд, сургуультай хамтран нуурын эрэг дээр олон нийтийн оролцоотой дахин боловсруулалтын хөтөлбөр хэрэгжүүлсэн.",
   "The first season": "Эхний улирал",
-  "Raised in project funding": "Төслийн санхүүжилт босгосон",
-  "Tourist camps and resorts in a shared collection system": "Жуулчны бааз, амралтын газар нэгдсэн цуглуулалтын системд",
+  "Raised in project funding": "Төслийн санхүүжилт татсан",
+  "Tourist camps and resorts in a shared collection system": "Жуулчны бааз, амралтын газар нэгдсэн цуглуулалтын системд нэгдсэн",
   "Aluminium cans and plastic bottles collected and processed": "Хөнгөн цагаан лааз, хуванцар сав цуглуулж боловсруулсан",
   "Students trained in recycling and waste sorting": "Сурагч дахин боловсруулалт, хог ангиллын сургалтад хамрагдсан",
   "People on the project team": "Хүний бүрэлдэхүүнтэй төслийн баг",
-  "Hydraulic baling machine bought and run by the project": "Төслөөс худалдан авч ажиллуулсан гидравлик шахагч машин",
+  "Hydraulic baling machine bought and run by the project": "Төслийн хүрээнд худалдан авч ашигласан гидравлик шахагч",
   "From the shore to recycling": "Эргээс дахин боловсруулалт хүртэл",
   "How a can left at a tourist camp ends up back in use.": "Жуулчны баазад үлдсэн лааз хэрхэн дахин ашиглагддаг вэ.",
   "Collect": "Цуглуулах",
@@ -308,7 +308,7 @@ const MN = {
   "Sort": "Ангилах",
   "Aluminium cans and plastic bottles are separated from other waste and bagged.": "Хөнгөн цагаан лааз, хуванцар савыг бусад хогноос ялгаж шуудайлна.",
   "Bale": "Шахах",
-  "Our hydraulic baling machine presses them into compact, transport-ready bales.": "Гидравлик шахагч машинаар нягт, тээвэрлэхэд бэлэн боодол болгоно.",
+  "Our hydraulic baling machine presses them into compact, transport-ready bales.": "Гидравлик шахагчаар тээвэрлэхэд бэлэн, нягт боодол болгон шахна.",
   "Recycle": "Дахин боловсруулах",
   "The bales are delivered to recycling facilities instead of ending up in the steppe.": "Боодлуудыг тал нутагт хаягдуулахын оронд дахин боловсруулах үйлдвэрт хүргэнэ.",
   "What we did": "Бидний хийсэн ажил",
@@ -317,7 +317,7 @@ const MN = {
     "Сумын Засаг даргын Тамгын газартай түншлэл тогтоож, нуурын орчмын 17 жуулчны бааз, амралтын газрыг нэгдсэн цуглуулалтын системд хамруулсан.",
   "Collection and processing": "Цуглуулалт, боловсруулалт",
   "We bought and operated a hydraulic baling machine and, over one season, collected and processed more than 300 kg of aluminium cans and plastic bottles.":
-    "Гидравлик шахагч машин худалдан авч ажиллуулан, нэг улиралд 300 гаруй кг хөнгөн цагаан лааз, хуванцар сав цуглуулж боловсруулсан.",
+    "Гидравлик шахагч худалдан авч ажиллуулан, нэг улиралд 300 гаруй кг хөнгөн цагаан лааз, хуванцар сав цуглуулж боловсруулсан.",
   "Education": "Сургалт",
   "We ran recycling and waste-sorting workshops for 118 students at the local school and for staff at the Soum Governor's Office.":
     "Сумын сургуулийн 118 сурагч болон Засаг даргын Тамгын газрын ажилтнуудад дахин боловсруулалт, хог ангиллын сургалт хийсэн.",
@@ -342,6 +342,53 @@ const MN = {
   "Design and content": "Дизайн, контент",
   "Teaching": "Хичээл заах",
   "Program lead: finance, organization, university application classes": "Хөтөлбөрийн удирдагч: санхүү, зохион байгуулалт, их сургуулийн өргөдлийн хичээл",
+
+  // Added: home refresh, speakers, quotes, EDU details, footer
+  "12 photos": "12 зураг",
+  "© GRIT · Licensed under": "© GRIT · Лицензийн нөхцөл:",
+  "© 2026 GRIT · Grow. Reach. Inspire. Teach. · Photos © GRIT, all rights reserved · Reports": "© 2026 GRIT · Grow. Reach. Inspire. Teach. · Зургийн бүх эрх GRIT-д хамаарна · Тайлан",
+  "© 2026 GRIT · Grow. Reach. Inspire. Teach. · Photos © GRIT, all rights reserved (cover photo: Ariungoo / Unsplash) · Reports": "© 2026 GRIT · Grow. Reach. Inspire. Teach. · Зургийн бүх эрх GRIT-д хамаарна (нүүр зураг: Ariungoo / Unsplash) · Тайлан",
+  "· Code": "· Код",
+  "— share unchanged with credit, non-commercial use only.": "— эх сурвалжийг дурдаж, өөрчлөлтгүйгээр, зөвхөн ашгийн бус зорилгоор түгээж болно.",
+  "GRIT EDU · For educational equality": "GRIT EDU · Боловсролын тэгш боломжийн төлөө",
+  "Follow": "Дагах",
+  "GRIT EDU · Rural Mongolia": "GRIT EDU · Монголын орон нутаг",
+  "Words that inspire us": "Урам өгөх үгс",
+  "“Education is the most powerful weapon which you can use to change the world.”": "“Боловсрол бол дэлхийг өөрчлөхөд ашиглаж болох хамгийн хүчирхэг зэвсэг юм.”",
+  "Nelson Mandela": "Нельсон Мандела",
+  "“One child, one teacher, one book, one pen can change the world.”": "“Нэг хүүхэд, нэг багш, нэг ном, нэг үзэг дэлхийг өөрчилж чадна.”",
+  "Malala Yousafzai": "Малала Юсафзай",
+  "“Enthusiasm is common. Endurance is rare.”": "“Урам зориг түгээмэл. Тэсвэр тэвчээр ховор.”",
+  "Angela Duckworth,": "Анжела Дакворт,",
+  "“What you do makes a difference, and you have to decide what kind of difference you want to make.”": "“Таны хийж буй зүйл өөрчлөлт авчирдаг. Ямар өөрчлөлт авчрахаа та өөрөө шийднэ.”",
+  "Jane Goodall": "Жейн Гудолл",
+  "“If I have seen further, it is by standing on the shoulders of giants.”": "“Хэрэв би бусдаас илүү холыг харсан бол аваргуудын мөрөн дээр зогссоных юм.”",
+  "Isaac Newton": "Исаак Ньютон",
+  "Our programs": "Бидний хөтөлбөрүүд",
+  "Podcast #02": "Подкаст #02",
+  "Podcast #03": "Подкаст #03",
+  "Urangoo Shinedelger": "Ш. Урангоо",
+  "Garid Mendbayar": "М. Гарид",
+  "Bayarmaa Altankhishig": "А. Баярмаа",
+  "Anar Battogtokh": "Б. Анар",
+  "Tsolmon Baasantsogt": "Б. Цолмон",
+  "Tulga Bayarnyam": "Б. Тулга",
+  "Stanford University, Class of 2028": "Стэнфордын их сургууль, 2028 онд төгсөнө",
+  "Vanderbilt University, Class of 2027": "Вандербилтийн их сургууль, 2027 онд төгсөнө",
+  "Bocconi University, Class of 2023": "Бокконигийн их сургууль, 2023 оны төгсөгч",
+  "Cornell University, Class of 2029": "Корнеллийн их сургууль, 2029 онд төгсөнө",
+  "Yonsei University, Class of 2027": "Ёнсэй их сургууль, 2027 онд төгсөнө",
+  "Sungkyunkwan University, Class of 2030": "Сонгюнгван их сургууль, 2030 онд төгсөнө",
+  "Scholarships & certificates": "Тэтгэлэг ба гэрчилгээ",
+  "Full English course scholarships from Absolute School of English": "Absolute School of English-ээс англи хэлний сургалтын бүрэн тэтгэлэг",
+  "Our partner Absolute School of English awards three GRIT EDU students a 100% scholarship to continue studying English at its centre. The scholarships go to the students who showed the most effort and progress during the program.": "Манай хамтрагч Absolute School of English сургалтын төв GRIT EDU-гийн гурван сурагчид англи хэлээ үргэлжлүүлэн суралцах 100%-ийн тэтгэлэг олгож байна. Тэтгэлгийг хөтөлбөрийн хугацаанд хамгийн их хичээл зүтгэл гаргаж, ахиц гаргасан сурагчдад олгоно.",
+  "Every student who completed the program received a GRIT EDU certificate of completion.": "Хөтөлбөрийг амжилттай дүүргэсэн сурагч бүр GRIT EDU-гийн төгсөлтийн гэрчилгээ гардаж авсан.",
+  "See the program plan": "Хөтөлбөрийн төлөвлөгөө үзэх",
+  "Nouns · Articles (a/an/the) · Pronouns · Plural forms · Verb “to be” · Present simple / continuous · Past simple / continuous · Future tenses · Present perfect · Adjectives vs adverbs · Comparisons · Modal verbs · Infinitive vs gerund · Quantifiers · Prepositions": "Нэр үг · Артикль (a/an/the) · Төлөөний үг · Олон тоо · “to be” үйл үг · Одоо цагийн энгийн ба үргэлжилсэн хэлбэр · Өнгөрсөн цагийн энгийн ба үргэлжилсэн хэлбэр · Ирээдүй цаг · Present perfect · Тэмдэг нэр ба дайвар үг · Харьцуулах зэрэг · Модаль үйл үг · Infinitive ба gerund · Тоо хэмжээ заах үг · Угтвар үг",
+  "Mission, vision & values · MBTI test · Story chain · Silent line-up · “If I were a…” · Oobleck · CV builder · Ecosystem workshop · Managing productivity · Self-talk management · Quizzes and competitions": "Эрхэм зорилго, алсын хараа, үнэт зүйл · MBTI тест · Түүхийн гинж · Чимээгүй эгнээ · “Хэрэв би … байсан бол” · Oobleck туршилт · CV бэлтгэх · Экосистемийн семинар · Бүтээмжээ удирдах · Өөртэйгөө эерэгээр ярих · Асуулт хариулт, тэмцээн",
+  "Application process · Application platforms · Activities list · Common essay mistakes · Early decision vs early action vs regular · Demonstrating interest · Recommendation letters · College resume · Student loans · Financial aid · Final checklist · Personal statement structure · How admissions officers read applications · Finding and applying for scholarships": "Өргөдөл гаргах үйл явц · Өргөдлийн платформууд · Үйл ажиллагааны жагсаалт · Эссэд гаргадаг нийтлэг алдаа · Early decision, early action, regular-ийн ялгаа · Сонирхлоо илэрхийлэх · Зөвлөмж захидал · Коллежийн CV · Оюутны зээл · Санхүүгийн дэмжлэг · Эцсийн шалгах жагсаалт · Personal statement-ийн бүтэц · Элсэлтийн ажилтнууд өргөдлийг хэрхэн уншдаг вэ · Тэтгэлэг хайж, хүсэлт гаргах",
+  "300+ kg": "300+ кг",
+  "30M ₮": "30 сая ₮",
 };
 
 // Attribute translations (placeholders, button labels).
@@ -354,10 +401,23 @@ const MN_ATTR = {
   "Close": "Хаах",
   "Previous photo": "Өмнөх зураг",
   "Next photo": "Дараах зураг",
+  "GRIT home": "GRIT нүүр хуудас",
+  "GRIT on Instagram": "GRIT Instagram-д",
+  "GRIT in numbers": "GRIT тоогоор",
+  "Quotes that inspire us": "Урам өгөх ишлэлүүд",
+  "Quote 1": "Ишлэл 1",
+  "Quote 2": "Ишлэл 2",
+  "Quote 3": "Ишлэл 3",
+  "Quote 4": "Ишлэл 4",
+  "Map of Mongolia showing Ugiinuur, Kharkhorin, Khujirt and Arvaikheer soums": "Өгийнуур, Хархорин, Хужирт, Арвайхээрийг харуулсан Монголын газрын зураг",
+  "Program photos": "Хөтөлбөрийн зургууд",
+  "Open photo": "Зураг нээх",
+  "Scroll left": "Зүүн тийш гүйлгэх",
+  "Scroll right": "Баруун тийш гүйлгэх",
 };
 
-// Mongolian is turned off for now: set to true to show the МН/EN button again.
-const MN_ENABLED = false;
+// Set to false to hide the МН/EN button.
+const MN_ENABLED = true;
 
 (function () {
   const root = document.documentElement;
@@ -386,11 +446,24 @@ const MN_ENABLED = false;
       const trail = raw.match(/\s*$/)[0];
       node.nodeValue = lead + next + trail;
     });
-    const attrMap = lang === "mn" ? ALL_MN : ALL_EN;
-    document.querySelectorAll("[placeholder], [aria-label]").forEach((el) => {
+    // Attributes: keep the English original so switching back is exact.
+    document.querySelectorAll("[placeholder], [aria-label], [alt]").forEach((el) => {
       ["placeholder", "aria-label"].forEach((attr) => {
         const v = el.getAttribute(attr);
-        if (v && attrMap[v] !== undefined) el.setAttribute(attr, attrMap[v]);
+        if (!v) return;
+        const store = "data-en-" + attr;
+        if (lang === "mn") {
+          const en = el.getAttribute(store) || v;
+          let mn = ALL_MN[en];
+          if (mn === undefined && en.startsWith("Open photo")) mn = ALL_MN["Open photo"];
+          if (mn === undefined) return;
+          el.setAttribute(store, en);
+          el.setAttribute(attr, mn);
+        } else if (el.hasAttribute(store)) {
+          el.setAttribute(attr, el.getAttribute(store));
+        } else if (ALL_EN[v] !== undefined) {
+          el.setAttribute(attr, ALL_EN[v]);
+        }
       });
     });
   }
