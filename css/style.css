@@ -3092,7 +3092,7 @@ body {
 #success .marquee, #team .marquee { padding: 28px 0 36px; }
 .speakers { padding: 28px 4px 36px; }
 @media (max-width: 640px) {
-  .speakers { padding: 24px 16px 32px; }
+  .speakers { padding: 24px 0 32px; }
 }
 
 /* Clickable stats, team rows and the next-step card */
