@@ -2877,3 +2877,20 @@ body {
 :root:not([data-theme="dark"]) .famous__dot.is-active { background: var(--accent); }
 :root:not([data-theme="dark"]) .famous__arrow { border-color: var(--line); background: #fff; color: var(--ink); }
 :root:not([data-theme="dark"]) .famous__arrow:hover { background: var(--tint-gray); }
+
+/* Program photos: soft green glow around each photo */
+.photos-glow .marquee { padding: 24px 0 36px; }
+.photos-glow .photo {
+  border-radius: 14px;
+  box-shadow:
+    0 0 0 1px rgba(47, 93, 58, 0.18),
+    0 14px 34px -12px rgba(47, 93, 58, 0.55),
+    0 0 28px -6px rgba(156, 197, 164, 0.55);
+}
+.photos-glow .photo img { border-radius: 14px; }
+[data-theme="dark"] .photos-glow .photo {
+  box-shadow:
+    0 0 0 1px rgba(156, 197, 164, 0.22),
+    0 14px 34px -12px rgba(0, 0, 0, 0.7),
+    0 0 30px -6px rgba(156, 197, 164, 0.35);
+}
