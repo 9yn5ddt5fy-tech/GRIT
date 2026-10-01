@@ -2852,3 +2852,28 @@ body {
 .famous__item { grid-area: 2 / 1; align-self: center; }
 .famous__dots { grid-area: 3 / 1; }
 .famous::after { top: 8px; line-height: 0.8; }
+
+/* Quotes panel — light theme variant */
+:root:not([data-theme="dark"]) .famous {
+  color: var(--ink);
+  border-color: var(--line);
+  background:
+    radial-gradient(60% 80% at 100% 0%, rgba(156,197,164,0.28), transparent 60%),
+    radial-gradient(50% 70% at 0% 100%, rgba(47,93,58,0.10), transparent 60%),
+    #f6f8f6;
+}
+:root:not([data-theme="dark"]) .famous::before {
+  background-image:
+    linear-gradient(to right, rgba(9,9,11,0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(9,9,11,0.06) 1px, transparent 1px);
+}
+:root:not([data-theme="dark"]) .famous::after { color: rgba(47,93,58,0.12); }
+:root:not([data-theme="dark"]) .famous blockquote { color: var(--ink); }
+:root:not([data-theme="dark"]) .famous figcaption { color: var(--muted); }
+:root:not([data-theme="dark"]) .famous figcaption::before { background: var(--accent); }
+:root:not([data-theme="dark"]) .famous__eyebrow { color: var(--accent); }
+:root:not([data-theme="dark"]) .famous__dots { border-top-color: var(--line); }
+:root:not([data-theme="dark"]) .famous__dot { background: rgba(9,9,11,0.15); }
+:root:not([data-theme="dark"]) .famous__dot.is-active { background: var(--accent); }
+:root:not([data-theme="dark"]) .famous__arrow { border-color: var(--line); background: #fff; color: var(--ink); }
+:root:not([data-theme="dark"]) .famous__arrow:hover { background: var(--tint-gray); }
