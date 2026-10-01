@@ -2448,14 +2448,23 @@ a.pub:hover {
   .podcast { scroll-snap-align: start; }
 }
 
-/* Speakers: even grid that fills the row (3 / 2 columns) */
+/* Speakers: one swipeable row (manual only, no autoplay) */
 .speakers {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 40px 24px;
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 24px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+  padding: 8px 0 12px;
 }
-.speaker { width: auto; }
-.speaker__photo { height: auto; aspect-ratio: 4 / 5; }
+.speakers::-webkit-scrollbar { display: none; }
+.speaker { flex: 0 0 288px; width: 288px; scroll-snap-align: start; }
+.speaker__photo { height: 360px; aspect-ratio: auto; }
 @media (max-width: 640px) {
-  .speakers { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px 16px; }
+  .speakers { gap: 14px; margin: 0 -16px; padding: 8px 16px 12px; scroll-padding: 0 16px; }
+  .speaker { flex: 0 0 68%; width: auto; }
+  .speaker__photo { height: auto; aspect-ratio: 4 / 5; }
 }
