@@ -199,6 +199,21 @@ if ("IntersectionObserver" in window) {
   counters.forEach((el) => countObserver.observe(el));
 }
 
+// Click a stat to replay its count-up.
+document.querySelectorAll(".stat").forEach((stat) => {
+  const value = stat.querySelector("[data-count]");
+  if (!value) return;
+  stat.addEventListener("click", () => countUp(value));
+});
+
+// Team table rows on the EDU page open the member's biography.
+document.querySelectorAll("tr[data-href]").forEach((row) => {
+  row.addEventListener("click", (event) => {
+    if (event.target.closest("a")) return;
+    window.location.href = row.dataset.href;
+  });
+});
+
 function countUp(el) {
   const target = Number(el.dataset.count);
   const suffix = el.dataset.suffix || "";

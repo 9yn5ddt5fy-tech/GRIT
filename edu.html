@@ -20,7 +20,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:wght@500;600;700&family=Instrument+Serif&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=62">
+  <link rel="stylesheet" href="css/style.css?v=63">
   <script>
     (function () {
       var d = document.documentElement, s = null, l = null;
@@ -122,13 +122,13 @@
           <table class="table">
             <thead><tr><th scope="col">Name</th><th scope="col">Role</th><th scope="col">Responsible for</th></tr></thead>
             <tbody>
-            <tr><th scope="row">Bayarmagnai Usukhgerel</th><td>Founder of GRIT, program lead</td><td>Finance, organization, university application classes</td></tr>
-            <tr><th scope="row">B. Tulga</th><td>English teacher</td><td>English, cooking</td></tr>
-            <tr><th scope="row">J. Namuun</th><td>Teacher</td><td>University applications, country information</td></tr>
-            <tr><th scope="row">B. Munkhdalai</th><td>English teacher</td><td>English, country information</td></tr>
-            <tr><th scope="row">B. Nomin</th><td>Teacher</td><td>English, country information</td></tr>
-            <tr><th scope="row">O. Enkhgerel</th><td>Program manager</td><td>Organization, country information</td></tr>
-            <tr><th scope="row">M. Namuunbayar</th><td>Designer</td><td>Content</td></tr>
+            <tr data-href="member.html?m=bayarmagnai"><th scope="row"><a href="member.html?m=bayarmagnai">Bayarmagnai Usukhgerel</a></th><td>Founder of GRIT, program lead</td><td>Finance, organization, university application classes</td></tr>
+            <tr data-href="member.html?m=tulga"><th scope="row"><a href="member.html?m=tulga">B. Tulga</a></th><td>English teacher</td><td>English, cooking</td></tr>
+            <tr data-href="member.html?m=namuun"><th scope="row"><a href="member.html?m=namuun">J. Namuun</a></th><td>Teacher</td><td>University applications, country information</td></tr>
+            <tr data-href="member.html?m=munkhdalai"><th scope="row"><a href="member.html?m=munkhdalai">B. Munkhdalai</a></th><td>English teacher</td><td>English, country information</td></tr>
+            <tr data-href="member.html?m=nomin"><th scope="row"><a href="member.html?m=nomin">B. Nomin</a></th><td>Teacher</td><td>English, country information</td></tr>
+            <tr data-href="member.html?m=enkhgerel"><th scope="row"><a href="member.html?m=enkhgerel">O. Enkhgerel</a></th><td>Program manager</td><td>Organization, country information</td></tr>
+            <tr data-href="member.html?m=namuunbayar"><th scope="row"><a href="member.html?m=namuunbayar">M. Namuunbayar</a></th><td>Designer</td><td>Content</td></tr>
             </tbody>
           </table>
         </div>
@@ -432,12 +432,12 @@
           <p class="step__meta">20 students · 4 weeks · day program</p>
           <span class="tag tag--done">Completed</span>
         </div>
-        <div class="step step--next" data-reveal>
+        <a class="step step--next step--link" href="plan.html" data-reveal>
           <p class="step__when">2027 · Kharkhorin</p>
-          <h3 class="step__title">Summer camp</h3>
+          <h3 class="step__title">Summer camp <span class="step__arrow" aria-hidden="true">→</span></h3>
           <p class="step__meta">30 students · 21 days · full board</p>
-          <span class="tag tag--soon">Next</span>
-        </div>
+          <span class="tag tag--soon">See the program plan</span>
+        </a>
         <div class="step step--soon" data-reveal>
           <p class="step__when">2028+ · Expansion</p>
           <h3 class="step__title">Nationwide</h3>
@@ -591,6 +591,6 @@
   </div>
   <script src="js/vendor/page-flip.browser.js"></script>
   <script src="js/i18n.js?v=32"></script>
-  <script src="js/main.js?v=37"></script>
+  <script src="js/main.js?v=38"></script>
 </body>
 </html>
