@@ -56,7 +56,7 @@ document.querySelectorAll(".marquee").forEach((row) => {
     return ((x % w) + w) % w;
   };
   const render = () => (track.style.transform = `translate3d(${-offset}px, 0, 0)`);
-  const pause = (ms = 2500) => (pausedUntil = performance.now() + ms);
+  const pause = (ms = 600) => (pausedUntil = performance.now() + ms);
 
   function frame(now) {
     const dt = Math.min((now - last) / 1000, 0.1);
@@ -66,7 +66,9 @@ document.querySelectorAll(".marquee").forEach((row) => {
       offset += move;
       remaining -= move;
     } else if (!dragging && now > pausedUntil) {
-      offset += speed * dt;
+      // ease back up to full speed over ~0.5s after a pause
+      const ramp = Math.min(1, (now - pausedUntil) / 500);
+      offset += speed * ramp * dt;
     }
     offset = wrap(offset);
     render();
@@ -133,7 +135,7 @@ document.querySelectorAll(".marquee").forEach((row) => {
     b.addEventListener("pointerdown", (e) => e.stopPropagation());
     b.addEventListener("click", () => {
       remaining += dir === "next" ? step() : -step();
-      pause(4000);
+      pause(1000);
     });
     return b;
   };
