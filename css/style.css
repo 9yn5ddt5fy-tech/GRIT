@@ -2839,3 +2839,16 @@ body {
   .where .map { margin: 20px; }
   .where > div:last-child { padding: 24px 20px; border-left: 0; border-top: 1px solid var(--line); }
 }
+.famous { grid-template-rows: auto 1fr auto; }
+.famous__eyebrow {
+  grid-area: 1 / 1;
+  margin-bottom: 28px;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #9cc5a4;
+}
+.famous__item { grid-area: 2 / 1; align-self: center; }
+.famous__dots { grid-area: 3 / 1; }
+.famous::after { top: 8px; line-height: 0.8; }
