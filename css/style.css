@@ -2935,3 +2935,127 @@ body {
   mix-blend-mode: multiply;
   pointer-events: none;
 }
+
+/* ==========================================================================
+   GRIT EDU page — web-native layout (less "slide deck")
+   ========================================================================== */
+.page-edu main { counter-reset: sec; }
+.page-edu main > .section:not(.contact) .section-title { counter-increment: sec; }
+.page-edu main > .section:not(.contact) .section-title::before {
+  content: counter(sec, decimal-leading-zero);
+  display: block;
+  margin-bottom: 14px;
+  font: 500 12px/1 ui-monospace, SFMono-Regular, Menlo, monospace;
+  letter-spacing: 0.12em;
+  color: var(--accent);
+}
+.page-edu .split .section-title { position: sticky; top: 110px; align-self: start; }
+.page-edu .section-lead { max-width: 680px; font-size: 17px; color: var(--muted); }
+
+/* KPIs: dark feature panel */
+.page-edu .kpis {
+  position: relative;
+  gap: 1px;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 20px;
+  background: rgba(255,255,255,0.08);
+}
+.page-edu .kpi {
+  position: relative;
+  padding: 36px 32px;
+  border: 0;
+  background:
+    radial-gradient(90% 120% at 0% 0%, rgba(156,197,164,0.12), transparent 60%),
+    #0c0f0d;
+}
+.page-edu .kpi__value { font-weight: 600; letter-spacing: -0.03em; color: #fafafa; }
+.page-edu .kpi__label {
+  margin-top: 14px;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  line-height: 1.6;
+  color: rgba(250,250,250,0.6);
+}
+.page-edu .kpi:nth-child(1) .kpi__value,
+.page-edu .kpi:nth-child(2) .kpi__value { color: #9cc5a4; }
+
+/* Lead quote: left-aligned with accent rule */
+.page-edu .lead-quote {
+  max-width: 900px;
+  margin: 56px 0 0;
+  padding: 4px 0 4px 28px;
+  border-left: 2px solid var(--accent);
+  text-align: left;
+  font-size: clamp(22px, 2.3vw, 30px);
+  color: var(--ink);
+}
+
+/* At a glance: tiles */
+.page-edu .facts {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  border: 0;
+}
+.page-edu .facts > div {
+  display: block;
+  padding: 18px 20px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--bg-soft);
+}
+.page-edu .facts > div:nth-child(5) { grid-column: 1 / -1; }
+.page-edu .facts dt {
+  margin-bottom: 6px;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.page-edu .facts dd { color: var(--ink); line-height: 1.55; }
+
+/* Team table inside a card */
+.page-edu .table-wrap {
+  margin-top: 24px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  overflow: hidden;
+}
+.page-edu .table th, .page-edu .table td { padding: 14px 18px; }
+.page-edu .table thead th { background: var(--bg-soft); }
+.page-edu .table tbody tr { transition: background-color 0.2s; }
+.page-edu .table tbody tr:hover { background: var(--bg-soft); }
+
+/* Tracks: interactive cards */
+.page-edu .track {
+  border-radius: 16px;
+  background: var(--bg);
+  transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s;
+}
+.page-edu .track:hover {
+  transform: translateY(-3px);
+  border-color: var(--accent-soft);
+  box-shadow: 0 18px 40px -24px rgba(47,93,58,0.45);
+}
+.page-edu .track__num {
+  font: 500 11px/1 ui-monospace, SFMono-Regular, Menlo, monospace;
+  border-radius: 6px;
+}
+
+/* Charts: soft cards, green bars */
+.page-edu .chart { border-radius: 16px; background: var(--bg-soft); }
+.page-edu .bar__track { border-radius: 99px; background: var(--line); }
+.page-edu .bar__fill {
+  border-radius: 99px;
+  background: linear-gradient(90deg, #2f5d3a, #6f9f7a);
+}
+[data-theme="dark"] .page-edu .bar__fill { background: linear-gradient(90deg, #4f7f5b, #9cc5a4); }
+
+@media (max-width: 900px) {
+  .page-edu .split .section-title { position: static; }
+  .page-edu .facts { grid-template-columns: 1fr; }
+  .page-edu .kpi { padding: 26px 22px; }
+}
