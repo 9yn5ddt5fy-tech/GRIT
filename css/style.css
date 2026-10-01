@@ -2426,3 +2426,24 @@ a.pub:hover {
   .speaker__school { top: 8px; right: 8px; width: 40px; height: 40px; border-radius: 9px; }
   .speaker__school img { height: 30px; }
 }
+
+/* Podcast: swipeable row on phones (manual only, no autoplay) */
+@media (max-width: 640px) {
+  .podcasts {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 82%;
+    grid-template-columns: none;
+    gap: 14px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-x: contain;
+    margin: 0 -16px;
+    padding: 0 16px 6px;
+    scroll-padding: 0 16px;
+    scrollbar-width: none;
+  }
+  .podcasts::-webkit-scrollbar { display: none; }
+  .podcast { scroll-snap-align: start; }
+}
