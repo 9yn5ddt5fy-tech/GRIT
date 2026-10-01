@@ -3064,3 +3064,33 @@ body {
   .page-edu .facts { grid-template-columns: 1fr; }
   .page-edu .kpi { padding: 26px 22px; }
 }
+
+/* Same hover glow for success, speakers and team photos */
+.success__photo,
+.speaker__photo,
+.member__photo {
+  transition: box-shadow 0.35s ease, transform 0.35s ease;
+}
+.success:hover .success__photo,
+.speaker:hover .speaker__photo,
+.member:hover .member__photo {
+  transform: translateY(-4px);
+  box-shadow:
+    0 0 0 2px rgba(47, 93, 58, 0.4),
+    0 16px 38px -10px rgba(47, 93, 58, 0.7),
+    0 0 40px -2px rgba(120, 185, 135, 0.85);
+}
+[data-theme="dark"] .success:hover .success__photo,
+[data-theme="dark"] .speaker:hover .speaker__photo,
+[data-theme="dark"] .member:hover .member__photo {
+  box-shadow:
+    0 0 0 2px rgba(156, 197, 164, 0.45),
+    0 16px 38px -10px rgba(0, 0, 0, 0.75),
+    0 0 42px -2px rgba(156, 197, 164, 0.6);
+}
+/* room so the glow is not clipped by the scrolling rows */
+#success .marquee, #team .marquee { padding: 28px 0 36px; }
+.speakers { padding: 28px 4px 36px; }
+@media (max-width: 640px) {
+  .speakers { padding: 24px 16px 32px; }
+}
