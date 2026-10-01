@@ -22,7 +22,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:wght@500;600;700&family=Instrument+Serif&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=51">
+  <link rel="stylesheet" href="css/style.css?v=52">
   <script>
     (function () {
       var d = document.documentElement, s = null, l = null;
@@ -61,18 +61,28 @@
     <section class="hero">
       <div class="hero__bg"><img src="assets/img/hero.jpg" alt="Horse grazing on the Mongolian steppe"></div>
       <div class="container hero__content">
-        <h1 class="hero__title" data-reveal>Grow. Reach. Inspire. Teach.</h1>
-        <p class="hero__subtitle" data-reveal>Opening the world to students from rural Mongolia.</p>
-        <div class="hero__actions" data-reveal>
-          <a class="btn btn--white" href="#projects">Our projects</a>
-          <a class="btn btn--light" href="#contact">Contact</a>
+        <div class="hero__main">
+          <p class="hero__eyebrow" data-reveal><span class="hero__dot"></span>GRIT EDU · Rural Mongolia</p>
+          <h1 class="hero__title" data-reveal>Grow. Reach. Inspire. Teach.</h1>
+          <p class="hero__subtitle" data-reveal>Opening the world to students from rural Mongolia.</p>
+          <div class="hero__actions" data-reveal>
+            <a class="btn btn--white" href="#projects">Our projects</a>
+            <a class="btn btn--ghost" href="#contact">Contact <span aria-hidden="true">→</span></a>
+          </div>
         </div>
+        <figure class="hero__quote" data-reveal>
+          <blockquote>“Education is the most powerful weapon which you can use to change the world.”</blockquote>
+          <figcaption>Nelson Mandela</figcaption>
+        </figure>
       </div>
     </section>
 
     <section class="section container">
       <div class="statement" data-reveal>
-        <p class="eyebrow">Why we exist</p>
+        <div class="statement__head">
+          <span class="statement__index">01</span>
+          <p class="eyebrow">Why we exist</p>
+        </div>
         <p class="statement__text">We work in the soums of central Mongolia, where the nearest university is <mark>a day's drive away</mark> and scholarship information rarely reaches students.</p>
       </div>
     </section>
@@ -82,18 +92,22 @@
         <div class="stat">
           <p class="stat__value" data-count="20" data-suffix="">20</p>
           <p class="stat__label">Students</p>
+          <span class="stat__index">01</span>
         </div>
         <div class="stat">
           <p class="stat__value" data-count="4" data-suffix="">4</p>
           <p class="stat__label">Weeks on the ground</p>
+          <span class="stat__index">02</span>
         </div>
         <div class="stat">
           <p class="stat__value" data-count="7" data-suffix="">7</p>
           <p class="stat__label">Teachers and volunteers</p>
+          <span class="stat__index">03</span>
         </div>
         <div class="stat">
           <p class="stat__value" data-count="380" data-suffix=" km">380 km</p>
           <p class="stat__label">Distance we travel</p>
+          <span class="stat__index">04</span>
         </div>
       </div>
     </section>
@@ -101,10 +115,6 @@
     <section class="section container" aria-label="Quotes that inspire us">
       <div class="famous" data-reveal>
         <figure class="famous__item is-active">
-          <blockquote>“Education is the most powerful weapon which you can use to change the world.”</blockquote>
-          <figcaption>— Nelson Mandela</figcaption>
-        </figure>
-        <figure class="famous__item">
           <blockquote>“One child, one teacher, one book, one pen can change the world.”</blockquote>
           <figcaption>— Malala Yousafzai</figcaption>
         </figure>
