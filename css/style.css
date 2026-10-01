@@ -2894,3 +2894,44 @@ body {
     0 16px 38px -10px rgba(0, 0, 0, 0.75),
     0 0 42px -2px rgba(156, 197, 164, 0.6);
 }
+
+/* Inner page hero: neutral title, accent details, tinted photo */
+.page-hero .eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 12px;
+  border: 1px solid var(--accent-soft);
+  border-radius: 999px;
+  background: var(--tint);
+  color: var(--accent);
+}
+.page-hero .eyebrow::before {
+  content: "";
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+.page-hero__title {
+  margin-top: 20px;
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  color: var(--ink);
+}
+.page-hero__subtitle { font-size: 19px; }
+.page-hero__image {
+  position: relative;
+  box-shadow:
+    0 0 0 1px var(--accent-soft),
+    0 24px 50px -24px rgba(47, 93, 58, 0.55);
+}
+.page-hero__image::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(180deg, rgba(47, 93, 58, 0) 45%, rgba(47, 93, 58, 0.35) 100%);
+  mix-blend-mode: multiply;
+  pointer-events: none;
+}
