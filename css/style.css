@@ -3105,3 +3105,12 @@ tr[data-href]:hover a { color: var(--accent); text-decoration-color: currentColo
 .step--link:hover { transform: translateY(-3px); border-color: var(--accent); box-shadow: 0 18px 40px -24px rgba(47,93,58,0.5); }
 .step__arrow { display: inline-block; transition: transform 0.2s; color: var(--accent); }
 .step--link:hover .step__arrow { transform: translateX(4px); }
+
+/* Speakers: auto-scrolling row like the photo rows */
+.speakers-row { padding: 28px 0 36px; }
+.speakers-row .speaker { flex: none; width: 288px; scroll-snap-align: none; }
+.speakers-row .speaker__photo { height: 360px; aspect-ratio: auto; }
+@media (max-width: 640px) {
+  .speakers-row .speaker { width: 220px; }
+  .speakers-row .speaker__photo { height: 275px; }
+}
