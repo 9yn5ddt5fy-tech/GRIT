@@ -373,6 +373,8 @@ const MN = {
   "Anar Battogtokh": "Б. Анар",
   "Tsolmon Baasantsogt": "Б. Цолмон",
   "Tulga Bayarnyam": "Б. Тулга",
+  "Anu Otgonjargal": "О. Ану",
+  "Foreign Affairs Manager, Absolute School of English": "Absolute School of English, гадаад харилцааны менежер",
   "Stanford University, Class of 2028": "Стэнфордын их сургууль, 2028 онд төгсөнө",
   "Vanderbilt University, Class of 2027": "Вандербилтийн их сургууль, 2027 онд төгсөнө",
   "Bocconi University, Class of 2023": "Бокконигийн их сургууль, 2023 оны төгсөгч",
