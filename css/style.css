@@ -3150,3 +3150,17 @@ tr[data-href]:hover a { color: var(--accent); text-decoration-color: currentColo
 :root:not([data-theme="dark"]) #speakers::before, :root:not([data-theme="dark"]) #podcast::before,
 :root:not([data-theme="dark"]) #where::before { filter: brightness(.5) saturate(.8); opacity: .22; }
 #success > *, #team > *, #speakers > *, #podcast > *, #where > * { position: relative; z-index: 1; }
+
+/* Cloud motif around the program photo row */
+.photos-glow { position: relative; }
+.photos-glow::before, .photos-glow::after {
+  content: ""; position: absolute; z-index: 0; pointer-events: none;
+  width: min(62vw, 460px); aspect-ratio: 520/220;
+  background: url(../assets/img/cloud.svg) no-repeat center/contain; opacity: .32;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 30%, #000 70%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 30%, #000 70%, transparent);
+}
+.photos-glow::before { top: -40px; left: max(16px, calc(50% - 640px)); }
+.photos-glow::after { bottom: -110px; right: max(16px, calc(50% - 640px)); transform: scaleX(-1); }
+:root:not([data-theme="dark"]) .photos-glow::before, :root:not([data-theme="dark"]) .photos-glow::after { filter: brightness(.5) saturate(.8); opacity: .22; }
+.photos-glow > * { position: relative; z-index: 1; }
