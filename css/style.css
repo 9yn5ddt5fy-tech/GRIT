@@ -3137,3 +3137,16 @@ tr[data-href]:hover a { color: var(--accent); text-decoration-color: currentColo
 }
 .speaker__school--fill { overflow: hidden; padding: 0; background: none; }
 .speaker__school--fill img { width: 100%; height: 100%; object-fit: cover; }
+
+/* Mongolian cloud motif in empty section heads */
+#success, #team, #speakers, #podcast, #where { position: relative; }
+#success::before, #team::before, #speakers::before, #podcast::before, #where::before {
+  content: ""; position: absolute; z-index: 0; pointer-events: none;
+  top: -10px; right: max(16px, calc(50% - 680px)); width: min(62vw, 460px); aspect-ratio: 520/220;
+  background: url(../assets/img/cloud.svg) no-repeat center/contain; opacity: .85;
+}
+#team::before, #podcast::before { right: auto; left: max(40%, calc(50% - 100px)); top: 30px; transform: scaleX(-1); }
+:root:not([data-theme="dark"]) #success::before, :root:not([data-theme="dark"]) #team::before,
+:root:not([data-theme="dark"]) #speakers::before, :root:not([data-theme="dark"]) #podcast::before,
+:root:not([data-theme="dark"]) #where::before { filter: brightness(.55) saturate(1.3); opacity: .45; }
+#success > *, #team > *, #speakers > *, #podcast > *, #where > * { position: relative; z-index: 1; }
