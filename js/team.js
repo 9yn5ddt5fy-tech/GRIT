@@ -60,7 +60,7 @@ const TEAM = {
   namuun: {
     name: "J. Namuun",
     role: "Teacher",
-    photo: "assets/img/team-namuun.jpg?v=8",
+    photo: "assets/img/team-namuun.jpg?v=9",
     responsibilities: "University applications, country information",
     bio: [],
   },
