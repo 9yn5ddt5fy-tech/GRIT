@@ -4,7 +4,7 @@ const TEAM = {
   bayarmagnai: {
     name: "Bayarmagnai Usukhgerel",
     role: "Founder of GRIT",
-    photo: "assets/img/team-bayarmagnai.jpg?v=6",
+    photo: "assets/img/team-bayarmagnai.jpg?v=7",
     responsibilities: "Program lead: finance, organization, university application classes",
     bio: [],
   },
