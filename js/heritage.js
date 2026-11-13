@@ -385,7 +385,15 @@ const UI = {
     }
     return a;
   };
-  const scene = (name) => (art.SCENES[name] ? art.SCENES[name]() : "");
+  // A finished illustration in assets/img/heritage/<name>.jpg replaces the
+  // code-drawn SVG of the same name. Add the name here when the file is added.
+  const IMAGES = ["valley-well", "stupa-wall"];
+  const scene = (name) =>
+    IMAGES.includes(name)
+      ? `<img src="assets/img/heritage/${name}.jpg" alt="" loading="lazy" decoding="async">`
+      : art.SCENES[name]
+        ? art.SCENES[name]()
+        : "";
 
   // Which stories this visitor has finished (only in this browser).
   const KEY = "grit-heritage-read";
