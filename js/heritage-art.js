@@ -470,17 +470,17 @@
     return '#' + c.map((v) => v.toString(16).padStart(2, '0')).join('');
   };
   const Q = {
-    bg1: '#eef1e8', bg2: '#f7f5ee',
-    grass: '#b7c88a', grassA: '#aebf7e', grassB: '#c1d095', grassC: '#a6b874', lip: '#9db06c',
-    soilL: '#cdb48b', soilR: '#b69a70', strata: '#e0cda9',
-    path: '#efe8d3', pathEdge: '#ddd3b6',
-    water: '#93c4d3', waterLt: '#bfdfe7', waterDk: '#73abc0', shore: '#e6dcbf',
-    tree: '#6e9a4e', treeLt: '#8fb866', conifer: '#4f7f4f', coniferLt: '#6a9a62',
+    bg1: '#a9daf0', bg2: '#f5f1e2',
+    grass: '#8fbf55', grassA: '#84b44a', grassB: '#a0cb63', grassC: '#78aa44', lip: '#6c9a3a',
+    soilL: '#cda06a', soilR: '#a97d4c', strata: '#e6c693',
+    path: '#f3e8c9', pathEdge: '#d6c196',
+    water: '#33b2c8', waterLt: '#8fe2ec', waterDk: '#1d8aa8', shore: '#e2d0a2',
+    tree: '#4f9a3c', treeLt: '#76bf55', conifer: '#2e7a49', coniferLt: '#4c9c5e',
     rock: '#9aa3ad', rockLt: '#c3cad1', rockDk: '#77818c',
-    snow: '#f6f7f4', snowDk: '#d9dee3',
-    wall: '#f3f0e7', roofG: '#4f8f6f', roofR: '#c4553b', gold: '#d9a53f',
-    felt: '#f2ede0', feltRoof: '#e4dccb', door: '#c8613b',
-    ruin: '#d6c29a', sheep: '#fbfaf5', horse: '#8a5a3c',
+    snow: '#ffffff', snowDk: '#d6e1ec',
+    wall: '#f6f2e7', roofG: '#2f8f5f', roofR: '#d24a32', gold: '#eaa823',
+    felt: '#f6f0e1', feltRoof: '#e8dcc3', door: '#d4602f',
+    ruin: '#dcc493', sheep: '#ffffff', horse: '#8a5a3c',
   };
   const shadowE = (x, y, rx, ry, op = 0.16) => {
     const [sx, sy] = iso(x, y);
@@ -633,10 +633,28 @@
     const put = (d, svg) => items.push([d, svg]);
     const E0 = 62, E1 = 82, wh = 1.2, wt = 0.7; // Erdene Zuu's square
     let s = `<defs><linearGradient id="${id}s" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${Q.bg1}"/><stop offset="1" stop-color="${Q.bg2}"/></linearGradient>` +
-      `<radialGradient id="${id}h" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#ffffff" stop-opacity=".9"/><stop offset="1" stop-color="#ffffff" stop-opacity="0"/></radialGradient>` +
+      `<radialGradient id="${id}h" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#fff7d9" stop-opacity=".95"/><stop offset="1" stop-color="#fff7d9" stop-opacity="0"/></radialGradient>` +
+      `<linearGradient id="${id}f" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f3efdc" stop-opacity="0"/><stop offset="1" stop-color="#f3efdc" stop-opacity=".55"/></linearGradient>` +
       `<filter id="${id}d" x="-20%" y="-20%" width="140%" height="160%"><feDropShadow dx="0" dy="2" stdDeviation="2.5" flood-color="#2b3320" flood-opacity=".22"/></filter></defs>`;
-    s += `<rect width="${MAP_W}" height="${MAP_H}" fill="url(#${id}s)"/><ellipse cx="${MAP_W / 2}" cy="${MAP_H * 0.42}" rx="${MAP_W * 0.55}" ry="${MAP_H * 0.5}" fill="url(#${id}h)"/>`;
-    s += `<g class="map-clouds" fill="#ffffff" opacity=".75"><ellipse cx="150" cy="90" rx="70" ry="13"/><ellipse cx="185" cy="80" rx="40" ry="12"/><ellipse cx="1040" cy="70" rx="60" ry="11"/><ellipse cx="1075" cy="62" rx="34" ry="10"/><ellipse cx="1090" cy="300" rx="46" ry="9"/></g>`;
+    s += `<rect width="${MAP_W}" height="${MAP_H}" fill="url(#${id}s)"/>`;
+    s += `<circle cx="1010" cy="120" r="120" fill="url(#${id}h)"/><circle cx="1010" cy="120" r="34" fill="#fff6d6"/>`;
+    // two ranges of distant mountains, bluish and soft
+    const ridge = (y0, amp, seed, col) => {
+      const q = rnd(seed); let d = `M0 ${MAP_H} L0 ${y0}`;
+      for (let x = 0; x <= MAP_W; x += 60) d += ` L${x + 30} ${f1(y0 - amp * (0.4 + q() * 0.6))} L${x + 60} ${f1(y0 - amp * q() * 0.35)}`;
+      return `<path d="${d} L${MAP_W} ${MAP_H}Z" fill="${col}"/>`;
+    };
+    s += ridge(250, 90, 71, '#b9d3e6') + ridge(300, 70, 72, '#9fc2d8');
+    // rolling steppe below the horizon
+    const roll = (y0, amp, seed, col) => {
+      const q = rnd(seed); let d = `M0 ${MAP_H} L0 ${y0}`;
+      for (let x = 0; x < MAP_W; x += 150) d += ` Q${x + 75} ${f1(y0 - amp * (0.3 + q() * 0.7))} ${x + 150} ${f1(y0 + (q() - 0.5) * amp * 0.4)}`;
+      return `<path d="${d} L${MAP_W} ${MAP_H}Z" fill="${col}"/>`;
+    };
+    s += roll(318, 26, 73, '#b5d48a') + roll(372, 30, 74, '#a3c977') + roll(440, 26, 75, '#93bf68');
+    s += `<rect y="330" width="${MAP_W}" height="${MAP_H - 330}" fill="url(#${id}f)"/>`;
+    const cloudBlob = (x, y, k) => `<g transform="translate(${x} ${y}) scale(${k})"><ellipse cx="0" cy="0" rx="46" ry="14" fill="#ffffff"/><circle cx="-14" cy="-8" r="15" fill="#ffffff"/><circle cx="10" cy="-12" r="19" fill="#ffffff"/><ellipse cx="4" cy="4" rx="44" ry="8" fill="#dbeaf3"/></g>`;
+    s += `<g class="map-clouds">${cloudBlob(150, 95, 1.2)}${cloudBlob(330, 55, 0.7)}${cloudBlob(880, 70, 0.8)}${cloudBlob(1110, 230, 0.9)}${cloudBlob(90, 290, 0.75)}</g>`;
 
     // Plate: soil sides with strata, grass lip.
     const T = 5.5;
@@ -680,16 +698,34 @@
     for (const rd of roads) { const d = pathD(rd); s += `<path d="${d}" stroke="${Q.pathEdge}" stroke-width="6.5" fill="none" stroke-linecap="round"/><path d="${d}" stroke="${Q.path}" stroke-width="4.5" fill="none" stroke-linecap="round"/>`; }
     const orkhon = [[38, 100], [42, 88], [52, 82], [58, 70], [56, 56], [62, 44], [58, 32], [56, 24]];
     const tamir = [[0, 46], [12, 50], [24, 56], [36, 60], [48, 62], [56, 60]];
-    for (const rv of [orkhon, tamir]) { const d = pathD(rv); s += `<path d="${d}" stroke="${Q.shore}" stroke-width="13" fill="none" stroke-linecap="round"/><path d="${d}" stroke="${Q.water}" stroke-width="9" fill="none" stroke-linecap="round"/><path d="${d}" stroke="${Q.waterLt}" stroke-width="1.6" fill="none" stroke-dasharray="4 18" stroke-linecap="round" opacity=".75" class="map-flow"/>`; }
+    for (const rv of [orkhon, tamir]) {
+      const d = pathD(rv);
+      s += `<path d="${d}" stroke="${Q.shore}" stroke-width="16" fill="none" stroke-linecap="round"/><path d="${d}" stroke="${Q.water}" stroke-width="11" fill="none" stroke-linecap="round"/>` +
+        `<path d="${d}" stroke="${Q.waterDk}" stroke-width="4" fill="none" stroke-linecap="round" opacity=".55"/>` +
+        `<path d="${d}" stroke="#ffffff" stroke-width="1.3" fill="none" stroke-dasharray="1.5 6 4 17 2 9" stroke-linecap="round" opacity=".7" class="map-flow"/>` +
+        `<path d="${d}" stroke="${Q.waterLt}" stroke-width="5" fill="none" stroke-dasharray="14 26 6 30" stroke-dashoffset="11" stroke-linecap="round" opacity=".45" class="map-flow"/>`;
+      // rocks on the banks
+      const q = rnd(rv.length * 7);
+      for (let i = 0; i < rv.length - 1; i++) for (let t = 0.15; t < 1; t += 0.28) {
+        const [x0, y0] = rv[i], [x1, y1] = rv[i + 1], len = Math.hypot(x1 - x0, y1 - y0) || 1, nx = -(y1 - y0) / len, ny = (x1 - x0) / len;
+        const sd = q() < 0.5 ? 1 : -1, x = x0 + (x1 - x0) * t + nx * sd * 1.7, y = y0 + (y1 - y0) * t + ny * sd * 1.7;
+        if (x < 0.5 || y > 99.5) continue;
+        const [rx, ry] = iso(x, y), w = 2.2 + q() * 2.4;
+        put(x + y, `<ellipse cx="${f1(rx)}" cy="${f1(ry)}" rx="${f1(w)}" ry="${f1(w * 0.62)}" fill="#8c949a"/><ellipse cx="${f1(rx - w * 0.2)}" cy="${f1(ry - w * 0.25)}" rx="${f1(w * 0.65)}" ry="${f1(w * 0.38)}" fill="#c7cdd0"/>`);
+      }
+    }
     s += lakeIso(17, 27, 8.5, 3) + lakeIso(57, 17, 9, 5);
     {
       const [wx, wy] = iso(38, 100, 0), H = T * MS;
-      s += `<path d="M${f1(wx - 8)} ${f1(wy + 2)} L${f1(wx + 8)} ${f1(wy - 2)} L${f1(wx + 9)} ${f1(wy + H + 18)} L${f1(wx - 9)} ${f1(wy + H + 22)}Z" fill="${Q.water}"/><path d="M${f1(wx - 3)} ${f1(wy + 2)} V${f1(wy + H + 18)} M${f1(wx + 3)} ${f1(wy)} V${f1(wy + H + 16)}" stroke="#e8f6fa" stroke-width="2" class="map-flow" stroke-dasharray="16 5" opacity=".85"/><ellipse cx="${f1(wx)}" cy="${f1(wy + H + 24)}" rx="20" ry="6" fill="#ffffff" opacity=".9"/><ellipse cx="${f1(wx + 10)}" cy="${f1(wy + H + 21)}" rx="10" ry="4" fill="#ffffff" opacity=".8"/>`;
+      s += `<path d="M${f1(wx - 9)} ${f1(wy + 2)} L${f1(wx + 9)} ${f1(wy - 2)} L${f1(wx + 11)} ${f1(wy + H + 20)} L${f1(wx - 11)} ${f1(wy + H + 24)}Z" fill="${Q.water}"/>` +
+        `<path d="M${f1(wx - 9)} ${f1(wy + 2)} L${f1(wx - 3)} ${f1(wy)} L${f1(wx - 4)} ${f1(wy + H + 22)} L${f1(wx - 11)} ${f1(wy + H + 24)}Z" fill="${Q.waterLt}" opacity=".6"/>` +
+        [-6, -2, 2, 6].map((dx, i) => `<path d="M${f1(wx + dx)} ${f1(wy + 1 - dx * 0.2)} V${f1(wy + H + 20)}" stroke="#ffffff" stroke-width="${i % 2 ? 1.4 : 2}" stroke-dasharray="${i % 2 ? '7 6' : '12 5'}" stroke-linecap="round" class="map-fall" style="animation-duration:${0.45 + i * 0.12}s" opacity=".9"/>`).join('') +
+        `<ellipse class="map-foam" cx="${f1(wx)}" cy="${f1(wy + H + 26)}" rx="22" ry="6.5" fill="#ffffff" opacity=".95"/><ellipse class="map-foam" style="animation-delay:.5s" cx="${f1(wx + 12)}" cy="${f1(wy + H + 23)}" rx="11" ry="4.5" fill="#ffffff" opacity=".85"/><ellipse class="map-foam" style="animation-delay:.9s" cx="${f1(wx - 13)}" cy="${f1(wy + H + 24)}" rx="9" ry="4" fill="#ffffff" opacity=".85"/>`;
     }
 
     // Mountains along the back edges, then forests at their feet.
     [[6, 3, 7, 9, 1], [18, 2, 8, 12, 2], [31, 3, 7, 8, 3], [44, 2, 6, 7, 4], [86, 3, 7, 9, 5], [97, 6, 6, 8, 6], [3, 15, 7, 10, 7], [3, 38, 6, 7, 8], [3, 60, 7, 9, 9], [3, 82, 5, 6, 10], [70, 2, 6, 6, 11]].forEach(([x, y, rr, h, sd]) =>
-      put(x + y - 2, peak(x, y, rr, h, sd * 13, { snow: h >= 8, lt: '#b9c3cf', dk: '#7d8a99' })));
+      put(x + y - 2, peak(x, y, rr, h, sd * 13, { snow: h >= 8, lt: '#a9bde0', dk: '#5a6f9a' })));
     const forest = (x0, y0, n, seed, conif) => { const q = rnd(seed); for (let i = 0; i < n; i++) { const x = x0 + q() * 12, y = y0 + q() * 10; put(x + y, conif || q() < 0.35 ? conifer(x, y, 0.8 + q() * 0.4) : treeIso(x, y, 0.8 + q() * 0.4)); } };
     forest(24, 8, 22, 1, true); forest(8, 58, 18, 2, true); forest(84, 48, 16, 3); forest(16, 86, 14, 4); forest(82, 8, 16, 5, true); forest(8, 32, 14, 6, true); forest(62, 4, 14, 7); forest(36, 26, 12, 8); forest(86, 88, 12, 9); forest(8, 74, 10, 10); forest(90, 30, 10, 11); forest(66, 92, 8, 12); forest(48, 44, 6, 13);
     // Tree rows along roads (as in city maps).
@@ -699,7 +735,17 @@
     put(17 + 27, peak(17, 27, 2, 1.2, 77, { lt: '#9fb070', dk: '#6f8150' }) + conifer(16.4, 26.6, 0.6) + conifer(17.6, 27.4, 0.5));
     put(26 + 13, peak(26, 13, 6.5, 6, 41, { top: 0.4, lt: '#b49a86', dk: '#7e655a', crater: '#4f4038' }));
     // Taikhar Rock.
-    put(28 + 52, peak(28, 52, 2.9, 2.1, 52, { n: 14, top: 0.45, lt: '#cdc9bf', dk: '#8d897f', crater: '#bdb8ad' }) + peak(30.4, 53.2, 0.7, 0.5, 53, { n: 7, lt: '#cdc9bf', dk: '#8d897f' }));
+    {
+      const [tx, ty] = iso(28, 52), gid = id + 'tk';
+      put(28 + 52, `<defs><radialGradient id="${gid}" cx=".35" cy=".3" r=".8"><stop offset="0" stop-color="#e8e1d2"/><stop offset=".55" stop-color="#bdb3a1"/><stop offset="1" stop-color="#857b6c"/></radialGradient></defs>` +
+        `<ellipse cx="${f1(tx + 6)}" cy="${f1(ty + 3)}" rx="30" ry="9" fill="#3d4a2c" opacity=".2"/>` +
+        `<path d="M${f1(tx - 24)} ${f1(ty + 2)} Q${f1(tx - 30)} ${f1(ty - 14)} ${f1(tx - 16)} ${f1(ty - 24)} Q${f1(tx - 6)} ${f1(ty - 36)} ${f1(tx + 8)} ${f1(ty - 31)} Q${f1(tx + 24)} ${f1(ty - 27)} ${f1(tx + 25)} ${f1(ty - 12)} Q${f1(tx + 28)} ${f1(ty)} ${f1(tx + 18)} ${f1(ty + 4)} Q${f1(tx)} ${f1(ty + 9)} ${f1(tx - 24)} ${f1(ty + 2)}Z" fill="url(#${gid})"/>` +
+        `<path d="M${f1(tx + 8)} ${f1(ty - 31)} Q${f1(tx + 24)} ${f1(ty - 27)} ${f1(tx + 25)} ${f1(ty - 12)} Q${f1(tx + 28)} ${f1(ty)} ${f1(tx + 18)} ${f1(ty + 4)} Q${f1(tx + 14)} ${f1(ty - 10)} ${f1(tx + 8)} ${f1(ty - 31)}Z" fill="#7a705f" opacity=".45"/>` +
+        `<path d="M${f1(tx - 4)} ${f1(ty - 33)} Q${f1(tx - 1)} ${f1(ty - 20)} ${f1(tx - 6)} ${f1(ty - 8)} M${f1(tx + 10)} ${f1(ty - 22)} q4 8 2 18 M${f1(tx - 18)} ${f1(ty - 10)} q6 2 8 9" stroke="#6f6658" stroke-width="1.1" fill="none" opacity=".65"/>` +
+        `<ellipse cx="${f1(tx - 12)}" cy="${f1(ty - 3)}" rx="5" ry="2" fill="#9cae5a" opacity=".7"/><ellipse cx="${f1(tx + 15)}" cy="${f1(ty - 1)}" rx="4" ry="1.6" fill="#b9a24e" opacity=".7"/>` +
+        `<path d="M${f1(tx - 9)} ${f1(ty - 27)} q4 5 1 11 M${f1(tx - 7)} ${f1(ty - 28)} q5 4 4 12" stroke="#2f7fd0" stroke-width="2.2" fill="none" stroke-linecap="round"/>` +
+        `<ellipse cx="${f1(tx + 26)}" cy="${f1(ty + 4)}" rx="5" ry="3" fill="#a59b8b"/><ellipse cx="${f1(tx - 27)}" cy="${f1(ty + 4)}" rx="4" ry="2.4" fill="#a59b8b"/>`);
+    }
     // Ugii Lake shore: gers and a flock.
     [[46, 13, 1.1], [49.5, 9.5, 0.95], [44, 9, 0.8]].forEach(([x, y, k]) => put(x + y, gerIso(x, y, k)));
     // Khöshöö Tsaidam steles.

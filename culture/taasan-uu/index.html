@@ -227,6 +227,12 @@
   table.lb td:first-child{width:24px;color:rgba(0,0,0,.45)}
   .muted{color:rgba(0,0,0,.55)!important}.small{font-size:12.5px!important;margin-top:8px}
   .linkbtn{background:none;border:none;padding:0;font:inherit;text-decoration:underline;cursor:pointer;color:#000}
+  .joinwrap{margin-top:18px;border:1px solid rgba(0,0,0,.15);border-radius:8px;background:#fff}
+  .joinwrap summary{list-style:none;cursor:pointer;padding:13px 16px;font-weight:700;font-size:15px;display:flex;justify-content:space-between;align-items:center}
+  .joinwrap summary::-webkit-details-marker{display:none}
+  .joinwrap summary::after{content:'+';font-size:20px;font-weight:600;line-height:1}
+  .joinwrap[open] summary::after{content:'−'}
+  .joinwrap .joinbox{border:none;border-top:1px solid rgba(0,0,0,.1);border-radius:0;margin:0}
   .joinbox{border:1px solid rgba(0,0,0,.12);border-radius:8px;padding:14px 16px;margin-bottom:6px}
   .joinbox form{display:grid;gap:10px;margin-top:12px}
   .joinbox label{display:grid;gap:4px;font-size:12px;font-weight:600;color:rgba(0,0,0,.6)}
@@ -260,19 +266,19 @@
 
 <main>
   <div class="meta"><div><span class="no" id="noLbl"></span><span class="date" id="dateLbl"></span></div>
-    <button class="hintbtn" id="hintBtn"><svg viewBox="0 0 10 10"><path d="M2 2l6 6M8 2l-6 6"/></svg>сэжүүр</button></div>
+    <button class="hintbtn" id="hintBtn"><svg viewBox="0 0 10 10"><path d="M2 2l6 6M8 2l-6 6"/></svg>Сэжүүр</button></div>
   <div class="hint" id="hint"><div class="hint-in"><svg viewBox="0 0 10 10"><path d="M2 2l6 6M8 2l-6 6"/></svg>
-    <div><b>сэжүүр</b><span id="hintTxt"></span></div></div><p class="reveal-note" id="revealNote"></p></div>
+    <div><b>Сэжүүр</b><span id="hintTxt"></span></div></div><p class="reveal-note" id="revealNote"></p></div>
   <div class="board" id="board"></div>
   <div class="kb" id="kb"></div>
-  <div class="foot">өдөр бүр шинэ үг · <a href="/culture/">GRIT Culture</a></div>
+  <div class="foot">Өдөр бүр шинэ үг · <a href="/culture/">GRIT Culture</a></div>
 </main>
 
 <div class="toast" id="toast"></div>
 
 <div class="overlay" id="helpOv"><div class="sheet">
   <button class="close" data-close>✕</button>
-  <div class="eyebrow">хэрхэн тоглох вэ</div>
+  <div class="eyebrow">Хэрхэн тоглох вэ</div>
   <h2>Өдөрт нэг үг</h2>
   <p>5 үсэгтэй түүхэн үгийг 6 оролдлогоор таана. Таасны дараа тухайн үгийн түүх нээгдэнэ.</p>
   <div class="divider"><svg class="stitchline"></svg></div>
@@ -297,7 +303,7 @@
   <div class="result-word" id="resWord"></div>
   <div class="story-card">
     <svg class="corner tl"></svg><svg class="corner br"></svg>
-    <div class="label">түүхэн тайлбар</div>
+    <div class="label">Түүхэн тайлбар</div>
     <p id="resInfo"></p>
     <span class="era" id="resEra"></span>
   </div>
@@ -305,15 +311,15 @@
   <div class="stats" id="statsBox"></div>
   <div class="btns">
     <button class="btn" id="storyBtn">story зураг</button>
-    <button class="btn ghost" id="shareBtn">текст хуулах</button>
+    <button class="btn ghost" id="shareBtn">Текст хуулах</button>
   </div>
   <textarea class="copybox" id="copyBox" rows="5" readonly></textarea>
-  <p class="next">дараагийн үг <b id="nextLbl"></b></p>
+  <p class="next">Дараагийн үг <b id="nextLbl"></b></p>
 </div></div>
 
 <div class="overlay" id="rankOv"><div class="sheet">
   <button class="close" data-close>✕</button>
-  <div class="eyebrow">чиний цол</div>
+  <div class="eyebrow">Чиний цол</div>
   <h2>Цолны шат</h2>
   <p>Чингис хааны аравтын тогтолцоогоор цэргийг арав, зуу, мянга, түмээр зохион байгуулж, тус бүрийг ноён удирддаг байв. Өдрийн үгийг таах тусам чи энэ шатаар дэвшинэ. Нэг улирал нэг жил үргэлжилнэ.</p>
   <ul class="rules">
@@ -330,7 +336,7 @@
 
 <div class="overlay" id="boardOv"><div class="sheet">
   <button class="close" data-close>✕</button>
-  <div class="eyebrow">анги, сургууль</div>
+  <div class="eyebrow">Анги, сургууль</div>
   <h2>Онооны самбар</h2>
   <div id="boardBody"></div>
 </div></div>
@@ -380,11 +386,11 @@ const HORSE='M13.1 2.2L85.9 2.2L86.6 2.8L87.8 2.8L89.7 3.8L90 4.4L90.9 4.4L91.3 
    (supabase/001_taasan_uu.sql). This page only keeps a session token. */
 const TU_API = window.TU_API || { url: 'https://wrjgihdvjwriurdiotih.supabase.co', key: 'sb_publishable_4SDR_v8yrRdlm0k97LqwaQ_tugAqXPN' };
 const ERR = {
-  session: 'нэвтрэлт дууссан, дахин оролдоно уу', word: '5 үсэг оруулна уу', over: 'өнөөдрийн тоглоом дууссан',
-  reveal: 'үсэг нээх боломжгүй байна', pos: 'хоосон нүд сонгоно уу', code: 'ангийн код буруу байна',
-  nickname: 'нэр 2–20 үсэг, тоо байна', pin_format: 'PIN 4 оронтой тоо байна', pin: 'PIN буруу байна',
-  locked: 'олон удаа буруу оруулсан тул 15 минут хүлээнэ үү', already: 'та аль хэдийн ангид бүртгэлтэй байна',
-  network: 'сүлжээний алдаа, дахин оролдоно уу'
+  session: 'Нэвтрэлт дууссан, дахин оролдоно уу', word: '5 үсэг оруулна уу', over: 'Өнөөдрийн тоглоом дууссан',
+  reveal: 'Үсэг нээх боломжгүй байна', pos: 'Хоосон нүд сонгоно уу', code: 'Ангийн код буруу байна',
+  nickname: 'Нэр 2–20 үсэг, тоо байна', pin_format: 'PIN 4 оронтой тоо байна', pin: 'PIN буруу байна',
+  locked: 'Олон удаа буруу оруулсан тул 15 минут хүлээнэ үү', already: 'Та аль хэдийн ангид бүртгэлтэй байна',
+  network: 'Сүлжээний алдаа, дахин оролдоно уу'
 };
 const errMsg = e => ERR[e && e.message] || ERR.network;
 const ROWS = [
@@ -433,7 +439,7 @@ function buildKb(){kbEl.innerHTML='';
   ROWS.forEach(r=>{const row=document.createElement('div');row.className='kr';
     r.forEach(k=>{const b=document.createElement('button');
       b.className='k'+(k.length>1?' wide':'')+(k==='ENTER'?' enter':'');
-      b.textContent=k==='ENTER'?'шалгах':k==='DEL'?'⌫':k.toLowerCase();b.dataset.k=k;
+      b.textContent=k==='ENTER'?'Шалгах':k==='DEL'?'⌫':k.toLowerCase();b.dataset.k=k;
       b.addEventListener('click',()=>press(k));row.appendChild(b)});
     kbEl.appendChild(row)})}
 function paintRow(r,word,res,animate){
@@ -470,7 +476,7 @@ function render(){
   if(S.finished)setTimeout(()=>openResult(S.solved),300)}
 async function load(){
   try{S=token?await call('tu_state'):await startGuest();loadedAt=Date.now();render()}
-  catch(e){toast(errMsg(e),4000);document.getElementById('dateLbl').textContent='сүлжээ шалгаад дахин ачаална уу'}}
+  catch(e){toast(errMsg(e),4000);document.getElementById('dateLbl').textContent='Сүлжээ шалгаад дахин ачаална уу'}}
 
 /* ---------- letter reveal: after the hint, once every 2 days ---------- */
 function updateRevealUI(){
@@ -506,9 +512,9 @@ boardEl.addEventListener('click',async e=>{
   const t=e.target.closest('.tile');if(!t)return;await idle();if(over()||!S.hint)return;
   const row=t.parentElement,r=[...boardEl.children].indexOf(row),i=[...row.children].indexOf(t);
   if(r!==S.guesses.length||i<0||i>4)return;
-  if(S.reveal)return toast('энэ тоглолтод үсэг нээсэн');
-  if(!S.reveal_available)return toast(S.reveal_next?`үсэг нээх боломж ${shortDate(S.reveal_next)}-нд гарна`:ERR.reveal);
-  if(i<cur.length)return toast('хоосон нүд сонгоно уу');
+  if(S.reveal)return toast('Энэ тоглолтод үсэг нээсэн');
+  if(!S.reveal_available)return toast(S.reveal_next?`Үсэг нээх боломж ${shortDate(S.reveal_next)}-нд гарна`:ERR.reveal);
+  if(i<cur.length)return toast('Хоосон нүд сонгоно уу');
   doReveal(i)});
 
 /* ---------- typing and guessing ---------- */
@@ -533,9 +539,9 @@ async function submit(){
   else if(S.finished)finish(false);
   else{renderCur()}
   updateRevealUI()}
-const PRAISE=['гайхамшигтай','мундаг','гоё','сайн байна','арай гэж','фүү, амжлаа'];
+const PRAISE=['Гайхамшигтай','Мундаг','Гоё','Сайн байна','Арай гэж','Фүү, амжлаа'];
 function finish(win){
-  setTimeout(()=>toast(win?PRAISE[S.guesses.length-1]+(S.points?` · +${S.points} оноо`:''):'хариу: '+S.answer.w.toLowerCase(),1600),1500);
+  setTimeout(()=>toast(win?PRAISE[S.guesses.length-1]+(S.points?` · +${S.points} оноо`:''):'Хариу: '+S.answer.w.toLowerCase(),1600),1500);
   if(win){setTimeout(gallop,1700);setTimeout(()=>openResult(true),4300)}
   else setTimeout(()=>openResult(false),2800)}
 
@@ -560,7 +566,7 @@ function gallop(){
 /* ---------- result, stats, ranks ---------- */
 function openResult(win){
   if(!S||!S.answer)return;
-  document.getElementById('resEyebrow').textContent=win?`${S.guesses.length}/6 оролдлогоор таалаа · +${S.points} оноо`:'энэ удаа таасангүй';
+  document.getElementById('resEyebrow').textContent=win?`${S.guesses.length}/6 оролдлогоор таалаа · +${S.points} оноо`:'Энэ удаа таасангүй';
   document.getElementById('resTitle').textContent='Өнөөдрийн үг';
   const rw=document.getElementById('resWord');rw.innerHTML='';
   [...S.answer.w].forEach((ch,i)=>{const t=document.createElement('div');t.className='tile correct';t.style.animationDelay=(i*90)+'ms';t.textContent=ch;rw.appendChild(t)});
@@ -572,8 +578,8 @@ function openResult(win){
 function renderStats(){
   const st=S.stats;
   document.getElementById('statsBox').innerHTML=
-    `<div><b>${st.points}</b><span>оноо</span></div><div><b>${st.days}</b><span>тоглосон өдөр</span></div>`+
-    `<div><b>${st.streak}</b><span>дараалсан</span></div><div><b>${st.best}</b><span>дээд амжилт</span></div>`;
+    `<div><b>${st.points}</b><span>Оноо</span></div><div><b>${st.days}</b><span>Тоглосон өдөр</span></div>`+
+    `<div><b>${st.streak}</b><span>Дараалсан</span></div><div><b>${st.best}</b><span>Дээд амжилт</span></div>`;
   document.querySelectorAll('#statsBox b').forEach(b=>{const m=b.textContent.match(/^(\d+)$/);if(!m)return;const to=+m[1];let t0=null;
     const step=ts=>{t0=t0||ts;const k=Math.min(1,(ts-t0)/700);b.textContent=Math.round(to*(1-Math.pow(1-k,3)));if(k<1)requestAnimationFrame(step)};
     b.textContent='0';setTimeout(()=>requestAnimationFrame(step),700)})}
@@ -584,15 +590,15 @@ function rankHTML(st){
   const N=24,on=Math.round(pct*N);
   let sts='';for(let k=0;k<N;k++){const x=k*(100/N)+1.2,o=k<on?1:.18;sts+=`<path style="opacity:${o}" d="M${x} 2L${x+2.4} 8M${x+2.4} 2L${x} 8"/>`}
   const need=nx?[nx.points_left?`${nx.points_left} оноо`:'',nx.days_left?`${nx.days_left} өдөр`:''].filter(Boolean).join(', '):'';
-  return `<div class="top"><div><div class="lbl">цол</div><div class="name">${st.rank}</div></div><span class="new">шинэ цол</span></div>
+  return `<div class="top"><div><div class="lbl">Цол</div><div class="name">${st.rank}</div></div><span class="new">Шинэ цол</span></div>
     <div class="pbar"><svg viewBox="0 0 100 10" preserveAspectRatio="none"><g stroke="#000" stroke-width=".9" stroke-linecap="round" fill="none">${sts}</g></svg></div>
-    <div class="nextr">${nx?`<b>${nx.name}</b> хүртэл ${need||'бараг хүрлээ'}`:'хамгийн дээд цол'} · нийт ${st.points} оноо, ${st.days} өдөр</div>`}
+    <div class="nextr">${nx?`<b>${nx.name}</b> хүртэл ${need||'бараг хүрлээ'}`:'Хамгийн дээд цол'} · нийт ${st.points} оноо, ${st.days} өдөр</div>`}
 function renderRank(box,up){box.innerHTML=rankHTML(S.stats);box.classList.toggle('up',!!up)}
 function openRanks(){
   if(!S)return;
   renderRank(document.getElementById('rankBox2'),false);
   const ci=S.stats.lvl;
-  document.getElementById('ladder').innerHTML=S.ranks.map((r,k)=>`<li class="${k<=ci?'got':''} ${k===ci?'cur':''}"><div class="ic">${k+1}</div><div><b>${r.name}</b><small>${r.lvl===0?'эхлэл':`${r.min_points} оноо · ${r.min_days} өдөр`}</small><p>${r.descr}</p></div></li>`).join('');
+  document.getElementById('ladder').innerHTML=S.ranks.map((r,k)=>`<li class="${k<=ci?'got':''} ${k===ci?'cur':''}"><div class="ic">${k+1}</div><div><b>${r.name}</b><small>${r.lvl===0?'Эхлэл':`${r.min_points} оноо · ${r.min_days} өдөр`}</small><p>${r.descr}</p></div></li>`).join('');
   document.getElementById('rankOv').classList.add('open')}
 document.getElementById('rankBtn').addEventListener('click',openRanks);
 
@@ -600,31 +606,32 @@ document.getElementById('rankBtn').addEventListener('click',openRanks);
 const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 function classRow(c,i){return `<tr class="${c.me?'me':''}"><td>${i+1}</td><td><b>${esc(c.name)}</b><small>${esc(c.school)}</small></td><td>${esc(c.rank)}</td><td>${c.avg_points}</td><td>${c.active_week_pct}%</td></tr>`}
 async function openBoard(){
-  const box=document.getElementById('boardBody');box.innerHTML='<p class="muted">ачаалж байна…</p>';
+  const box=document.getElementById('boardBody');box.innerHTML='<p class="muted">Ачаалж байна…</p>';
   document.getElementById('boardOv').classList.add('open');
   let b;try{b=await call('tu_board')}catch(e){box.innerHTML=`<p class="muted">${errMsg(e)}</p>`;return}
-  let h='';
+  let h='',joinHTML='';
   if(b.class){
     const c=b.class;
     h+=`<div class="rank"><div class="top"><div><div class="lbl">${esc(c.school)}</div><div class="name">${esc(c.name)} анги · ${esc(c.rank)}</div></div></div>
       <div class="nextr">Ангийн дундаж <b>${c.avg_points}</b> оноо · ${c.size} сурагч · энэ 7 хоногт ${c.active_week_pct}% нь тоглосон</div>
       <p class="muted small">Ангийн сурагчдын 80% нь хүрсэн цол ангийн цол болно${c.size<5?'. Анги 5-аас доошгүй сурагчтай байх ёстой':''}.</p></div>`;
-    h+=`<h3>Ангийн самбар</h3><table class="lb"><tr><th>#</th><th>нэр</th><th>цол</th><th>оноо</th><th>өдөр</th></tr>`+
+    h+=`<h3>Ангийн самбар</h3><table class="lb"><tr><th>#</th><th>Нэр</th><th>Цол</th><th>Оноо</th><th>Өдөр</th></tr>`+
       b.members.map((m,i)=>`<tr class="${m.me?'me':''}"><td>${i+1}</td><td><b>${esc(m.nickname)}</b></td><td>${esc(m.rank)}</td><td>${m.points}</td><td>${m.days}</td></tr>`).join('')+`</table>`;
-    if(b.school&&b.school.length)h+=`<h3>Сургуулийн ангиуд</h3><table class="lb"><tr><th>#</th><th>анги</th><th>цол</th><th>дундаж</th><th>7 хоног</th></tr>${b.school.map(classRow).join('')}</table>`;
-    h+=`<p class="muted small">Тоглож буй: <b>${esc(S.player.nickname)}</b> · <button class="linkbtn" id="logoutBtn">гарах</button></p>`;
+    if(b.school&&b.school.length)h+=`<h3>Сургуулийн ангиуд</h3><table class="lb"><tr><th>#</th><th>Анги</th><th>Цол</th><th>Дундаж</th><th>7 хоног</th></tr>${b.school.map(classRow).join('')}</table>`;
+    h+=`<p class="muted small">Тоглож буй: <b>${esc(S.player.nickname)}</b> · <button class="linkbtn" id="logoutBtn">Гарах</button></p>`;
   }else{
-    h+=`<div class="joinbox"><p><b>Ангидаа нэгдэх</b> — багшаасаа ангийн кодоо аваад, өөрийн нэр (хоч) болон 4 оронтой PIN-ээ сонгоорой. Өмнө нь нэгдсэн бол ижил код, нэр, PIN-ээр өөр утаснаас нэвтэрнэ.</p>
+    h+=`<div class="rank">${rankHTML(b.me)}</div>`;
+    joinHTML=`<details class="joinwrap"><summary>Ангидаа нэгдэх</summary><div class="joinbox"><p>Багшаасаа ангийн кодоо аваад, өөрийн нэр (хоч) болон 4 оронтой PIN-ээ сонгоорой. Өмнө нь нэгдсэн бол ижил код, нэр, PIN-ээр өөр утаснаас нэвтэрнэ.</p>
       <form id="joinForm" autocomplete="off">
-        <label>ангийн код<input name="code" maxlength="6" required placeholder="ж: K7QX2M" autocapitalize="characters"></label>
-        <label>нэр (хоч)<input name="nick" maxlength="20" required placeholder="ж: Болд"></label>
+        <label>Ангийн код<input name="code" maxlength="6" required placeholder="ж: K7QX2M" autocapitalize="characters"></label>
+        <label>Нэр (хоч)<input name="nick" maxlength="20" required placeholder="ж: Болд"></label>
         <label>PIN (4 тоо)<input name="pin" inputmode="numeric" pattern="[0-9]{4}" maxlength="4" required placeholder="••••"></label>
-        <button class="btn" type="submit">нэгдэх</button>
+        <button class="btn" type="submit">Нэгдэх</button>
       </form>
-      <p class="muted small">Бид имэйл, утасны дугаар авахгүй. Ангийн самбарт зөвхөн хоч нэр харагдана.</p></div>`;
+      <p class="muted small">Бид имэйл, утасны дугаар авахгүй. Ангийн самбарт зөвхөн хоч нэр харагдана.</p></div></details>`;
   }
-  if(b.top&&b.top.length)h+=`<h3>Шилдэг ангиуд</h3><table class="lb"><tr><th>#</th><th>анги</th><th>цол</th><th>дундаж</th><th>7 хоног</th></tr>${b.top.slice(0,10).map(classRow).join('')}</table>`;
-  box.innerHTML=h;
+  if(b.top&&b.top.length)h+=`<h3>Шилдэг ангиуд</h3><table class="lb"><tr><th>#</th><th>Анги</th><th>Цол</th><th>Дундаж</th><th>7 хоног</th></tr>${b.top.slice(0,10).map(classRow).join('')}</table>`;
+  box.innerHTML=h+joinHTML;
   const f=document.getElementById('joinForm');
   if(f)f.addEventListener('submit',async e=>{e.preventDefault();const d=new FormData(f);
     try{const s=await call('tu_join',{p_code:d.get('code'),p_nickname:d.get('nick'),p_pin:d.get('pin')});
@@ -654,8 +661,8 @@ function shareText(){
 document.getElementById('shareBtn').addEventListener('click',async()=>{
   const txt=shareText();
   const box=document.getElementById('copyBox');box.value=txt;box.rows=txt.split('\n').length;box.style.display='block';
-  try{await navigator.clipboard.writeText(txt);toast('хууллаа')}
-  catch(e){box.select();toast('доорх текстийг хуулна уу')}});
+  try{await navigator.clipboard.writeText(txt);toast('Хууллаа')}
+  catch(e){box.select();toast('Доорх текстийг хуулна уу')}});
 
 /* ---------- story image 1080×1920 ---------- */
 function drawStitches(ctx,pat,x0,y0,cell,color,lw){
@@ -689,9 +696,9 @@ async function makeStory(){
     else if(s==='present'){ctx.save();ctx.strokeStyle=ink;ctx.lineWidth=5;ctx.setLineDash([16,10]);rr(ctx,x+3,y+3,sz-6,sz-6,8);ctx.stroke();ctx.restore();
       drawStitches(ctx,['X'],x+sz-40,y+12,28,ink,4)}
     else{ctx.fillStyle='#161616';rr(ctx,x,y,sz,sz,8);ctx.fill()}}));
-  ctx.fillStyle='rgba(244,242,237,.55)';ctx.font='500 34px Onest, Arial, sans-serif';ctx.fillText(S.player&&S.player.class?`цол · ${S.player.class} анги`:'цол',W/2,H-470);
+  ctx.fillStyle='rgba(244,242,237,.55)';ctx.font='500 34px Onest, Arial, sans-serif';ctx.fillText(S.player&&S.player.class?`Цол · ${S.player.class} анги`:'Цол',W/2,H-470);
   ctx.fillStyle=ink;ctx.font='800 56px Onest, Arial, sans-serif';ctx.fillText(S.stats.rank,W/2,H-410);
-  ctx.fillStyle=ink;ctx.font='600 44px Onest, Arial, sans-serif';ctx.fillText('чи тааж чадах уу?',W/2,H-300);
+  ctx.fillStyle=ink;ctx.font='600 44px Onest, Arial, sans-serif';ctx.fillText('Чи тааж чадах уу?',W/2,H-300);
   ctx.font='800 46px Onest, Arial, sans-serif';ctx.fillText('grit.mn/culture',W/2,H-230);
   return c.toDataURL('image/png')}
 document.getElementById('storyBtn').addEventListener('click',async()=>{
@@ -719,7 +726,7 @@ document.getElementById('hintBtn').addEventListener('click',async()=>{
   busy=false;showHint(true);buzz(20)});
 
 document.getElementById('helpBtn').addEventListener('click',()=>document.getElementById('helpOv').classList.add('open'));
-document.getElementById('statsBtn').addEventListener('click',()=>{if(S&&S.finished)openResult(S.solved);else toast('тоглоом дуусахад үр дүн гарна')});
+document.getElementById('statsBtn').addEventListener('click',()=>{if(S&&S.finished)openResult(S.solved);else toast('Тоглоом дуусахад үр дүн гарна')});
 document.querySelectorAll('[data-close]').forEach(b=>b.addEventListener('click',e=>e.target.closest('.overlay').classList.remove('open')));
 document.querySelectorAll('.overlay').forEach(o=>o.addEventListener('click',e=>{if(e.target===o)o.classList.remove('open')}));
 document.addEventListener('keydown',e=>{if(e.metaKey||e.ctrlKey||e.altKey)return;if(e.target.closest&&e.target.closest('input,textarea'))return;

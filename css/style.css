@@ -3422,3 +3422,8 @@ body.hbook-open { overflow: hidden; }
 .culture-card:hover .culture-card__link span { transform: translateX(4px); }
 @media (max-width: 1100px) { .wordgame--home { grid-template-columns: minmax(0, 1fr); } .wordgame--home .wordgame__tiles { justify-self: start; max-width: 300px; } }
 @media (max-width: 900px) { .culture-grid { grid-template-columns: minmax(0, 1fr); } .hero__news { font-size: 13px; } }
+.map-fall { animation: map-fall .55s linear infinite; }
+.map-foam { transform-box: fill-box; transform-origin: center; animation: map-foam 1.3s ease-in-out infinite alternate; }
+@keyframes map-fall { to { stroke-dashoffset: -34; } }
+@keyframes map-foam { to { transform: scale(1.18); opacity: .55; } }
+@media (prefers-reduced-motion: reduce) { .map-fall, .map-foam { animation: none; } }

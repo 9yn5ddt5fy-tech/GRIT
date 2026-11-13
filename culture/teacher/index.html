@@ -43,9 +43,9 @@
 <main>
   <div class="top"><h1>Багшийн самбар</h1><a class="muted" href="/culture/taasan-uu/">Таасан уу? тоглоом →</a></div>
   <form id="login">
-    <label>ангийн код<input name="code" maxlength="6" required placeholder="K7QX2M"></label>
-    <label>багшийн код<input name="teacher" maxlength="8" required placeholder="••••••••" type="password"></label>
-    <button type="submit">нээх</button>
+    <label>Ангийн код<input name="code" maxlength="6" required placeholder="K7QX2M"></label>
+    <label>Багшийн код<input name="teacher" maxlength="8" required placeholder="••••••••" type="password"></label>
+    <button type="submit">Нээх</button>
     <p class="muted" style="flex-basis:100%;font-size:12.5px">Кодуудыг GRIT-ээс авна. Багшийн кодыг сурагчдад бүү өгөөрэй.</p>
   </form>
   <p class="err" id="err"></p>
@@ -67,17 +67,17 @@ function draw(){
   const ms=(c.milestones||[]).map(m=>`<li>${esc(['','Аравт','Зуут','Мянгат','Түмэн','Хаан'][m.lvl]||m.lvl)} · ${esc(m.reached_on)}</li>`).join('');
   let h=`<h2>${esc(c.school)} · ${esc(c.name)} анги <span class="muted">(сурагчийн код: ${esc(c.code)})</span></h2>
   <div class="cards">
-    <div class="card"><b>${esc(c.rank)}</b><span>ангийн цол (80% дүрэм)</span></div>
-    <div class="card"><b>${c.avg_points}</b><span>нэг сурагчид ногдох дундаж оноо</span></div>
-    <div class="card"><b>${c.size}</b><span>бүртгэлтэй сурагч</span></div>
-    <div class="card"><b>${c.active_week_pct}%</b><span>энэ 7 хоногт тоглосон</span></div>
+    <div class="card"><b>${esc(c.rank)}</b><span>Ангийн цол (80% дүрэм)</span></div>
+    <div class="card"><b>${c.avg_points}</b><span>Нэг сурагчид ногдох дундаж оноо</span></div>
+    <div class="card"><b>${c.size}</b><span>Бүртгэлтэй сурагч</span></div>
+    <div class="card"><b>${c.active_week_pct}%</b><span>Энэ 7 хоногт тоглосон</span></div>
   </div>
   ${ms?`<h2>Хүрсэн цолууд</h2><ul class="ms">${ms}</ul>`:''}
-  <h2>Сурагчид</h2><div class="wrap"><table><tr><th>нэр</th><th>цол</th><th>оноо</th><th>өдөр</th><th>сүүлд тоглосон</th><th></th></tr>`+
-  data.members.map(m=>`<tr class="${m.last_day&&today-m.last_day<=2?'':'idle'}"><td><b>${esc(m.nickname)}</b> ${m.locked?'<span class="tag warn">түгжигдсэн</span>':''}</td><td>${esc(m.rank)}</td><td>${m.points}</td><td>${m.days}</td><td>${dayDate(m.last_day)}</td>
-    <td class="act"><button class="ghost" data-pin="${m.id}" data-n="${esc(m.nickname)}">PIN солих</button> <button class="ghost" data-del="${m.id}" data-n="${esc(m.nickname)}">хасах</button></td></tr>`).join('')+`</table></div>
+  <h2>Сурагчид</h2><div class="wrap"><table><tr><th>Нэр</th><th>Цол</th><th>Оноо</th><th>Өдөр</th><th>Сүүлд тоглосон</th><th></th></tr>`+
+  data.members.map(m=>`<tr class="${m.last_day&&today-m.last_day<=2?'':'idle'}"><td><b>${esc(m.nickname)}</b> ${m.locked?'<span class="tag warn">Түгжигдсэн</span>':''}</td><td>${esc(m.rank)}</td><td>${m.points}</td><td>${m.days}</td><td>${dayDate(m.last_day)}</td>
+    <td class="act"><button class="ghost" data-pin="${m.id}" data-n="${esc(m.nickname)}">PIN солих</button> <button class="ghost" data-del="${m.id}" data-n="${esc(m.nickname)}">Хасах</button></td></tr>`).join('')+`</table></div>
   <p class="muted" style="margin-top:8px;font-size:12.5px">Саарал мөр = сүүлийн 3 хоногт тоглоогүй. <button class="ghost" id="csv">CSV татах</button></p>
-  <h2>Сургуулийн ангиуд</h2><div class="wrap"><table><tr><th>анги</th><th>цол</th><th>дундаж оноо</th><th>сурагч</th><th>7 хоногт</th></tr>`+
+  <h2>Сургуулийн ангиуд</h2><div class="wrap"><table><tr><th>Анги</th><th>Цол</th><th>Дундаж оноо</th><th>Сурагч</th><th>7 хоногт</th></tr>`+
   (data.school||[]).map(x=>`<tr><td><b>${esc(x.name)}</b></td><td>${esc(x.rank)}</td><td>${x.avg_points}</td><td>${x.size}</td><td>${x.active_week_pct}%</td></tr>`).join('')+`</table></div>`;
   document.getElementById('out').innerHTML=h}
 async function open(fn='tu_teacher',extra={}){
@@ -89,7 +89,7 @@ document.getElementById('out').addEventListener('click',e=>{
   const pin=e.target.closest('[data-pin]'),del=e.target.closest('[data-del]');
   if(pin){const v=prompt(`${pin.dataset.n}-ийн шинэ PIN (4 тоо):`);if(v)open('tu_teacher_pin',{p_player:pin.dataset.pin,p_pin:v.trim()})}
   if(del&&confirm(`${del.dataset.n}-г ангиас хасах уу? Түүний оноо ангид тооцогдохоо болино.`))open('tu_teacher_remove',{p_player:del.dataset.del});
-  if(e.target.id==='csv'){const rows=[['нэр','цол','оноо','өдөр','сүүлд тоглосон']].concat(data.members.map(m=>[m.nickname,m.rank,m.points,m.days,dayDate(m.last_day)]));
+  if(e.target.id==='csv'){const rows=[['Нэр','Цол','Оноо','Өдөр','Сүүлд тоглосон']].concat(data.members.map(m=>[m.nickname,m.rank,m.points,m.days,dayDate(m.last_day)]));
     const blob=new Blob(['﻿'+rows.map(r=>r.map(v=>`"${String(v).replace(/"/g,'""')}"`).join(',')).join('\n')],{type:'text/csv'});
     const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`${data.class.name}-taasan-uu.csv`;document.body.appendChild(a);a.click();a.remove()}});
 if(cred){document.querySelector('[name=code]').value=cred.code;open()}
