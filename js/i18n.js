@@ -96,6 +96,31 @@ const MN = {
   "Tell us about yourself…": "Өөрийнхөө тухай бичээрэй…",
   "Send message": "Зурвас илгээх",
 
+  // Heritage page
+  "Legends and history of our homeland, as picture books and games.": "Нутаг усныхаа домог, түүхийг зурагт ном, тоглоомоор.",
+  "Legends and history of Mongolia's cultural and natural heritage, told as picture books and games.":
+    "Монголын соёлын болон байгалийн өвийн домог, түүхийг зурагт ном, тоглоомоор хүргэнэ.",
+  "Why heritage": "Яагаад өв соёл вэ",
+  "Every hill, lake and stone in the places where we work has a story. Grandparents tell legends about them, and historians write about the empires that rose and fell around them. Yet many students grow up next to these places without ever hearing their stories.":
+    "Бидний ажилладаг нутгийн уул, нуур, чулуу бүр өөрийн түүхтэй. Өвөө эмээ нар тэдгээрийн тухай домог ярьж, түүхчид тэнд мандаж мөхсөн гүрнүүдийн тухай бичдэг. Гэвч олон сурагч эдгээр газрын дэргэд өсөж торниод ч тэдний түүхийг сонсож амжилгүй үлддэг.",
+  "GRIT Heritage collects these legends and this history and turns them into short illustrated picture books and games, so that students can learn about their homeland in a fun way — and grow up wanting to protect it.":
+    "GRIT Heritage эдгээр домог, түүхийг цуглуулж, богино зурагт ном, тоглоом болгон хувиргадаг. Ингэснээр сурагчид нутаг усныхаа тухай сонирхолтойгоор суралцаж, түүнийгээ хамгаалах хүсэлтэй өсөх болно.",
+  "Picture-book lessons": "Зурагт номон хичээл",
+  "Each book is a few short pages with a picture, and ends with one question to check what you learned.":
+    "Ном бүр зурагтай хэдэн богино хуудастай бөгөөд төгсгөлд нь мэдлэгээ шалгах нэг асуулт бий.",
+  "History games": "Түүхийн тоглоом",
+  "Test what you know about Mongolian history. The questions change every time you play.":
+    "Монголын түүхийн мэдлэгээ сорьж үзээрэй. Тоглох болгонд асуултууд өөрчлөгдөнө.",
+  "History quiz": "Түүхийн сорил",
+  "Eight questions on Mongolian history and heritage.": "Монголын түүх, өв соёлын тухай найман асуулт.",
+  "Timeline": "Цаг хугацааны шугам",
+  "Put five events from Mongolian history in the right order.": "Монголын түүхийн таван үйл явдлыг зөв дараалалд нь оруулаарай.",
+  "Share a legend": "Домог хуваалцах",
+  "Do you know a story about your homeland?": "Та нутгийнхаа тухай домог мэдэх үү?",
+  "Many legends are told a little differently in every soum. If an elder in your family knows a story about a mountain, lake or stone near your home, write to us — it could become the next picture book.":
+    "Олон домгийг сум бүрт арай өөрөөр ярьдаг. Танай гэрийн ахмад настан нутгийн уул, нуур, чулууны тухай домог мэддэг бол бидэнд бичээрэй. Энэ нь дараагийн зурагт ном болж магадгүй.",
+  "Send a story": "Домог илгээх",
+
   // EDU page
   "GRIT project": "GRIT төсөл",
   "Our first program": "Анхны хөтөлбөр",
@@ -416,6 +441,9 @@ const MN_ATTR = {
   "Open photo": "Зураг нээх",
   "Scroll left": "Зүүн тийш гүйлгэх",
   "Scroll right": "Баруун тийш гүйлгэх",
+  "Filter stories": "Номнуудыг шүүх",
+  "Picture book": "Зурагт ном",
+  "Illustration: the stupa wall of Erdene Zuu, a stone turtle, a ger and a lake with an island": "Зураг: Эрдэнэ Зуугийн суварган хэрэм, чулуун мэлхий, гэр, арал бүхий нуур",
 };
 
 // Set to false to hide the МН/EN button.
