@@ -3175,7 +3175,7 @@ tr[data-href]:hover a { color: var(--accent); text-decoration-color: currentColo
 @media (max-width: 1100px) { .projects { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 900px) { .projects { grid-template-columns: minmax(0, 1fr); } }
 
-.page-hero__image--art { background: #f2dcc0; }
+.page-hero__image--art { background: #e8664a; }
 .page-hero__image--art::after { content: none; }
 
 .story-tools {
@@ -3281,7 +3281,7 @@ body.hbook-open { overflow: hidden; }
 .game__lead { margin-top: 6px; color: var(--muted); }
 .game__stage { margin-top: 24px; }
 .game__start { display: grid; gap: 20px; justify-items: start; }
-.game__start svg { display: block; width: 100%; aspect-ratio: 16 / 8; border-radius: var(--radius-md); }
+.game__start svg { display: block; width: 100%; aspect-ratio: 16 / 10; border-radius: var(--radius-md); }
 .game__bar { display: flex; justify-content: space-between; color: var(--muted); font-size: 14px; }
 .game__track { height: 6px; margin: 10px 0 20px; border-radius: 99px; background: var(--tint-gray); overflow: hidden; }
 .game__track span { display: block; height: 100%; background: var(--accent); transition: width .4s; }
