@@ -13,7 +13,7 @@
    ```
 4. Project Settings → API хэсгээс **Project URL** болон **publishable (anon) key**-г аваад
    `culture/taasan-uu/index.html`, `culture/teacher/index.html`, `culture/admin/index.html`
-   доторх `__SUPABASE_URL__`, `__SUPABASE_KEY__`-г солино. Энэ түлхүүр нийтэд ил байх зориулалттай.
+   доторх `TU_API` (url, key)-г солино. Энэ түлхүүр нийтэд ил байх зориулалттай.
 
 ## Өдөр тутмын ажил
 

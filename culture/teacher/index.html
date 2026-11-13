@@ -52,7 +52,7 @@
   <div id="out"></div>
 </main>
 <script>
-const TU_API = window.TU_API || { url: '__SUPABASE_URL__', key: '__SUPABASE_KEY__' };
+const TU_API = window.TU_API || { url: 'https://wrjgihdvjwriurdiotih.supabase.co', key: 'sb_publishable_4SDR_v8yrRdlm0k97LqwaQ_tugAqXPN' };
 async function rpc(fn,args){let r,j;try{const h={'Content-Type':'application/json',apikey:TU_API.key};if(/^eyJ/.test(TU_API.key))h.Authorization='Bearer '+TU_API.key;
   r=await fetch(TU_API.url.replace(/\/$/,'')+'/rest/v1/rpc/'+fn,{method:'POST',headers:h,body:JSON.stringify(args)});j=await r.json().catch(()=>null)}catch(e){throw new Error('network')}
   if(!r.ok)throw new Error((j&&j.message)||'network');if(j&&j.error)throw new Error(j.error);return j}
