@@ -3393,3 +3393,31 @@ body.hbook-open { overflow: hidden; }
   .wordgame { grid-template-columns: minmax(0, 1fr); padding: 28px 22px; gap: 28px; }
   .wordgame__tiles { max-width: 300px; justify-self: start; }
 }
+
+/* Home: GRIT Culture teaser (hero badge + section) */
+.hero__news {
+  display: inline-flex; align-items: center; gap: 10px; margin-bottom: 18px; padding: 6px 14px 6px 6px;
+  border: 1px solid rgba(255, 255, 255, .35); border-radius: 999px; background: rgba(0, 0, 0, .35);
+  color: #fff; font-size: 14px; backdrop-filter: blur(6px); transition: background-color .2s, transform .2s;
+}
+.hero__news:hover { background: rgba(0, 0, 0, .55); transform: translateY(-1px); }
+.hero__news-tag { padding: 3px 10px; border-radius: 999px; background: #f4f2ed; color: #000; font-weight: 700; font-size: 12px; }
+.hero__news b { font-weight: 700; }
+.hero__news span[aria-hidden] { transition: transform .2s; }
+.hero__news:hover span[aria-hidden] { transform: translateX(3px); }
+.culture-head { margin-bottom: 28px; }
+.culture-head .section-title { margin-top: 10px; }
+.culture-grid { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); gap: 24px; align-items: stretch; }
+.wordgame--home { padding: 36px; gap: 28px; }
+.wordgame--home .wordgame__title { font-size: clamp(36px, 4vw, 54px); }
+.culture-card { display: flex; flex-direction: column; border: 1px solid var(--line); border-radius: var(--radius-lg); overflow: hidden; background: var(--bg); transition: transform .3s, box-shadow .3s; }
+.culture-card:hover { transform: translateY(-3px); box-shadow: 0 18px 40px -24px rgba(0, 0, 0, .35); }
+.culture-card img { display: block; width: 100%; aspect-ratio: 1200 / 620; object-fit: cover; background: #7fb4e4; }
+.culture-card__body { display: flex; flex-direction: column; flex: 1; padding: 22px 24px 24px; }
+.culture-card__title { font-family: var(--font-display); font-size: 22px; font-weight: 600; line-height: 1.25; }
+.culture-card__meta { margin-top: 8px; color: var(--muted); font-size: 14px; }
+.culture-card__link { margin-top: auto; padding-top: 18px; font-weight: 600; }
+.culture-card__link span { display: inline-block; transition: transform .3s; }
+.culture-card:hover .culture-card__link span { transform: translateX(4px); }
+@media (max-width: 1100px) { .wordgame--home { grid-template-columns: minmax(0, 1fr); } .wordgame--home .wordgame__tiles { justify-self: start; max-width: 300px; } }
+@media (max-width: 900px) { .culture-grid { grid-template-columns: minmax(0, 1fr); } .hero__news { font-size: 13px; } }

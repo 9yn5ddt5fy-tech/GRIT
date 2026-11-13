@@ -26,7 +26,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:wght@500;600;700&family=PT+Serif:ital@0;1&family=Instrument+Serif&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=80">
+  <link rel="stylesheet" href="css/style.css?v=81">
   <script>
     (function () {
       var d = document.documentElement, s = null, l = null;
@@ -67,6 +67,7 @@
       <div class="hero__bg"><img src="assets/img/hero.jpg" alt="Horse grazing on the Mongolian steppe"></div>
       <div class="container hero__content">
         <div class="hero__main">
+          <a class="hero__news" href="/culture/taasan-uu/" data-reveal><span class="hero__news-tag">New</span><b translate="no">Таасан уу?</b><span>a daily history word game</span><span aria-hidden="true">→</span></a>
           <p class="hero__eyebrow" data-reveal><span class="hero__dot"></span>GRIT EDU · Rural Mongolia</p>
           <h1 class="hero__title" data-reveal>Grow. Reach. Inspire. Teach.</h1>
           <p class="hero__subtitle" data-reveal>Opening the world to students from rural Mongolia.</p>
@@ -88,6 +89,36 @@
           <p class="eyebrow">Why we exist</p>
         </div>
         <p class="statement__text">We work in the soums of central Mongolia, where the nearest university is <mark>a day's drive away</mark> and scholarship information rarely reaches students.</p>
+      </div>
+    </section>
+
+    <section class="section container" id="culture">
+      <div class="culture-head" data-reveal>
+        <p class="eyebrow">GRIT Culture</p>
+        <h2 class="section-title">Play with history</h2>
+        <p class="section-lead">A daily word game, picture books of legends and history games — free for everyone.</p>
+      </div>
+      <div class="culture-grid">
+        <a class="wordgame wordgame--home" href="/culture/taasan-uu/" data-reveal>
+          <div class="wordgame__text">
+            <p class="wordgame__eyebrow">Daily word game</p>
+            <h3 class="wordgame__title" translate="no">Таасан уу?</h3>
+            <p class="wordgame__lead">Guess a five-letter word from Mongolian history in six tries. A new word every day — and its story when you solve it.</p>
+            <span class="wordgame__btn">Play <span aria-hidden="true">→</span></span>
+          </div>
+          <div class="wordgame__tiles" aria-hidden="true">
+            <span class="wt wt--near">У</span><span class="wt wt--near">Л</span><span class="wt wt--no">А</span><span class="wt wt--no">А</span><span class="wt wt--no">Н</span>
+            <span class="wt wt--ok">Т</span><span class="wt wt--ok">У</span><span class="wt wt--ok">У</span><span class="wt wt--ok">Л</span><span class="wt wt--ok">Ь</span>
+          </div>
+        </a>
+        <a class="culture-card" href="/culture/" data-reveal>
+          <img src="assets/img/heritage-cover.svg" alt="" loading="lazy">
+          <div class="culture-card__body">
+            <h3 class="culture-card__title">Legends, picture books and history games</h3>
+            <p class="culture-card__meta">6 picture books · 52 quiz questions · 38 timeline events</p>
+            <span class="culture-card__link">Explore GRIT Culture <span aria-hidden="true">→</span></span>
+          </div>
+        </a>
       </div>
     </section>
 
@@ -431,7 +462,7 @@
     </div>
   </footer>
 
-  <script src="js/i18n.js?v=40"></script>
+  <script src="js/i18n.js?v=41"></script>
   <script src="js/main.js?v=40"></script>
 </body>
 </html>

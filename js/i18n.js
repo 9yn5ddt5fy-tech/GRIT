@@ -122,6 +122,14 @@ const MN = {
     "Олон домгийг сум бүрт арай өөрөөр ярьдаг. Танай гэрийн ахмад настан нутгийн уул, нуур, чулууны тухай домог мэддэг бол бидэнд бичээрэй. Энэ нь дараагийн зурагт ном болж магадгүй.",
   "Send a story": "Домог илгээх",
   "Daily word game": "Өдрийн үгийн тоглоом",
+  "New": "Шинэ",
+  "a daily history word game": "өдөр бүрийн түүхийн үгийн тоглоом",
+  "Play with history": "Түүхээ тоглож сур",
+  "A daily word game, picture books of legends and history games — free for everyone.":
+    "Өдөр бүрийн үгийн тоглоом, домгийн зурагт ном, түүхийн тоглоомууд — бүгдэд үнэгүй.",
+  "Legends, picture books and history games": "Домог, зурагт ном, түүхийн тоглоом",
+  "6 picture books · 52 quiz questions · 38 timeline events": "6 зурагт ном · 52 асуулт · 38 үйл явдал",
+  "Explore GRIT Culture": "GRIT Culture үзэх",
   "Guess a five-letter word from Mongolian history in six tries. A new word every day — and its story when you solve it.":
     "Монголын түүхэн таван үсэгтэй үгийг зургаан оролдлогоор таа. Өдөр бүр шинэ үг гарах бөгөөд таасны дараа түүх нь нээгдэнэ.",
   "Play": "Тоглох",
