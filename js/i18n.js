@@ -103,9 +103,9 @@ const MN = {
     "Монголын соёлын болон байгалийн өвийн домог, түүхийг зурагт ном, тоглоомоор хүргэнэ.",
   "Why heritage": "Яагаад өв соёл вэ",
   "Every hill, lake and stone in the places where we work has a story. Grandparents tell legends about them, and historians write about the empires that rose and fell around them. Yet many students grow up next to these places without ever hearing their stories.":
-    "Бидний ажилладаг нутгийн уул, нуур, чулуу бүр өөрийн түүхтэй. Өвөө эмээ нар тэдгээрийн тухай домог ярьж, түүхчид тэнд мандаж мөхсөн гүрнүүдийн тухай бичдэг. Гэвч олон сурагч эдгээр газрын дэргэд өсөж торниод ч тэдний түүхийг сонсож амжилгүй үлддэг.",
-  "GRIT Culture collects these legends and this history and turns them into short illustrated picture books and games, so that students can learn about their homeland in a fun way — and grow up wanting to protect it.":
-    "GRIT Culture эдгээр домог, түүхийг цуглуулж, богино зурагт ном, тоглоом болгон хувиргадаг. Ингэснээр сурагчид нутаг усныхаа тухай сонирхолтойгоор суралцаж, түүнийгээ хамгаалах хүсэлтэй өсөх болно.",
+    "Бидний ажилладаг нутгийн уул, нуур, чулуу бүр өөрийн түүхтэй. Өвөө эмээ нар тэдгээрийн тухай домог ярьж, түүхчид тэнд мандаж мөхсөн гүрнүүдийн тухай бичдэг. Гэвч олон сурагч эдгээр газрын дэргэд өсөж торнидог ч тэдний түүхийг сонсож амжилгүй үлддэг.",
+  "GRIT Culture has collected these legends and this history and turned them into short illustrated picture books and games, now ready for you. Through them, students can learn about their homeland in a fun way — and grow up wanting to cherish, protect and share their own history and heritage.":
+    "GRIT Culture эдгээр домог, түүхийг цуглуулж, богино зурагт ном, тоглоом болгон хувиргаж та бүхэнд хүргэхээр бэлэн боллоо. Ингэснээр сурагчид нутаг усныхаа тухай сонирхолтойгоор суралцаж, өөрсдийн түүх, өв соёлоо хайрлан хамгаалж, түгээн дэлгэрүүлэх хүсэлтэй өсөх болно.",
   "Picture-book lessons": "Зурагт номон хичээл",
   "Each book is a few short pages with a picture, and ends with one question to check what you learned.":
     "Ном бүр зурагтай хэдэн богино хуудастай бөгөөд төгсгөлд нь мэдлэгээ шалгах нэг асуулт бий.",
