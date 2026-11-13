@@ -60,6 +60,8 @@
   .tile.ghost{color:rgba(244,242,237,.38);border:1.5px dashed var(--dim)}
   .tile.revealed{background:var(--ink);border-color:var(--ink);color:#000;box-shadow:0 0 0 2px #000,0 0 0 3.5px var(--ink)}
   .tile.revealing{animation:flip .5s ease}
+  .row.pending .tile{animation:pend .7s ease-in-out infinite alternate}
+  @keyframes pend{to{opacity:.45}}
   .spark{position:fixed;left:0;top:0;z-index:36;pointer-events:none;color:var(--ink);animation:spark .95s cubic-bezier(.12,.75,.3,1) forwards}
   .spark svg{display:block;width:100%;height:100%}
   @keyframes spark{0%{opacity:0;transform:translate(0,0) scale(.2) rotate(0)}12%{opacity:1}100%{opacity:0;transform:translate(var(--dx),var(--dy)) scale(1) rotate(var(--r))}}
@@ -415,6 +417,8 @@ async function call(fn,args={}){
   catch(e){if(e.message!=='session')throw e;await startGuest();return rpc(fn,{p_token:token,...args})}}
 
 let S=null,cur='',busy=false,rankUp=false,loadedAt=0;
+// Wait for a request in flight (a guess) before running the next action.
+const idle=()=>new Promise(r=>{if(!busy)return r();const t=setInterval(()=>{if(!busy){clearInterval(t);r()}},40)});
 const over=()=>!S||S.finished;
 const revealed=()=>S&&S.reveal?{i:S.reveal.pos,ch:S.reveal.ch}:null;
 const boardEl=document.getElementById('board'),kbEl=document.getElementById('kb');
@@ -492,14 +496,14 @@ function burst(el){
     document.body.appendChild(s);setTimeout(()=>s.remove(),1200)}}
 function markRevealKey(){const rv=revealed();if(!rv)return;const b=kbEl.querySelector(`[data-k="${rv.ch}"]`);if(b){b.classList.remove('present','absent');b.classList.add('correct')}}
 async function doReveal(i){
-  if(busy)return;busy=true;
+  await idle();if(S.reveal||S.finished)return;busy=true;
   try{S=await call('tu_reveal',{p_pos:i})}catch(e){busy=false;updateRevealUI();return toast(errMsg(e))}
   busy=false;autofill();renderCur();markRevealKey();
   const t=boardEl.children[S.guesses.length].children[i];t.classList.add('revealing');burst(t);
   document.getElementById('logo').classList.toggle('spin');
   buzz([20,30,20]);updateRevealUI();toast(`${i+1}-р үсэг: ${S.reveal.ch.toLowerCase()}`)}
-boardEl.addEventListener('click',e=>{
-  const t=e.target.closest('.tile');if(!t||over()||!S.hint)return;
+boardEl.addEventListener('click',async e=>{
+  const t=e.target.closest('.tile');if(!t)return;await idle();if(over()||!S.hint)return;
   const row=t.parentElement,r=[...boardEl.children].indexOf(row),i=[...row.children].indexOf(t);
   if(r!==S.guesses.length||i<0||i>4)return;
   if(S.reveal)return toast('энэ тоглолтод үсэг нээсэн');
@@ -518,8 +522,10 @@ function press(k){
 function shake(){const row=boardEl.children[S.guesses.length];row.classList.add('shake');setTimeout(()=>row.classList.remove('shake'),400);buzz(60)}
 async function submit(){
   if(cur.length<5){shake();return toast('5 үсэг оруулна уу')}
-  busy=true;const r=S.guesses.length,word=cur;let s;
-  try{s=await call('tu_guess',{p_word:word})}catch(e){busy=false;if(e.message==='word')shake();return toast(errMsg(e))}
+  busy=true;const r=S.guesses.length,word=cur,rowEl=boardEl.children[r];let s;
+  rowEl.classList.add('pending');
+  try{s=await call('tu_guess',{p_word:word})}catch(e){busy=false;rowEl.classList.remove('pending');if(e.message==='word')shake();return toast(errMsg(e))}
+  rowEl.classList.remove('pending');
   S=s;rankUp=!!s.rank_up;cur='';busy=false;
   const g=S.guesses[r];paintRow(r,g.w,g.r,true);
   setTimeout(()=>{paintKeys(g.w,g.r);markRevealKey()},1400);summary();
@@ -708,7 +714,7 @@ function showHint(animate){
   const h=document.getElementById('hint');if(!animate)h.style.transition='none';h.classList.add('open');
   document.getElementById('hintBtn').classList.add('used');if(!animate)requestAnimationFrame(()=>h.style.transition='');updateRevealUI()}
 document.getElementById('hintBtn').addEventListener('click',async()=>{
-  if(!S||S.hint||S.finished||busy)return;busy=true;
+  await idle();if(!S||S.hint||S.finished)return;busy=true;
   try{S=await call('tu_hint')}catch(e){busy=false;return toast(errMsg(e))}
   busy=false;showHint(true);buzz(20)});
 

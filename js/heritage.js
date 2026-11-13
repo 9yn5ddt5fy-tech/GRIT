@@ -912,22 +912,24 @@ const UI = {
   const wgEl = document.getElementById("wordgame-status");
   function renderWordgame() {
     if (!wgEl) return;
-    const d = new Date();
-    const n = Math.round((new Date(d.getFullYear(), d.getMonth(), d.getDate()) - new Date(2026, 10, 1)) / 86400000) + 1;
+    // Today's puzzle number, counted in Mongolian time like the game's server.
+    let ymd;
+    try {
+      ymd = new Intl.DateTimeFormat("en-CA", { timeZone: "Asia/Ulaanbaatar", year: "numeric", month: "2-digit", day: "2-digit" }).format(new Date());
+    } catch (e) {
+      const d = new Date();
+      ymd = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+    }
+    const [y, m, dd] = ymd.split("-").map(Number);
+    const n = Math.round((Date.UTC(y, m - 1, dd) - Date.UTC(2026, 10, 1)) / 86400000) + 1;
+    // The game saves a small summary of today's play in this browser.
     let g = null;
     try {
-      g = JSON.parse(localStorage.getItem("tu_game") || "null");
+      g = JSON.parse(localStorage.getItem("tu_summary") || "null");
     } catch (e) {}
-    if (!g || g.no !== n || !g.guesses || !g.guesses.length) return (wgEl.textContent = fmt("wgToday", { n }));
-    const tries = g.guesses.length;
-    // When today's game ends the game sets stats.last to today's number and
-    // its streak to 0 on a loss (or 1+ on a win).
-    let st = {};
-    try {
-      st = JSON.parse(localStorage.getItem("tu_stats") || "{}") || {};
-    } catch (e) {}
-    if (st.last !== n) wgEl.textContent = fmt("wgPlaying", { n, g: tries });
-    else if (st.streak > 0) wgEl.textContent = fmt("wgWon", { n, g: tries });
+    if (!g || g.no !== n || !g.tries) wgEl.textContent = fmt("wgToday", { n });
+    else if (!g.finished) wgEl.textContent = fmt("wgPlaying", { n, g: g.tries });
+    else if (g.solved) wgEl.textContent = fmt("wgWon", { n, g: g.tries });
     else wgEl.textContent = fmt("wgLost", { n });
   }
 
