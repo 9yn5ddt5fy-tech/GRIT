@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>GRIT админ · Таасан уу?</title>
+<link rel="icon" href="/favicon.ico">
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{--paper:#f4f2ed;--line:rgba(0,0,0,.12);--muted:rgba(0,0,0,.55)}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--paper);color:#000;font:15px/1.5 'Onest',Arial,sans-serif;padding:24px 16px 60px}
+  main{max-width:980px;margin:0 auto}
+  h1{font-size:30px;font-weight:800;letter-spacing:-.04em;margin-bottom:18px}
+  h2{font-size:17px;font-weight:800;margin:26px 0 10px}
+  .muted{color:var(--muted)}
+  form{display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end;background:#fff;border:1px solid var(--line);border-radius:10px;padding:16px}
+  label{display:grid;gap:4px;font-size:12px;font-weight:600;color:var(--muted)}
+  input{height:42px;border:1.5px solid rgba(0,0,0,.2);border-radius:6px;padding:0 12px;font:600 15px 'Onest',Arial,sans-serif;min-width:200px}
+  button{height:42px;padding:0 18px;border:none;border-radius:6px;background:#000;color:var(--paper);font:700 14px 'Onest',Arial,sans-serif;cursor:pointer}
+  button.ghost{background:transparent;color:#000;border:1.5px solid #000;height:30px;padding:0 10px;font-size:12px}
+  .new{background:#000;color:var(--paper);border-radius:10px;padding:16px 18px;margin-top:12px}
+  .new code{font:800 22px 'Onest',monospace;letter-spacing:.08em}
+  table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--line);font-size:14px}
+  th{text-align:left;font-size:11.5px;font-weight:600;color:var(--muted);padding:9px 10px;border-bottom:1px solid var(--line);background:#faf9f6}
+  td{padding:9px 10px;border-bottom:1px solid rgba(0,0,0,.06)}
+  .err{color:#c8352b;font-weight:600;margin-top:10px}
+  .wrap{overflow-x:auto}
+  #panel{display:none}
+</style>
+</head>
+<body>
+<main>
+  <h1>GRIT админ · Таасан уу?</h1>
+  <form id="keyForm"><label>админ түлхүүр<input name="key" type="password" required></label><button type="submit">нэвтрэх</button></form>
+  <p class="err" id="err"></p>
+  <div id="panel">
+    <h2>Шинэ анги нэмэх</h2>
+    <form id="newForm">
+      <label>сургууль<input name="school" required placeholder="ж: Хархорин сумын ЕБС"></label>
+      <label>анги<input name="cls" required placeholder="ж: 8А"></label>
+      <button type="submit">үүсгэх</button>
+    </form>
+    <div id="created"></div>
+    <h2>Бүх анги</h2>
+    <div class="wrap" id="list"></div>
+  </div>
+</main>
+<script>
+const TU_API = window.TU_API || { url: '__SUPABASE_URL__', key: '__SUPABASE_KEY__' };
+async function rpc(fn,args){let r,j;try{const h={'Content-Type':'application/json',apikey:TU_API.key};if(/^eyJ/.test(TU_API.key))h.Authorization='Bearer '+TU_API.key;
+  r=await fetch(TU_API.url.replace(/\/$/,'')+'/rest/v1/rpc/'+fn,{method:'POST',headers:h,body:JSON.stringify(args)});j=await r.json().catch(()=>null)}catch(e){throw new Error('network')}
+  if(!r.ok)throw new Error((j&&j.message)||'network');if(j&&j.error)throw new Error(j.error);return j}
+const MSG={admin:'Админ түлхүүр буруу.',exists:'Энэ сургуульд ийм нэртэй анги аль хэдийн бий.',name:'Сургууль, ангийн нэрээ бөглөнө үү.',code:'Ийм анги олдсонгүй.',network:'Сүлжээний алдаа.'};
+const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+let key='';
+const err=e=>{document.getElementById('err').textContent=MSG[e.message]||MSG.network};
+function showCodes(r,title){document.getElementById('created').innerHTML=`<div class="new"><p>${title}: <b>${esc(r.school||'')} ${esc(r.class||'')}</b></p>
+  <p>Сурагчдын код: <code>${esc(r.code)}</code></p><p>Багшийн код: <code>${esc(r.teacher_code)}</code></p>
+  <p style="font-size:12.5px;opacity:.7;margin-top:6px">Багшийн код зөвхөн одоо харагдана. Хуулж аваад багшид өгнө үү. Багш grit.mn/culture/teacher хуудсаар орно.</p></div>`}
+async function list(){
+  const rows=await rpc('tu_admin_classes',{p_key:key});
+  document.getElementById('list').innerHTML=`<table><tr><th>сургууль</th><th>анги</th><th>код</th><th>сурагч</th><th>цол</th><th>дундаж</th><th>7 хоногт</th><th></th></tr>`+
+    rows.map(c=>`<tr><td>${esc(c.school)}</td><td><b>${esc(c.name)}</b></td><td><code>${esc(c.code)}</code></td><td>${c.size}</td><td>${esc(c.rank)}</td><td>${c.avg_points}</td><td>${c.active_week_pct}%</td>
+      <td><button class="ghost" data-tc="${esc(c.code)}">багшийн код шинэчлэх</button></td></tr>`).join('')+`</table>`}
+document.getElementById('keyForm').addEventListener('submit',async e=>{e.preventDefault();key=new FormData(e.target).get('key');document.getElementById('err').textContent='';
+  try{await list();document.getElementById('panel').style.display='block'}catch(x){err(x)}});
+document.getElementById('newForm').addEventListener('submit',async e=>{e.preventDefault();const d=new FormData(e.target);
+  try{showCodes(await rpc('tu_admin_create_class',{p_key:key,p_school:d.get('school'),p_class:d.get('cls')}),'Үүслээ');e.target.reset();await list()}catch(x){err(x)}});
+document.getElementById('list').addEventListener('click',async e=>{const b=e.target.closest('[data-tc]');if(!b||!confirm('Хуучин багшийн код ажиллахаа болино. Шинэчлэх үү?'))return;
+  try{showCodes(await rpc('tu_admin_teacher_code',{p_key:key,p_code:b.dataset.tc}),'Шинэ багшийн код')}catch(x){err(x)}});
+</script>
+</body>
+</html>

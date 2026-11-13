@@ -215,6 +215,23 @@
   .ladder p{font-size:13.5px!important;line-height:1.45!important}
   .ladder li:not(.got) p,.ladder li:not(.got) b{opacity:.55}
 
+  /* leaderboard sheet */
+  .sheet h3{font-size:13px;font-weight:700;letter-spacing:.02em;margin:18px 0 6px;color:rgba(0,0,0,.6)}
+  table.lb{width:100%;border-collapse:collapse;font-size:14px}
+  table.lb th{text-align:left;font-size:11px;font-weight:600;color:rgba(0,0,0,.45);padding:6px 6px;border-bottom:1px solid rgba(0,0,0,.12)}
+  table.lb td{padding:8px 6px;border-bottom:1px solid rgba(0,0,0,.07);vertical-align:top}
+  table.lb td small{display:block;font-size:11px;color:rgba(0,0,0,.5)}
+  table.lb tr.me td{background:#e9e6de;font-weight:700}
+  table.lb td:first-child{width:24px;color:rgba(0,0,0,.45)}
+  .muted{color:rgba(0,0,0,.55)!important}.small{font-size:12.5px!important;margin-top:8px}
+  .linkbtn{background:none;border:none;padding:0;font:inherit;text-decoration:underline;cursor:pointer;color:#000}
+  .joinbox{border:1px solid rgba(0,0,0,.12);border-radius:8px;padding:14px 16px;margin-bottom:6px}
+  .joinbox form{display:grid;gap:10px;margin-top:12px}
+  .joinbox label{display:grid;gap:4px;font-size:12px;font-weight:600;color:rgba(0,0,0,.6)}
+  .joinbox input{height:44px;border:1.5px solid rgba(0,0,0,.2);border-radius:6px;padding:0 12px;font:600 16px 'Onest',Arial,sans-serif;background:#fff;color:#000}
+  .joinbox input:focus{outline:2px solid #000;outline-offset:1px}
+  ul.rules{margin:12px 0 0 18px;font-size:13.5px;line-height:1.5;color:rgba(0,0,0,.75)}
+  ul.rules li+li{margin-top:4px}
   @media(prefers-reduced-motion:reduce){*,*::before{animation:none!important;transition:none!important}}
 
   @media(max-height:740px){.tile{width:52px;height:52px;font-size:24px}.k{height:48px}}
@@ -233,6 +250,7 @@
     <nav class="nav">
       <button id="helpBtn" aria-label="заавар"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.6 9.3a2.5 2.5 0 1 1 3.4 2.3c-.7.3-1 .8-1 1.5v.6"/><circle cx="12" cy="16.9" r=".6" fill="currentColor"/></svg></button>
       <button id="rankBtn" aria-label="цол"><svg viewBox="0 0 24 24"><path d="M6 14l6-5 6 5M6 19l6-5 6 5M6 9l6-5 6 5"/></svg></button>
+      <button id="boardBtn" aria-label="самбар"><svg viewBox="0 0 24 24"><path d="M4 20h16M6 20v-6h4v6M10 20V9h4v11M14 20v-8h4v8"/></svg></button>
       <button id="statsBtn" aria-label="үр дүн"><svg viewBox="0 0 24 24"><path d="M6 19v-6M12 19V7M18 19v-9"/></svg></button>
     </nav>
   </div>
@@ -263,7 +281,8 @@
   <div class="ex"><div class="tile">Д</div><div class="tile">О</div><div class="tile">М</div><div class="tile absent">О</div><div class="tile">Г</div></div>
   <div class="rule"><b>Бүдэг</b> үсэг үгэнд байхгүй.</div>
   <div class="divider"><svg class="stitchline"></svg></div>
-  <p>Үг таах бүрт цол ахина: <b>цэрэгээс эхлээд хаан</b> хүртэл.</p>
+  <p>Таасан өдөр бүр <b>оноо</b> авна: 1-р оролдлогоор 6 оноо … 6-р оролдлогоор 1 оноо. Цол ахихад <b>оноо болон тоглосон өдөр</b> хоёулаа хэрэгтэй: <b>цэрэгээс эхлээд хаан</b> хүртэл.</p>
+  <p>Ангийн кодоор <b>ангидаа нэгдвэл</b> ангиараа өрсөлдөнө.</p>
   <p>Гацвал <b>сэжүүр</b> товчийг дарж үгийн төрөл, хамаарах үеийг харж болно. Сэжүүр нэг удаа л нээгдэнэ.</p>
   <p>Сэжүүр авсан ч олохгүй байвал <b>хоосон нүднээс нэгийг дарж</b> тэр байрны үсгийг нээж болно. Үсэг нээх боломж <b>2 хоногт нэг удаа</b> гарна.</p>
   <p>Өдөр бүр бүх хүнд ижил үг гарна. Үр дүнгээ story-доо хуваалцаарай.</p>
@@ -294,9 +313,24 @@
   <button class="close" data-close>✕</button>
   <div class="eyebrow">чиний цол</div>
   <h2>Цолны шат</h2>
-  <p>Чингис хааны аравтын тогтолцоогоор цэргийг арав, зуу, мянга, түмээр зохион байгуулж, тус бүрийг ноён удирддаг байв. Өдрийн үгийг таах тусам чи энэ шатаар дэвшинэ.</p>
+  <p>Чингис хааны аравтын тогтолцоогоор цэргийг арав, зуу, мянга, түмээр зохион байгуулж, тус бүрийг ноён удирддаг байв. Өдрийн үгийг таах тусам чи энэ шатаар дэвшинэ. Нэг улирал нэг жил үргэлжилнэ.</p>
+  <ul class="rules">
+    <li><b>Таасан өдөр:</b> 7 − оролдлогын тоо (6 … 1 оноо)</li>
+    <li><b>Сэжүүр</b> −1, <b>үсэг нээх</b> −1, гэхдээ таасан бол дор хаяж 1 оноо</li>
+    <li><b>Таагаагүй өдөр:</b> 0 оноо, гэхдээ тоглосон өдөрт тооцогдоно</li>
+    <li><b>7 хоногт 5+ өдөр</b> тоглосон бол +3 оноо</li>
+    <li>Цол ахихад <b>оноо ба өдөр</b> хоёулаа хүрэх ёстой. Тиймээс хамгийн дээд цол бараг жилийн турш тоглосон хүнд л ногдоно.</li>
+    <li><b>Ангийн цол:</b> ангийн сурагчдын 80% нь хүрсэн цол.</li>
+  </ul>
   <div class="rank" id="rankBox2" style="margin-top:14px"></div>
   <ul class="ladder" id="ladder"></ul>
+</div></div>
+
+<div class="overlay" id="boardOv"><div class="sheet">
+  <button class="close" data-close>✕</button>
+  <div class="eyebrow">анги, сургууль</div>
+  <h2>Онооны самбар</h2>
+  <div id="boardBody"></div>
 </div></div>
 
 <div class="overlay" id="storyOv"><div class="sheet story">
@@ -339,134 +373,50 @@ document.querySelectorAll('.stitchline').forEach(s=>{
   s.innerHTML=`<path d="${d}" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>`});
 
 const HORSE='M13.1 2.2L85.9 2.2L86.6 2.8L87.8 2.8L89.7 3.8L90 4.4L90.9 4.4L91.3 5L91.9 5L91.9 5.6L92.5 5.6L93.4 6.6L93.4 7.2L94.1 7.2L94.1 7.8L95.6 9.4L95.6 10.3L96.3 10.6L96.3 11.6L97.2 13.1L97.2 15L97.5 15L97.5 85L97.2 85L97.2 86.9L96.3 88.4L96.3 89.4L95.6 89.7L95.6 90.6L94.1 92.2L94.1 92.8L93.4 92.8L93.4 93.4L92.5 94.4L91.9 94.4L91.9 95L91.3 95L90.9 95.6L90 95.6L89.7 96.3L87.8 97.2L86.6 97.2L85.9 97.8L13.1 97.8L12.5 97.2L10.9 97.2L10 96.3L9.1 96.3L8.8 95.6L7.2 95L4.4 92.2L4.4 91.6L2.8 89.7L2.2 86.9L1.6 86.6L1.6 13.4L2.2 13.1L2.2 11.9L2.8 11.3L3.1 9.7L3.8 9.4L4.4 7.8L7.2 5L7.8 5L9.1 3.8L10 3.8L10.9 2.8L12.5 2.8ZM14.1 4.4L13.1 5L10.9 5.3L10.6 5.9L9.7 5.9L8.8 7.2L8.1 7.2L6.6 8.8L6.6 9.4L5.9 9.4L5.9 10L5.3 10.3L5.3 11.3L4.7 11.6L4.4 13.4L3.8 14.1L3.8 85.9L4.4 86.6L4.4 87.8L5 88.1L6.6 91.3L8.1 92.8L8.8 92.8L8.8 93.4L9.4 93.4L9.7 94.1L10.6 94.1L10.9 94.7L12.8 95L13.4 95.6L43.1 95.6L43.4 95.3L43.4 68.4L43.8 67.8L48.4 67.2L49.1 66.6L50.9 66.3L51.3 65.6L52.2 65.6L55 63.1L56.6 60L56.9 56.6L56.6 56.6L56.3 53.8L55.6 52.5L55 52.2L55 51.6L52.8 49.4L50.9 48.4L50 48.4L49.7 47.8L47.2 47.8L47.2 47.5L42.8 47.8L41.6 48.8L40.6 48.8L39.4 50L38.8 50L37.2 51.6L37.2 52.2L36.6 52.2L35.9 54.1L35.3 54.4L35 56.3L34.4 56.6L34.4 58.4L33.4 59.4L32.5 59.4L32.5 59.1L15.9 59.1L15.6 58.4L15 44.7L19.1 43.8L19.1 43.4L20.6 43.4L21.3 42.8L22.5 42.8L22.8 42.2L23.8 42.2L24.1 41.6L24.7 41.6L25.3 40.6L26.6 40.3L30.6 35.9L31.6 33.8L32.2 33.4L32.2 32.5L32.8 32.2L32.8 30.9L33.4 30.6L33.8 28.4L34.4 27.5L34.1 18.4L34.7 17.8L36.6 17.8L37.8 17.2L37.8 15L37.2 14.4L37.2 11.6L36.6 10.9L36.6 8.8L35.9 7.8L36.3 6.9L41.3 7.8L41.6 8.4L43.1 8.8L43.4 9.4L45 10L45 10.6L45.6 10.6L47.2 12.2L47.2 12.8L48.1 13.4L49.7 17.2L55.3 17.8L55.9 18.4L58.1 18.8L58.4 20.3L57.8 20.6L57.8 21.6L57.2 22.2L56.9 23.8L56.3 24.1L56.3 25L57.2 24.7L57.2 23.8L57.8 23.4L59.7 19.7L61.6 20L61.9 20.6L62.8 20.6L63.8 21.6L64.7 21.6L65.9 22.8L66.9 22.8L67.5 23.8L69.1 24.4L69.1 25L65 29.1L65 29.7L63.4 30.9L63.4 31.6L64.1 31.6L64.4 30.6L65 30.6L65 30L65.6 30L65.6 29.4L66.3 29.4L66.3 28.8L69.4 25.6L70.6 25.6L71.3 26.6L71.9 26.6L73.4 28.1L73.4 28.8L75 30L75 30.6L75.6 30.6L75.6 31.3L76.6 31.9L76.9 32.8L75 33.8L74.7 34.4L74.1 34.4L73.8 35L72.8 35L72.5 35.6L71.3 35.9L70 37.2L69.1 37.2L69.1 37.8L70 37.8L70.3 37.2L72.5 36.6L72.8 35.9L76.6 34.4L76.9 33.8L77.8 33.8L78.4 35.3L79.4 35.9L82.2 42.5L80.6 42.8L80 43.4L77.5 43.8L76.9 44.4L75.3 44.4L74.7 45L73.1 45L72.8 45.6L74.7 45.6L75.3 45L77.5 45L78.4 44.4L80.3 44.4L81.3 43.8L82.5 43.8L82.8 45.9L83.4 46.9L84.1 52.5L83.8 52.8L74.1 52.8L73.8 53.4L83.8 54.1L84.1 57.2L83.4 58.4L83.4 60.9L83.1 60.9L82.8 62.8L79.4 62.2L79.4 61.9L77.2 61.6L77.2 61.3L75.3 61.3L75 60.6L73.4 60.9L74.1 61.6L75.3 61.6L77.8 62.8L79.4 62.8L79.7 63.4L81.3 63.4L82.2 64.1L82.2 65.3L81.9 65.3L81.9 66.3L81.3 66.6L81.3 67.8L80.6 68.1L80 70.6L79.4 70.9L78.4 72.8L77.2 72.8L75 70.9L72.8 70L71.3 68.4L70.3 68.4L71.6 70L72.2 70L72.8 70.9L73.4 70.9L74.4 72.2L75 72.2L75.9 73.4L77.2 74.1L77.2 75L71.3 81.3L70.6 81.3L69.1 79.7L69.1 79.1L67.2 77.5L67.2 76.9L65.6 75.6L65.6 75L64.4 74.4L65.6 76.9L66.6 77.5L67.2 79.1L69.1 80.9L69.4 82.5L68.4 82.8L68.4 83.4L67.8 83.4L66.6 84.7L61.6 87.2L61.6 95.6L85.6 95.6L86.3 95L87.5 95L87.8 94.4L90.9 92.8L92.2 91.6L92.2 90.9L92.8 90.6L92.8 90L93.4 89.7L94.7 87.2L95 84.1L95.3 84.1L95.3 16.3L95 16.3L94.7 12.5L94.1 12.2L93.4 10L90 6.6L89.4 6.6L89.1 5.9L88.1 5.9L87.2 5L85.9 5L85.3 4.4Z';
-/* ---------- words ---------- */
-const WORDS = [
-  {w:"ӨРТӨӨ", cat:"харилцааны систем", info:"Их Монгол Улсын шуудан, харилцааны сүлжээ. Элч нар өртөө бүрт морио сольж, мэдээ, тушаалыг эзэнт гүрний нэг захаас нөгөө зах хүртэл маш хурдан хүргэдэг байв. Өгөдэй хааны үед өргөн хэмжээнд зохион байгуулагдсан.", era:"XIII зуун · Их Монгол Улс"},
-  {w:"ЭЛЧИН", cat:"албан тушаал", info:"Хааны зарлиг, захидлыг бусад улс, нутагт хүргэдэг төлөөлөгч. Их Монгол Улсын элч нар хаанаас олгосон алт, мөнгө, модон гэрэгэ (пайз) барьж явдаг бөгөөд гэрэгэтэй хүн өртөөгөөр унаа, хүнс авах эрхтэй байв. Өнөөдрийн “элчин сайд” гэдэг үг үүнээс улбаатай.", era:"XIII–XIV зуун · Их Монгол Улс, Юань"},
-  {w:"ТАМГА", cat:"эрх мэдлийн тэмдэг", info:"Хаан, ноёд, албан байгууллагын эрх мэдэл, баталгааны тэмдэг. Гүюг хааны тамгатай захидал 1246 онд Ромын Пап ламд хүрч байсан нь өнөөг хүртэл хадгалагдаж буй.", era:"XIII зуун · Их Монгол Улс"},
-  {w:"ХҮРЭЭ", cat:"газрын нэр", info:"Улаанбаатарын өмнөх нэр. 1639 онд Өндөр гэгээн Занабазарт зориулан байгуулсан нүүдлийн өргөөнөөс эхтэй бөгөөд олон удаа нүүсний эцэст одоогийн байрандаа суурьшсан.", era:"XVII–XX зуун"},
-  {w:"ЗАСАГ", cat:"хууль, засаглал", info:"Чингис хааны “Их засаг” бол Их Монгол Улсын хууль цааз байв. Хожим Манжийн үед хошууг захирах ноёныг “засаг ноён” гэж нэрлэдэг болсон.", era:"XIII зуун ба түүнээс хойш"},
-  {w:"ХАТАН", cat:"цол", info:"Мандухай сэцэн хатан XV зууны сүүлээр бутарсан монголчуудыг дахин нэгтгэж, Даян хааныг хаан ширээнд суулгахад гол үүрэг гүйцэтгэсэн.", era:"XV зуун · Хойд Юань"},
-  {w:"ХАГАН", cat:"цол", info:"Нүүдэлчдийн их гүрний дээд захирагчийн цол. Нирун, Түрэг, Уйгур, Монголын эзэнт гүрнүүдэд хэрэглэгдэж ирсэн. “Хаан” гэдэг үг үүнтэй холбоотой.", era:"V–XIV зуун"},
-  {w:"БИЧИГ", cat:"соёлын өв", info:"Монгол бичиг уйгур бичгээс улбаатай бөгөөд Чингис хааны үед төрийн бичиг болсон. Дээрээс доош босоо бичигддэгээрээ онцлог. Өвөр Монголд одоо ч өдөр тутам хэрэглэдэг.", era:"XIII зуунаас өнөөг хүртэл"},
-  {w:"ДОМОГ", cat:"аман зохиол", info:"Газар ус, уул нуурын үүслийн тухай ам дамжсан түүх. Жишээ нь Тайхар чулууны домогт Бөх Билэгт баатар аварга могойг дарахаар энэ чулууг шидсэн гэдэг.", era:"Аман уламжлал"},
-  {w:"ОРДОН", cat:"барилга", info:"Хаадын суудаг, төрийн ёслол үйлддэг газар. Богд хааны ордон нь Монголын сүүлчийн хаан VIII Богд Жавзандамбын өвлийн ордон байсан бөгөөд одоо музей болжээ.", era:"XX зууны эх · Богд хаант Монгол Улс"},
-  {w:"АЙМАГ", cat:"засаг захиргаа", info:"Монгол Улсын засаг захиргааны том нэгж. Өнөөдөр 21 аймаг байдаг бөгөөд аймаг бүр сумдад хуваагддаг.", era:"Орчин үе"},
-  {w:"ТҮМЭН", cat:"цэргийн нэгж", info:"Чингис хааны цэргийн зохион байгуулалтын хамгийн том нэгж буюу 10,000 цэрэг. Аравт, зуут, мянгат, түмэн гэсэн аравтын тогтолцоо нь цэргийг маш сайн зохион байгуулалттай болгосон.", era:"XIII зуун · Их Монгол Улс"},
-  {w:"ХУРАЛ", cat:"төрийн чуулган", info:"Их хуралдай бол хаан сонгох, улсын чухал хэргийг шийддэг чуулган. 1206 онд Онон голын эх дэх их хуралдайгаар Тэмүжинийг Чингис хаан хэмээн өргөмжилсөн.", era:"1206 он · Их Монгол Улс"},
-  {w:"ХҮЛЭГ", cat:"түүхэн хүмүүс", info:"Чингис хааны “дөрвөн хүлэг” баатар бол Боорчи, Мухулай, Борохул, Чулуун. Тэд хааны хамгийн итгэлтэй жанжид байжээ.", era:"XIII зуун · Их Монгол Улс"},
-  {w:"ХҮННҮ", cat:"төр улс", info:"Монголын нутагт байгуулагдсан анхны нүүдэлчдийн төр. МЭӨ 209 онд Модун шаньюй Хүннүгийн хүчирхэг гүрнийг байгуулжээ.", era:"МЭӨ III зуун – МЭ I зуун"},
-  {w:"ЧУЛУУ", cat:"дурсгал", info:"Буган чулуу бол хүрэл ба төмөр зэвсгийн үеийн хөшөө. Нисэж буй мэт буга сийлсэн эдгээр хөшөө Монголын нутагт олон зуугаар олддог.", era:"Хүрэл, төмөр зэвсгийн үе"},
-  {w:"УЙГУР", cat:"төр улс", info:"Уйгурын хаант улс 744–840 онд Монголын нутагт оршиж байв. Нийслэл нь Орхоны хөндий дэх Хар балгас (Орду-Балык) байсан бөгөөд монгол бичиг уйгур бичгээс гаралтай.", era:"VIII–IX зуун"},
-  {w:"МОРИН", cat:"хөгжим", info:"Морин хуур бол толгойг нь морины толгойн хэлбэрээр сийлсэн хоёр утастай хөгжим. Морин хуурын уламжлалт урлаг 2003 онд ЮНЕСКО-гийн хүн төрөлхтний биет бус соёлын өвийн шилдэг бүтээлээр тунхаглагдсан.", era:"Уламжлалт урлаг"},
-  {w:"ХОШУУ", cat:"засаг захиргаа", info:"Манжийн үеийн засаг захиргааны нэгж. Хошууг засаг ноён захирдаг байв. 1931 оны засаг захиргааны шинэчлэлээр хошууг татан буулгаж, аймаг, сумын тогтолцоог бий болгосон.", era:"XVII–XX зуун · Манжийн үе"},
-  {w:"ХАДАГ", cat:"ёс заншил", info:"Хүндэтгэл, ерөөлийн бэлгэдэл болгон барьдаг торгон алчуур. Хөх хадаг мөнх тэнгэрийг бэлгэддэг тул хамгийн хүндэтгэлтэйд тооцогддог.", era:"Ёс заншил"},
-  {w:"ТҮРЭГ", cat:"төр улс", info:"Түрэгийн хаант улс 552 онд байгуулагдаж, VIII зууны дунд үе хүртэл оршсон. Орхоны хөндийд Билгэ хаан, Күлтегинд зориулсан гэрэлт хөшөө өнөөг хүртэл үлджээ.", era:"VI–VIII зуун"},
-  {w:"СУДАР", cat:"номын өв", info:"Ном, шашны бичвэрийг судар гэдэг. Лигдэн хааны үед буюу 1628–1629 онд Буддын шашны их ном Ганжуурыг монгол хэлнээ бүрэн орчуулжээ.", era:"XVII зуун"},
-  {w:"АЙРАГ", cat:"идээ ундаа", info:"Гүүний сүүг хөхүүрт бүлж исгэсэн ундаа. Зун айраг бэлтгэдэг бөгөөд наадам, баяр ёслолын ширээнд заавал байдаг.", era:"Нүүдэлчдийн уламжлал"},
-  {w:"НИРУН", cat:"төр улс", info:"Нирун (Жужан) улс бол Монголын нутагт оршсон нүүдэлчдийн төр. «Хаган» цолыг анх Нирун улсын захирагчид хэрэглэж эхэлсэн гэж үздэг.", era:"V–VI зуун"},
-  {w:"ХУУЛЬ", cat:"хууль, засаглал", info:"Монголын эртний хуулийн дурсгалд Чингис хааны Их засаг, 1640 оны «Монгол-Ойрадын Их цааз», 1709 оны «Халх журам» багтдаг.", era:"XIII–XVIII зуун"},
-  {w:"ТООНО", cat:"гэр", info:"Гэрийн оройн дугуй цонх. Утаа гаргаж, нарны гэрэл оруулдаг бөгөөд гэрийн хамгийн хүндэтгэлтэй хэсэг. Тооноор орсон нарны гэрэл хаана тусахыг харж өдрийн цагийг тааварладаг байжээ.", era:"Нүүдэлчдийн уламжлал"},
-  {w:"КИДАН", cat:"төр улс", info:"Кидан (Ляо) улс X–XII зуунд одоогийн Монгол болон Хятадын хойд нутгийг захирч байв. Монголын нутагт тэдний хэрэм, хотын туурь олноор бий.", era:"X–XII зуун"},
-  {w:"СЭЛЭМ", cat:"зэвсэг", info:"Муруй иртэй сэлэм нь нум сум, жадны хамт Монгол морин цэргийн гол зэвсэг байв. Гэхдээ монгол цэргийн хамгийн том давуу тал нь морин дээрээс харвах ур чадвар байжээ.", era:"XIII зуун · Их Монгол Улс"},
-  {w:"ЗУРАГ", cat:"урлаг", info:"Монгол зураг бол уламжлалт уран зургийн төрөл. XX зууны эхээр Б. Шаравын зурсан «Монголын нэг өдөр» бүтээл нь нэг зурган дээр нүүдэлчдийн амьдралын олон зуун үзэгдлийг харуулдгаараа алдартай.", era:"XX зууны эх"},
-  {w:"ОЙРАД", cat:"түүхэн ард түмэн", info:"Баруун Монголын ард түмэн. XV зуунд Эсэн тайшийн үед хүчирхэгжиж, XVII–XVIII зуунд Зүүнгарын хаант улсыг байгуулжээ.", era:"XV–XVIII зуун"},
-  {w:"ХОРГО", cat:"байгалийн дурсгал", info:"Архангай аймагт орших унтарсан галт уул. Түүнээс урссан лаав Тэрх голыг хааж Тэрхийн Цагаан нуур үүссэн. Домогт уулын оройг баатар хуйхлан шидсэн нь нуурын арал болсон гэдэг.", era:"Архангай · Тариат сум"},
-  {w:"БӨРТЭ", cat:"түүхэн хүмүүс", info:"Чингис хааны ахлах хатан Бөртэ үжин. Хонгирад аймгийн Дэй сэцэний охин бөгөөд Зүчи, Цагаадай, Өгөдэй, Тулуй хөвгүүдийн эх.", era:"XII–XIII зуун"},
-  {w:"ШАГАЙ", cat:"уламжлалт тоглоом", info:"Хонины шагайгаар олон төрлийн тоглоом тоглодог. «Шагай харваа» 2014 онд ЮНЕСКО-гийн хүн төрөлхтний биет бус соёлын өвийн жагсаалтад бүртгэгдсэн.", era:"Нүүдэлчдийн уламжлал"},
-  {w:"ХИАГТ", cat:"газрын нэр", info:"Монгол, Оросын хил дээрх худалдааны төв. 1915 онд Хиагтад Монгол, Орос, Хятад гурван улсын гэрээ байгуулагдсан.", era:"XVIII–XX зуун"},
-  {w:"ТЭМЭЭ", cat:"мал", info:"Хоёр бөхтэй тэмээ говийн хатуу ширүүн нөхцөлд дасан зохицсон. Тэмээн цуваа олон зууны турш худалдааны ачаа тээвэрлэж ирсэн.", era:"Нүүдэлчдийн уламжлал"},
-  {w:"АЛТАН", cat:"түүхэн сурвалж", info:"«Алтан товч» бол XVII зуунд Лувсанданзаны бичсэн Монголын түүхийн сурвалж бичиг. Түүнд «Монголын нууц товчоо»-ны ихэнх хэсэг орсон нь их ач холбогдолтой.", era:"XVII зуун"},
-  {w:"ЛИМБЭ", cat:"хөгжим", info:"Хулс, модоор хийсэн үлээвэр хөгжим. Амьсгал тасралтгүй үлээх «битүү амьсгаа»-ны арга барил бүхий лимбэчдийн урлаг 2011 онд ЮНЕСКО-гийн яаралтай хамгаалах шаардлагатай биет бус соёлын өвийн жагсаалтад бүртгэгдсэн.", era:"Уламжлалт урлаг"},
-  {w:"ДУНХУ", cat:"эртний ард түмэн", info:"Монголын зүүн хэсэгт нутаглаж байсан эртний нүүдэлчид. МЭӨ III зууны сүүлээр Хүннүгийн Модун шаньюй Дунхуг бут цохижээ.", era:"МЭӨ III зуун"},
-  {w:"ЗОДОГ", cat:"ёс заншил", info:"Монгол бөхийн өмсгөл. Домогт өгүүлснээр нэгэн удаа эмэгтэй хүн эрчүүдтэй барилдаж түрүүлсэн тул түүнээс хойш зодгийн энгэрийг задгай болгосон гэдэг.", era:"Үндэсний бөх"},
-  {w:"ДАЛАЙ", cat:"цол", info:"«Далай лам» цолыг 1578 онд Түмэдийн Алтан хаан Түвдийн Содномжамцад өргөсөн. «Далай» гэдэг нь монгол үг бөгөөд «их тэнгис» гэсэн утгатай.", era:"XVI зуун"},
-  {w:"ИРВЭС", cat:"байгаль", info:"Өндөр уулын ховор амьтан. Дэлхийн ирвэсийн нэлээд хэсэг нь Монголын Алтай, Говь-Алтайн уулсад амьдардаг бөгөөд агнахыг хуулиар хориглосон.", era:"Монголын байгаль"},
-  {w:"ТУЛУЙ", cat:"түүхэн хүмүүс", info:"Чингис хааны отгон хүү. Түүний хөвгүүд Мөнх, Хубилай, Хүлэгү, Аригбөх бүгд эзэнт гүрний томоохон захирагчид болжээ.", era:"XIII зуун · Их Монгол Улс"},
-  {w:"ТУЛГА", cat:"гэр", info:"Гал голомтын дээр тогоо тавих гурван хөлтэй төмөр. Тулга бол айл өрх, үр удмын залгамж холбоог бэлгэддэг тул түүнийг гишгэх, түлхэх нь цээртэй.", era:"Ёс заншил"},
-  {w:"ХЭРЭМ", cat:"дурсгал", info:"Дорнод, Сүхбаатар аймгаар дайран өнгөрдөг «Чингисийн хэрэм» гэж нэрлэгддэг шороон хэрэм нь үнэндээ Чингис хаанаас өмнө, Кидан, Зүрчидийн үед баригдсан гэж үздэг.", era:"X–XIII зуун"},
-  {w:"ЭМЭЭЛ", cat:"эд өлгийн зүйл", info:"Модон суурьтай, мөнгөн чимэглэлтэй монгол эмээл. Эмээл, хазаар урладаг дархчууд нутаг бүрт байсан бөгөөд сайхан эмээл айлын бахархал байв.", era:"Нүүдэлчдийн уламжлал"},
-  {w:"ТАТАР", cat:"эртний аймаг", info:"XII зууны Монголын хүчирхэг аймгуудын нэг. «Монголын нууц товчоо»-нд өгүүлснээр Тэмүжиний эцэг Есүхэй баатрыг татарууд хордуулан алжээ.", era:"XII зуун"},
-  {w:"ДАЦАН", cat:"шашин, боловсрол", info:"Хийдийн дэргэдэх лам нарын сургууль. Гүн ухаан, анагаах ухаан, зурхай зэрэг тусгай чиглэлээр суралцдаг байжээ.", era:"XVII–XX зуун"},
-  {w:"АЛТАЙ", cat:"газрын нэр", info:"Монголын баруун хязгаар дахь уулс. Монголын хамгийн өндөр оргил Хүйтэн оргил (4374 м) Алтай Таван Богдод оршдог. Монгол Алтайн хадны зургийн цогцолбор ЮНЕСКО-гийн Дэлхийн өвд бүртгэгдсэн.", era:"Баян-Өлгий, Ховд"},
-  {w:"ЦЭРЭГ", cat:"цэрэг", info:"Их Монгол Улсад 15-аас 70 насны эр бүр цэргийн алба хаах үүрэгтэй байжээ. Цэрэг бүр хэд хэдэн морьтой явдаг тул аян дайнд маш хурдан шилжиж чаддаг байв.", era:"XIII зуун · Их Монгол Улс"},
-  {w:"МӨНГӨ", cat:"урлал", info:"Хархорумд Парисын дархан Гийом Бушье мөнгөн мод бүтээж, түүний цоргоор айраг, дарс урсдаг байжээ. Үүнийг 1254 онд Хархорумд ирсэн Рубрук тэмдэглэн үлдээсэн.", era:"XIII зуун · Хархорум"},
-  {w:"ГУТАЛ", cat:"хувцас", info:"Хоншоороо дээш эргүүлсэн монгол гутал. Газар шороо, ургамлыг гэмтээхгүйн тулд ийм хэлбэртэй хийдэг гэж ардын тайлбарт өгүүлдэг.", era:"Ёс заншил"},
-  {w:"ӨЭЛҮН", cat:"түүхэн хүмүүс", info:"Чингис хааны эх Өэлүн. Есүхэй баатрыг нас барсны дараа хүүхдүүдээ ганцаараа өсгөсөн бөгөөд «Нууц товчоо»-нд түүний тэвчээр, ухааныг магтан өгүүлдэг.", era:"XII зуун"},
-  {w:"ЦУВАА", cat:"худалдаа", info:"Тэмээн цуваа. XVIII–XIX зуунд «Цайны зам»-аар Хиагт, Хүрээ, Халганы чиглэлд цай, торго, бөс бараа тээвэрлэдэг байв.", era:"XVIII–XIX зуун"},
-  {w:"ШАТАР", cat:"уламжлалт тоглоом", info:"Монгол шатарт ноён, бэрс, тэмээ, морь, тэрэг, хүү гэсэн хүүнүүд байдаг. Шатрын хүүг баримлаар урлах нь монгол дархчуудын нэгэн уламжлал байв.", era:"Уламжлалт тоглоом"},
-  {w:"ОРХОН", cat:"газрын нэр", info:"Монголын хамгийн урт гол бөгөөд 1100 гаруй км урсдаг. Түүний хөндий олон гүрний нийслэл байсан тул 2004 онд «Орхоны хөндийн соёлын дурсгалт газар нутаг» ЮНЕСКО-гийн Дэлхийн өвд бүртгэгдсэн.", era:"Архангай, Өвөрхангай"},
-  {w:"АБТАЙ", cat:"түүхэн хүмүүс", info:"Халхын Абтай сайн хан 1585 онд Хархорумын туурийн дэргэд Эрдэнэ Зуу хийдийг байгуулжээ. Энэ нь Монголд өнөөг хүртэл хадгалагдан үлдсэн хамгийн эртний буддын хийд.", era:"XVI зуун"},
-  {w:"УУРГА", cat:"малчин ахуй", info:"Адуу барихад хэрэглэдэг, үзүүртээ савхин гогцоотой урт шон. Морин дээрээс уургаар адуу барих нь малчдын ур чадварын нэг.", era:"Нүүдэлчдийн уламжлал"},
-  {w:"ХӨРӨГ", cat:"урлаг", info:"Чингис хааны хамгийн алдартай хөрөг Юань улсын үед зурагдсан бөгөөд одоо Тайпэйн Үндэсний ордон музейд хадгалагддаг.", era:"XIII–XIV зуун · Юань"},
-  {w:"УДГАН", cat:"шүтлэг", info:"Бөө мөргөлд эмэгтэй бөөг удган гэдэг. Монголчуудын эртний шүтлэгт Мөнх тэнгэр, газар эхийг шүтэж, бөө, удган тэнгэр болон хүмүүсийн хооронд зуучилдаг гэж үздэг байв.", era:"Эртний шүтлэг"},
-  {w:"ТОРГО", cat:"худалдаа", info:"Нарийн гоёмсог даавуу. Их Монгол Улсын үед Торгоны замын худалдаа аюулгүй болж, Европ, Азийн хооронд бараа, санаа чөлөөтэй дамжих болжээ.", era:"XIII–XIV зуун"},
-  {w:"ХАСАР", cat:"түүхэн хүмүүс", info:"Чингис хааны дүү Хасар. Мэргэн харваачаараа алдаршиж, «Хавт Хасар» хэмээн нэрлэгддэг байв.", era:"XII–XIII зуун"},
-  {w:"ЁОЧИН", cat:"хөгжим", info:"Олон утастай, хоёр жижиг савхаар цохиж тоглодог хөгжим. Морин хуур, ёочин, лимбэ нь ардын хөгжмийн чуулгын гол хөгжмүүдийн нэг.", era:"Уламжлалт урлаг"},
-  {w:"ХУЛАН", cat:"байгаль", info:"Говийн тал нутгийн зэрлэг амьтан. Дэлхий дээрх хулангийн дийлэнх нь Монголын өмнөд говьд амьдардаг.", era:"Монголын байгаль"},
-  {w:"АРАВТ", cat:"цэргийн нэгж", info:"Аравтын тогтолцооны хамгийн бага нэгж буюу арван цэрэг. Аравтын гишүүд бие биеэ хамгаалах үүрэгтэй байсан бөгөөд нэгнээ орхиж зугтвал бүгд шийтгүүлдэг байжээ.", era:"XIII зуун · Их Монгол Улс"},
-  {w:"ДУГАН", cat:"барилга", info:"Хийдийн доторх бурхан тахиж, ном уншдаг байшин. Эрдэнэ Зуу хийдэд Баруун, Гол, Зүүн зуу хэмээх гурван сүм бий.", era:"Буддын шашны уламжлал"},
-  {w:"ТӨМӨР", cat:"дархан урлал", info:"Тэмүжин гэдэг нэр «төмөр» гэдэг үгтэй холбоотой гэж үздэг. Нүүдэлчид төмрөөр зэр зэвсэг, эмээл хазаарын эд анги урладаг дархчуудыг ихэд хүндэлдэг байв.", era:"XII–XIII зуун"},
-  {w:"АРГАЛ", cat:"малчин ахуй", info:"Хатаасан үхрийн хоргол. Мод ховор тал нутагт нүүдэлчид олон зууны турш аргалаар гэрээ халааж, хоол хүнсээ болгосоор ирсэн.", era:"Нүүдэлчдийн уламжлал"},
-  {w:"ХӨШӨӨ", cat:"дурсгал", info:"Хөшөө Цайдамд VIII зууны Түрэгийн Билгэ хаан, Күлтегиний гэрэлт хөшөөнүүд бий. Тэдгээрт эртний түрэг бичгээр түүхээ сийлж үлдээжээ.", era:"VIII зуун"},
-  {w:"ЗАЛАА", cat:"хувцас", info:"Монгол малгайн оройд хадсан улаан утсан цацаг. Ардын тайлбараар залаа нь нар, гал, хийморийг бэлгэддэг.", era:"Ёс заншил"},
-  {w:"ХАМБА", cat:"шашин", info:"Хийдийн тэргүүн ламыг хамба лам гэдэг. Өнөөдөр Гандантэгчэнлин хийдийн хамба лам Монголын Буддын шашинтны төвийн тэргүүн байдаг.", era:"Буддын шашны уламжлал"},
-  {w:"ЖОЛОО", cat:"малчин ахуй", info:"Морийг удирдах хазаарын оосор. «Жолоо барих» гэдэг нь удирдах, тэргүүлэх гэсэн утгаар ч хэрэглэгддэг.", era:"Нүүдэлчдийн уламжлал"},
-  {w:"ХУТГА", cat:"эд өлгийн зүйл", info:"Хэт хутга бол эрчүүдийн бүсэндээ зүүдэг хутга, хэт (цахиур), савх бүхий иж бүрдэл. Сайн хэт хутга эр хүний бахархал байжээ.", era:"Ёс заншил"}
-];
-
+/* ---------- server (Supabase) ----------
+   The words, scores, classes and leaderboards live on the server
+   (supabase/001_taasan_uu.sql). This page only keeps a session token. */
+const TU_API = window.TU_API || { url: '__SUPABASE_URL__', key: '__SUPABASE_KEY__' };
+const ERR = {
+  session: 'нэвтрэлт дууссан, дахин оролдоно уу', word: '5 үсэг оруулна уу', over: 'өнөөдрийн тоглоом дууссан',
+  reveal: 'үсэг нээх боломжгүй байна', pos: 'хоосон нүд сонгоно уу', code: 'ангийн код буруу байна',
+  nickname: 'нэр 2–20 үсэг, тоо байна', pin_format: 'PIN 4 оронтой тоо байна', pin: 'PIN буруу байна',
+  locked: 'олон удаа буруу оруулсан тул 15 минут хүлээнэ үү', already: 'та аль хэдийн ангид бүртгэлтэй байна',
+  network: 'сүлжээний алдаа, дахин оролдоно уу'
+};
+const errMsg = e => ERR[e && e.message] || ERR.network;
 const ROWS = [
   ["Ф","Ц","У","Ж","Э","Н","Г","Ш","Ү","З","К","Ъ"],
   ["Й","Ы","Б","Ө","А","Х","Р","О","Л","Д","П","Е"],
   ["ENTER","Я","Ч","Ё","С","М","И","Т","Ь","В","Ю","Щ","DEL"]
 ];
 const LETTERS = new Set(ROWS.flat().filter(k=>k.length===1));
-const EPOCH = new Date(2026,10,1);
-
-function dayIndex(){const n=new Date();return Math.round((new Date(n.getFullYear(),n.getMonth(),n.getDate())-EPOCH)/86400000)}
-let practice=0;
-const puzzleNo=()=>dayIndex()+1;
-const todays=()=>WORDS[((dayIndex()+practice)%WORDS.length+WORDS.length)%WORDS.length];
 const store={
   get(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}},
-  set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+  set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}},
+  del(k){try{localStorage.removeItem(k)}catch(e){}}
 };
+async function rpc(fn,args={}){
+  let r,j;
+  try{
+    const h={'Content-Type':'application/json',apikey:TU_API.key};
+    if(/^eyJ/.test(TU_API.key))h.Authorization='Bearer '+TU_API.key;
+    r=await fetch(TU_API.url.replace(/\/$/,'')+'/rest/v1/rpc/'+fn,{method:'POST',headers:h,body:JSON.stringify(args)});
+    j=await r.json().catch(()=>null);
+  }catch(e){throw new Error('network')}
+  if(!r.ok)throw new Error((j&&j.message)||'network');
+  if(j&&j.error)throw new Error(j.error);
+  return j}
+let token=store.get('tu_token',null);
+async function startGuest(){const s=await rpc('tu_start');token=s.token;store.set('tu_token',token);return s}
+async function call(fn,args={}){
+  if(!token)await startGuest();
+  try{return await rpc(fn,{p_token:token,...args})}
+  catch(e){if(e.message!=='session')throw e;await startGuest();return rpc(fn,{p_token:token,...args})}}
 
-let target,guesses,cur,over,hintUsed=false,revealed=null;
-/* ---------- letter reveal: after the hint, once every 2 days ---------- */
-const REVEAL_KEY='tu_reveal_last',REVEAL_EVERY=2;
-const revealLast=()=>store.get(REVEAL_KEY,null);
-const revealAvailable=()=>!revealed&&(practice||revealLast()==null||puzzleNo()-revealLast()>=REVEAL_EVERY);
-function revealDate(){const d=new Date(EPOCH);d.setDate(d.getDate()+revealLast()+REVEAL_EVERY-1);return `${String(d.getMonth()+1).padStart(2,'0')}.${String(d.getDate()).padStart(2,'0')}`}
-function autofill(){while(revealed&&cur.length===revealed.i&&cur.length<5)cur+=revealed.ch}
-function updateRevealUI(){
-  const can=hintUsed&&!over&&revealAvailable();
-  boardEl.classList.toggle('can-reveal',can);
-  [...boardEl.children].forEach((row,r)=>row.classList.toggle('active',r===guesses.length&&!over));
-  const note=document.getElementById('revealNote'),h=document.getElementById('hint');
-  let txt='';
-  if(hintUsed&&!over){
-    if(revealed)txt=`<b>${revealed.i+1}-р үсэг</b> нээгдсэн.`;
-    else if(can)txt='Мэдэхгүй байна уу? Доорх <b>хоосон нүднүүдийн аль нэгийг</b> дарж тэр үсгийг нээгээрэй. 2 хоногт нэг удаа.';
-    else txt=`Үсэг нээх боломж <b>${revealDate()}</b>-нд дахин гарна.`}
-  note.innerHTML=txt;h.classList.toggle('has-note',!!txt)}
-function burst(el){
-  if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;
-  const r=el.getBoundingClientRect(),cx=r.left+r.width/2,cy=r.top+r.height/2,N=14;
-  for(let n=0;n<N;n++){const a=n/N*Math.PI*2+Math.random()*.35,d=70+Math.random()*80,sz=14+Math.random()*14;
-    const s=document.createElement('div');s.className='spark';s.style.width=s.style.height=sz+'px';
-    s.style.left=(cx-sz/2)+'px';s.style.top=(cy-sz/2)+'px';s.style.animationDelay=(Math.random()*80)+'ms';
-    s.style.setProperty('--dx',Math.cos(a)*d+'px');s.style.setProperty('--dy',Math.sin(a)*d+'px');s.style.setProperty('--r',(Math.random()*360-180)+'deg');
-    s.innerHTML=`<svg viewBox="0 0 100 100"><path d="${HORSE}" fill="currentColor" fill-rule="evenodd"/></svg>`;
-    document.body.appendChild(s);setTimeout(()=>s.remove(),1200)}}
-function markRevealKey(){if(!revealed)return;const b=kbEl.querySelector(`[data-k="${revealed.ch}"]`);if(b){b.classList.remove('present','absent');b.classList.add('correct')}}
-function doReveal(i){
-  revealed={i,ch:target.w[i]};
-  if(!practice)store.set(REVEAL_KEY,puzzleNo());
-  autofill();renderCur();markRevealKey();
-  const t=boardEl.children[guesses.length].children[i];t.classList.add('revealing');burst(t);
-  const logo=document.getElementById('logo');logo.classList.toggle('spin');
-  buzz([20,30,20]);save();updateRevealUI();toast(`${i+1}-р үсэг: ${revealed.ch.toLowerCase()}`)}
+let S=null,cur='',busy=false,rankUp=false,loadedAt=0;
+const over=()=>!S||S.finished;
+const revealed=()=>S&&S.reveal?{i:S.reveal.pos,ch:S.reveal.ch}:null;
 const boardEl=document.getElementById('board'),kbEl=document.getElementById('kb');
 
 function buildBoard(){boardEl.innerHTML='';
@@ -482,51 +432,104 @@ function buildKb(){kbEl.innerHTML='';
       b.textContent=k==='ENTER'?'шалгах':k==='DEL'?'⌫':k.toLowerCase();b.dataset.k=k;
       b.addEventListener('click',()=>press(k));row.appendChild(b)});
     kbEl.appendChild(row)})}
-function score(guess,ans){
-  const res=Array(5).fill('absent'),a=[...ans],g=[...guess],left={};
-  for(let i=0;i<5;i++){if(g[i]===a[i])res[i]='correct';else left[a[i]]=(left[a[i]]||0)+1}
-  for(let i=0;i<5;i++){if(res[i]!=='correct'&&left[g[i]]){res[i]='present';left[g[i]]--}}
-  return res}
 function paintRow(r,word,res,animate){
   const tiles=boardEl.children[r].children;
   [...word].forEach((ch,i)=>{const t=tiles[i];t.textContent=ch;
-    const apply=()=>{t.classList.remove('filled');t.classList.add(res[i])};
-    if(animate){setTimeout(()=>{t.classList.add('flip');setTimeout(apply,250)},i*260)}else apply()})}
+    const apply=()=>{t.classList.remove('filled','ghost','revealed');t.classList.add(res[i])};
+    if(animate){setTimeout(()=>{t.classList.add('flip');setTimeout(apply,250)},i*260)}else{t.className='tile';apply()}})}
 const rank={absent:1,present:2,correct:3};
 function paintKeys(word,res){
   [...word].forEach((ch,i)=>{const b=kbEl.querySelector(`[data-k="${ch}"]`);if(!b)return;
     const old=['correct','present','absent'].find(c=>b.classList.contains(c));
     if(!old||rank[res[i]]>rank[old]){if(old)b.classList.remove(old);b.classList.add(res[i])}})}
-function renderCur(){const r=guesses.length;if(r>=6)return;const tiles=boardEl.children[r].children;
+function autofill(){const rv=revealed();while(rv&&cur.length===rv.i&&cur.length<5)cur+=rv.ch}
+function renderCur(){if(!S)return;const r=S.guesses.length;if(r>=6||S.finished)return;const tiles=boardEl.children[r].children;const rv=revealed();
   for(let i=0;i<5;i++){tiles[i].textContent=cur[i]||'';tiles[i].className='tile'+(cur[i]?' filled':'');
-    if(revealed&&i===revealed.i){tiles[i].textContent=revealed.ch;tiles[i].className='tile '+(cur[i]?'revealed':'ghost')}}}
+    if(rv&&i===rv.i){tiles[i].textContent=rv.ch;tiles[i].className='tile '+(cur[i]?'revealed':'ghost')}}}
 function toast(msg,ms=1700){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(t._h);t._h=setTimeout(()=>t.classList.remove('show'),ms)}
-
 const buzz=p=>{try{navigator.vibrate&&navigator.vibrate(p)}catch(e){}};
+const fmtDate=d=>d?d.replace(/-/g,'.'):'';
+const shortDate=d=>d?d.slice(5).replace('-','.'):'';
+
+/* ---------- draw the whole game from the server state ---------- */
+function summary(){if(S)store.set('tu_summary',{no:S.no,tries:S.guesses.length,finished:S.finished,solved:S.solved})}
+function render(){
+  buildBoard();buildKb();cur='';
+  document.getElementById('noLbl').textContent=`№${S.no}`;
+  document.getElementById('dateLbl').textContent=fmtDate(S.date);
+  S.guesses.forEach((g,r)=>{paintRow(r,g.w,g.r,false);paintKeys(g.w,g.r)});
+  markRevealKey();
+  const h=document.getElementById('hint'),hb=document.getElementById('hintBtn');
+  if(S.hint)showHint(false);else{h.classList.remove('open');hb.classList.remove('used')}
+  if(!S.finished){autofill();renderCur()}
+  updateRevealUI();summary();
+  if(S.finished)setTimeout(()=>openResult(S.solved),300)}
+async function load(){
+  try{S=token?await call('tu_state'):await startGuest();loadedAt=Date.now();render()}
+  catch(e){toast(errMsg(e),4000);document.getElementById('dateLbl').textContent='сүлжээ шалгаад дахин ачаална уу'}}
+
+/* ---------- letter reveal: after the hint, once every 2 days ---------- */
+function updateRevealUI(){
+  if(!S)return;
+  const can=!!S.hint&&!S.finished&&S.reveal_available;
+  boardEl.classList.toggle('can-reveal',can);
+  [...boardEl.children].forEach((row,r)=>row.classList.toggle('active',r===S.guesses.length&&!S.finished));
+  const note=document.getElementById('revealNote'),h=document.getElementById('hint');
+  let txt='';
+  if(S.hint&&!S.finished){
+    if(S.reveal)txt=`<b>${S.reveal.pos+1}-р үсэг</b> нээгдсэн.`;
+    else if(can)txt='Мэдэхгүй байна уу? Доорх <b>хоосон нүднүүдийн аль нэгийг</b> дарж тэр үсгийг нээгээрэй. 2 хоногт нэг удаа.';
+    else if(S.reveal_next)txt=`Үсэг нээх боломж <b>${shortDate(S.reveal_next)}</b>-нд дахин гарна.`}
+  note.innerHTML=txt;h.classList.toggle('has-note',!!txt)}
+function burst(el){
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  const r=el.getBoundingClientRect(),cx=r.left+r.width/2,cy=r.top+r.height/2,N=14;
+  for(let n=0;n<N;n++){const a=n/N*Math.PI*2+Math.random()*.35,d=70+Math.random()*80,sz=14+Math.random()*14;
+    const s=document.createElement('div');s.className='spark';s.style.width=s.style.height=sz+'px';
+    s.style.left=(cx-sz/2)+'px';s.style.top=(cy-sz/2)+'px';s.style.animationDelay=(Math.random()*80)+'ms';
+    s.style.setProperty('--dx',Math.cos(a)*d+'px');s.style.setProperty('--dy',Math.sin(a)*d+'px');s.style.setProperty('--r',(Math.random()*360-180)+'deg');
+    s.innerHTML=`<svg viewBox="0 0 100 100"><path d="${HORSE}" fill="currentColor" fill-rule="evenodd"/></svg>`;
+    document.body.appendChild(s);setTimeout(()=>s.remove(),1200)}}
+function markRevealKey(){const rv=revealed();if(!rv)return;const b=kbEl.querySelector(`[data-k="${rv.ch}"]`);if(b){b.classList.remove('present','absent');b.classList.add('correct')}}
+async function doReveal(i){
+  if(busy)return;busy=true;
+  try{S=await call('tu_reveal',{p_pos:i})}catch(e){busy=false;updateRevealUI();return toast(errMsg(e))}
+  busy=false;autofill();renderCur();markRevealKey();
+  const t=boardEl.children[S.guesses.length].children[i];t.classList.add('revealing');burst(t);
+  document.getElementById('logo').classList.toggle('spin');
+  buzz([20,30,20]);updateRevealUI();toast(`${i+1}-р үсэг: ${S.reveal.ch.toLowerCase()}`)}
+boardEl.addEventListener('click',e=>{
+  const t=e.target.closest('.tile');if(!t||over()||!S.hint)return;
+  const row=t.parentElement,r=[...boardEl.children].indexOf(row),i=[...row.children].indexOf(t);
+  if(r!==S.guesses.length||i<0||i>4)return;
+  if(S.reveal)return toast('энэ тоглолтод үсэг нээсэн');
+  if(!S.reveal_available)return toast(S.reveal_next?`үсэг нээх боломж ${shortDate(S.reveal_next)}-нд гарна`:ERR.reveal);
+  if(i<cur.length)return toast('хоосон нүд сонгоно уу');
+  doReveal(i)});
+
+/* ---------- typing and guessing ---------- */
 function press(k){
   const kb=kbEl.querySelector(`[data-k="${k}"]`);if(kb){kb.classList.add('hit');setTimeout(()=>kb.classList.remove('hit'),90)}
-  if(over)return;
+  if(over()||busy)return;
   if(k==='ENTER')return submit();
-  if(k==='DEL'){if(revealed&&revealed.i>0&&cur.length===revealed.i+1)cur=cur.slice(0,-1);cur=cur.slice(0,-1);return renderCur()}
+  const rv=revealed();
+  if(k==='DEL'){if(rv&&rv.i>0&&cur.length===rv.i+1)cur=cur.slice(0,-1);cur=cur.slice(0,-1);return renderCur()}
   if(LETTERS.has(k)){autofill();if(cur.length<5){cur+=k;autofill()}renderCur()}}
-function submit(){
-  if(cur.length<5){const row=boardEl.children[guesses.length];row.classList.add('shake');setTimeout(()=>row.classList.remove('shake'),400);buzz(60);return toast('5 үсэг оруулна уу')}
-  const res=score(cur,target.w),r=guesses.length;
-  paintRow(r,cur,res,true);guesses.push(cur);const g=cur;cur='';
-  setTimeout(()=>paintKeys(g,res),1400);save();
-  if(g!==target.w&&guesses.length<6)renderCur();
-  if(g===target.w){over=true;setTimeout(()=>{boardEl.children[r].classList.add('win');boardEl.children[r].querySelector('.thread').classList.add('go');document.getElementById('logo').classList.add('spin');buzz([30,40,30])},1450);finish(true)}
-  else if(guesses.length===6){over=true;finish(false)}
+function shake(){const row=boardEl.children[S.guesses.length];row.classList.add('shake');setTimeout(()=>row.classList.remove('shake'),400);buzz(60)}
+async function submit(){
+  if(cur.length<5){shake();return toast('5 үсэг оруулна уу')}
+  busy=true;const r=S.guesses.length,word=cur;let s;
+  try{s=await call('tu_guess',{p_word:word})}catch(e){busy=false;if(e.message==='word')shake();return toast(errMsg(e))}
+  S=s;rankUp=!!s.rank_up;cur='';busy=false;
+  const g=S.guesses[r];paintRow(r,g.w,g.r,true);
+  setTimeout(()=>{paintKeys(g.w,g.r);markRevealKey()},1400);summary();
+  if(S.solved){setTimeout(()=>{boardEl.children[r].classList.add('win');boardEl.children[r].querySelector('.thread').classList.add('go');document.getElementById('logo').classList.add('spin');buzz([30,40,30])},1450);finish(true)}
+  else if(S.finished)finish(false);
+  else{renderCur()}
   updateRevealUI()}
 const PRAISE=['гайхамшигтай','мундаг','гоё','сайн байна','арай гэж','фүү, амжлаа'];
 function finish(win){
-  if(!practice){const st=store.get('tu_stats',{played:0,wins:0,streak:0,best:0,last:null});
-    if(st.last!==puzzleNo()){st.played++;st.last=puzzleNo();
-      const before=rankOf(st.wins||0);
-      if(win){st.wins=(st.wins||0)+1;st.streak++;st.best=Math.max(st.best,st.streak)}else st.streak=0;
-      rankUp=win&&rankOf(st.wins)>before;
-      store.set('tu_stats',st)}}
-  setTimeout(()=>toast(win?PRAISE[guesses.length-1]:'хариу: '+target.w.toLowerCase(),1500),1500);
+  setTimeout(()=>toast(win?PRAISE[S.guesses.length-1]+(S.points?` · +${S.points} оноо`:''):'хариу: '+S.answer.w.toLowerCase(),1600),1500);
   if(win){setTimeout(gallop,1700);setTimeout(()=>openResult(true),4300)}
   else setTimeout(()=>openResult(false),2800)}
 
@@ -547,61 +550,99 @@ function gallop(){
         p.style.setProperty('--dx',(20+Math.random()*30)+'px');p.style.setProperty('--dy',(-6-Math.random()*14)+'px');document.body.appendChild(p);setTimeout(()=>p.remove(),800)}}
     if(k<1)requestAnimationFrame(step);else el.remove()};
   requestAnimationFrame(step)}
+
+/* ---------- result, stats, ranks ---------- */
 function openResult(win){
-  document.getElementById('resEyebrow').textContent=win?`${guesses.length}/6 оролдлогоор таалаа`:'энэ удаа таасангүй';
+  if(!S||!S.answer)return;
+  document.getElementById('resEyebrow').textContent=win?`${S.guesses.length}/6 оролдлогоор таалаа · +${S.points} оноо`:'энэ удаа таасангүй';
   document.getElementById('resTitle').textContent='Өнөөдрийн үг';
   const rw=document.getElementById('resWord');rw.innerHTML='';
-  [...target.w].forEach((ch,i)=>{const t=document.createElement('div');t.className='tile correct';t.style.animationDelay=(i*90)+'ms';t.textContent=ch;rw.appendChild(t)});
+  [...S.answer.w].forEach((ch,i)=>{const t=document.createElement('div');t.className='tile correct';t.style.animationDelay=(i*90)+'ms';t.textContent=ch;rw.appendChild(t)});
   document.querySelectorAll('#resOv .corner').forEach(s=>stitchSVG(s,CORNER,2));
-  document.getElementById('resInfo').textContent=target.info;
-  document.getElementById('resEra').textContent=target.era;
+  document.getElementById('resInfo').textContent=S.answer.info;
+  document.getElementById('resEra').textContent=S.answer.era;
   renderStats();renderRank(document.getElementById('rankBox'),rankUp);rankUp=false;document.getElementById('copyBox').style.display='none';
   document.getElementById('resOv').classList.add('open');tick()}
 function renderStats(){
-  const st=store.get('tu_stats',{played:0,wins:0,streak:0,best:0});
-  const pct=st.played?Math.round(st.wins/st.played*100):0;
+  const st=S.stats;
   document.getElementById('statsBox').innerHTML=
-    `<div><b>${st.played}</b><span>тоглосон</span></div><div><b>${pct}%</b><span>таасан</span></div>`+
+    `<div><b>${st.points}</b><span>оноо</span></div><div><b>${st.days}</b><span>тоглосон өдөр</span></div>`+
     `<div><b>${st.streak}</b><span>дараалсан</span></div><div><b>${st.best}</b><span>дээд амжилт</span></div>`;
-  document.querySelectorAll('#statsBox b').forEach(b=>{const m=b.textContent.match(/^(\d+)(%?)$/);if(!m)return;const to=+m[1];let t0=null;
-    const step=ts=>{t0=t0||ts;const k=Math.min(1,(ts-t0)/700);b.textContent=Math.round(to*(1-Math.pow(1-k,3)))+m[2];if(k<1)requestAnimationFrame(step)};
-    b.textContent='0'+m[2];setTimeout(()=>requestAnimationFrame(step),700)})}
-const RANKS=[
-  {n:'Цэрэг',at:0,d:'Аравтын нэг гишүүн. Их Монгол Улсын эр хүн бүр цэргийн алба хаах үүрэгтэй байжээ.'},
-  {n:'Аравтын ноён',at:3,d:'Арван цэргийг удирдагч. Аравт бол цэргийн хамгийн жижиг, хамгийн нягт нэгж.'},
-  {n:'Зуутын ноён',at:10,d:'Арван аравтыг буюу зуун цэргийг удирдана.'},
-  {n:'Мянгатын ноён',at:25,d:'Мянган цэрэг. 1206 онд Чингис хаан улсаа 95 мянгатад хувааж, итгэлт нөхдөө мянгатын ноён болгожээ.'},
-  {n:'Түмэний ноён',at:50,d:'Арван мянган цэргийг удирдах хамгийн өндөр цэргийн тушаал.'},
-  {n:'Хаан',at:100,d:'Бүх түмнийг захирагч. Зуун өдрийн үгийг таасан хүн.'}];
-const rankOf=w=>{let i=0;RANKS.forEach((r,k)=>{if(w>=r.at)i=k});return i};
-function rankHTML(wins,up){
-  const i=rankOf(wins),r=RANKS[i],nx=RANKS[i+1];
-  const pct=nx?Math.max(0,Math.min(1,(wins-r.at)/(nx.at-r.at))):1,N=24,on=Math.round(pct*N);
-  let st='';for(let k=0;k<N;k++){const x=k*(100/N)+1.2,o=k<on?1:.18;st+=`<path style="opacity:${o}" d="M${x} 2L${x+2.4} 8M${x+2.4} 2L${x} 8"/>`}
-  return `<div class="top"><div><div class="lbl">цол</div><div class="name">${r.n}</div></div><span class="new">шинэ цол</span></div>
-    <div class="pbar"><svg viewBox="0 0 100 10" preserveAspectRatio="none"><g stroke="#000" stroke-width=".9" stroke-linecap="round" fill="none">${st}</g></svg></div>
-    <div class="nextr">${nx?`<b>${nx.n}</b> хүртэл ${nx.at-wins} үг үлдлээ`:'хамгийн дээд цол'} · нийт ${wins} үг таасан</div>`}
-function renderRank(box,up){const st=store.get('tu_stats',{wins:0});box.innerHTML=rankHTML(st.wins||0);box.classList.toggle('up',!!up)}
+  document.querySelectorAll('#statsBox b').forEach(b=>{const m=b.textContent.match(/^(\d+)$/);if(!m)return;const to=+m[1];let t0=null;
+    const step=ts=>{t0=t0||ts;const k=Math.min(1,(ts-t0)/700);b.textContent=Math.round(to*(1-Math.pow(1-k,3)));if(k<1)requestAnimationFrame(step)};
+    b.textContent='0';setTimeout(()=>requestAnimationFrame(step),700)})}
+function rankHTML(st){
+  const nx=st.next,cur=S.ranks.find(r=>r.lvl===st.lvl)||S.ranks[0];
+  let pct=1;
+  if(nx){const pp=Math.min(1,(st.points-cur.min_points)/Math.max(1,nx.min_points-cur.min_points)),pd=Math.min(1,(st.days-cur.min_days)/Math.max(1,nx.min_days-cur.min_days));pct=Math.max(0,Math.min(pp,pd))}
+  const N=24,on=Math.round(pct*N);
+  let sts='';for(let k=0;k<N;k++){const x=k*(100/N)+1.2,o=k<on?1:.18;sts+=`<path style="opacity:${o}" d="M${x} 2L${x+2.4} 8M${x+2.4} 2L${x} 8"/>`}
+  const need=nx?[nx.points_left?`${nx.points_left} оноо`:'',nx.days_left?`${nx.days_left} өдөр`:''].filter(Boolean).join(', '):'';
+  return `<div class="top"><div><div class="lbl">цол</div><div class="name">${st.rank}</div></div><span class="new">шинэ цол</span></div>
+    <div class="pbar"><svg viewBox="0 0 100 10" preserveAspectRatio="none"><g stroke="#000" stroke-width=".9" stroke-linecap="round" fill="none">${sts}</g></svg></div>
+    <div class="nextr">${nx?`<b>${nx.name}</b> хүртэл ${need||'бараг хүрлээ'}`:'хамгийн дээд цол'} · нийт ${st.points} оноо, ${st.days} өдөр</div>`}
+function renderRank(box,up){box.innerHTML=rankHTML(S.stats);box.classList.toggle('up',!!up)}
 function openRanks(){
-  const w=(store.get('tu_stats',{wins:0}).wins)||0,ci=rankOf(w);
+  if(!S)return;
   renderRank(document.getElementById('rankBox2'),false);
-  document.getElementById('ladder').innerHTML=RANKS.map((r,k)=>`<li class="${k<=ci?'got':''} ${k===ci?'cur':''}"><div class="ic">${k+1}</div><div><b>${r.n}</b><small>${r.at===0?'эхлэл':r.at+' үг таасан'}</small><p>${r.d}</p></div></li>`).join('');
+  const ci=S.stats.lvl;
+  document.getElementById('ladder').innerHTML=S.ranks.map((r,k)=>`<li class="${k<=ci?'got':''} ${k===ci?'cur':''}"><div class="ic">${k+1}</div><div><b>${r.name}</b><small>${r.lvl===0?'эхлэл':`${r.min_points} оноо · ${r.min_days} өдөр`}</small><p>${r.descr}</p></div></li>`).join('');
   document.getElementById('rankOv').classList.add('open')}
 document.getElementById('rankBtn').addEventListener('click',openRanks);
-let rankUp=false;
-const numLabel=()=>practice?`туршилт ${practice}`:`№${puzzleNo()}`;
+
+/* ---------- leaderboards and class sign-in ---------- */
+const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function classRow(c,i){return `<tr class="${c.me?'me':''}"><td>${i+1}</td><td><b>${esc(c.name)}</b><small>${esc(c.school)}</small></td><td>${esc(c.rank)}</td><td>${c.avg_points}</td><td>${c.active_week_pct}%</td></tr>`}
+async function openBoard(){
+  const box=document.getElementById('boardBody');box.innerHTML='<p class="muted">ачаалж байна…</p>';
+  document.getElementById('boardOv').classList.add('open');
+  let b;try{b=await call('tu_board')}catch(e){box.innerHTML=`<p class="muted">${errMsg(e)}</p>`;return}
+  let h='';
+  if(b.class){
+    const c=b.class;
+    h+=`<div class="rank"><div class="top"><div><div class="lbl">${esc(c.school)}</div><div class="name">${esc(c.name)} анги · ${esc(c.rank)}</div></div></div>
+      <div class="nextr">Ангийн дундаж <b>${c.avg_points}</b> оноо · ${c.size} сурагч · энэ 7 хоногт ${c.active_week_pct}% нь тоглосон</div>
+      <p class="muted small">Ангийн сурагчдын 80% нь хүрсэн цол ангийн цол болно${c.size<5?'. Анги 5-аас доошгүй сурагчтай байх ёстой':''}.</p></div>`;
+    h+=`<h3>Ангийн самбар</h3><table class="lb"><tr><th>#</th><th>нэр</th><th>цол</th><th>оноо</th><th>өдөр</th></tr>`+
+      b.members.map((m,i)=>`<tr class="${m.me?'me':''}"><td>${i+1}</td><td><b>${esc(m.nickname)}</b></td><td>${esc(m.rank)}</td><td>${m.points}</td><td>${m.days}</td></tr>`).join('')+`</table>`;
+    if(b.school&&b.school.length)h+=`<h3>Сургуулийн ангиуд</h3><table class="lb"><tr><th>#</th><th>анги</th><th>цол</th><th>дундаж</th><th>7 хоног</th></tr>${b.school.map(classRow).join('')}</table>`;
+    h+=`<p class="muted small">Тоглож буй: <b>${esc(S.player.nickname)}</b> · <button class="linkbtn" id="logoutBtn">гарах</button></p>`;
+  }else{
+    h+=`<div class="joinbox"><p><b>Ангидаа нэгдэх</b> — багшаасаа ангийн кодоо аваад, өөрийн нэр (хоч) болон 4 оронтой PIN-ээ сонгоорой. Өмнө нь нэгдсэн бол ижил код, нэр, PIN-ээр өөр утаснаас нэвтэрнэ.</p>
+      <form id="joinForm" autocomplete="off">
+        <label>ангийн код<input name="code" maxlength="6" required placeholder="ж: K7QX2M" autocapitalize="characters"></label>
+        <label>нэр (хоч)<input name="nick" maxlength="20" required placeholder="ж: Болд"></label>
+        <label>PIN (4 тоо)<input name="pin" inputmode="numeric" pattern="[0-9]{4}" maxlength="4" required placeholder="••••"></label>
+        <button class="btn" type="submit">нэгдэх</button>
+      </form>
+      <p class="muted small">Бид имэйл, утасны дугаар авахгүй. Ангийн самбарт зөвхөн хоч нэр харагдана.</p></div>`;
+  }
+  if(b.top&&b.top.length)h+=`<h3>Шилдэг ангиуд</h3><table class="lb"><tr><th>#</th><th>анги</th><th>цол</th><th>дундаж</th><th>7 хоног</th></tr>${b.top.slice(0,10).map(classRow).join('')}</table>`;
+  box.innerHTML=h;
+  const f=document.getElementById('joinForm');
+  if(f)f.addEventListener('submit',async e=>{e.preventDefault();const d=new FormData(f);
+    try{const s=await call('tu_join',{p_code:d.get('code'),p_nickname:d.get('nick'),p_pin:d.get('pin')});
+      if(s.token){token=s.token;store.set('tu_token',token)}S=s;render();document.getElementById('resOv').classList.remove('open');toast(`${s.player.class} ангид нэгдлээ`);openBoard()}
+    catch(err){toast(errMsg(err),2600)}});
+  const lo=document.getElementById('logoutBtn');
+  if(lo)lo.addEventListener('click',async()=>{if(!confirm('Энэ утаснаас гарах уу? Дахин нэвтрэхэд ангийн код, нэр, PIN хэрэгтэй.'))return;
+    token=null;store.del('tu_token');document.getElementById('boardOv').classList.remove('open');await load()});
+}
+document.getElementById('boardBtn').addEventListener('click',openBoard);
+
+/* ---------- share text ---------- */
+const numLabel=()=>S?`№${S.no}`:'';
 function shareText(){
-  const won=guesses[guesses.length-1]===target.w,map={correct:'⬜',present:'🔳',absent:'⬛'};
-  const grid=guesses.map(g=>score(g,target.w).map(s=>map[s]).join('')).join('\n');
-  const w=(store.get('tu_stats',{wins:0}).wins)||0;
+  const won=S.solved,map={correct:'⬜',present:'🔳',absent:'⬛'};
+  const grid=S.guesses.map(g=>g.r.map(s=>map[s]).join('')).join('\n');
   // Бүгд ТОМ үсгээр: Instagram-ийн фонтод жижиг "ү, ө" өөр хэлбэртэй харагддаг тул
   return [
     `ТААСАН УУ? ${numLabel().toUpperCase()}`,
-    `${won?guesses.length:'X'}/6${hintUsed?' · СЭЖҮҮРТЭЙ':''}${revealed?' · ҮСЭГ НЭЭСЭН':''}`,
+    `${won?S.guesses.length:'X'}/6${S.hint?' · СЭЖҮҮРТЭЙ':''}${S.reveal?' · ҮСЭГ НЭЭСЭН':''}`,
     '',
     grid,
     '',
-    `ЦОЛ · ${RANKS[rankOf(w)].n.toUpperCase()}`,
+    `ЦОЛ · ${S.stats.rank.toUpperCase()}`,
     'GRIT.MN/CULTURE'
   ].join('\n')}
 document.getElementById('shareBtn').addEventListener('click',async()=>{
@@ -633,17 +674,17 @@ async function makeStory(){
   ctx.font='800 132px Onest, Arial, sans-serif';
   ctx.save();ctx.translate(W/2,580);if('letterSpacing' in ctx)ctx.letterSpacing='-6px';ctx.fillText('Таасан уу?',0,0);ctx.restore();
   ctx.font='500 40px Onest, Arial, sans-serif';ctx.fillStyle='rgba(244,242,237,.55)';
-  const won=guesses[guesses.length-1]===target.w;
-  ctx.fillText(`${numLabel()}  ·  ${won?guesses.length:'X'}/6${hintUsed?'  ·  сэжүүртэй':''}${revealed?'  ·  үсэг нээсэн':''}`,W/2,655);
-  const n=guesses.length,gap=14,sz=Math.min(132,Math.floor((700-(n-1)*gap)/n)),gw=5*sz+4*gap,x0=(W-gw)/2,gh=n*(sz+gap)-gap,y0=Math.round(710+(700-gh)/2);
-  guesses.forEach((gs,r)=>score(gs,target.w).forEach((s,i)=>{
+  const won=S.solved;
+  ctx.fillText(`${numLabel()}  ·  ${won?S.guesses.length:'X'}/6${S.hint?'  ·  сэжүүртэй':''}${S.reveal?'  ·  үсэг нээсэн':''}`,W/2,655);
+  const n=S.guesses.length,gap=14,sz=Math.min(132,Math.floor((700-(n-1)*gap)/n)),gw=5*sz+4*gap,x0=(W-gw)/2,gh=n*(sz+gap)-gap,y0=Math.round(710+(700-gh)/2);
+  S.guesses.forEach((gs,r)=>gs.r.forEach((s,i)=>{
     const x=x0+i*(sz+gap),y=y0+r*(sz+gap);
     if(s==='correct'){ctx.fillStyle=ink;rr(ctx,x,y,sz,sz,8);ctx.fill()}
     else if(s==='present'){ctx.save();ctx.strokeStyle=ink;ctx.lineWidth=5;ctx.setLineDash([16,10]);rr(ctx,x+3,y+3,sz-6,sz-6,8);ctx.stroke();ctx.restore();
       drawStitches(ctx,['X'],x+sz-40,y+12,28,ink,4)}
     else{ctx.fillStyle='#161616';rr(ctx,x,y,sz,sz,8);ctx.fill()}}));
-  {const w=(store.get('tu_stats',{wins:0}).wins)||0;ctx.fillStyle='rgba(244,242,237,.55)';ctx.font='500 34px Onest, Arial, sans-serif';ctx.fillText('цол',W/2,H-470);
-   ctx.fillStyle=ink;ctx.font='800 56px Onest, Arial, sans-serif';ctx.fillText(RANKS[rankOf(w)].n,W/2,H-410)}
+  ctx.fillStyle='rgba(244,242,237,.55)';ctx.font='500 34px Onest, Arial, sans-serif';ctx.fillText(S.player&&S.player.class?`цол · ${S.player.class} анги`:'цол',W/2,H-470);
+  ctx.fillStyle=ink;ctx.font='800 56px Onest, Arial, sans-serif';ctx.fillText(S.stats.rank,W/2,H-410);
   ctx.fillStyle=ink;ctx.font='600 44px Onest, Arial, sans-serif';ctx.fillText('чи тааж чадах уу?',W/2,H-300);
   ctx.font='800 46px Onest, Arial, sans-serif';ctx.fillText('grit.mn/culture',W/2,H-230);
   return c.toDataURL('image/png')}
@@ -653,45 +694,34 @@ document.getElementById('storyBtn').addEventListener('click',async()=>{
     if(navigator.canShare&&navigator.canShare({files:[file]})){await navigator.share({files:[file]});return}}catch(e){}
   document.getElementById('storyImg').src=url;document.getElementById('storyOv').classList.add('open')});
 
+/* ---------- countdown to the next word (Mongolian time, from the server) ---------- */
 let timer;
-function tick(){clearInterval(timer);const upd=()=>{const n=new Date(),m=new Date(n.getFullYear(),n.getMonth(),n.getDate()+1);
-  let s=Math.floor((m-n)/1000);const h=Math.floor(s/3600);s%=3600;const mi=Math.floor(s/60);s%=60;
+function tick(){clearInterval(timer);const upd=()=>{
+  let s=Math.max(0,Math.floor((S.next_in*1000-(Date.now()-loadedAt))/1000));
+  if(s===0){clearInterval(timer);document.querySelectorAll('.overlay').forEach(o=>o.classList.remove('open'));load();return}
+  const h=Math.floor(s/3600);s%=3600;const mi=Math.floor(s/60);s%=60;
   document.getElementById('nextLbl').textContent=[h,mi,s].map(v=>String(v).padStart(2,'0')).join(':')};upd();timer=setInterval(upd,1000)}
-function save(){if(!practice)store.set('tu_game',{no:puzzleNo(),guesses,hint:hintUsed,reveal:revealed?revealed.i:null})}
+
+/* ---------- hint ---------- */
 function showHint(animate){
-  hintUsed=true;document.getElementById('hintTxt').textContent=`${target.cat} · ${target.era}`;
+  document.getElementById('hintTxt').textContent=`${S.hint.cat} · ${S.hint.era}`;
   const h=document.getElementById('hint');if(!animate)h.style.transition='none';h.classList.add('open');
   document.getElementById('hintBtn').classList.add('used');if(!animate)requestAnimationFrame(()=>h.style.transition='');updateRevealUI()}
-document.getElementById('hintBtn').addEventListener('click',()=>{if(hintUsed)return;showHint(true);save();buzz(20)});
+document.getElementById('hintBtn').addEventListener('click',async()=>{
+  if(!S||S.hint||S.finished||busy)return;busy=true;
+  try{S=await call('tu_hint')}catch(e){busy=false;return toast(errMsg(e))}
+  busy=false;showHint(true);buzz(20)});
 
-function start(){
-  target=todays();guesses=[];cur='';over=false;hintUsed=false;revealed=null;buildBoard();buildKb();
-  document.getElementById('hint').classList.remove('open');document.getElementById('hintBtn').classList.remove('used');
-  const n=new Date();
-  document.getElementById('noLbl').textContent=numLabel();
-  document.getElementById('dateLbl').textContent=practice?'өдрийн үгэнд нөлөөлөхгүй':`${n.getFullYear()}.${String(n.getMonth()+1).padStart(2,'0')}.${String(n.getDate()).padStart(2,'0')}`;
-  if(!practice){const saved=store.get('tu_game',null);
-    if(saved&&saved.no===puzzleNo()){if(saved.reveal!=null)revealed={i:saved.reveal,ch:target.w[saved.reveal]};if(saved.hint)showHint(false);saved.guesses.forEach((g,r)=>{const res=score(g,target.w);paintRow(r,g,res,false);paintKeys(g,res);guesses.push(g)});
-      if(guesses.includes(target.w)||guesses.length===6){over=true;setTimeout(()=>openResult(guesses.includes(target.w)),300)}}}
-  markRevealKey();if(!over)renderCur();updateRevealUI()}
-boardEl.addEventListener('click',e=>{
-  const t=e.target.closest('.tile');if(!t||over||!hintUsed)return;
-  const row=t.parentElement,r=[...boardEl.children].indexOf(row),i=[...row.children].indexOf(t);
-  if(r!==guesses.length||i<0||i>4)return;
-  if(revealed)return toast('энэ тоглолтод үсэг нээсэн');
-  if(!revealAvailable())return toast(`үсэг нээх боломж ${revealDate()}-нд гарна`);
-  if(i<cur.length)return toast('хоосон нүд сонгоно уу');
-  doReveal(i)});
 document.getElementById('helpBtn').addEventListener('click',()=>document.getElementById('helpOv').classList.add('open'));
-document.getElementById('statsBtn').addEventListener('click',()=>{if(over)openResult(guesses.includes(target.w));else toast('тоглоом дуусахад үр дүн гарна')});
+document.getElementById('statsBtn').addEventListener('click',()=>{if(S&&S.finished)openResult(S.solved);else toast('тоглоом дуусахад үр дүн гарна')});
 document.querySelectorAll('[data-close]').forEach(b=>b.addEventListener('click',e=>e.target.closest('.overlay').classList.remove('open')));
 document.querySelectorAll('.overlay').forEach(o=>o.addEventListener('click',e=>{if(e.target===o)o.classList.remove('open')}));
-document.addEventListener('keydown',e=>{if(e.metaKey||e.ctrlKey||e.altKey)return;
+document.addEventListener('keydown',e=>{if(e.metaKey||e.ctrlKey||e.altKey)return;if(e.target.closest&&e.target.closest('input,textarea'))return;
   if(e.key==='Enter'){e.preventDefault();press('ENTER')}else if(e.key==='Backspace')press('DEL');
   else{const k=e.key.toUpperCase();if(LETTERS.has(k))press(k)}});
 
-start();
-if(!store.get('tu_seen4',false)){document.getElementById('helpOv').classList.add('open');store.set('tu_seen4',true)}
+buildBoard();buildKb();load();
+if(!store.get('tu_seen5',false)){document.getElementById('helpOv').classList.add('open');store.set('tu_seen5',true)}
 </script>
 </body>
 </html>
