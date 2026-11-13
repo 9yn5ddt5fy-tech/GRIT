@@ -446,184 +446,302 @@
   };
 
   // ---------------------------------------------------------------- isometric map
-  // A diorama of the heritage region for the page hero. World units 0..100
-  // on both axes; the back corner (0,0) is at the top of the picture.
-  // opts.pins: [{ id, x, y, label }] become clickable markers (data-open=id).
+  // A diorama of the heritage region for the page hero, drawn as true
+  // isometric volumes: every box, roof and mountain has a lit top, a mid
+  // left face and a dark right face; no outlines; soft shadows; a calm palette.
+  // World units 0..100 on both axes; the back corner (0,0) is at the top.
+  // opts.pins: [{ id, x, y, label, side }] become clickable markers (data-open=id).
   const MAP_W = 1200,
     MAP_H = 620,
     MS = 6.1;
   const iso = (x, y, z = 0) => [MAP_W / 2 + (x - y) * 0.866 * MS, 30 + (x + y) * 0.5 * MS - z * MS];
-  const pt = (x, y, z) => iso(x, y, z).map((v) => v.toFixed(1)).join(" ");
-  const isoEllipse = (x, y, r, attrs) => {
-    const [cx, cy] = iso(x, y);
-    return `<ellipse cx="${cx.toFixed(1)}" cy="${cy.toFixed(1)}" rx="${(1.2247 * r * MS).toFixed(1)}" ry="${(0.7071 * r * MS).toFixed(1)}" ${attrs}/>`;
+  const f1 = (v) => +v.toFixed(1);
+  const pts = (a) => a.map(([x, y, z]) => iso(x, y, z || 0).map(f1).join(' ')).join(' ');
+  const poly = (a, fill, extra = '') => `<polygon points="${pts(a)}" fill="${fill}" ${extra}/>`;
+  function shade(hex, f) {
+    const n = parseInt(hex.slice(1), 16);
+    const t = f < 0 ? 0 : 255, p = Math.abs(f);
+    const c = [n >> 16, (n >> 8) & 255, n & 255].map((v) => Math.round(v + (t - v) * p));
+    return '#' + c.map((v) => v.toString(16).padStart(2, '0')).join('');
+  }
+  const mix = (a, b, t) => {
+    const A = parseInt(a.slice(1), 16), B = parseInt(b.slice(1), 16);
+    const c = [16, 8, 0].map((s) => Math.round(((A >> s) & 255) * (1 - t) + ((B >> s) & 255) * t));
+    return '#' + c.map((v) => v.toString(16).padStart(2, '0')).join('');
   };
-  // Smooth path through world points.
-  const isoPath = (pts) => {
-    const p = pts.map(([x, y]) => iso(x, y));
-    let d = `M${p[0][0].toFixed(1)} ${p[0][1].toFixed(1)}`;
-    for (let i = 1; i < p.length - 1; i++) {
-      const mx = (p[i][0] + p[i + 1][0]) / 2, my = (p[i][1] + p[i + 1][1]) / 2;
-      d += ` Q${p[i][0].toFixed(1)} ${p[i][1].toFixed(1)} ${mx.toFixed(1)} ${my.toFixed(1)}`;
-    }
-    const l = p[p.length - 1];
-    return d + ` L${l[0].toFixed(1)} ${l[1].toFixed(1)}`;
+  const Q = {
+    bg1: '#eef1e8', bg2: '#f7f5ee',
+    grass: '#b7c88a', grassA: '#aebf7e', grassB: '#c1d095', grassC: '#a6b874', lip: '#9db06c',
+    soilL: '#cdb48b', soilR: '#b69a70', strata: '#e0cda9',
+    path: '#efe8d3', pathEdge: '#ddd3b6',
+    water: '#93c4d3', waterLt: '#bfdfe7', waterDk: '#73abc0', shore: '#e6dcbf',
+    tree: '#6e9a4e', treeLt: '#8fb866', conifer: '#4f7f4f', coniferLt: '#6a9a62',
+    rock: '#9aa3ad', rockLt: '#c3cad1', rockDk: '#77818c',
+    snow: '#f6f7f4', snowDk: '#d9dee3',
+    wall: '#f3f0e7', roofG: '#4f8f6f', roofR: '#c4553b', gold: '#d9a53f',
+    felt: '#f2ede0', feltRoof: '#e4dccb', door: '#c8613b',
+    ruin: '#d6c29a', sheep: '#fbfaf5', horse: '#8a5a3c',
   };
-  const isoLake = (x, y, r) => {
-    const [cx, cy] = iso(x, y);
-    let w = "";
-    for (let i = 0; i < 4; i++) w += `<path d="M${(cx - r * 4 + i * r * 2.2).toFixed(1)} ${(cy - 3 + (i % 2) * 7).toFixed(1)} q3 -3 6 0 q3 -3 6 0" stroke="#fff" stroke-width="1.4" fill="none"/>`;
-    return isoEllipse(x, y, r + 1.2, `fill="#e3cf92" ${O}`) + isoEllipse(x, y, r, `fill="${K.water}" stroke="${K.waterDk}" stroke-width="1.4"`) + isoEllipse(x - r * 0.15, y - r * 0.15, r * 0.6, `fill="${K.waterLt}" opacity="0.55"`) + w;
-  };
-  const at = (x, y, fn) => {
+  const shadowE = (x, y, rx, ry, op = 0.16) => {
     const [sx, sy] = iso(x, y);
-    return fn(+sx.toFixed(1), +sy.toFixed(1));
+    return `<ellipse cx="${f1(sx)}" cy="${f1(sy)}" rx="${f1(rx)}" ry="${f1(ry)}" fill="#3d4a2c" opacity="${op}"/>`;
   };
+
+  // A box with three shaded faces.
+  const boxIso = (x, y, z, w, d, h, c, o = {}) =>
+    poly([[x, y + d, z], [x + w, y + d, z], [x + w, y + d, z + h], [x, y + d, z + h]], o.l || shade(c, -0.07)) +
+    poly([[x + w, y, z], [x + w, y + d, z], [x + w, y + d, z + h], [x + w, y, z + h]], o.r || shade(c, -0.2)) +
+    poly([[x, y, z + h], [x + w, y, z + h], [x + w, y + d, z + h], [x, y + d, z + h]], o.t || shade(c, 0.1));
+
+  // Hip roof (a pyramid when the base is square).
+  function roofIso(x, y, z, w, d, rh, c, ov = 0.4) {
+    const x0 = x - ov, y0 = y - ov, x1 = x + w + ov, y1 = y + d + ov, zr = z + rh;
+    let A, B;
+    if (w >= d) { const m = (y0 + y1) / 2, k = (y1 - y0) / 2; A = [x0 + k, m, zr]; B = [x1 - k, m, zr]; }
+    else { const m = (x0 + x1) / 2, k = (x1 - x0) / 2; A = [m, y0 + k, zr]; B = [m, y1 - k, zr]; }
+    const P0 = [x0, y0, z], P1 = [x1, y0, z], P2 = [x1, y1, z], P3 = [x0, y1, z];
+    let s;
+    if (w >= d) {
+      s = poly([P0, P1, B, A], shade(c, 0.18)) + poly([P0, P3, A], shade(c, 0.05)) +
+          poly([P1, P2, B], shade(c, -0.22)) + poly([P3, P2, B, A], shade(c, -0.04));
+    } else {
+      s = poly([P0, P3, B, A], shade(c, 0.05)) + poly([P0, P1, A], shade(c, 0.18)) +
+          poly([P3, P2, B], shade(c, -0.04)) + poly([P1, P2, B, A], shade(c, -0.22));
+    }
+    const [ex1, ey1] = iso(...P3), [ex2, ey2] = iso(...P2), [ex3, ey3] = iso(...P1);
+    s += `<path d="M${f1(ex1)} ${f1(ey1)} L${f1(ex2)} ${f1(ey2)} L${f1(ex3)} ${f1(ey3)}" stroke="${shade(c, -0.35)}" stroke-width="1.2" fill="none"/>`;
+    return s;
+  }
+  const finial = (x, y, z, r = 1.6) => { const [sx, sy] = iso(x, y, z); return `<path d="M${f1(sx)} ${f1(sy - 7)} L${f1(sx + r)} ${f1(sy)} L${f1(sx - r)} ${f1(sy)}Z" fill="${Q.gold}"/><circle cx="${f1(sx)}" cy="${f1(sy - 7.5)}" r="1.6" fill="${Q.gold}"/>`; };
+
+  // Temple: white walls, red-brown band, green (or red) hip roofs, gold top.
+  function templeIso(x, y, w, d, o = {}) {
+    const c = o.roof || Q.roofG, h = o.h || 2.2;
+    let s = shadowE(x + w / 2 + 0.8, y + d / 2 + 0.6, (w + d) * 3.4, (w + d) * 1.7, 0.13);
+    s += boxIso(x, y, 0, w, d, h, Q.wall);
+    s += boxIso(x - 0.05, y - 0.05, h - 0.35, w + 0.1, d + 0.1, 0.35, '#9e3b2a');
+    // door on the +y face
+    s += poly([[x + w * 0.4, y + d, 0], [x + w * 0.6, y + d, 0], [x + w * 0.6, y + d, h * 0.55], [x + w * 0.4, y + d, h * 0.55]], Q.roofR);
+    s += roofIso(x, y, h, w, d, o.rh || Math.min(w, d) * 0.38, c, 0.5);
+    let top = h + (o.rh || Math.min(w, d) * 0.38);
+    if (o.tiers === 2) {
+      const w2 = w * 0.5, d2 = d * 0.5, x2 = x + (w - w2) / 2, y2 = y + (d - d2) / 2, z2 = h + (o.rh || Math.min(w, d) * 0.38) * 0.55;
+      s += boxIso(x2, y2, z2, w2, d2, 0.9, Q.wall) + roofIso(x2, y2, z2 + 0.9, w2, d2, Math.min(w2, d2) * 0.45, c, 0.35);
+      top = z2 + 0.9 + Math.min(w2, d2) * 0.45;
+    }
+    return s + finial(x + w / 2, y + d / 2, top);
+  }
+
+  // Ger: an isometric cylinder with a conical felt roof and an orange door.
+  function gerIso(x, y, r = 1.2) {
+    const [sx, sy] = iso(x, y), rx = 1.2247 * r * MS, ry = 0.7071 * r * MS, H = r * 0.85 * MS, R = r * 0.55 * MS;
+    const id = 'gg' + ++uid;
+    let s = `<defs><linearGradient id="${id}" x1="0" x2="1"><stop offset="0" stop-color="${Q.felt}"/><stop offset="1" stop-color="${shade(Q.felt, -0.2)}"/></linearGradient></defs>`;
+    s += `<ellipse cx="${f1(sx + 4)}" cy="${f1(sy + 1.5)}" rx="${f1(rx * 1.15)}" ry="${f1(ry * 1.1)}" fill="#3d4a2c" opacity=".15"/>`;
+    s += `<path d="M${f1(sx - rx)} ${f1(sy - H)} L${f1(sx - rx)} ${f1(sy)} A${f1(rx)} ${f1(ry)} 0 0 0 ${f1(sx + rx)} ${f1(sy)} L${f1(sx + rx)} ${f1(sy - H)}Z" fill="url(#${id})"/>`;
+    s += `<path d="M${f1(sx - rx)} ${f1(sy - H * 0.55)} A${f1(rx)} ${f1(ry)} 0 0 0 ${f1(sx + rx)} ${f1(sy - H * 0.55)}" stroke="${Q.roofR}" stroke-width="1" fill="none" opacity=".7"/>`;
+    const dx = sx + rx * 0.35, dy = sy + ry * 0.94;
+    s += `<path d="M${f1(dx - 2.4)} ${f1(dy - 0.4)} L${f1(dx + 2.4)} ${f1(dy - 1.2)} L${f1(dx + 2.4)} ${f1(dy - 1.2 - H * 0.62)} L${f1(dx - 2.4)} ${f1(dy - 0.4 - H * 0.62)}Z" fill="${Q.door}"/>`;
+    s += `<path d="M${f1(sx - rx - 1)} ${f1(sy - H)} A${f1(rx + 1)} ${f1(ry + 0.6)} 0 0 0 ${f1(sx + rx + 1)} ${f1(sy - H)} L${f1(sx)} ${f1(sy - H - R)}Z" fill="${Q.feltRoof}"/>`;
+    s += `<path d="M${f1(sx)} ${f1(sy - H - R)} L${f1(sx + rx + 1)} ${f1(sy - H)} A${f1(rx + 1)} ${f1(ry + 0.6)} 0 0 1 ${f1(sx + rx * 0.2)} ${f1(sy - H + ry * 0.98)}Z" fill="${shade(Q.feltRoof, -0.14)}"/>`;
+    s += `<ellipse cx="${f1(sx)}" cy="${f1(sy - H - R + 1)}" rx="${f1(rx * 0.22)}" ry="${f1(ry * 0.22)}" fill="${Q.roofR}"/>`;
+    return s;
+  }
+
+  const treeIso = (x, y, k = 1, c = Q.tree) => {
+    const [bx, by] = iso(x, y), [cx, cy] = iso(x, y, 1.55 * k), r = 0.95 * k * MS;
+    return `<ellipse cx="${f1(bx + r * 0.7)}" cy="${f1(by + 1)}" rx="${f1(r * 1.1)}" ry="${f1(r * 0.42)}" fill="#3d4a2c" opacity=".16"/>` +
+      `<path d="M${f1(bx)} ${f1(by)} L${f1(cx)} ${f1(cy)}" stroke="#7b5a3c" stroke-width="${f1(1.4 * k)}"/>` +
+      `<circle cx="${f1(cx)}" cy="${f1(cy)}" r="${f1(r)}" fill="${c}"/>` +
+      `<path d="M${f1(cx - r)} ${f1(cy)} A${f1(r)} ${f1(r)} 0 0 1 ${f1(cx + r * 0.7)} ${f1(cy - r * 0.7)} A${f1(r * 1.2)} ${f1(r * 1.2)} 0 0 0 ${f1(cx - r)} ${f1(cy)}Z" fill="${shade(c, 0.22)}"/>`;
+  };
+  const conifer = (x, y, k = 1) => {
+    const [bx, by] = iso(x, y), hh = 3.2 * k * MS, ww = 0.9 * k * MS;
+    return `<ellipse cx="${f1(bx + ww * 0.8)}" cy="${f1(by + 1)}" rx="${f1(ww)}" ry="${f1(ww * 0.38)}" fill="#3d4a2c" opacity=".16"/>` +
+      `<path d="M${f1(bx)} ${f1(by - hh)} L${f1(bx - ww)} ${f1(by - 1)} L${f1(bx)} ${f1(by)}Z" fill="${Q.coniferLt}"/>` +
+      `<path d="M${f1(bx)} ${f1(by - hh)} L${f1(bx + ww)} ${f1(by - 1)} L${f1(bx)} ${f1(by)}Z" fill="${Q.conifer}"/>`;
+  };
+  const stupaIso = (x, y, z, k = 1) => {
+    const [sx, sy] = iso(x, y, z), r = 0.55 * k * MS;
+    return `<path d="M${f1(sx - r)} ${f1(sy)} L${f1(sx - r)} ${f1(sy - r * 0.7)} L${f1(sx + r)} ${f1(sy - r * 0.7)} L${f1(sx + r)} ${f1(sy)} L${f1(sx)} ${f1(sy + r * 0.5)}Z" fill="${shade(Q.wall, -0.06)}"/>` +
+      `<path d="M${f1(sx)} ${f1(sy + r * 0.5)} L${f1(sx + r)} ${f1(sy)} L${f1(sx + r)} ${f1(sy - r * 0.7)} L${f1(sx)} ${f1(sy - r * 0.2)}Z" fill="${shade(Q.wall, -0.2)}"/>` +
+      `<path d="M${f1(sx - r * 0.75)} ${f1(sy - r * 0.6)} Q${f1(sx - r * 0.8)} ${f1(sy - r * 1.9)} ${f1(sx)} ${f1(sy - r * 2)} Q${f1(sx + r * 0.8)} ${f1(sy - r * 1.9)} ${f1(sx + r * 0.75)} ${f1(sy - r * 0.6)}Z" fill="${Q.wall}"/>` +
+      `<path d="M${f1(sx)} ${f1(sy - r * 2)} Q${f1(sx + r * 0.8)} ${f1(sy - r * 1.9)} ${f1(sx + r * 0.75)} ${f1(sy - r * 0.6)} L${f1(sx + r * 0.1)} ${f1(sy - r * 0.45)}Z" fill="${shade(Q.wall, -0.15)}"/>` +
+      `<path d="M${f1(sx - r * 0.18)} ${f1(sy - r * 1.95)} L${f1(sx)} ${f1(sy - r * 3.2)} L${f1(sx + r * 0.18)} ${f1(sy - r * 1.95)}Z" fill="${Q.gold}"/>`;
+  };
+
+  // Faceted mountain / rock / volcano. top > 0 makes a crater (truncated cone).
+  function peak(cx, cy, r, h, seed, o = {}) {
+    const q = rnd(seed), n = o.n || 8, top = o.top || 0;
+    const base = [], ring = [];
+    for (let i = 0; i < n; i++) {
+      const a = (i / n) * Math.PI * 2 + q() * 0.4, rr = r * (0.75 + q() * 0.45);
+      base.push([cx + Math.cos(a) * rr, cy + Math.sin(a) * rr, 0]);
+      ring.push([cx + Math.cos(a) * rr * top + (o.ax || 0), cy + Math.sin(a) * rr * top + (o.ay || 0), h]);
+    }
+    const apex = [cx + (q() - 0.5) * r * 0.3, cy + (q() - 0.5) * r * 0.3, h];
+    const L = [-0.3, 0.55, 0.78], V = [1, 1, 1.15];
+    const faces = [];
+    for (let i = 0; i < n; i++) {
+      const a = base[i], b = base[(i + 1) % n];
+      const t1 = top ? ring[i] : apex, t2 = top ? ring[(i + 1) % n] : apex;
+      const u = [b[0] - a[0], b[1] - a[1], b[2] - a[2]], v = [t1[0] - a[0], t1[1] - a[1], t1[2] - a[2]];
+      let nn = [u[1] * v[2] - u[2] * v[1], u[2] * v[0] - u[0] * v[2], u[0] * v[1] - u[1] * v[0]];
+      const len = Math.hypot(...nn); nn = nn.map((x) => x / len);
+      if (nn[0] * (a[0] + b[0] - 2 * cx) + nn[1] * (a[1] + b[1] - 2 * cy) < 0) nn = nn.map((x) => -x);
+      const vis = nn[0] * V[0] + nn[1] * V[1] + nn[2] * V[2];
+      if (vis <= 0) continue;
+      const lit = Math.max(0, Math.min(1, 0.45 + 0.75 * (nn[0] * L[0] + nn[1] * L[1] + nn[2] * L[2])));
+      faces.push({ a, b, t1, t2, lit, depth: (a[0] + b[0] + a[1] + b[1]) / 2 });
+    }
+    faces.sort((p, q2) => p.depth - q2.depth);
+    let s = shadowE(cx + r * 0.25, cy + r * 0.15, r * MS * 1.2, r * MS * 0.6, 0.12);
+    for (const f of faces) {
+      const col = mix(o.dk || Q.rockDk, o.lt || Q.rockLt, f.lit);
+      s += top ? poly([f.a, f.b, f.t2, f.t1], col) : poly([f.a, f.b, f.t1], col);
+      if (o.snow && !top) {
+        const k = 0.34 + (f.depth % 3) * 0.04, lerp = (p, t) => [apex[0] + (p[0] - apex[0]) * t, apex[1] + (p[1] - apex[1]) * t, apex[2] + (p[2] - apex[2]) * t];
+        s += poly([apex, lerp(f.a, k), lerp([(f.a[0] + f.b[0]) / 2, (f.a[1] + f.b[1]) / 2, 0], k * 0.8), lerp(f.b, k)], mix(Q.snowDk, Q.snow, f.lit));
+      }
+    }
+    if (top) {
+      const [sx, sy] = iso(cx + (o.ax || 0), cy + (o.ay || 0), h);
+      s += `<ellipse cx="${f1(sx)}" cy="${f1(sy)}" rx="${f1(1.2247 * r * top * MS * 0.95)}" ry="${f1(0.7071 * r * top * MS * 0.95)}" fill="${o.crater || '#5b4a42'}"/>`;
+    }
+    return s;
+  }
+
+  const lakeIso = (cx, cy, r, seed) => {
+    const q = rnd(seed), n = 14, p = [];
+    for (let i = 0; i < n; i++) { const a = (i / n) * Math.PI * 2, rr = r * (0.85 + q() * 0.3); p.push(iso(cx + Math.cos(a) * rr, cy + Math.sin(a) * rr)); }
+    let d = '';
+    for (let i = 0; i < n; i++) { const a = p[i], b = p[(i + 1) % n]; const m = [(a[0] + b[0]) / 2, (a[1] + b[1]) / 2]; d += (i ? ' Q' : 'M' + f1((p[n - 1][0] + a[0]) / 2) + ' ' + f1((p[n - 1][1] + a[1]) / 2) + ' Q') + f1(a[0]) + ' ' + f1(a[1]) + ' ' + f1(m[0]) + ' ' + f1(m[1]); }
+    d += 'Z';
+    const [sx, sy] = iso(cx, cy);
+    let s = `<path d="${d}" fill="${Q.shore}" stroke="${Q.shore}" stroke-width="7" stroke-linejoin="round"/><path d="${d}" fill="${Q.water}"/>`;
+    s += `<ellipse cx="${f1(sx - r * 1.5)}" cy="${f1(sy - r * 0.9)}" rx="${f1(r * MS * 0.45)}" ry="${f1(r * MS * 0.18)}" fill="${Q.waterLt}" opacity=".7"/>`;
+    for (let i = 0; i < 4; i++) s += `<path d="M${f1(sx - r * 3 + i * r * 1.9)} ${f1(sy + (i % 2 ? 4 : -3))} h${f1(r * 1.6)}" stroke="#e8f5f8" stroke-width="1.2" stroke-linecap="round" opacity=".9"/>`;
+    return s;
+  };
+  const sheep = (x, y) => { const [sx, sy] = iso(x, y); return `<ellipse cx="${f1(sx)}" cy="${f1(sy - 1.3)}" rx="2.6" ry="1.8" fill="${Q.sheep}"/><circle cx="${f1(sx + 2.4)}" cy="${f1(sy - 1.8)}" r="0.9" fill="#4a3a30"/><ellipse cx="${f1(sx + 1)}" cy="${f1(sy + 0.6)}" rx="2.6" ry=".7" fill="#3d4a2c" opacity=".15"/>`; };
+  const horseTiny = (x, y, c = Q.horse, flip = 1) => { const [sx, sy] = iso(x, y); return `<g transform="translate(${f1(sx)} ${f1(sy)}) scale(${flip} 1)"><ellipse cx="0" cy="-4.2" rx="3.6" ry="1.8" fill="${c}"/><path d="M2.4 -5 L4.6 -8.4 L6 -7.8 L3.8 -4.2Z" fill="${c}"/><path d="M-2.4 -3 V0 M-1.2 -3 V0 M1.6 -3 V0 M2.6 -3 V0" stroke="${c}" stroke-width=".9"/><path d="M-3.4 -4.6 q-1.6 1 -1 3" stroke="${shade(c, -0.3)}" stroke-width=".9" fill="none"/></g>`; };
+  const turtleIso = (x, y, k = 1) => { const [sx, sy] = iso(x, y), r = 1.3 * k * MS; return `<ellipse cx="${f1(sx + r * 0.3)}" cy="${f1(sy + 1)}" rx="${f1(r * 1.15)}" ry="${f1(r * 0.42)}" fill="#3d4a2c" opacity=".16"/><path d="M${f1(sx - r)} ${f1(sy)} Q${f1(sx - r)} ${f1(sy - r * 1.1)} ${f1(sx)} ${f1(sy - r * 1.05)} Q${f1(sx + r)} ${f1(sy - r * 1.1)} ${f1(sx + r)} ${f1(sy)}Z" fill="${Q.rockLt}"/><path d="M${f1(sx)} ${f1(sy - r * 1.05)} Q${f1(sx + r)} ${f1(sy - r * 1.1)} ${f1(sx + r)} ${f1(sy)} L${f1(sx + r * 0.1)} ${f1(sy)}Z" fill="${Q.rock}"/><ellipse cx="${f1(sx + r * 1.15)}" cy="${f1(sy - r * 0.25)}" rx="${f1(r * 0.28)}" ry="${f1(r * 0.2)}" fill="${Q.rock}"/>`; };
 
   function isoMap(opts = {}) {
-    const id = "m" + ++uid;
+    const id = 'm' + ++uid;
     const items = []; // [depth, svg]
-    const put = (x, y, fn) => items.push([x + y, at(x, y, fn)]);
-    let s = `<defs><linearGradient id="${id}s" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3f86d6"/><stop offset="1" stop-color="#cfeaf4"/></linearGradient><linearGradient id="${id}g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8fcf55"/><stop offset="1" stop-color="#5fae3f"/></linearGradient></defs>`;
-    s += `<rect width="${MAP_W}" height="${MAP_H}" fill="url(#${id}s)"/>`;
-    s += `<g class="map-clouds">${cloud(140, 90, 1.1, MOOD.day.cloud)}${cloud(1040, 70, 0.9, MOOD.day.cloud)}${cloud(1080, 300, 0.7, MOOD.day.cloud)}${cloud(110, 330, 0.6, MOOD.day.cloud)}</g>`;
-    s += sun(1060, 120, 22);
+    const put = (d, svg) => items.push([d, svg]);
+    const E0 = 62, E1 = 82, wh = 1.2, wt = 0.7; // Erdene Zuu's square
+    let s = `<defs><linearGradient id="${id}s" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${Q.bg1}"/><stop offset="1" stop-color="${Q.bg2}"/></linearGradient>` +
+      `<radialGradient id="${id}h" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#ffffff" stop-opacity=".9"/><stop offset="1" stop-color="#ffffff" stop-opacity="0"/></radialGradient>` +
+      `<filter id="${id}d" x="-20%" y="-20%" width="140%" height="160%"><feDropShadow dx="0" dy="2" stdDeviation="2.5" flood-color="#2b3320" flood-opacity=".22"/></filter></defs>`;
+    s += `<rect width="${MAP_W}" height="${MAP_H}" fill="url(#${id}s)"/><ellipse cx="${MAP_W / 2}" cy="${MAP_H * 0.42}" rx="${MAP_W * 0.55}" ry="${MAP_H * 0.5}" fill="url(#${id}h)"/>`;
+    s += `<g class="map-clouds" fill="#ffffff" opacity=".75"><ellipse cx="150" cy="90" rx="70" ry="13"/><ellipse cx="185" cy="80" rx="40" ry="12"/><ellipse cx="1040" cy="70" rx="60" ry="11"/><ellipse cx="1075" cy="62" rx="34" ry="10"/><ellipse cx="1090" cy="300" rx="46" ry="9"/></g>`;
 
-    // Plate: two soil faces under the grass top.
+    // Plate: soil sides with strata, grass lip.
     const T = 5.5;
-    s += `<path d="M${pt(0, 100, 0)} L${pt(100, 100, 0)} L${pt(100, 100, -T)} L${pt(0, 100, -T)}Z" fill="#a8693d" ${O}/>`;
-    s += `<path d="M${pt(100, 0, 0)} L${pt(100, 100, 0)} L${pt(100, 100, -T)} L${pt(100, 0, -T)}Z" fill="#8a5230" ${O}/>`;
-    for (const z of [-2, -3.8]) s += `<path d="M${pt(0, 100, z)} L${pt(100, 100, z)} L${pt(100, 0, z)}" stroke="#6e3f22" stroke-width="1.2" fill="none" stroke-dasharray="10 6"/>`;
-    s += `<path d="M${pt(0, 0, 0)} L${pt(100, 0, 0)} L${pt(100, 100, 0)} L${pt(0, 100, 0)}Z" fill="url(#${id}g)" ${O}/>`;
-    s += `<path d="M${pt(0, 100, 0)} L${pt(100, 100, 0)} L${pt(100, 0, 0)}" stroke="${K.greenLt}" stroke-width="4" fill="none"/>`;
-
-    // Ground patches and hills (flat layer).
-    const r = rnd(21);
-    for (let i = 0; i < 26; i++) {
-      const x = 6 + r() * 88, y = 6 + r() * 88;
-      s += isoEllipse(x, y, 2 + r() * 4, `fill="${["#7cc04f", "#a6d860", "#6ab443"][i % 3]}" opacity="0.6"`);
+    s += poly([[0, 100, 0], [100, 100, 0], [100, 100, -T], [0, 100, -T]], Q.soilL);
+    s += poly([[100, 0, 0], [100, 100, 0], [100, 100, -T], [100, 0, -T]], Q.soilR);
+    for (const z of [-2.2, -3.9]) {
+      const [a1, a2] = iso(0, 100, z), [b1, b2] = iso(100, 100, z), [c1, c2] = iso(100, 0, z);
+      s += `<path d="M${f1(a1)} ${f1(a2)} L${f1(b1)} ${f1(b2)} L${f1(c1)} ${f1(c2)}" stroke="${Q.strata}" stroke-width="1.6" fill="none" opacity=".8"/>`;
     }
-    // Rivers: Orkhon (with the waterfall off the front edge) and Tamir.
+    s += poly([[0, 100, 0], [100, 100, 0], [100, 100, -0.8], [0, 100, -0.8]], Q.lip) + poly([[100, 0, 0], [100, 100, 0], [100, 100, -0.8], [100, 0, -0.8]], shade(Q.lip, -0.12));
+    s += poly([[0, 0, 0], [100, 0, 0], [100, 100, 0], [0, 100, 0]], Q.grass);
+
+    // Field parcels.
+    const r = rnd(31);
+    for (let i = 0; i < 46; i++) {
+      const x = r() * 92, y = r() * 92, w = 4 + r() * 9, d = 4 + r() * 9;
+      s += poly([[x, y, 0], [Math.min(100, x + w), y, 0], [Math.min(100, x + w), Math.min(100, y + d), 0], [x, Math.min(100, y + d), 0]], [Q.grassA, Q.grassB, Q.grassC][i % 3], 'opacity=".55"');
+    }
+
+    // Soft rolling hills.
+    [[38, 30, 7], [12, 70, 6], [88, 56, 6], [70, 14, 6], [30, 88, 5], [92, 30, 5]].forEach(([x, y, rr], i) => {
+      const [hx, hy] = iso(x, y), gid = id + 'm' + i;
+      s += `<defs><radialGradient id="${gid}" cx=".4" cy=".35" r=".7"><stop offset="0" stop-color="${shade(Q.grass, 0.18)}"/><stop offset=".7" stop-color="${Q.grass}"/><stop offset="1" stop-color="${shade(Q.grass, -0.08)}"/></radialGradient></defs>`;
+      s += `<ellipse cx="${f1(hx)}" cy="${f1(hy)}" rx="${f1(1.2247 * rr * MS)}" ry="${f1(0.7071 * rr * MS)}" fill="url(#${gid})"/>`;
+    });
+    // Kharkhorin's farm fields: striped plots.
+    [[40, 78, 7, 5, '#cfd08a'], [41, 84.5, 6, 4, '#c3cd85'], [30, 80, 7, 4.5, '#d6d496'], [64, 88, 6, 5, '#c9d08e'], [84, 64, 5, 4, '#d2d293']].forEach(([x, y, w, d, c]) => {
+      s += poly([[x, y, 0], [x + w, y, 0], [x + w, y + d, 0], [x, y + d, 0]], c);
+      for (let k = 0.6; k < d; k += 0.8) { const [a1, a2] = iso(x + 0.2, y + k), [b1, b2] = iso(x + w - 0.2, y + k); s += `<path d="M${f1(a1)} ${f1(a2)} L${f1(b1)} ${f1(b2)}" stroke="${shade(c, -0.12)}" stroke-width="1" opacity=".8"/>`; }
+    });
+
+    // Roads, rivers, lakes (flat layer).
+    const pathD = (pp) => {
+      const p = pp.map(([x, y]) => iso(x, y));
+      let d = `M${f1(p[0][0])} ${f1(p[0][1])}`;
+      for (let i = 1; i < p.length - 1; i++) d += ` Q${f1(p[i][0])} ${f1(p[i][1])} ${f1((p[i][0] + p[i + 1][0]) / 2)} ${f1((p[i][1] + p[i + 1][1]) / 2)}`;
+      const l = p[p.length - 1];
+      return d + ` L${f1(l[0])} ${f1(l[1])}`;
+    };
+    const roads = [[[56, 88], [46, 72], [36, 62], [28, 46], [22, 36]], [[72, 82], [76, 62], [70, 44], [64, 28], [60, 24]], [[64, 72], [56, 66], [44, 66], [30, 70], [18, 80]], [[82, 72], [92, 74], [100, 76]]];
+    for (const rd of roads) { const d = pathD(rd); s += `<path d="${d}" stroke="${Q.pathEdge}" stroke-width="6.5" fill="none" stroke-linecap="round"/><path d="${d}" stroke="${Q.path}" stroke-width="4.5" fill="none" stroke-linecap="round"/>`; }
     const orkhon = [[38, 100], [42, 88], [52, 82], [58, 70], [56, 56], [62, 44], [58, 32], [56, 24]];
     const tamir = [[0, 46], [12, 50], [24, 56], [36, 60], [48, 62], [56, 60]];
-    for (const pts of [orkhon, tamir]) {
-      const d = isoPath(pts);
-      s += `<path d="${d}" stroke="${K.waterDk}" stroke-width="13" fill="none" stroke-linecap="round"/><path d="${d}" stroke="${K.water}" stroke-width="9.5" fill="none" stroke-linecap="round"/><path d="${d}" stroke="${K.waterLt}" stroke-width="2.5" fill="none" stroke-dasharray="10 14" stroke-linecap="round" class="map-flow"/>`;
-    }
-    s += isoLake(17, 27, 8.5) + isoLake(57, 17, 9);
-    // Waterfall pouring off the front-left edge.
+    for (const rv of [orkhon, tamir]) { const d = pathD(rv); s += `<path d="${d}" stroke="${Q.shore}" stroke-width="13" fill="none" stroke-linecap="round"/><path d="${d}" stroke="${Q.water}" stroke-width="9" fill="none" stroke-linecap="round"/><path d="${d}" stroke="${Q.waterLt}" stroke-width="1.6" fill="none" stroke-dasharray="4 18" stroke-linecap="round" opacity=".75" class="map-flow"/>`; }
+    s += lakeIso(17, 27, 8.5, 3) + lakeIso(57, 17, 9, 5);
     {
-      const [wx, wy] = iso(38, 100, 0);
-      s += `<path d="M${wx - 9} ${wy} h18 l3 ${T * MS + 26} h-24Z" fill="${K.water}" ${O}/><path d="M${wx - 4} ${wy + 2} v${T * MS + 22} M${wx + 3} ${wy + 2} v${T * MS + 22}" stroke="#e8f8ff" stroke-width="2.4" class="map-flow"/><path d="M${wx - 30} ${wy + T * MS + 30} q10 -14 22 -4 q10 -12 22 0 q12 -10 20 6Z" fill="#f4fbff" ${O2}/>`;
+      const [wx, wy] = iso(38, 100, 0), H = T * MS;
+      s += `<path d="M${f1(wx - 8)} ${f1(wy + 2)} L${f1(wx + 8)} ${f1(wy - 2)} L${f1(wx + 9)} ${f1(wy + H + 18)} L${f1(wx - 9)} ${f1(wy + H + 22)}Z" fill="${Q.water}"/><path d="M${f1(wx - 3)} ${f1(wy + 2)} V${f1(wy + H + 18)} M${f1(wx + 3)} ${f1(wy)} V${f1(wy + H + 16)}" stroke="#e8f6fa" stroke-width="2" class="map-flow" stroke-dasharray="16 5" opacity=".85"/><ellipse cx="${f1(wx)}" cy="${f1(wy + H + 24)}" rx="20" ry="6" fill="#ffffff" opacity=".9"/><ellipse cx="${f1(wx + 10)}" cy="${f1(wy + H + 21)}" rx="10" ry="4" fill="#ffffff" opacity=".8"/>`;
     }
 
-    // Dirt roads between the sites.
-    for (const road of [[[56, 88], [46, 72], [36, 62], [28, 46], [22, 36]], [[72, 80], [76, 62], [70, 44], [64, 28], [60, 24]], [[64, 72], [56, 66], [44, 66], [30, 70], [18, 80]]]) {
-      const d = isoPath(road);
-      s += `<path d="${d}" stroke="#c9a46a" stroke-width="5" fill="none" stroke-linecap="round"/><path d="${d}" stroke="#e8d3a2" stroke-width="2" fill="none" stroke-dasharray="6 6" stroke-linecap="round"/>`;
-    }
-    // Rounded hills.
-    const dome = (x, y, rr, h, c, cl) =>
-      put(x, y, (sx, sy) => {
-        const rx = 1.2247 * rr * MS, ry = 0.7071 * rr * MS;
-        h *= 1.5;
-        return `<path d="M${sx - rx} ${sy} Q${sx - rx * 0.8} ${sy - h} ${sx} ${sy - h} Q${sx + rx * 0.8} ${sy - h} ${sx + rx} ${sy} A${rx} ${ry} 0 0 1 ${sx - rx} ${sy}Z" fill="${c}" ${O}/><path d="M${sx + rx * 0.15} ${sy - h * 0.98} Q${sx + rx * 0.8} ${sy - h} ${sx + rx} ${sy} A${rx} ${ry} 0 0 1 ${sx + rx * 0.2} ${sy + ry * 0.98} Q${sx + rx * 0.5} ${sy - h * 0.4} ${sx + rx * 0.15} ${sy - h * 0.98}Z" fill="#000" opacity="0.12"/><path d="M${sx - rx * 0.55} ${sy - h * 0.62} Q${sx - rx * 0.25} ${sy - h * 0.95} ${sx + rx * 0.1} ${sy - h * 0.92}" stroke="${cl}" stroke-width="3" fill="none" stroke-linecap="round"/>`;
-      });
-    [[14, 44, 7, 30], [40, 22, 6, 26], [70, 14, 7, 32], [88, 30, 6, 26], [44, 48, 5, 20], [94, 58, 5, 22], [10, 70, 6, 26], [34, 88, 5, 18], [90, 46, 5, 20]].forEach(([x, y, rr, h], i) => dome(x, y, rr, h, i % 2 ? "#4f9d4f" : "#5fae4a", "#8fd060"));
-    // Sheep and goats grazing.
-    const flock = (x0, y0, n, seed) => {
-      const q = rnd(seed);
-      for (let i = 0; i < n; i++) put(x0 + q() * 6, y0 + q() * 6, (sx, sy) => `<ellipse cx="${sx}" cy="${sy - 3}" rx="4.2" ry="3" fill="${i % 4 ? "#fffaf0" : "#6b4a3a"}" ${O2}/><circle cx="${sx + 4}" cy="${sy - 4}" r="1.6" fill="${K.ink}"/>`);
-    };
-    flock(46, 30, 9, 31);
-    flock(20, 60, 7, 32);
-    flock(80, 72, 6, 33);
-    flock(64, 52, 6, 34);
-    // Ovoo (stone cairn) on a pass, with a blue khadag.
-    const ovoo = (sx, sy) => `<path d="M${sx - 12} ${sy} L${sx} ${sy - 20} L${sx + 12} ${sy}Z" fill="${K.stone}" ${O}/><path d="M${sx - 7} ${sy - 7} h14 M${sx - 4} ${sy - 13} h8" stroke="${K.stoneDk}" stroke-width="1"/><path d="M${sx} ${sy - 20} V${sy - 32}" stroke="${K.wood}" stroke-width="1.6"/><path d="M${sx} ${sy - 30} q8 2 12 8 M${sx} ${sy - 28} q-8 3 -10 9" stroke="${K.blue}" stroke-width="2.2" fill="none"/>`;
-    put(34, 38, ovoo);
-    put(84, 40, ovoo);
+    // Mountains along the back edges, then forests at their feet.
+    [[6, 3, 7, 9, 1], [18, 2, 8, 12, 2], [31, 3, 7, 8, 3], [44, 2, 6, 7, 4], [86, 3, 7, 9, 5], [97, 6, 6, 8, 6], [3, 15, 7, 10, 7], [3, 38, 6, 7, 8], [3, 60, 7, 9, 9], [3, 82, 5, 6, 10], [70, 2, 6, 6, 11]].forEach(([x, y, rr, h, sd]) =>
+      put(x + y - 2, peak(x, y, rr, h, sd * 13, { snow: h >= 8, lt: '#b9c3cf', dk: '#7d8a99' })));
+    const forest = (x0, y0, n, seed, conif) => { const q = rnd(seed); for (let i = 0; i < n; i++) { const x = x0 + q() * 12, y = y0 + q() * 10; put(x + y, conif || q() < 0.35 ? conifer(x, y, 0.8 + q() * 0.4) : treeIso(x, y, 0.8 + q() * 0.4)); } };
+    forest(24, 8, 22, 1, true); forest(8, 58, 18, 2, true); forest(84, 48, 16, 3); forest(16, 86, 14, 4); forest(82, 8, 16, 5, true); forest(8, 32, 14, 6, true); forest(62, 4, 14, 7); forest(36, 26, 12, 8); forest(86, 88, 12, 9); forest(8, 74, 10, 10); forest(90, 30, 10, 11); forest(66, 92, 8, 12); forest(48, 44, 6, 13);
+    // Tree rows along roads (as in city maps).
+    roads.forEach((rd, ri) => rd.forEach(([x, y], i) => { if (i % 1 === 0 && i < rd.length - 1) { const [nx, ny] = rd[i + 1]; for (let t = 0.1; t < 1; t += 0.22) for (const sd of [1, -1]) { const px = x + (nx - x) * t + 1.5 * sd, py = y + (ny - y) * t - 1.5 * sd; if (px > E0 - 1 && px < E1 + 1 && py > E0 - 1 && py < E1 + 1) continue; put(px + py, treeIso(px, py, 0.55, ri % 2 ? Q.tree : '#7aa556')); } } }));
 
-    // Mountains along the two back edges.
-    const mtn = (x, y, h, w) =>
-      put(x, y, (sx, sy) => `<path d="M${sx - w} ${sy} L${sx} ${sy - h} L${sx + w} ${sy}Z" fill="#7c8fd6" ${O}/><path d="M${sx} ${sy - h} L${sx + w} ${sy} L${sx + w * 0.15} ${sy}Z" fill="#5a6cb8"/><path d="M${sx} ${sy - h} L${sx + w * 0.3} ${sy - h * 0.7} L${sx + 4} ${sy - h * 0.76} L${sx - 4} ${sy - h * 0.66} L${sx - w * 0.3} ${sy - h * 0.7}Z" fill="${K.snow}" ${O2}/>`);
-    [[4, 1, 74, 46], [14, 1, 96, 56], [26, 2, 70, 44], [38, 1, 88, 52], [50, 2, 60, 40], [62, 1, 78, 48], [74, 2, 66, 44], [86, 1, 84, 50], [97, 3, 66, 40], [1, 12, 86, 50], [2, 26, 66, 42], [1, 40, 80, 48], [2, 54, 62, 40], [1, 68, 74, 44], [2, 84, 58, 38]].forEach((m) => mtn(...m));
-    // Larch forests.
-    const forest = (x0, y0, n, seed) => {
-      const q = rnd(seed);
-      for (let i = 0; i < n; i++) {
-        const x = x0 + q() * 12, y = y0 + q() * 12;
-        put(x, y, (sx, sy) => larch(sx, sy, 14 + q() * 10, ["#145c45", "#1f6b4a", "#2a7a4f"][i % 3]));
-      }
-    };
-    forest(28, 8, 12, 1);
-    forest(6, 60, 10, 2);
-    forest(84, 50, 9, 3);
-    forest(16, 86, 8, 4);
-    forest(84, 8, 9, 5);
-    forest(6, 34, 7, 6);
-    forest(64, 2, 7, 7);
-
-    // Terkhiin Tsagaan Lake and Khorgo.
-    put(17, 27, (sx, sy) => island(sx, sy, 0.6));
-    put(27, 15, (sx, sy) => volcano(sx, sy, 0.62, true));
-    // Taikhar Rock by the Tamir.
-    put(28, 52, (sx, sy) => boulder(sx, sy, 0.36));
-    // Ugii Lake: gers and birds.
-    put(46, 13, (sx, sy) => ger(sx, sy, 0.45));
-    put(50, 9, (sx, sy) => ger(sx, sy, 0.38));
-    put(57, 17, (sx, sy) => birds([[sx - 20, sy - 44, 0.8], [sx, sy - 52, 0.7], [sx + 18, sy - 46, 0.8]]));
+    // Terkhiin Tsagaan Lake: island with conifers; Khorgo volcano behind.
+    put(17 + 27, peak(17, 27, 2, 1.2, 77, { lt: '#9fb070', dk: '#6f8150' }) + conifer(16.4, 26.6, 0.6) + conifer(17.6, 27.4, 0.5));
+    put(26 + 13, peak(26, 13, 6.5, 6, 41, { top: 0.4, lt: '#b49a86', dk: '#7e655a', crater: '#4f4038' }));
+    // Taikhar Rock.
+    put(28 + 52, peak(28, 52, 2.9, 2.1, 52, { n: 14, top: 0.45, lt: '#cdc9bf', dk: '#8d897f', crater: '#bdb8ad' }) + peak(30.4, 53.2, 0.7, 0.5, 53, { n: 7, lt: '#cdc9bf', dk: '#8d897f' }));
+    // Ugii Lake shore: gers and a flock.
+    [[46, 13, 1.1], [49.5, 9.5, 0.95], [44, 9, 0.8]].forEach(([x, y, k]) => put(x + y, gerIso(x, y, k)));
     // Khöshöö Tsaidam steles.
-    put(74, 30, (sx, sy) => turtle(sx, sy, 0.3, true));
-    put(80, 26, (sx, sy) => turtle(sx, sy, 0.3, true));
-    // Erdene Zuu: square wall with stupas, temples inside.
-    const ez = [62, 62, 82, 82];
-    const side = (x0, y0, x1, y1) => {
-      const n = 8;
-      for (let i = 0; i <= n; i++) {
-        const x = x0 + ((x1 - x0) * i) / n, y = y0 + ((y1 - y0) * i) / n;
-        put(x, y, (sx, sy) => stupa(sx, sy - 5, 0.48));
-      }
-    };
-    s += `<path d="M${pt(ez[0], ez[1], 0)} L${pt(ez[2], ez[1], 0)} L${pt(ez[2], ez[3], 0)} L${pt(ez[0], ez[3], 0)}Z" fill="#e6d8a8" ${O}/>`;
-    const wallH = 1.1;
-    const wallFace = (a, b) => `<path d="M${pt(...a, 0)} L${pt(...b, 0)} L${pt(...b, wallH)} L${pt(...a, wallH)}Z" fill="#f3ead6" ${O2}/>`;
-    items.push([ez[0] + ez[1] - 0.5, wallFace([ez[0], ez[1]], [ez[2], ez[1]]) + wallFace([ez[0], ez[1]], [ez[0], ez[3]])]);
-    items.push([ez[2] + ez[3] + 0.4, wallFace([ez[0], ez[3]], [ez[2], ez[3]]) + wallFace([ez[2], ez[1]], [ez[2], ez[3]])]);
-    side(ez[0], ez[1], ez[2], ez[1]);
-    side(ez[0], ez[1], ez[0], ez[3]);
-    side(ez[0], ez[3], ez[2], ez[3]);
-    side(ez[2], ez[1], ez[2], ez[3]);
-    put(70, 70, (sx, sy) => temple(sx - 28, sy + 2, 0.5) + temple(sx + 28, sy + 2, 0.5));
-    put(73, 73, (sx, sy) => temple(sx, sy, 0.68));
-    // Karakorum: ruins, the stone turtle, a banner and gers.
-    put(52, 76, (sx, sy) => ruins(sx, sy, 0.6));
-    put(58, 86, (sx, sy) => turtle(sx, sy, 0.34));
-    put(50, 84, (sx, sy) => tug(sx, sy, 0.55));
-    put(86, 86, (sx, sy) => ger(sx, sy, 0.45));
-    put(88, 80, (sx, sy) => ger(sx, sy, 0.38));
-    // Herders and horses.
-    put(40, 40, (sx, sy) => horse(sx, sy, 0.36) + horse(sx + 18, sy + 6, 0.32, "#e9dcc0", false));
-    put(74, 52, (sx, sy) => horse(sx, sy, -0.34, "#3a2a20", false));
-    put(26, 74, (sx, sy) => ger(sx, sy, 0.42) + person(sx + 18, sy + 4, 0.3, K.red, "wave", { hat: false, braids: true }));
-    put(62, 92, (sx, sy) => person(sx, sy, 0.32, K.cobalt, "point", { hat: K.gold }));
-    put(40, 92, (sx, sy) => ger(sx, sy, 0.45) + ger(sx + 30, sy + 4, 0.4));
-    put(92, 92, (sx, sy) => horse(sx, sy, 0.36) + horse(sx + 20, sy - 4, 0.32, "#e9dcc0", false) + horse(sx - 18, sy + 6, 0.3, "#3a2a20", false));
-    put(76, 94, (sx, sy) => person(sx, sy, 0.3, K.red, "wave", { hat: false, braids: true }) + person(sx + 12, sy + 2, 0.24, K.teal, "stand", { hat: K.red }));
-    put(48, 54, (sx, sy) => person(sx, sy, 0.3, K.purple, "stand", { hat: K.cobalt }) + horse(sx + 16, sy, 0.34));
+    [[74, 30], [79.5, 26]].forEach(([x, y]) => put(x + y, turtleIso(x, y, 0.7) + boxIso(x - 0.4, y - 0.25, 0.6, 0.8, 0.5, 4, '#b8b2a6')));
+    // Erdene Zuu: courtyard, walls with stupas, temples, gate.
+    s += poly([[E0, E0, 0], [E1, E0, 0], [E1, E1, 0], [E0, E1, 0]], '#ddd6bd');
+    s += poly([[E0 + 8, E1 - 1, 0], [E0 + 12, E1 - 1, 0], [E0 + 12, E0 + 8, 0], [E0 + 8, E0 + 8, 0]], Q.path);
+    const stupaRow = (ax, ay, bx, by, nn) => { let o = ''; for (let i = 0; i <= nn; i++) { const x = ax + ((bx - ax) * i) / nn, y = ay + ((by - ay) * i) / nn; o += stupaIso(x, y, wh, 0.85); } return o; };
+    put(E0 + E0 - 0.5, boxIso(E0, E0, 0, E1 - E0, wt, wh, Q.wall) + boxIso(E0, E0, 0, wt, E1 - E0, wh, Q.wall) + stupaRow(E0 + 0.35, E0 + 0.35, E1 - 0.35, E0 + 0.35, 9) + stupaRow(E0 + 0.35, E0 + 2.5, E0 + 0.35, E1 - 0.35, 8));
+    put(70 + 66, templeIso(66, 66.5, 4, 3, { roof: Q.roofG }) + templeIso(73.5, 66.5, 4, 3, { roof: Q.roofG }));
+    put(70 + 72, templeIso(68.5, 70.5, 6, 4.5, { tiers: 2, roof: Q.roofG, h: 2.6 }));
+    put(76 + 75.5, boxIso(75.5, 75.5, 0, 3, 2.5, 2.4, Q.wall) + boxIso(75.45, 75.45, 2.1, 3.1, 2.6, 0.4, '#9e3b2a'));
+    put(E1 + E1 + 0.4, boxIso(E0, E1 - wt, 0, 8, wt, wh, Q.wall) + boxIso(E0 + 12, E1 - wt, 0, E1 - E0 - 12, wt, wh, Q.wall) + boxIso(E1 - wt, E0, 0, wt, E1 - E0, wh, Q.wall) +
+      stupaRow(E0 + 0.35, E1 - 0.35, E0 + 7.6, E1 - 0.35, 3) + stupaRow(E0 + 12.4, E1 - 0.35, E1 - 0.35, E1 - 0.35, 3) + stupaRow(E1 - 0.35, E0 + 0.35, E1 - 0.35, E1 - 0.35, 9) +
+      boxIso(E0 + 8.6, E1 - 1.2, 0, 2.8, 1.4, 1.6, '#c4553b') + roofIso(E0 + 8.6, E1 - 1.2, 1.6, 2.8, 1.4, 0.8, Q.roofG, 0.35));
+    // Karakorum: ruins, stone turtle, banner; Kharkhorin houses and gers.
+    put(52 + 76, boxIso(49, 74, 0, 2.2, 1.2, 1.6, Q.ruin) + boxIso(51.6, 75.4, 0, 3, 1, 0.8, Q.ruin) + boxIso(53.2, 72.8, 0, 1.2, 1.2, 2.4, Q.ruin) + boxIso(50.2, 77.4, 0, 1, 2.6, 1.1, Q.ruin));
+    put(58 + 86, turtleIso(58, 86, 0.8));
+    { const [px, py] = iso(50, 84, 0), [qx, qy] = iso(50, 84, 5); put(50 + 84, `<path d="M${f1(px)} ${f1(py)} L${f1(qx)} ${f1(qy)}" stroke="#6b4b33" stroke-width="1.6"/><path d="M${f1(qx - 3)} ${f1(qy + 4)} Q${f1(qx)} ${f1(qy + 11)} ${f1(qx + 3)} ${f1(qy + 4)}Z" fill="#f4f2ec"/><path d="M${f1(qx)} ${f1(qy + 6)} h9 l-2.5 3 l2.5 3 h-9Z" fill="${Q.roofR}"/>`); }
+    [[86, 86, 1.1], [89.5, 82, 0.95], [40, 92, 1.05], [43.6, 95, 0.9], [26, 74, 1], [20, 61, 0.9]].forEach(([x, y, k]) => put(x + y, gerIso(x, y, k)));
+    [[90, 70, 3, 2.4, '#5d8fa8'], [94, 66, 2.6, 2.2, Q.roofR], [92.5, 62, 2.4, 2, '#5d8fa8']].forEach(([x, y, w, d, c]) => put(x + y + 2, boxIso(x, y, 0, w, d, 1.8, Q.wall) + roofIso(x, y, 1.8, w, d, 0.9, c, 0.25)));
+    // Ovoo on a pass, with a blue khadag.
+    [[34, 38], [84, 40]].forEach(([x, y], i) => { const [tx, ty] = iso(x, y, 1.6); put(x + y, peak(x, y, 1, 1.5, 90 + i, { n: 7, lt: '#cfcac0', dk: '#8f8a80' }) + `<path d="M${f1(tx)} ${f1(ty)} v-9" stroke="#6b4b33" stroke-width="1.2"/><path d="M${f1(tx)} ${f1(ty - 8)} q6 2 9 6 M${f1(tx)} ${f1(ty - 6)} q-6 2 -7 6" stroke="#4a8fd4" stroke-width="1.8" fill="none"/>`); });
+    // Herds.
+    const flock = (x0, y0, n, seed) => { const q = rnd(seed); for (let i = 0; i < n; i++) { const x = x0 + q() * 6, y = y0 + q() * 5; put(x + y, sheep(x, y)); } };
+    flock(46, 30, 12, 31); flock(20, 63, 9, 32); flock(80, 76, 8, 33); flock(64, 52, 9, 34); flock(14, 40, 7, 35);
+    [[40, 40, Q.horse, 1], [42, 41.5, '#e9dcc0', 1], [44.5, 40.5, '#3a2a20', -1], [74, 52, '#3a2a20', -1], [92, 92, Q.horse, 1], [94, 90.5, '#e9dcc0', 1], [48, 54, Q.horse, -1]].forEach(([x, y, c, f]) => put(x + y, horseTiny(x, y, c, f)));
+    // Birds over Ugii Lake.
+    { const [bx, by] = iso(57, 17, 9); put(0, `<g stroke="#4a5a40" stroke-width="1.2" fill="none" stroke-linecap="round">${[[0, 0], [12, -6], [24, -1], [-10, 8]].map(([dx, dy]) => `<path d="M${f1(bx + dx - 4)} ${f1(by + dy)} q2 -3 4 0 q2 -3 4 0"/>`).join('')}</g>`); }
 
     items.sort((a, b) => a[0] - b[0]);
-    s += items.map((i) => i[1]).join("");
+    s += items.map((i) => i[1]).join('');
 
     // Pins.
     (opts.pins || []).forEach((p, n) => {
       const [sx, sy] = iso(p.x, p.y);
-      const w = Math.round(p.label.length * 8.4 + 30);
-      const left = p.side === "left";
-      const lx = left ? sx - 16 - w : sx + 16;
-      s += `<g class="map-pin" data-open="${p.id}" role="button" tabindex="0" aria-label="${p.label}" style="--d:${n * 0.35}s"><path d="M${sx} ${sy} V${sy - 58}" stroke="${K.ink}" stroke-width="2"/><ellipse cx="${sx}" cy="${sy}" rx="7" ry="3.5" fill="${K.ink}" opacity="0.3"/><g class="map-pin__head"><circle cx="${sx}" cy="${sy - 64}" r="13" fill="${K.red}" stroke="${K.ink}" stroke-width="1.6"/><circle cx="${sx}" cy="${sy - 64}" r="8" fill="none" stroke="${K.goldLt}" stroke-width="2"/><text x="${sx}" y="${sy - 59.5}" text-anchor="middle" font-size="12.5" font-weight="700" fill="#fff" font-family="Inter Tight, Inter, sans-serif">${n + 1}</text></g><g class="map-pin__label"><rect x="${lx}" y="${sy - 79}" width="${w}" height="30" rx="15" fill="#fffaf0" stroke="${K.ink}" stroke-width="1.4"/><text x="${lx + w / 2}" y="${sy - 59}" text-anchor="middle" font-size="14.5" font-weight="600" fill="${K.ink}" font-family="Inter Tight, Inter, sans-serif">${p.label}</text></g></g>`;
+      const w = Math.round(p.label.length * 8.2 + 28);
+      const left = p.side === 'left';
+      const lx = left ? sx - 15 - w : sx + 15;
+      s += `<g class="map-pin" data-open="${p.id}" role="button" tabindex="0" aria-label="${p.label}" style="--d:${n * 0.35}s"><ellipse cx="${sx}" cy="${sy}" rx="6" ry="2.6" fill="#2b3320" opacity=".25"/><path d="M${sx} ${sy} V${sy - 54}" stroke="#3a4030" stroke-width="1.5"/><g class="map-pin__head"><circle cx="${sx}" cy="${sy - 60}" r="11.5" fill="#c8352b" stroke="#ffffff" stroke-width="2.2" filter="url(#${id}d)"/><text x="${sx}" y="${sy - 55.8}" text-anchor="middle" font-size="12" font-weight="700" fill="#fff" font-family="Inter Tight, Inter, sans-serif">${n + 1}</text></g><g class="map-pin__label"><rect x="${lx}" y="${sy - 74}" width="${w}" height="28" rx="14" fill="#ffffff" filter="url(#${id}d)"/><text x="${lx + w / 2}" y="${sy - 55.4}" text-anchor="middle" font-size="14" font-weight="600" fill="#26301c" font-family="Inter Tight, Inter, sans-serif">${p.label}</text></g></g>`;
     });
-    return wrap(MAP_W, MAP_H, s + finish(MAP_W, MAP_H, id, { frame: false }), opts.label || "Illustrated map of the heritage sites of Arkhangai and Uvurkhangai", false);
+    return wrap(MAP_W, MAP_H, s + `<g pointer-events="none"><filter id="${id}n" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch"/><feColorMatrix values="0 0 0 0 0.2  0 0 0 0 0.18  0 0 0 0 0.12  0 0 0 0.35 0"/></filter><rect width="${MAP_W}" height="${MAP_H}" filter="url(#${id}n)" opacity=".18"/></g>`, opts.label || 'Illustrated map of the heritage sites of Arkhangai and Uvurkhangai', false);
   }
 
   // The horse from the GRIT logo (traced), facing left. Box 352.0 x 442.0.
