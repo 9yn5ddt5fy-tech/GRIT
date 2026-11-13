@@ -368,6 +368,7 @@ const UI = {
   undo: { en: "Undo", mn: "Буцаах" },
   tlEnd: { en: "{n} of {t} in the right place.", mn: "Зөв байрласан: {n} / {t}." },
   bc: { en: "{y} BC", mn: "МЭӨ {y}" },
+  mapLabel: { en: "Illustrated map of the heritage sites. Choose a place to open its picture book.", mn: "Өв соёлын газруудын зурагт газрын зураг. Газар сонгож зурагт номыг нь нээнэ үү." },
 };
 
 (function () {
@@ -387,7 +388,7 @@ const UI = {
   };
   // A finished illustration in assets/img/heritage/<name>.jpg replaces the
   // code-drawn SVG of the same name. Add the name here when the file is added.
-  const IMAGES = ["valley-well", "stupa-wall"];
+  const IMAGES = [];
   const scene = (name) =>
     IMAGES.includes(name)
       ? `<img src="assets/img/heritage/${name}.jpg" alt="" loading="lazy" decoding="async">`
@@ -709,8 +710,39 @@ const UI = {
       }
     });
 
+  // ------------------------------------------------------------ hero map
+  const MAP_LABELS = {
+    terkh: { en: "Terkhiin Tsagaan Lake", mn: "Тэрхийн Цагаан нуур" },
+    taikhar: { en: "Taikhar Rock", mn: "Тайхар чулуу" },
+    ugii: { en: "Ugii Lake", mn: "Өгий нуур" },
+    orkhon: { en: "Orkhon Waterfall", mn: "Орхоны хүрхрээ" },
+    karakorum: { en: "Karakorum", mn: "Хархорум" },
+    erdenezuu: { en: "Erdene Zuu", mn: "Эрдэнэ Зуу" },
+  };
+  const mapEl = document.getElementById("hmap");
+  const legendEl = document.getElementById("hmap-legend");
+  function renderMap() {
+    if (!mapEl || !art.isoMap) return;
+    const ids = Object.keys(MAP_LABELS);
+    const pins = ids.map((id) => ({ id, label: t(MAP_LABELS[id]), ...art.MAP_PINS[id] }));
+    mapEl.innerHTML = art.isoMap({ pins, label: t(UI.mapLabel) });
+    if (legendEl)
+      legendEl.innerHTML = ids.map((id, i) => `<button type="button" class="chip" data-open="${id}"><b>${i + 1}</b> ${t(MAP_LABELS[id])}</button>`).join("");
+  }
+  const openFromMap = (e) => {
+    const p = e.target.closest("[data-open]");
+    if (!p) return;
+    if (e.type === "keydown" && e.key !== "Enter" && e.key !== " ") return;
+    e.preventDefault();
+    openBook(p.dataset.open);
+  };
+  mapEl && mapEl.addEventListener("click", openFromMap);
+  mapEl && mapEl.addEventListener("keydown", openFromMap);
+  legendEl && legendEl.addEventListener("click", openFromMap);
+
   // ------------------------------------------------------------ language
   function renderAll() {
+    renderMap();
     renderFilters();
     renderCards();
     renderQuiz();

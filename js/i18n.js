@@ -120,6 +120,7 @@ const MN = {
   "Many legends are told a little differently in every soum. If an elder in your family knows a story about a mountain, lake or stone near your home, write to us — it could become the next picture book.":
     "Олон домгийг сум бүрт арай өөрөөр ярьдаг. Танай гэрийн ахмад настан нутгийн уул, нуур, чулууны тухай домог мэддэг бол бидэнд бичээрэй. Энэ нь дараагийн зурагт ном болж магадгүй.",
   "Send a story": "Домог илгээх",
+  "Tap a place on the map to open its picture book.": "Газрын зураг дээрх газрыг дарж зурагт номыг нь нээгээрэй.",
 
   // EDU page
   "GRIT project": "GRIT төсөл",
@@ -443,6 +444,7 @@ const MN_ATTR = {
   "Scroll right": "Баруун тийш гүйлгэх",
   "Filter stories": "Номнуудыг шүүх",
   "Picture book": "Зурагт ном",
+  "Illustrated map of the heritage sites of Arkhangai and Uvurkhangai": "Архангай, Өвөрхангайн өв соёлын газруудын зурагт газрын зураг",
   "Illustration: the stupa wall of Erdene Zuu, a stone turtle, a ger and a lake with an island": "Зураг: Эрдэнэ Зуугийн суварган хэрэм, чулуун мэлхий, гэр, арал бүхий нуур",
 };
 

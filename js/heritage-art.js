@@ -149,7 +149,7 @@
 
   // Grain, mood tint and the ornamental frame go on top of everything.
   function finish(W, H, id, o) {
-    let s = "";
+    let s = '<g pointer-events="none">';
     if (o.sky === "night") s += `<rect width="${W}" height="${H}" fill="#0b1440" opacity="0.28"/>`;
     if (o.sky === "storm") s += `<rect width="${W}" height="${H}" fill="#26345a" opacity="0.12"/>`;
     s += `<filter id="${id}n" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" stitchTiles="stitch"/><feColorMatrix values="0 0 0 0 0.16  0 0 0 0 0.11  0 0 0 0 0.08  0 0 0 0.55 0"/></filter><rect width="${W}" height="${H}" filter="url(#${id}n)" opacity="0.32"/>`;
@@ -160,7 +160,7 @@
       s += `<rect x="${b}" y="${b}" width="${W - 2 * b}" height="${H - 2 * b}" fill="none" stroke="${K.gold}" stroke-width="1.6"/><rect x="${b + 2}" y="${b + 2}" width="${W - 2 * b - 4}" height="${H - 2 * b - 4}" fill="none" stroke="${K.ink}" stroke-width="0.8" opacity="0.6"/><rect x="0.5" y="0.5" width="${W - 1}" height="${H - 1}" fill="none" stroke="${K.redDk}"/>`;
       [[0, 0], [W - b, 0], [0, H - b], [W - b, H - b]].forEach(([x, y]) => (s += `<rect x="${x}" y="${y}" width="${b}" height="${b}" fill="${K.redDk}"/><circle cx="${x + b / 2}" cy="${y + b / 2}" r="${b * 0.28}" fill="${K.gold}"/>`));
     }
-    return s;
+    return s + "</g>";
   }
 
   const wrap = (W, H, inner, label, slice = true) =>
@@ -337,8 +337,8 @@
   const waterfall = (x, y) =>
     `<g transform="translate(${x} ${y})"><path d="M-130 0 V-74 Q-90 -92 -30 -84 L-24 0Z" fill="#5a4a6a" ${O}/><path d="M130 0 V-78 Q90 -94 30 -84 L24 0Z" fill="#4a3b5a" ${O}/><path d="M-110 -70 V0 M-90 -78 V0 M-70 -82 V0 M-50 -84 V0 M60 -86 V0 M80 -84 V0 M100 -80 V0" stroke="#7a6a8e" stroke-width="1.4"/><path d="M-30 -84 H30 L24 0 H-24Z" fill="${K.water}" ${O}/><path d="M-20 -82 V-4 M-8 -84 V-2 M6 -84 V-4 M18 -82 V-2" stroke="#e8f8ff" stroke-width="3.2" stroke-linecap="round"/><path d="M-60 6 Q-40 -10 -20 2 Q0 -12 20 2 Q40 -10 60 6Z" fill="#f4fbff" ${O2}/><path d="M-30 -2 a5 5 0 1 1 5 5 M18 -4 a5 5 0 1 0 -5 5" stroke="${K.waterDk}" stroke-width="1.2" fill="none"/>${larch(-110, -76, 18)}${larch(-92, -82, 22)}${larch(-62, -86, 16)}${larch(70, -88, 20)}${larch(96, -84, 16)}</g>`;
 
-  const ruins = (x, y) =>
-    `<g transform="translate(${x} ${y})" fill="#d4a86a" stroke="${K.ink}" stroke-width="1.2" stroke-linejoin="round"><path d="M-62 0 V-26 L-56 -32 L-50 -26 L-44 -30 V0Z"/><rect x="-36" y="-14" width="30" height="14"/><path d="M2 0 V-34 L9 -40 L16 -34 V0Z"/><rect x="24" y="-18" width="34" height="18"/><path d="M-36 -7 H-6 M24 -9 H58 M-56 -14 h10 M4 -20 h10" stroke="#a8804a" fill="none"/></g>`;
+  const ruins = (x, y, k = 1) =>
+    `<g transform="translate(${x} ${y}) scale(${k})" fill="#d4a86a" stroke="${K.ink}" stroke-width="1.2" stroke-linejoin="round"><path d="M-62 0 V-26 L-56 -32 L-50 -26 L-44 -30 V0Z"/><rect x="-36" y="-14" width="30" height="14"/><path d="M2 0 V-34 L9 -40 L16 -34 V0Z"/><rect x="24" y="-18" width="34" height="18"/><path d="M-36 -7 H-6 M24 -9 H58 M-56 -14 h10 M4 -20 h10" stroke="#a8804a" fill="none"/></g>`;
 
   const birds = (pts) =>
     pts.map(([x, y, k = 1]) => `<g transform="translate(${x} ${y}) scale(${k})"><path d="M-10 -1 Q-5 -7 0 -1 Q5 -7 10 -1" stroke="${K.ink}" stroke-width="1.8" fill="none" stroke-linecap="round"/><circle cx="0" cy="-0.5" r="1.4" fill="${K.ink}"/></g>`).join("");
@@ -445,33 +445,203 @@
     "game-timeline": scene({ sky: "dawn" }, (g) => `<path d="M30 ${g - 30} H370" stroke="${K.ink}" stroke-width="3"/>` + [60, 140, 220, 300, 360].map((x, i) => `<circle cx="${x}" cy="${g - 30}" r="9" fill="${[K.red, K.gold, K.green, K.cobalt, K.purple][i]}" ${O}/>`).join("") + turtle(80, g + 54, 0.6) + stupa(200, g + 54, 1.5) + ger(318, g + 50, 0.9)),
   };
 
-  // Wide picture for the page hero and the home-page project card.
-  function cover() {
-    const CW = 1200,
-      CH = 520;
-    const o = { sky: "dawn", sunX: 930, ground: 0.5, frame: false, seed: 4 };
-    const b = base(CW, CH, o);
-    const g = b.g;
-    const inner =
-      b.s +
-      `<g transform="translate(0 ${g}) scale(1.35) translate(0 ${-g})">` +
-      volcano(845, g + 10, 1.2, true) +
-      lake(740, g + 72, 205, 30) +
-      island(752, g + 70, 1.4) +
-      temple(205, g + 34, 1.15) +
-      stupaWall(24, 386, g + 62, 1.5) +
-      tug(406, g + 80, 0.9) +
-      turtle(452, g + 118, 0.95) +
-      ger(560, g + 62, 1.1) +
-      P(520, g + 124, 0.95, K.red, "wave", { hat: false, braids: true, sash: K.cobalt }) +
-      P(546, g + 126, 0.75, K.cobalt, "point", { hat: K.gold }) +
-      horse(626, g + 124, 0.9) +
-      `</g>` +
-      birds([[420, 90, 1.4], [450, 80, 1.2], [480, 72, 1.1], [700, 60, 1.2]]) + cloud(260, 80, 1.6, MOOD.dawn.cloud) + cloud(640, 120, 1.1, MOOD.dawn.cloud);
-    return wrap(CW, CH, inner + finish(CW, CH, b.id, o), "Illustration: Erdene Zuu's stupa wall, a stone turtle, a ger and a lake with an island", false);
+  // ---------------------------------------------------------------- isometric map
+  // A diorama of the heritage region for the page hero. World units 0..100
+  // on both axes; the back corner (0,0) is at the top of the picture.
+  // opts.pins: [{ id, x, y, label }] become clickable markers (data-open=id).
+  const MAP_W = 1200,
+    MAP_H = 620,
+    MS = 6.1;
+  const iso = (x, y, z = 0) => [MAP_W / 2 + (x - y) * 0.866 * MS, 30 + (x + y) * 0.5 * MS - z * MS];
+  const pt = (x, y, z) => iso(x, y, z).map((v) => v.toFixed(1)).join(" ");
+  const isoEllipse = (x, y, r, attrs) => {
+    const [cx, cy] = iso(x, y);
+    return `<ellipse cx="${cx.toFixed(1)}" cy="${cy.toFixed(1)}" rx="${(1.2247 * r * MS).toFixed(1)}" ry="${(0.7071 * r * MS).toFixed(1)}" ${attrs}/>`;
+  };
+  // Smooth path through world points.
+  const isoPath = (pts) => {
+    const p = pts.map(([x, y]) => iso(x, y));
+    let d = `M${p[0][0].toFixed(1)} ${p[0][1].toFixed(1)}`;
+    for (let i = 1; i < p.length - 1; i++) {
+      const mx = (p[i][0] + p[i + 1][0]) / 2, my = (p[i][1] + p[i + 1][1]) / 2;
+      d += ` Q${p[i][0].toFixed(1)} ${p[i][1].toFixed(1)} ${mx.toFixed(1)} ${my.toFixed(1)}`;
+    }
+    const l = p[p.length - 1];
+    return d + ` L${l[0].toFixed(1)} ${l[1].toFixed(1)}`;
+  };
+  const isoLake = (x, y, r) => {
+    const [cx, cy] = iso(x, y);
+    let w = "";
+    for (let i = 0; i < 4; i++) w += `<path d="M${(cx - r * 4 + i * r * 2.2).toFixed(1)} ${(cy - 3 + (i % 2) * 7).toFixed(1)} q3 -3 6 0 q3 -3 6 0" stroke="#fff" stroke-width="1.4" fill="none"/>`;
+    return isoEllipse(x, y, r + 1.2, `fill="#e3cf92" ${O}`) + isoEllipse(x, y, r, `fill="${K.water}" stroke="${K.waterDk}" stroke-width="1.4"`) + isoEllipse(x - r * 0.15, y - r * 0.15, r * 0.6, `fill="${K.waterLt}" opacity="0.55"`) + w;
+  };
+  const at = (x, y, fn) => {
+    const [sx, sy] = iso(x, y);
+    return fn(+sx.toFixed(1), +sy.toFixed(1));
+  };
+
+  function isoMap(opts = {}) {
+    const id = "m" + ++uid;
+    const items = []; // [depth, svg]
+    const put = (x, y, fn) => items.push([x + y, at(x, y, fn)]);
+    let s = `<defs><linearGradient id="${id}s" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3f86d6"/><stop offset="1" stop-color="#cfeaf4"/></linearGradient><linearGradient id="${id}g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8fcf55"/><stop offset="1" stop-color="#5fae3f"/></linearGradient></defs>`;
+    s += `<rect width="${MAP_W}" height="${MAP_H}" fill="url(#${id}s)"/>`;
+    s += `<g class="map-clouds">${cloud(140, 90, 1.1, MOOD.day.cloud)}${cloud(1040, 70, 0.9, MOOD.day.cloud)}${cloud(1080, 300, 0.7, MOOD.day.cloud)}${cloud(110, 330, 0.6, MOOD.day.cloud)}</g>`;
+    s += sun(1060, 120, 22);
+
+    // Plate: two soil faces under the grass top.
+    const T = 5.5;
+    s += `<path d="M${pt(0, 100, 0)} L${pt(100, 100, 0)} L${pt(100, 100, -T)} L${pt(0, 100, -T)}Z" fill="#a8693d" ${O}/>`;
+    s += `<path d="M${pt(100, 0, 0)} L${pt(100, 100, 0)} L${pt(100, 100, -T)} L${pt(100, 0, -T)}Z" fill="#8a5230" ${O}/>`;
+    for (const z of [-2, -3.8]) s += `<path d="M${pt(0, 100, z)} L${pt(100, 100, z)} L${pt(100, 0, z)}" stroke="#6e3f22" stroke-width="1.2" fill="none" stroke-dasharray="10 6"/>`;
+    s += `<path d="M${pt(0, 0, 0)} L${pt(100, 0, 0)} L${pt(100, 100, 0)} L${pt(0, 100, 0)}Z" fill="url(#${id}g)" ${O}/>`;
+    s += `<path d="M${pt(0, 100, 0)} L${pt(100, 100, 0)} L${pt(100, 0, 0)}" stroke="${K.greenLt}" stroke-width="4" fill="none"/>`;
+
+    // Ground patches and hills (flat layer).
+    const r = rnd(21);
+    for (let i = 0; i < 26; i++) {
+      const x = 6 + r() * 88, y = 6 + r() * 88;
+      s += isoEllipse(x, y, 2 + r() * 4, `fill="${["#7cc04f", "#a6d860", "#6ab443"][i % 3]}" opacity="0.6"`);
+    }
+    // Rivers: Orkhon (with the waterfall off the front edge) and Tamir.
+    const orkhon = [[38, 100], [42, 88], [52, 82], [58, 70], [56, 56], [62, 44], [58, 32], [56, 24]];
+    const tamir = [[0, 46], [12, 50], [24, 56], [36, 60], [48, 62], [56, 60]];
+    for (const pts of [orkhon, tamir]) {
+      const d = isoPath(pts);
+      s += `<path d="${d}" stroke="${K.waterDk}" stroke-width="13" fill="none" stroke-linecap="round"/><path d="${d}" stroke="${K.water}" stroke-width="9.5" fill="none" stroke-linecap="round"/><path d="${d}" stroke="${K.waterLt}" stroke-width="2.5" fill="none" stroke-dasharray="10 14" stroke-linecap="round" class="map-flow"/>`;
+    }
+    s += isoLake(17, 27, 8.5) + isoLake(57, 17, 9);
+    // Waterfall pouring off the front-left edge.
+    {
+      const [wx, wy] = iso(38, 100, 0);
+      s += `<path d="M${wx - 9} ${wy} h18 l3 ${T * MS + 26} h-24Z" fill="${K.water}" ${O}/><path d="M${wx - 4} ${wy + 2} v${T * MS + 22} M${wx + 3} ${wy + 2} v${T * MS + 22}" stroke="#e8f8ff" stroke-width="2.4" class="map-flow"/><path d="M${wx - 30} ${wy + T * MS + 30} q10 -14 22 -4 q10 -12 22 0 q12 -10 20 6Z" fill="#f4fbff" ${O2}/>`;
+    }
+
+    // Dirt roads between the sites.
+    for (const road of [[[56, 88], [46, 72], [36, 62], [28, 46], [22, 36]], [[72, 80], [76, 62], [70, 44], [64, 28], [60, 24]], [[64, 72], [56, 66], [44, 66], [30, 70], [18, 80]]]) {
+      const d = isoPath(road);
+      s += `<path d="${d}" stroke="#c9a46a" stroke-width="5" fill="none" stroke-linecap="round"/><path d="${d}" stroke="#e8d3a2" stroke-width="2" fill="none" stroke-dasharray="6 6" stroke-linecap="round"/>`;
+    }
+    // Rounded hills.
+    const dome = (x, y, rr, h, c, cl) =>
+      put(x, y, (sx, sy) => {
+        const rx = 1.2247 * rr * MS, ry = 0.7071 * rr * MS;
+        h *= 1.5;
+        return `<path d="M${sx - rx} ${sy} Q${sx - rx * 0.8} ${sy - h} ${sx} ${sy - h} Q${sx + rx * 0.8} ${sy - h} ${sx + rx} ${sy} A${rx} ${ry} 0 0 1 ${sx - rx} ${sy}Z" fill="${c}" ${O}/><path d="M${sx + rx * 0.15} ${sy - h * 0.98} Q${sx + rx * 0.8} ${sy - h} ${sx + rx} ${sy} A${rx} ${ry} 0 0 1 ${sx + rx * 0.2} ${sy + ry * 0.98} Q${sx + rx * 0.5} ${sy - h * 0.4} ${sx + rx * 0.15} ${sy - h * 0.98}Z" fill="#000" opacity="0.12"/><path d="M${sx - rx * 0.55} ${sy - h * 0.62} Q${sx - rx * 0.25} ${sy - h * 0.95} ${sx + rx * 0.1} ${sy - h * 0.92}" stroke="${cl}" stroke-width="3" fill="none" stroke-linecap="round"/>`;
+      });
+    [[14, 44, 7, 30], [40, 22, 6, 26], [70, 14, 7, 32], [88, 30, 6, 26], [44, 48, 5, 20], [94, 58, 5, 22], [10, 70, 6, 26], [34, 88, 5, 18], [90, 46, 5, 20]].forEach(([x, y, rr, h], i) => dome(x, y, rr, h, i % 2 ? "#4f9d4f" : "#5fae4a", "#8fd060"));
+    // Sheep and goats grazing.
+    const flock = (x0, y0, n, seed) => {
+      const q = rnd(seed);
+      for (let i = 0; i < n; i++) put(x0 + q() * 6, y0 + q() * 6, (sx, sy) => `<ellipse cx="${sx}" cy="${sy - 3}" rx="4.2" ry="3" fill="${i % 4 ? "#fffaf0" : "#6b4a3a"}" ${O2}/><circle cx="${sx + 4}" cy="${sy - 4}" r="1.6" fill="${K.ink}"/>`);
+    };
+    flock(46, 30, 9, 31);
+    flock(20, 60, 7, 32);
+    flock(80, 72, 6, 33);
+    flock(64, 52, 6, 34);
+    // Ovoo (stone cairn) on a pass, with a blue khadag.
+    const ovoo = (sx, sy) => `<path d="M${sx - 12} ${sy} L${sx} ${sy - 20} L${sx + 12} ${sy}Z" fill="${K.stone}" ${O}/><path d="M${sx - 7} ${sy - 7} h14 M${sx - 4} ${sy - 13} h8" stroke="${K.stoneDk}" stroke-width="1"/><path d="M${sx} ${sy - 20} V${sy - 32}" stroke="${K.wood}" stroke-width="1.6"/><path d="M${sx} ${sy - 30} q8 2 12 8 M${sx} ${sy - 28} q-8 3 -10 9" stroke="${K.blue}" stroke-width="2.2" fill="none"/>`;
+    put(34, 38, ovoo);
+    put(84, 40, ovoo);
+
+    // Mountains along the two back edges.
+    const mtn = (x, y, h, w) =>
+      put(x, y, (sx, sy) => `<path d="M${sx - w} ${sy} L${sx} ${sy - h} L${sx + w} ${sy}Z" fill="#7c8fd6" ${O}/><path d="M${sx} ${sy - h} L${sx + w} ${sy} L${sx + w * 0.15} ${sy}Z" fill="#5a6cb8"/><path d="M${sx} ${sy - h} L${sx + w * 0.3} ${sy - h * 0.7} L${sx + 4} ${sy - h * 0.76} L${sx - 4} ${sy - h * 0.66} L${sx - w * 0.3} ${sy - h * 0.7}Z" fill="${K.snow}" ${O2}/>`);
+    [[4, 1, 74, 46], [14, 1, 96, 56], [26, 2, 70, 44], [38, 1, 88, 52], [50, 2, 60, 40], [62, 1, 78, 48], [74, 2, 66, 44], [86, 1, 84, 50], [97, 3, 66, 40], [1, 12, 86, 50], [2, 26, 66, 42], [1, 40, 80, 48], [2, 54, 62, 40], [1, 68, 74, 44], [2, 84, 58, 38]].forEach((m) => mtn(...m));
+    // Larch forests.
+    const forest = (x0, y0, n, seed) => {
+      const q = rnd(seed);
+      for (let i = 0; i < n; i++) {
+        const x = x0 + q() * 12, y = y0 + q() * 12;
+        put(x, y, (sx, sy) => larch(sx, sy, 14 + q() * 10, ["#145c45", "#1f6b4a", "#2a7a4f"][i % 3]));
+      }
+    };
+    forest(28, 8, 12, 1);
+    forest(6, 60, 10, 2);
+    forest(84, 50, 9, 3);
+    forest(16, 86, 8, 4);
+    forest(84, 8, 9, 5);
+    forest(6, 34, 7, 6);
+    forest(64, 2, 7, 7);
+
+    // Terkhiin Tsagaan Lake and Khorgo.
+    put(17, 27, (sx, sy) => island(sx, sy, 0.6));
+    put(27, 15, (sx, sy) => volcano(sx, sy, 0.62, true));
+    // Taikhar Rock by the Tamir.
+    put(28, 52, (sx, sy) => boulder(sx, sy, 0.36));
+    // Ugii Lake: gers and birds.
+    put(46, 13, (sx, sy) => ger(sx, sy, 0.45));
+    put(50, 9, (sx, sy) => ger(sx, sy, 0.38));
+    put(57, 17, (sx, sy) => birds([[sx - 20, sy - 44, 0.8], [sx, sy - 52, 0.7], [sx + 18, sy - 46, 0.8]]));
+    // Khöshöö Tsaidam steles.
+    put(74, 30, (sx, sy) => turtle(sx, sy, 0.3, true));
+    put(80, 26, (sx, sy) => turtle(sx, sy, 0.3, true));
+    // Erdene Zuu: square wall with stupas, temples inside.
+    const ez = [62, 62, 82, 82];
+    const side = (x0, y0, x1, y1) => {
+      const n = 8;
+      for (let i = 0; i <= n; i++) {
+        const x = x0 + ((x1 - x0) * i) / n, y = y0 + ((y1 - y0) * i) / n;
+        put(x, y, (sx, sy) => stupa(sx, sy - 5, 0.48));
+      }
+    };
+    s += `<path d="M${pt(ez[0], ez[1], 0)} L${pt(ez[2], ez[1], 0)} L${pt(ez[2], ez[3], 0)} L${pt(ez[0], ez[3], 0)}Z" fill="#e6d8a8" ${O}/>`;
+    const wallH = 1.1;
+    const wallFace = (a, b) => `<path d="M${pt(...a, 0)} L${pt(...b, 0)} L${pt(...b, wallH)} L${pt(...a, wallH)}Z" fill="#f3ead6" ${O2}/>`;
+    items.push([ez[0] + ez[1] - 0.5, wallFace([ez[0], ez[1]], [ez[2], ez[1]]) + wallFace([ez[0], ez[1]], [ez[0], ez[3]])]);
+    items.push([ez[2] + ez[3] + 0.4, wallFace([ez[0], ez[3]], [ez[2], ez[3]]) + wallFace([ez[2], ez[1]], [ez[2], ez[3]])]);
+    side(ez[0], ez[1], ez[2], ez[1]);
+    side(ez[0], ez[1], ez[0], ez[3]);
+    side(ez[0], ez[3], ez[2], ez[3]);
+    side(ez[2], ez[1], ez[2], ez[3]);
+    put(70, 70, (sx, sy) => temple(sx - 28, sy + 2, 0.5) + temple(sx + 28, sy + 2, 0.5));
+    put(73, 73, (sx, sy) => temple(sx, sy, 0.68));
+    // Karakorum: ruins, the stone turtle, a banner and gers.
+    put(52, 76, (sx, sy) => ruins(sx, sy, 0.6));
+    put(58, 86, (sx, sy) => turtle(sx, sy, 0.34));
+    put(50, 84, (sx, sy) => tug(sx, sy, 0.55));
+    put(86, 86, (sx, sy) => ger(sx, sy, 0.45));
+    put(88, 80, (sx, sy) => ger(sx, sy, 0.38));
+    // Herders and horses.
+    put(40, 40, (sx, sy) => horse(sx, sy, 0.36) + horse(sx + 18, sy + 6, 0.32, "#e9dcc0", false));
+    put(74, 52, (sx, sy) => horse(sx, sy, -0.34, "#3a2a20", false));
+    put(26, 74, (sx, sy) => ger(sx, sy, 0.42) + person(sx + 18, sy + 4, 0.3, K.red, "wave", { hat: false, braids: true }));
+    put(62, 92, (sx, sy) => person(sx, sy, 0.32, K.cobalt, "point", { hat: K.gold }));
+    put(40, 92, (sx, sy) => ger(sx, sy, 0.45) + ger(sx + 30, sy + 4, 0.4));
+    put(92, 92, (sx, sy) => horse(sx, sy, 0.36) + horse(sx + 20, sy - 4, 0.32, "#e9dcc0", false) + horse(sx - 18, sy + 6, 0.3, "#3a2a20", false));
+    put(76, 94, (sx, sy) => person(sx, sy, 0.3, K.red, "wave", { hat: false, braids: true }) + person(sx + 12, sy + 2, 0.24, K.teal, "stand", { hat: K.red }));
+    put(48, 54, (sx, sy) => person(sx, sy, 0.3, K.purple, "stand", { hat: K.cobalt }) + horse(sx + 16, sy, 0.34));
+
+    items.sort((a, b) => a[0] - b[0]);
+    s += items.map((i) => i[1]).join("");
+
+    // Pins.
+    (opts.pins || []).forEach((p, n) => {
+      const [sx, sy] = iso(p.x, p.y);
+      const w = Math.round(p.label.length * 8.4 + 30);
+      const left = p.side === "left";
+      const lx = left ? sx - 16 - w : sx + 16;
+      s += `<g class="map-pin" data-open="${p.id}" role="button" tabindex="0" aria-label="${p.label}" style="--d:${n * 0.35}s"><path d="M${sx} ${sy} V${sy - 58}" stroke="${K.ink}" stroke-width="2"/><ellipse cx="${sx}" cy="${sy}" rx="7" ry="3.5" fill="${K.ink}" opacity="0.3"/><g class="map-pin__head"><circle cx="${sx}" cy="${sy - 64}" r="13" fill="${K.red}" stroke="${K.ink}" stroke-width="1.6"/><circle cx="${sx}" cy="${sy - 64}" r="8" fill="none" stroke="${K.goldLt}" stroke-width="2"/><text x="${sx}" y="${sy - 59.5}" text-anchor="middle" font-size="12.5" font-weight="700" fill="#fff" font-family="Inter Tight, Inter, sans-serif">${n + 1}</text></g><g class="map-pin__label"><rect x="${lx}" y="${sy - 79}" width="${w}" height="30" rx="15" fill="#fffaf0" stroke="${K.ink}" stroke-width="1.4"/><text x="${lx + w / 2}" y="${sy - 59}" text-anchor="middle" font-size="14.5" font-weight="600" fill="${K.ink}" font-family="Inter Tight, Inter, sans-serif">${p.label}</text></g></g>`;
+    });
+    return wrap(MAP_W, MAP_H, s + finish(MAP_W, MAP_H, id, { frame: false }), opts.label || "Illustrated map of the heritage sites of Arkhangai and Uvurkhangai", false);
   }
 
-  const api = { SCENES, cover };
+  // Map positions for each story's pin.
+  const MAP_PINS = {
+    terkh: { x: 17, y: 27, side: "left" },
+    taikhar: { x: 28, y: 52, side: "left" },
+    ugii: { x: 57, y: 17 },
+    orkhon: { x: 38, y: 99, side: "left" },
+    karakorum: { x: 56, y: 86, side: "left" },
+    erdenezuu: { x: 82, y: 63 },
+  };
+
+  // Static picture for the home-page project card (and the hero without JS).
+  function cover() {
+    return isoMap({});
+  }
+
+  const api = { SCENES, cover, isoMap, MAP_PINS };
   if (typeof module !== "undefined" && module.exports) {
     module.exports = api;
     if (require.main === module) process.stdout.write(cover() + "\n");
