@@ -9,7 +9,8 @@ Figma дизайн (Desktop 10–13)-ийн агуулгыг [Stoic](https://aca
 | `index.html` | Desktop 10 | Нүүр: hero, тоонууд, Where we work, зургууд, Projects, Student success, Podcast, Speakers, Team, Contact |
 | `edu.html` | Desktop 11 | GRIT EDU: 2025 оны Өгийнуурын хөтөлбөрийн тайлан (тоонууд, баг, хичээл, судалгааны графикууд) |
 | `environment.html` | Desktop 12 | GRIT - ENVIRONMENT төслийн хуудас |
-| `heritage.html` | — | GRIT Heritage: соёлын болон байгалийн дурсгалт газрын домог, түүхийг зурагт ном (хичээл) болон түүхийн тоглоомоор (сорил, цаг хугацааны шугам) |
+| `culture/index.html` | — | GRIT Culture: дурсгалт газруудын газрын зураг (GRIT морьтой), домог, түүхийн зурагт ном, түүхийн тоглоом (сорил, он дараалал) |
+| `culture/taasan-uu/index.html` | — | "Таасан уу?" өдрийн үгийн тоглоом (бие даасан нэг файл) |
 | `plan.html` | — | Coming soon: 2027 оны Хархорины хөтөлбөрийн нэгдсэн төлөвлөгөө (ном хэлбэрээр) |
 | `research.html` | — | Судалгаа, нийтлэл: судалгаа, тайлан, төлөвлөгөөний жагсаалт. Шинэ нийтлэл нэмэхдээ `<a class="pub">` блокийг хуулна |
 | `member.html` | Desktop 13 | Багийн гишүүний намтар (`member.html?m=tulga` гэх мэт; өгөгдөл нь `js/team.js`-д) |
@@ -17,8 +18,8 @@ Figma дизайн (Desktop 10–13)-ийн агуулгыг [Stoic](https://aca
 ```
 css/style.css      бүх загвар (өнгөнүүд :root хэсэгт)
 js/main.js         гар утасны цэс + татагдаагүй зургийн placeholder
-js/heritage.js     Heritage хуудасны зурагт ном, сорил, он дарааллын өгөгдөл ба логик (EN/MN хоёулаа)
-js/heritage-art.js Heritage-ийн SVG зургууд (кодоор зурсан)
+js/heritage.js     GRIT Culture хуудасны зурагт ном, сорил, он дарааллын өгөгдөл ба логик (EN/MN хоёулаа)
+js/heritage-art.js GRIT Culture-ийн SVG зургууд (кодоор зурсан)
 assets/img/        Figma-аас гаргасан зургууд (вэбэд зориулж шахсан)
 ```
 
@@ -64,7 +65,7 @@ Speakers хэсэгт одоогоор зургийн оронд дүрс бай
 
 - EDU хуудасны графикууд зураг биш, HTML/CSS-ээр зурагдсан. Тоог `edu.html` доторх `bar__value` болон `--w` (хувь) утгаар засна.
 
-## GRIT Heritage-д агуулга нэмэх
+## GRIT Culture-д агуулга нэмэх
 
 - **Шинэ зурагт ном:** `js/heritage.js` доторх `STORIES`-д нэг объектыг хуулж, `en` / `mn` текстийг солино. Хуудас бүрийн `scene` нь `js/heritage-art.js`-ийн `SCENES` дотор байгаа зургийн нэр.
 - **Сорилын асуулт:** `QUIZ`-д нэмнэ (`ok` = зөв хариултын дугаар, 0-ээс эхэлнэ). Тоглох бүрт санамсаргүй 8 асуулт гарна.

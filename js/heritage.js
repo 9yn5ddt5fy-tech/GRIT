@@ -369,6 +369,10 @@ const UI = {
   tlEnd: { en: "{n} of {t} in the right place.", mn: "Зөв байрласан: {n} / {t}." },
   bc: { en: "{y} BC", mn: "МЭӨ {y}" },
   horse: { en: "GRIT horse at", mn: "GRIT морь" },
+  wgToday: { en: "Today's word №{n} is waiting for you.", mn: "Өнөөдрийн №{n} үг таныг хүлээж байна." },
+  wgWon: { en: "You solved today's word №{n} in {g}/6. Come back tomorrow!", mn: "Та өнөөдрийн №{n} үгийг {g}/6 оролдлогоор таалаа. Маргааш дахин ирээрэй!" },
+  wgLost: { en: "Today's word №{n} got away. A new one comes tomorrow.", mn: "Өнөөдрийн №{n} үгийг таасангүй. Маргааш шинэ үг гарна." },
+  wgPlaying: { en: "Today's word №{n}: {g}/6 tries used. Keep going!", mn: "Өнөөдрийн №{n} үг: 6-аас {g} оролдлого ашигласан. Үргэлжлүүлээрэй!" },
   mapLabel: { en: "Illustrated map of the heritage sites. Choose a place to open its picture book.", mn: "Өв соёлын газруудын зурагт газрын зураг. Газар сонгож зурагт номыг нь нээнэ үү." },
 };
 
@@ -392,7 +396,7 @@ const UI = {
   const IMAGES = [];
   const scene = (name) =>
     IMAGES.includes(name)
-      ? `<img src="assets/img/heritage/${name}.jpg" alt="" loading="lazy" decoding="async">`
+      ? `<img src="../assets/img/heritage/${name}.jpg" alt="" loading="lazy" decoding="async">`
       : art.SCENES[name]
         ? art.SCENES[name]()
         : "";
@@ -840,8 +844,33 @@ const UI = {
     } else requestAnimationFrame(loop);
   }
 
+  // ------------------------------------------------------------ word game card
+  // Reads the game's own saved progress (same site, same browser).
+  const wgEl = document.getElementById("wordgame-status");
+  function renderWordgame() {
+    if (!wgEl) return;
+    const d = new Date();
+    const n = Math.round((new Date(d.getFullYear(), d.getMonth(), d.getDate()) - new Date(2026, 10, 1)) / 86400000) + 1;
+    let g = null;
+    try {
+      g = JSON.parse(localStorage.getItem("tu_game") || "null");
+    } catch (e) {}
+    if (!g || g.no !== n || !g.guesses || !g.guesses.length) return (wgEl.textContent = fmt("wgToday", { n }));
+    const tries = g.guesses.length;
+    // When today's game ends the game sets stats.last to today's number and
+    // its streak to 0 on a loss (or 1+ on a win).
+    let st = {};
+    try {
+      st = JSON.parse(localStorage.getItem("tu_stats") || "{}") || {};
+    } catch (e) {}
+    if (st.last !== n) wgEl.textContent = fmt("wgPlaying", { n, g: tries });
+    else if (st.streak > 0) wgEl.textContent = fmt("wgWon", { n, g: tries });
+    else wgEl.textContent = fmt("wgLost", { n });
+  }
+
   // ------------------------------------------------------------ language
   function renderAll() {
+    renderWordgame();
     renderMap();
     placeHorse(0);
     renderFilters();

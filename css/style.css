@@ -3367,3 +3367,29 @@ body.hbook-open { overflow: hidden; }
   .nav.is-open { display: flex; }
   .nav a { padding: 14px 24px; border-top: 1px solid var(--line); color: var(--ink); }
 }
+
+/* GRIT Culture: daily word game card ("Таасан уу?"), styled like the game */
+.wordgame {
+  display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 40px; align-items: center;
+  padding: 44px; border-radius: var(--radius-lg); background: #000; color: #f4f2ed; position: relative; overflow: hidden;
+  transition: transform .3s, box-shadow .3s;
+}
+.wordgame:hover { transform: translateY(-3px); box-shadow: 0 24px 50px -24px rgba(0, 0, 0, .6); }
+.wordgame__eyebrow { font-size: 13px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: rgba(244, 242, 237, .55); }
+.wordgame__title { margin-top: 10px; font-family: "Inter Tight", Inter, sans-serif; font-size: clamp(40px, 5vw, 64px); font-weight: 700; letter-spacing: -.04em; line-height: 1; }
+.wordgame__lead { margin-top: 14px; max-width: 460px; font-size: 17px; color: rgba(244, 242, 237, .78); }
+.wordgame__status { margin-top: 14px; font-size: 15px; font-weight: 600; }
+.wordgame__status:empty { display: none; }
+.wordgame__btn { display: inline-flex; gap: 8px; margin-top: 24px; padding: 12px 24px; border-radius: 6px; background: #f4f2ed; color: #000; font-weight: 700; }
+.wordgame__btn span { transition: transform .3s; }
+.wordgame:hover .wordgame__btn span { transform: translateX(4px); }
+.wordgame__tiles { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; max-width: 360px; justify-self: center; width: 100%; }
+.wt { aspect-ratio: 1; display: grid; place-items: center; border: 1px solid rgba(244, 242, 237, .3); border-radius: 4px; font: 800 clamp(20px, 2.6vw, 30px)/1 "Inter Tight", Inter, sans-serif; }
+.wt--ok { background: #f4f2ed; border-color: #f4f2ed; color: #000; }
+.wt--near { border: 2px dashed #f4f2ed; }
+.wt--no { background: #121212; border-color: #121212; color: rgba(244, 242, 237, .32); }
+[data-theme="dark"] .wordgame { box-shadow: 0 0 0 1px var(--line); }
+@media (max-width: 900px) {
+  .wordgame { grid-template-columns: minmax(0, 1fr); padding: 28px 22px; gap: 28px; }
+  .wordgame__tiles { max-width: 300px; justify-self: start; }
+}

@@ -9,7 +9,7 @@ const MN = {
   "Success": "Амжилт",
   "Team": "Баг",
   "Coming soon": "Тун удахгүй",
-  "Culture": "Таасан уу?",
+  "Culture": "Соёл",
   "Contact": "Холбоо барих",
   "Our projects": "Бидний төслүүд",
   "Read more": "Дэлгэрэнгүй",
@@ -104,8 +104,8 @@ const MN = {
   "Why heritage": "Яагаад өв соёл вэ",
   "Every hill, lake and stone in the places where we work has a story. Grandparents tell legends about them, and historians write about the empires that rose and fell around them. Yet many students grow up next to these places without ever hearing their stories.":
     "Бидний ажилладаг нутгийн уул, нуур, чулуу бүр өөрийн түүхтэй. Өвөө эмээ нар тэдгээрийн тухай домог ярьж, түүхчид тэнд мандаж мөхсөн гүрнүүдийн тухай бичдэг. Гэвч олон сурагч эдгээр газрын дэргэд өсөж торниод ч тэдний түүхийг сонсож амжилгүй үлддэг.",
-  "GRIT Heritage collects these legends and this history and turns them into short illustrated picture books and games, so that students can learn about their homeland in a fun way — and grow up wanting to protect it.":
-    "GRIT Heritage эдгээр домог, түүхийг цуглуулж, богино зурагт ном, тоглоом болгон хувиргадаг. Ингэснээр сурагчид нутаг усныхаа тухай сонирхолтойгоор суралцаж, түүнийгээ хамгаалах хүсэлтэй өсөх болно.",
+  "GRIT Culture collects these legends and this history and turns them into short illustrated picture books and games, so that students can learn about their homeland in a fun way — and grow up wanting to protect it.":
+    "GRIT Culture эдгээр домог, түүхийг цуглуулж, богино зурагт ном, тоглоом болгон хувиргадаг. Ингэснээр сурагчид нутаг усныхаа тухай сонирхолтойгоор суралцаж, түүнийгээ хамгаалах хүсэлтэй өсөх болно.",
   "Picture-book lessons": "Зурагт номон хичээл",
   "Each book is a few short pages with a picture, and ends with one question to check what you learned.":
     "Ном бүр зурагтай хэдэн богино хуудастай бөгөөд төгсгөлд нь мэдлэгээ шалгах нэг асуулт бий.",
@@ -121,6 +121,11 @@ const MN = {
   "Many legends are told a little differently in every soum. If an elder in your family knows a story about a mountain, lake or stone near your home, write to us — it could become the next picture book.":
     "Олон домгийг сум бүрт арай өөрөөр ярьдаг. Танай гэрийн ахмад настан нутгийн уул, нуур, чулууны тухай домог мэддэг бол бидэнд бичээрэй. Энэ нь дараагийн зурагт ном болж магадгүй.",
   "Send a story": "Домог илгээх",
+  "Daily word game": "Өдрийн үгийн тоглоом",
+  "Guess a five-letter word from Mongolian history in six tries. A new word every day — and its story when you solve it.":
+    "Монголын түүхэн таван үсэгтэй үгийг зургаан оролдлогоор таа. Өдөр бүр шинэ үг гарах бөгөөд таасны дараа түүх нь нээгдэнэ.",
+  "Play": "Тоглох",
+  "Legends, history and a daily word game.": "Домог, түүх, өдрийн үгийн тоглоом.",
   "Tap a place on the map to open its picture book.": "Газрын зураг дээрх газрыг дарж зурагт номыг нь нээгээрэй.",
 
   // EDU page
@@ -464,7 +469,7 @@ const MN_ENABLED = true;
     const map = lang === "mn" ? MN : EN;
     const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
       acceptNode: (n) =>
-        n.parentElement && !n.parentElement.closest("script, style") && n.nodeValue.trim()
+        n.parentElement && !n.parentElement.closest("script, style, [translate=\"no\"]") && n.nodeValue.trim()
           ? NodeFilter.FILTER_ACCEPT
           : NodeFilter.FILTER_REJECT,
     });
