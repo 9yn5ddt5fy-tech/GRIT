@@ -3166,3 +3166,20 @@ tr[data-href]:hover a { color: var(--accent); text-decoration-color: currentColo
 .photos-glow > * { position: relative; z-index: 1; }
 /* no decorative section numbers */
 .page-edu main > .section:not(.contact) .section-title::before { content: none; display: none; }
+/* With 8 menu items the English menu needs the same treatment as Mongolian:
+   tighter between 1181 and 1360px, folded into the burger below 1180px. */
+@media (min-width: 1181px) and (max-width: 1360px) {
+  .nav { position: static; transform: none; margin: 0 auto; gap: 20px; }
+  .nav a { font-size: 15px; }
+}
+@media (min-width: 901px) and (max-width: 1180px) {
+  .nav-toggle { display: block; }
+  .header-actions { margin-left: auto; margin-right: 16px; }
+  .nav {
+    position: absolute; top: 100%; left: 0; right: 0; transform: none;
+    flex-direction: column; align-items: stretch; gap: 0;
+    background: var(--bg); border-bottom: 1px solid var(--line); display: none;
+  }
+  .nav.is-open { display: flex; }
+  .nav a { padding: 14px 24px; border-top: 1px solid var(--line); color: var(--ink); }
+}

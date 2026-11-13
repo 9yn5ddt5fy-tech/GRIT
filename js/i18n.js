@@ -9,6 +9,7 @@ const MN = {
   "Success": "Амжилт",
   "Team": "Баг",
   "Coming soon": "Тун удахгүй",
+  "Culture": "Таасан уу?",
   "Contact": "Холбоо барих",
   "Our projects": "Бидний төслүүд",
   "Read more": "Дэлгэрэнгүй",
