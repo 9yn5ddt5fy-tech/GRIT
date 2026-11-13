@@ -3187,6 +3187,11 @@ tr[data-href]:hover a { color: var(--accent); text-decoration-color: currentColo
 .map-pin:hover .map-pin__label rect, .map-pin:focus-visible .map-pin__label rect { fill: #c8352b; }
 .map-pin:hover .map-pin__label text, .map-pin:focus-visible .map-pin__label text { fill: #fff; }
 .map-clouds { animation: map-drift 28s ease-in-out infinite alternate; }
+.map-horse { cursor: pointer; outline: none; }
+.map-horse:hover .map-horse__body path, .map-horse:focus-visible .map-horse__body path { fill: #c8352b; }
+.map-pin.is-active .map-pin__head { animation: none; transform: scale(1.3); }
+.map-pin.is-active .map-pin__label rect { fill: #1f4d2e; }
+.map-pin.is-active .map-pin__label text { fill: #fff; }
 .map-flow { animation: map-flow 1.6s linear infinite; }
 @keyframes pin-bob { 50% { transform: translateY(-5px); } }
 @keyframes map-drift { to { transform: translateX(36px); } }

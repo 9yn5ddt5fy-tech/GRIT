@@ -368,6 +368,7 @@ const UI = {
   undo: { en: "Undo", mn: "Буцаах" },
   tlEnd: { en: "{n} of {t} in the right place.", mn: "Зөв байрласан: {n} / {t}." },
   bc: { en: "{y} BC", mn: "МЭӨ {y}" },
+  horse: { en: "GRIT horse at", mn: "GRIT морь" },
   mapLabel: { en: "Illustrated map of the heritage sites. Choose a place to open its picture book.", mn: "Өв соёлын газруудын зурагт газрын зураг. Газар сонгож зурагт номыг нь нээнэ үү." },
 };
 
@@ -740,9 +741,109 @@ const UI = {
   mapEl && mapEl.addEventListener("keydown", openFromMap);
   legendEl && legendEl.addEventListener("click", openFromMap);
 
+  // The GRIT horse tours the map along the roads, resting at each site and
+  // lighting up its pin. Clicking the horse opens the site it stands at.
+  // Each leg: world-coordinate waypoints ending at the site, then its id.
+  const TOUR = [
+    [[[22, 36], [28, 46], [33, 56]], "taikhar"],
+    [[[34, 64], [34, 80], [42, 92]], "orkhon"],
+    [[[48, 90], [56, 86], [58, 82]], "karakorum"],
+    [[[56, 66], [62, 58], [80, 58], [84, 60]], "erdenezuu"],
+    [[[80, 50], [74, 40], [68, 30], [64, 24]], "ugii"],
+    [[[56, 26], [45, 28], [32, 31], [26, 34]], "terkh"],
+  ];
+  const START = [26, 34];
+  const SPEED = 7; // world units per second
+  const REST = 2200; // ms at each site
+  const reduceMotion = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const horse = { leg: 0, pts: null, seg: 0, segT: 0, pos: START.slice(), facing: 1, resting: 0, at: "terkh", visible: true, last: 0 };
+
+  function legPoints(i) {
+    const from = i === 0 ? START : TOUR[i - 1][0][TOUR[i - 1][0].length - 1];
+    return [from, ...TOUR[i][0]];
+  }
+
+  function placeHorse(hop) {
+    const svg = mapEl && mapEl.querySelector("svg");
+    if (!svg || !art.horseToken) return;
+    let g = svg.querySelector(".map-horse");
+    if (!g) {
+      g = document.createElementNS("http://www.w3.org/2000/svg", "g");
+      g.setAttribute("class", "map-horse");
+      g.setAttribute("role", "button");
+      g.setAttribute("tabindex", "0");
+      g.innerHTML = art.horseToken();
+      // Above the map, below the pins.
+      const firstPin = svg.querySelector(".map-pin");
+      firstPin ? firstPin.parentNode.insertBefore(g, firstPin) : svg.appendChild(g);
+    }
+    g.setAttribute("data-open", horse.at);
+    g.setAttribute("aria-label", t(UI.horse) + ": " + t(MAP_LABELS[horse.at]));
+    const [x, y] = art.mapIso(horse.pos[0], horse.pos[1]);
+    g.setAttribute("transform", `translate(${x.toFixed(1)} ${(y - hop).toFixed(1)}) scale(1.6)`);
+    g.querySelector(".map-horse__body").setAttribute("transform", horse.facing < 0 ? "scale(-1 1)" : "");
+    svg.querySelectorAll(".map-pin").forEach((p) => p.classList.toggle("is-active", horse.resting > 0 && p.dataset.open === horse.at));
+  }
+
+  function step(now) {
+    const dt = Math.min(0.05, (now - (horse.last || now)) / 1000);
+    horse.last = now;
+    let hop = 0;
+    if (horse.resting > 0) {
+      horse.resting -= dt * 1000;
+      if (horse.resting <= 0) {
+        horse.leg = (horse.leg + 1) % TOUR.length;
+        horse.pts = null;
+      }
+    } else {
+      if (!horse.pts) {
+        horse.pts = legPoints(horse.leg);
+        horse.seg = 0;
+        horse.segT = 0;
+      }
+      const a = horse.pts[horse.seg], b = horse.pts[horse.seg + 1];
+      const len = Math.hypot(b[0] - a[0], b[1] - a[1]) || 1;
+      horse.segT += (dt * SPEED) / len;
+      if (horse.segT >= 1) {
+        horse.seg++;
+        horse.segT = 0;
+        if (horse.seg >= horse.pts.length - 1) {
+          horse.pos = b.slice();
+          horse.at = TOUR[horse.leg][1];
+          horse.resting = REST;
+          placeHorse(0);
+          return;
+        }
+      }
+      const p = horse.pts[horse.seg], q = horse.pts[horse.seg + 1];
+      horse.pos = [p[0] + (q[0] - p[0]) * horse.segT, p[1] + (q[1] - p[1]) * horse.segT];
+      // On screen, x grows with (x - y): face right when that increases.
+      const dx = q[0] - p[0] - (q[1] - p[1]);
+      if (Math.abs(dx) > 0.01) horse.facing = dx > 0 ? -1 : 1;
+      hop = Math.abs(Math.sin(now / 110)) * 5; // gallop
+    }
+    placeHorse(hop);
+  }
+
+  function loop(now) {
+    if (horse.visible && !document.hidden) step(now);
+    else horse.last = 0;
+    requestAnimationFrame(loop);
+  }
+  if (mapEl) {
+    horse.resting = REST;
+    if ("IntersectionObserver" in window)
+      new IntersectionObserver((es) => es.forEach((e) => (horse.visible = e.isIntersecting))).observe(mapEl);
+    if (reduceMotion) {
+      horse.resting = 1;
+      placeHorse(0);
+    } else requestAnimationFrame(loop);
+  }
+
   // ------------------------------------------------------------ language
   function renderAll() {
     renderMap();
+    placeHorse(0);
     renderFilters();
     renderCards();
     renderQuiz();
