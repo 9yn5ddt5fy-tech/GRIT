@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="mn"><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@500;600;700;800;900&display=block" rel="stylesheet">
+<style>
+:root{--lime:#d4ff3f;--vio:#6b4dff;--pk:#ff4fa3;--or:#ff6b2c;--sky:#2ed3ff;--ink:#0d0d12;--g:#1f4d2e}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1080px;height:1920px;overflow:hidden;background:#000}
+#stage{position:relative;width:1080px;height:1920px;overflow:hidden;font-family:Onest,sans-serif;color:#fff;background:var(--ink)}
+.sc{position:absolute;inset:0;visibility:hidden;overflow:hidden}
+.abs{position:absolute}
+.mesh{position:absolute;inset:0;overflow:hidden}
+.mesh i{position:absolute;border-radius:50%;filter:blur(110px)}
+.big{font-weight:900;letter-spacing:-.055em;line-height:.86;white-space:nowrap}
+.glass{position:absolute;border-radius:44px;background:rgba(255,255,255,.12);border:1.5px solid rgba(255,255,255,.35);backdrop-filter:blur(28px) saturate(140%);-webkit-backdrop-filter:blur(28px) saturate(140%);box-shadow:inset 0 1px 0 rgba(255,255,255,.5),0 30px 70px -30px rgba(0,0,0,.45);overflow:hidden}
+.glass .k{font-size:30px;font-weight:700;opacity:.75}
+.glass .v{font-weight:900;letter-spacing:-.05em;line-height:.9}
+/* cubes */
+#cubes{position:absolute;left:0;right:0;top:760px;height:300px;perspective:1600px;display:flex;justify-content:center;gap:26px}
+.cube{position:relative;width:168px;height:168px;transform-style:preserve-3d}
+.cube b{position:absolute;inset:0;border-radius:26px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:100px;backface-visibility:hidden}
+.cube .f{transform:translateZ(84px);background:linear-gradient(145deg,#e3ff6e,#a9e60b);color:var(--ink);box-shadow:inset 0 2px 0 rgba(255,255,255,.7)}
+.cube .bk{transform:rotateY(180deg) translateZ(84px);background:linear-gradient(145deg,#ffffff,#d9d9e8);color:var(--ink)}
+.cube .r{transform:rotateY(90deg) translateZ(84px);background:linear-gradient(145deg,#8f7bff,#5532ff)}
+.cube .l{transform:rotateY(-90deg) translateZ(84px);background:linear-gradient(145deg,#ff7cc0,#ff2e8a)}
+.cube .t{transform:rotateX(90deg) translateZ(84px);background:linear-gradient(145deg,#7fe8ff,#18b8f0)}
+.cube .bo{transform:rotateX(-90deg) translateZ(84px);background:#3a2fa0}
+.reel{position:absolute;left:0;right:0}
+.reel div{height:300px;display:flex;align-items:center;justify-content:center;font-weight:900;letter-spacing:-.055em;white-space:nowrap}
+.lb{display:flex;align-items:center;gap:24px;height:118px;padding:0 34px;border-bottom:1.5px solid rgba(255,255,255,.14);font-size:40px;font-weight:700}
+.lb .n{width:44px;font-weight:900;opacity:.6}
+.lb .av{width:72px;height:72px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:34px;color:var(--ink)}
+.lb .nm{flex:1}
+.lb .chip{font-size:24px;font-weight:800;padding:8px 16px;border-radius:999px;background:rgba(255,255,255,.16)}
+.lb .pt{font-weight:900;width:110px;text-align:right}
+#grain{position:absolute;inset:-60px;z-index:60;pointer-events:none;opacity:.10;mix-blend-mode:overlay}
+.pill{display:inline-flex;align-items:center;gap:14px;padding:22px 48px;border-radius:999px;font-weight:900;font-size:52px}
+</style></head><body>
+<div id="stage">
+
+<!-- 1 hook: full-screen word slams -->
+<section class="sc" id="s1"><div class="abs big" id="hw" style="left:0;right:0;top:0;bottom:0;display:flex;align-items:center;justify-content:center"></div></section>
+
+<!-- 2 cubes -->
+<section class="sc" id="s2">
+  <div class="mesh" id="m2"><i style="width:900px;height:900px;background:#6b4dff;left:-200px;top:-100px"></i><i style="width:800px;height:800px;background:#ff4fa3;right:-260px;top:600px"></i><i style="width:700px;height:700px;background:#2ed3ff;left:-120px;bottom:-120px"></i><i style="width:500px;height:500px;background:#ff6b2c;right:60px;top:-120px"></i></div>
+  <div class="abs" id="s2a" style="left:80px;right:60px;top:300px;font-weight:900;font-size:104px;letter-spacing:-.05em;line-height:.95">Өнөөдрийн үг</div>
+  <div class="abs" id="s2b" style="left:80px;right:60px;top:410px;font-weight:900;font-size:104px;letter-spacing:-.05em;line-height:.95;color:var(--lime)">юу вэ?</div>
+  <div id="cubes"></div>
+  <div class="abs" id="s2c" style="left:80px;right:80px;top:1180px;font-size:46px;font-weight:700;line-height:1.25;opacity:.95">Монголын түүхийн таван үсэгтэй үгийг<br><b style="font-weight:900">6 оролдлогоор</b> таа.</div>
+</section>
+
+<!-- 3 bento -->
+<section class="sc" id="s3">
+  <div class="mesh" id="m3"><i style="width:900px;height:900px;background:#ff6b2c;left:-260px;top:-160px"></i><i style="width:900px;height:900px;background:#ff4fa3;right:-300px;top:500px"></i><i style="width:700px;height:700px;background:#6b4dff;left:-100px;bottom:-200px"></i></div>
+  <div class="abs" id="s3h" style="left:80px;top:250px;font-weight:900;font-size:92px;letter-spacing:-.05em;line-height:.95">Тоглоход<br>туслах зүйлс</div>
+  <div class="glass" id="g1" style="left:70px;top:520px;width:450px;height:470px;padding:40px"><div class="k">Оролдлого</div><div class="v" style="font-size:300px;margin-top:20px">6</div></div>
+  <div class="glass" id="g2" style="left:550px;top:520px;width:460px;height:220px;padding:36px 40px"><div class="k">Сэжүүр</div><div class="v" style="font-size:58px;margin-top:20px">Үгийн утга</div></div>
+  <div class="glass" id="g3" style="left:550px;top:770px;width:460px;height:220px;padding:36px 40px"><div class="k">2 хоногт 1</div><div class="v" style="font-size:58px;margin-top:20px">Үсэг нээх</div></div>
+  <div class="glass" id="g4" style="left:70px;top:1020px;width:940px;height:440px">
+    <img src="culture-hero.jpg" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:60% 50%" id="g4img">
+    <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 30%,rgba(0,0,0,.65))"></div>
+    <div style="position:absolute;left:40px;bottom:36px;right:40px"><div class="k" style="opacity:.9">Таасны дараа</div><div class="v" style="font-size:72px;margin-top:10px">Түүх нь нээгдэнэ</div></div>
+  </div>
+</section>
+
+<!-- 4 rank reel -->
+<section class="sc" id="s4">
+  <div class="abs" id="s4bg" style="inset:0"></div>
+  <div class="mesh" id="m4"><i style="width:900px;height:900px;background:#fff;left:-300px;top:-300px;opacity:.18"></i><i style="width:800px;height:800px;background:#000;right:-300px;bottom:-200px;opacity:.25"></i></div>
+  <div class="abs" id="s4h" style="left:80px;top:260px;font-weight:800;font-size:40px;opacity:.85">Оноо, өдрөөр цол ахина</div>
+  <div class="abs" style="left:0;right:0;top:520px;height:900px;overflow:hidden;-webkit-mask-image:linear-gradient(180deg,transparent,#000 30%,#000 70%,transparent);mask-image:linear-gradient(180deg,transparent,#000 30%,#000 70%,transparent)"><div class="reel" id="reel"></div></div>
+  <div class="abs" id="s4n" style="left:0;right:0;top:1440px;text-align:center"><span class="pill" style="background:rgba(0,0,0,.25);color:#fff;backdrop-filter:blur(20px)"><span id="pts">0</span>&nbsp;оноо · <span id="dys">0</span>&nbsp;өдөр</span></div>
+</section>
+
+<!-- 5 leaderboard -->
+<section class="sc" id="s5">
+  <div class="mesh" id="m5"><i style="width:900px;height:900px;background:#2ed3ff;left:-280px;top:-200px"></i><i style="width:800px;height:800px;background:#6b4dff;right:-260px;top:700px"></i><i style="width:600px;height:600px;background:#d4ff3f;left:-100px;bottom:-160px;opacity:.8"></i></div>
+  <div class="abs" id="s5h" style="left:80px;top:250px;font-weight:900;font-size:100px;letter-spacing:-.05em;line-height:.95">Ангиараа<br>нэгд</div>
+  <div class="glass" id="lbx" style="left:70px;right:70px;top:540px;padding:20px 0">
+    <div style="display:flex;justify-content:space-between;padding:16px 34px 22px;font-size:30px;font-weight:800;opacity:.85"><span>8А анги · самбар</span><span>оноо</span></div>
+    <div id="rows"></div>
+  </div>
+  <div class="abs" id="s5c" style="left:80px;right:80px;top:1360px;font-size:42px;font-weight:700;line-height:1.25">Багш ангийн кодоо өгнө.<br>Хоч, PIN-ээр нэгдэхэд л болно.</div>
+</section>
+
+<!-- 6 cta -->
+<section class="sc" id="s6">
+  <div class="mesh" id="m6"><i style="width:1000px;height:1000px;background:#1f4d2e;left:-200px;top:-200px"></i><i style="width:800px;height:800px;background:#6b4dff;right:-300px;top:800px"></i><i style="width:600px;height:600px;background:#d4ff3f;left:-150px;bottom:-200px;opacity:.7"></i></div>
+  <img class="abs" id="s6logo" src="logo.png" style="width:640px;left:220px;top:420px">
+  <div class="abs big" id="s6t" style="left:0;right:0;top:820px;text-align:center;font-size:170px;color:var(--lime)">Таасан уу?</div>
+  <div class="abs" id="s6s" style="left:0;right:0;top:1020px;text-align:center;font-weight:700;font-size:44px">Өдөр бүр · Үнэгүй · Бүх хүнд</div>
+  <div class="abs" id="s6c" style="left:0;right:0;top:1150px;text-align:center"><span class="pill" style="background:#fff;color:var(--ink)">grit.mn/culture</span><div style="margin-top:34px;font-weight:700;font-size:36px;opacity:.85">@grit_edu_</div></div>
+</section>
+
+<img id="clogo" src="logo.png" style="position:absolute;left:70px;top:90px;height:78px;z-index:50">
+<canvas id="grain" width="600" height="1040"></canvas>
+</div>
+<script>
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const cl=(x,a=0,b=1)=>Math.min(b,Math.max(a,x)),p=(t,a,d)=>cl((t-a)/d),lerp=(a,b,t)=>a+(b-a)*t;
+const eo=t=>1-Math.pow(1-t,3),e5=t=>1-Math.pow(1-t,5),eio=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
+const spring=t=>t<=0?0:t>=1.6?1:1-Math.exp(-6*t)*Math.cos(9*t);
+const st=(el,o)=>{if(typeof el==='string')el=$(el);for(const k in o)el.style[k]=o[k]};
+let seed=3;const rnd=()=>(seed=(seed*16807)%2147483647)/2147483647;
+const B=[0,3,9,15,21,25.2,30];window.DUR=B[6];
+
+/* hook words */
+const HW=[['Өдөр','#d4ff3f','#0d0d12'],['бүр','#6b4dff','#fff'],['1 үг','#ff4fa3','#0d0d12'],['Таасан','#ff6b2c','#0d0d12'],['уу?','#0d0d12','#d4ff3f']];
+const hw=$('#hw');hw.innerHTML=HW.map(([w])=>`<span style="position:absolute;font-size:300px">${w}</span>`).join('');
+const HS=[...hw.children];HS.forEach(s=>{const w=s.getBoundingClientRect().width;s.dataset.fs=Math.min(560,300*960/w)});
+
+/* cubes */
+const W='ТУУЛЬ';$('#cubes').innerHTML=[...W].map(c=>`<div class="cube"><b class="f">${c}</b><b class="bk">?</b><b class="r"></b><b class="l"></b><b class="t"></b><b class="bo"></b></div>`).join('');
+
+/* rank reel */
+const RK=[['Цэрэг','#3b3f58',0,0],['Аравтын ноён','#6b4dff',60,15],['Зуутын ноён','#ff4fa3',250,60],['Мянгатын ноён','#ff6b2c',600,140],['Түмэний ноён','#2ea8ff',1000,220],['Хаан','#e8b400',1300,300]];
+$('#reel').innerHTML=RK.map(([n])=>`<div>${n}</div>`).join('');
+$$('#reel div').forEach(d=>{d.style.fontSize='200px';const w=d.scrollWidth;d.style.fontSize=Math.min(200,200*960/w)+'px'});
+
+/* leaderboard */
+const LB=[['Номин','#d4ff3f','Мянгатын ноён',612],['Тэмүүлэн','#ff4fa3','Зуутын ноён',488],['Анужин','#2ed3ff','Зуутын ноён',431],['Билгүүн','#ff6b2c','Зуутын ноён',377],['Сарнай','#b9a8ff','Аравтын ноён',214]];
+$('#rows').innerHTML=LB.map(([n,c,r,pt],i)=>`<div class="lb"><span class="n">${i+1}</span><span class="av" style="background:${c}">${n[0]}</span><span class="nm">${n}</span><span class="chip">${r}</span><span class="pt" data-p="${pt}">0</span></div>`).join('');
+
+/* grain */
+const g=$('#grain'),gx=g.getContext('2d'),id=gx.createImageData(600,1040);for(let i=0;i<id.data.length;i+=4){const v=rnd()*255;id.data[i]=id.data[i+1]=id.data[i+2]=v;id.data[i+3]=255}gx.putImageData(id,0,0);g.style.width='1200px';g.style.height='2080px';
+
+function mesh(sel,t){$$(sel+' i').forEach((b,i)=>b.style.transform=`translate(${Math.sin(t*.7+i*2)*120}px,${Math.cos(t*.55+i*1.3)*140}px) scale(${1+.12*Math.sin(t*.9+i)})`)}
+
+function render(T){
+  const si=B.findIndex((b,i)=>T>=b&&T<B[i+1]);const t=T-B[si];
+  $$('.sc').forEach((s,i)=>s.style.visibility=i===si?'visible':'hidden');
+  st(g,{transform:`translate(${(Math.floor(T*12)%5)*-11}px,${(Math.floor(T*12)%7)*-8}px)`});
+  // scene-in: push from below with slight scale (modern "card stack" cut)
+  const sc=$$('.sc')[si];if(si>0){const q=e5(p(t,0,.5));sc.style.transform=`translateY(${(1-q)*260}px) scale(${.94+.06*q})`;sc.style.borderRadius=`${(1-q)*80}px`;sc.style.opacity=cl(q*3)}
+  st('#clogo',{opacity:si>0&&si<5?cl(p(t,.3,.4)):0});
+  if(si===0){
+    const k=Math.min(4,Math.floor(t/.6)),lt=t-k*.6;const [w,bg,fg]=HW[k];$('#stage').style.background=bg;sc.style.background=bg;
+    HS.forEach((s,i)=>{s.style.display=i===k?'block':'none'});const s=HS[k];const q=spring(lt*2.2);
+    st(s,{fontSize:s.dataset.fs+'px',color:fg,transform:`scale(${.6+.4*q}) rotate(${(1-cl(q))*(k%2?6:-6)}deg)`,filter:`blur(${(1-cl(lt/.12))*16}px)`});
+    if(k===4){const z=p(t,2.75,.25);st(s,{transform:`scale(${1+z*.15})`})}
+  }else{$('#stage').style.background='#0d0d12';}
+  if(si===1){
+    mesh('#m2',t);
+    [['#s2a',.1],['#s2b',.3]].forEach(([s,a])=>{const q=e5(p(t,a,.6));st(s,{opacity:q,transform:`translateY(${(1-q)*70}px)`,filter:`blur(${(1-q)*14}px)`})});
+    $$('.cube').forEach((c,i)=>{const a=.5+i*.14;const qi=spring(p(t,a,1.6)*1.6);const fl=eio(p(t,2.0+i*.22,.9));// flip from "?" back to letter
+      const idle=Math.sin(t*1.6+i*.8)*10;const ry=lerp(180+360,0,fl)+idle*(1-fl*.6);const rx=-14+Math.sin(t*1.2+i)*6;
+      st(c,{transform:`translateY(${(1-cl(qi))*-700 + Math.sin(t*2+i)*10}px) rotateX(${rx}deg) rotateY(${ry}deg) scale(${.4+.6*cl(qi)})`,opacity:cl(qi*3)})});
+    const qc=e5(p(t,3.6,.6));st('#s2c',{opacity:qc,transform:`translateY(${(1-qc)*50}px)`});
+  }
+  else if(si===2){
+    mesh('#m3',t);const qh=e5(p(t,.15,.6));st('#s3h',{opacity:qh,transform:`translateY(${(1-qh)*60}px)`,filter:`blur(${(1-qh)*12}px)`});
+    ['#g1','#g2','#g3','#g4'].forEach((s,i)=>{const q=spring(p(t,.6+i*.35,1.6)*1.6);st(s,{opacity:cl(q*2),transform:`translateY(${(1-cl(q))*140}px) scale(${.85+.15*q}) rotate(${(1-cl(q))*(i%2?3:-3)}deg)`})});
+    $('#g4img').style.transform=`scale(${1.15-.03*t}) translateX(${-t*8}px)`;
+    const n=$('#g1 .v');n.textContent=Math.max(1,Math.min(6,Math.round(1+5*eo(p(t,.7,1.2)))));
+  }
+  else if(si===3){
+    mesh('#m4',t);
+    const u=cl((t-.5)/.85,0,5);const k=Math.floor(u+.0001),f=u-k;const pos=k+eio(cl(f/.55));
+    st('#reel',{top:`${300-pos*300}px`});
+    $$('#reel div').forEach((d,i)=>{const dist=Math.abs(i-pos);d.style.opacity=1-cl(dist*.7);d.style.transform=`scale(${1-cl(dist)*.25}) translateY(${0}px)`;d.style.color=i===5&&pos>4.9?'#fff6c2':'#fff'});
+    const ci=Math.min(5,Math.round(pos));const c0=RK[Math.floor(pos)][1],c1=RK[Math.min(5,Math.floor(pos)+1)][1];
+    $('#s4bg').style.background=`linear-gradient(160deg,${mix(c0,c1,pos-Math.floor(pos))},#0d0d12 120%)`;
+    const ff=pos/5;$('#pts').textContent=Math.round(lerp(0,1300,eio(cl(ff))));$('#dys').textContent=Math.round(lerp(0,300,eio(cl(ff))));
+    st('#s4h',{opacity:p(t,.1,.4)});const qn=spring(p(t,.4,1.6)*1.6);st('#s4n',{opacity:cl(qn*2),transform:`scale(${.8+.2*qn})`});
+    if(pos>4.95){const z=p(t,.5+5*.85-.4,.6);$$('#reel div')[5].style.textShadow=`0 0 ${60*z}px rgba(255,220,80,${z})`}else $$('#reel div')[5].style.textShadow='none';
+  }
+  else if(si===4){
+    mesh('#m5',t);const qh=e5(p(t,.1,.6));st('#s5h',{opacity:qh,transform:`translateY(${(1-qh)*60}px)`,filter:`blur(${(1-qh)*12}px)`});
+    const qb=spring(p(t,.4,1.6)*1.6);st('#lbx',{opacity:cl(qb*2),transform:`translateY(${(1-cl(qb))*120}px) scale(${.9+.1*qb})`});
+    $$('.lb').forEach((r,i)=>{const q=e5(p(t,.7+i*.12,.5));st(r,{opacity:q,transform:`translateX(${(1-q)*80}px)`});const pt=r.querySelector('.pt');pt.textContent=Math.round(pt.dataset.p*eo(p(t,.8+i*.12,1.4)))});
+    st('#s5c',{opacity:p(t,1.8,.5)});
+  }
+  else if(si===5){
+    mesh('#m6',t);const ql=spring(p(t,.15,1.6)*1.6);st('#s6logo',{opacity:cl(ql*2),transform:`scale(${.7+.3*ql})`});
+    const qt=e5(p(t,.6,.6));st('#s6t',{opacity:qt,transform:`translateY(${(1-qt)*60}px)`,filter:`blur(${(1-qt)*16}px)`});
+    st('#s6s',{opacity:p(t,1.0,.5)});const qc=spring(p(t,1.3,1.6)*1.6);st('#s6c',{opacity:cl(qc*2),transform:`scale(${.8+.2*qc})`});
+  }
+}
+function mix(a,b,f){const h=x=>[1,3,5].map(i=>parseInt(x.substr(i,2),16));const A=h(a),Bc=h(b);return `rgb(${A.map((v,i)=>Math.round(v+(Bc[i]-v)*f)).join(',')})`}
+window.render=render;render(0);
+</script></body></html>
