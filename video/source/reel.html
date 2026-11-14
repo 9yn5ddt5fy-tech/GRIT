@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="mn"><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;900&family=Montserrat:wght@500;600;700;800&family=Caveat:wght@700&display=block" rel="stylesheet">
+<style>
+:root{--g:#1f4d2e;--g2:#2f7a4a;--lime:#c6f25a;--or:#ff7a3d;--pk:#ff4f8b;--tq:#22c3d6;--pu:#5b3fd1;--cr:#fff6e6;--ink:#141414}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1080px;height:1920px;overflow:hidden;background:#000}
+#stage{position:relative;width:1080px;height:1920px;overflow:hidden;font-family:Montserrat,sans-serif;color:#fff}
+.sc{position:absolute;inset:0;overflow:hidden;visibility:hidden}
+.abs{position:absolute}
+.disp{font-family:Unbounded,sans-serif;font-weight:900;letter-spacing:-.02em;line-height:.95}
+.cover{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.blob{position:absolute;border-radius:50%;filter:blur(2px)}
+.word{display:inline-block;position:relative;white-space:nowrap}
+.hl{position:absolute;left:-14px;right:-14px;top:12%;bottom:4%;border-radius:14px;z-index:-1;transform-origin:left center}
+.card{position:absolute;width:440px;height:400px;border-radius:44px;padding:48px 44px;display:flex;flex-direction:column;justify-content:space-between;box-shadow:0 30px 60px -20px rgba(0,0,0,.35)}
+.card .n{font-family:Unbounded;font-weight:900;font-size:150px;line-height:.9;letter-spacing:-.04em}
+.card .n small{font-size:.4em;margin-left:6px}
+.card .l{font-size:38px;font-weight:700;line-height:1.15}
+.ph{position:absolute;border:16px solid #fff;border-bottom-width:64px;border-radius:10px;background:#fff;box-shadow:0 30px 60px -15px rgba(0,0,0,.4);overflow:hidden}
+.ph img{width:100%;height:100%;object-fit:cover;display:block}
+.pill{display:inline-flex;align-items:center;gap:16px;padding:18px 34px;border-radius:999px;font-weight:800;font-size:38px}
+.tile{width:150px;height:150px;border-radius:20px;display:inline-flex;align-items:center;justify-content:center;font-family:Unbounded;font-weight:900;font-size:84px;margin:0 7px;background:rgba(255,255,255,.14);border:4px solid rgba(255,255,255,.55);color:#fff}
+#wipe{position:absolute;inset:-200px;pointer-events:none;z-index:50}
+#wipe div{position:absolute;left:0;right:0;height:2400px}
+#chrome{position:absolute;inset:0;z-index:40;pointer-events:none}
+.bar{position:absolute;top:44px;height:8px;border-radius:8px;background:rgba(255,255,255,.35);overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:#fff}
+</style></head><body>
+<div id="stage">
+
+<!-- 1. Intro -->
+<section class="sc" id="s1" style="background:var(--g)">
+  <div class="blob" id="s1b1" style="width:900px;height:900px;background:var(--lime);left:-300px;top:-250px;opacity:.9"></div>
+  <div class="blob" id="s1b2" style="width:700px;height:700px;background:var(--or);right:-260px;bottom:120px"></div>
+  <div class="blob" id="s1b3" style="width:520px;height:520px;background:var(--pk);left:-160px;bottom:-140px"></div>
+  <div class="blob" id="s1b4" style="width:380px;height:380px;background:var(--tq);right:80px;top:180px"></div>
+  <div class="abs" id="s1card" style="left:90px;right:90px;top:430px;height:1060px;border-radius:64px;background:var(--g);box-shadow:0 40px 90px -30px rgba(0,0,0,.5)"></div>
+  <img class="abs" id="s1icon" src="icon.svg" style="width:380px;left:350px;top:540px">
+  <div class="abs disp" id="s1grit" style="left:0;right:0;top:990px;text-align:center;font-size:250px"><span>G</span><span>R</span><span>I</span><span>T</span></div>
+  <div class="abs" id="s1tag" style="left:0;right:0;top:1290px;text-align:center;font-weight:800;font-size:44px;letter-spacing:.02em">
+    <span style="color:var(--lime)">Grow</span><span> · </span><span style="color:#ffb28a">Reach</span><span> · </span><span style="color:#ff9dc0">Inspire</span><span> · </span><span style="color:#8fe7f2">Teach</span>
+  </div>
+</section>
+
+<!-- 2. Mission -->
+<section class="sc" id="s2" style="background:#0d2416">
+  <img class="cover" id="s2img" src="hero.jpg" style="object-position:52% 50%">
+  <div class="abs" style="inset:0;background:linear-gradient(180deg,rgba(10,30,18,.15) 0%,rgba(10,30,18,.25) 40%,rgba(10,30,18,.85) 100%)"></div>
+  <div class="abs" id="s2lab" style="left:80px;top:150px"><span class="pill" style="background:rgba(255,255,255,.16);border:2px solid rgba(255,255,255,.5);font-size:32px">● GRIT · 2025 оноос</span></div>
+  <div class="abs disp" id="s2txt" style="left:80px;right:60px;bottom:330px;font-size:112px;line-height:1.08">
+    <div><span class="word">Орон<span class="hl" style="background:var(--g2)"></span></span></div>
+    <div><span class="word">нутгийн</span></div>
+    <div><span class="word" style="color:var(--ink)">сурагчдад<span class="hl" style="background:var(--lime)"></span></span></div>
+    <div><span class="word">дэлхийг</span></div>
+    <div><span class="word">нээнэ<span style="color:var(--or)">.</span><span class="hl" style="background:var(--or);opacity:0"></span></span></div>
+  </div>
+  <div class="abs" id="s2sub" style="left:80px;right:80px;bottom:200px;font-size:36px;font-weight:600;opacity:.92">Монголын төв аймгуудын сумдад</div>
+</section>
+
+<!-- 3. Stats -->
+<section class="sc" id="s3" style="background:var(--pu)">
+  <div class="blob" id="s3b1" style="width:800px;height:800px;background:#7b5cf0;left:-260px;top:-200px"></div>
+  <div class="blob" id="s3b2" style="width:600px;height:600px;background:#4329b0;right:-200px;bottom:-120px"></div>
+  <div class="abs" id="s3h" style="left:80px;right:80px;top:200px">
+    <div class="pill" style="background:var(--lime);color:var(--ink);font-size:32px">2025 · Өгийнуур, Архангай</div>
+    <div class="disp" style="font-size:96px;margin-top:40px;line-height:1.05">Анхны<br>хөтөлбөр</div>
+  </div>
+  <div class="card" id="c1" style="left:80px;top:720px;background:var(--lime);color:var(--ink)"><div class="n" data-to="20">0</div><div class="l">сурагч</div></div>
+  <div class="card" id="c2" style="left:560px;top:720px;background:var(--or)"><div class="n" data-to="4">0</div><div class="l">долоо хоног<br>орон нутагт</div></div>
+  <div class="card" id="c3" style="left:80px;top:1160px;background:var(--pk)"><div class="n" data-to="7">0</div><div class="l">багш, сайн<br>дурынхан</div></div>
+  <div class="card" id="c4" style="left:560px;top:1160px;background:var(--tq);color:var(--ink)"><div class="n" data-to="380" data-suf="км" style="font-size:112px">0</div><div class="l">бидний<br>туулдаг зам</div></div>
+</section>
+
+<!-- 4. EDU -->
+<section class="sc" id="s4" style="background:var(--lime);color:var(--ink)">
+  <div class="abs disp" id="s4big" style="left:-40px;top:760px;font-size:420px;color:rgba(31,77,46,.12);white-space:nowrap">EDU EDU</div>
+  <div class="ph" id="p1" style="width:640px;height:560px;left:60px;top:430px"><img src="photo-3.jpg"></div>
+  <div class="ph" id="p2" style="width:600px;height:520px;right:50px;top:820px"><img src="edu-scholars.jpg" style="object-position:30% 50%"></div>
+  <div class="ph" id="p3" style="width:560px;height:480px;left:90px;top:1180px"><img src="photo-6.jpg"></div>
+  <div class="abs" id="s4h" style="left:80px;top:170px">
+    <div class="disp" style="font-size:120px;color:var(--g)">GRIT EDU</div>
+  </div>
+  <div class="abs" id="s4sub" style="left:80px;right:80px;bottom:110px;font-size:44px;font-weight:800;line-height:1.2;color:var(--g)">Орон нутгийн сурагчдад тэтгэлэг, боловсролын боломж.</div>
+</section>
+
+<!-- 5. Environment -->
+<section class="sc" id="s5" style="background:var(--tq)">
+  <div class="blob" id="s5b1" style="width:760px;height:760px;background:#58dbe8;right:-240px;top:-160px"></div>
+  <div class="abs" id="s5h" style="left:80px;top:170px">
+    <div class="disp" style="font-size:112px;color:#06323a">GRIT<br>Environment</div>
+  </div>
+  <div class="abs" id="s5img" style="left:80px;right:80px;top:560px;height:820px;border-radius:56px;overflow:hidden;box-shadow:0 40px 80px -30px rgba(0,40,50,.6)"><img class="cover" src="env-hero.jpg" id="s5imgi"></div>
+  <div class="ph" id="p4" style="width:560px;height:400px;right:40px;top:1240px;border-radius:24px"><img src="env-truck.jpg"></div>
+  <div class="abs" id="s5sub" style="left:80px;right:620px;top:1420px;font-size:46px;font-weight:800;line-height:1.15;color:#06323a">Өгий нуур, тал хээрээ хамгаалъя.</div>
+</section>
+
+<!-- 6. Culture -->
+<section class="sc" id="s6" style="background:#2a2152">
+  <img class="abs" id="s6img" src="culture-hero.jpg" style="height:1920px;top:0;left:0">
+  <div class="abs" style="inset:0;background:linear-gradient(180deg,rgba(30,20,60,.75) 0%,rgba(30,20,60,.1) 32%,rgba(30,20,60,.05) 55%,rgba(30,20,60,.85) 100%)"></div>
+  <div class="abs" id="s6h" style="left:80px;top:170px">
+    <div class="pill" style="background:var(--pk);font-size:32px">Шинэ</div>
+    <div class="disp" style="font-size:112px;margin-top:34px">GRIT<br>Culture</div>
+  </div>
+  <div class="abs" id="s6tiles" style="left:0;right:0;bottom:430px;text-align:center"><span class="tile">Т</span><span class="tile">У</span><span class="tile">У</span><span class="tile">Л</span><span class="tile">Ь</span></div>
+  <div class="abs" id="s6sub" style="left:80px;right:80px;bottom:200px;text-align:center">
+    <div class="disp" style="font-size:72px;font-weight:700">Таасан уу?</div>
+    <div style="font-size:38px;font-weight:700;margin-top:18px;opacity:.92">Домог, түүх, өдрийн үгийн тоглоом</div>
+  </div>
+</section>
+
+<!-- 7. Outro -->
+<section class="sc" id="s7" style="background:var(--g)">
+  <div class="abs" id="conf" style="inset:0"></div>
+  <img class="abs" id="s7logo" src="logo.png" style="width:820px;left:130px;top:560px">
+  <div class="abs disp" id="s7slogan" style="left:0;right:0;top:1060px;text-align:center;font-size:62px;line-height:1.25;font-weight:700">
+    <div><span style="color:var(--lime)">Grow.</span> <span style="color:#ffb28a">Reach.</span></div><div><span style="color:#ff9dc0">Inspire.</span> <span style="color:#8fe7f2">Teach.</span></div>
+  </div>
+  <div class="abs" id="s7cta" style="left:0;right:0;top:1340px;text-align:center">
+    <div class="pill" style="background:#fff;color:var(--g);font-size:52px;padding:26px 56px">grit.mn</div>
+    <div style="margin-top:34px;font-size:38px;font-weight:700;opacity:.9">Instagram · @grit_edu_</div>
+  </div>
+</section>
+
+<div id="wipe"><div id="w1"></div><div id="w2"></div><div id="w3"></div></div>
+<div id="chrome"><img id="wm" src="icon.svg" class="abs" style="width:76px;right:60px;top:84px;opacity:0"></div>
+</div>
+
+<script>
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const cl=(x,a=0,b=1)=>Math.min(b,Math.max(a,x));
+const p=(t,a,d)=>cl((t-a)/d);
+const eo=t=>1-Math.pow(1-t,3), e5=t=>1-Math.pow(1-t,5), eio=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
+const bk=t=>{const c=1.9,c3=c+1;return 1+c3*Math.pow(t-1,3)+c*Math.pow(t-1,2)};
+const lerp=(a,b,t)=>a+(b-a)*t;
+const st=(el,o)=>{if(typeof el==='string')el=$(el);for(const k in o)el.style[k]=o[k];};
+// scene boundaries (seconds)
+const B=[0,3.5,7.5,11.5,15.5,19.5,23.5,27.5];
+const WC=[['#c6f25a','#ff7a3d','#1f4d2e'],['#ff4f8b','#c6f25a','#5b3fd1'],['#ff7a3d','#1f4d2e','#c6f25a'],['#5b3fd1','#c6f25a','#22c3d6'],['#ff7a3d','#ff4f8b','#2a2152'],['#c6f25a','#22c3d6','#1f4d2e']];
+window.DUR=B[B.length-1];
+// confetti
+const conf=$('#conf'),CC=['#c6f25a','#ff7a3d','#ff4f8b','#22c3d6','#fff','#8f74ff'];let seed=7;const rnd=()=>(seed=(seed*16807)%2147483647)/2147483647;
+const CF=[];for(let i=0;i<46;i++){const d=document.createElement('div');const s=14+rnd()*30;const round=rnd()>.5;d.style.cssText=`position:absolute;width:${s}px;height:${round?s:s*.45}px;border-radius:${round?'50%':'4px'};background:${CC[i%6]}`;conf.appendChild(d);CF.push({d,x:rnd()*1080,y:-100-rnd()*900,v:380+rnd()*420,r:rnd()*360,vr:(rnd()-.5)*500,sw:20+rnd()*50,ph:rnd()*6})}
+function render(T){
+  $$('.sc').forEach((s,i)=>s.style.visibility=(T>=B[i]&&T<B[i+1])?'visible':'hidden');
+  // wipes: three diagonal slabs sweep up across each boundary
+  const W=$$('#wipe div');W.forEach(w=>w.style.display='none');
+  for(let i=1;i<B.length-1;i++){const b=B[i];if(T>b-.5&&T<b+.5){const k=(T-(b-.5))/1;W.forEach((w,j)=>{const q=eio(cl((k-j*.07)/.79));w.style.display='block';w.style.background=WC[i-1][j];w.style.transform=`translateY(${lerp(2400,-2600,q)}px) rotate(-8deg)`;});}}
+  // watermark + progress
+  st('#wm',{opacity:(T>B[1]+.3&&T<B[6]-.2)?.9:0});
+  // ---- S1
+  if(T<B[1]){const t=T;
+    ['#s1b1','#s1b2','#s1b3','#s1b4'].forEach((s,i)=>{const q=bk(p(t,.05+i*.08,.7));st(s,{transform:`scale(${q}) translate(${Math.sin(t*1.3+i)*30}px,${Math.cos(t*1.1+i)*30}px)`})});
+    const qc=bk(p(t,.25,.7));st('#s1card',{transform:`scale(${qc}) rotate(${(1-qc)*-8}deg)`});
+    const qi=bk(p(t,.55,.7));st('#s1icon',{transform:`scale(${qi}) rotate(${(1-qi)*-30}deg)`,opacity:p(t,.55,.15)});
+    $$('#s1grit span').forEach((s,i)=>{const q=e5(p(t,1.0+i*.09,.55));st(s,{display:'inline-block',transform:`translateY(${(1-q)*140}px)`,opacity:q,color:i==1&&t>1.9?'#c6f25a':'#fff'})});
+    $$('#s1tag span').forEach((s,i)=>{const q=bk(p(t,1.7+i*.08,.4));st(s,{display:'inline-block',transform:`scale(${q})`,opacity:cl(q)})});
+  }
+  // ---- S2
+  else if(T<B[2]){const t=T-B[1];
+    st('#s2img',{transform:`scale(${1.32-.1*t/4}) translateX(${-20+t*8}px)`});
+    st('#s2lab',{opacity:p(t,.4,.4),transform:`translateY(${(1-eo(p(t,.4,.5)))*-30}px)`});
+    $$('#s2txt .word').forEach((w,i)=>{const a=.45+i*.32;const q=e5(p(t,a,.5));st(w,{transform:`translateY(${(1-q)*90}px)`,opacity:q});const h=w.querySelector('.hl');if(h){const qh=eo(p(t,a+.25,.4));h.style.transform=`scaleX(${qh})`;if(i===4)h.style.opacity=0;}});
+    // last word punch
+    const qp=p(t,2.3,.3);if(qp>0){const w=$$('#s2txt .word')[4];w.style.transform=`scale(${1+Math.sin(qp*Math.PI)*.12})`;w.style.transformOrigin='left bottom'}
+    st('#s2sub',{opacity:p(t,2.4,.5)});
+  }
+  // ---- S3
+  else if(T<B[3]){const t=T-B[2];
+    st('#s3b1',{transform:`translate(${Math.sin(t)*40}px,${t*20}px)`});st('#s3b2',{transform:`translate(${Math.cos(t)*-40}px,${-t*25}px)`});
+    const qh=e5(p(t,.35,.6));st('#s3h',{transform:`translateX(${(1-qh)*-120}px)`,opacity:qh});
+    ['#c1','#c2','#c3','#c4'].forEach((c,i)=>{const a=.75+i*.22;const q=bk(p(t,a,.6));const rot=[-4,3,3,-3][i];st(c,{transform:`scale(${q}) rotate(${rot*(1-cl(p(t,a+.6,1.5)))+rot*.4}deg)`,opacity:cl(q*3)});const n=$(c+' .n');const to=+n.dataset.to;const v=Math.round(to*eo(p(t,a+.15,1.3)));n.innerHTML=v+(n.dataset.suf?`<small>${n.dataset.suf}</small>`:'');});
+  }
+  // ---- S4
+  else if(T<B[4]){const t=T-B[3];
+    st('#s4big',{transform:`translateX(${-t*90}px)`});
+    const qh=e5(p(t,.3,.6));st('#s4h',{transform:`translateY(${(1-qh)*60}px)`,opacity:qh});
+    [['#p1',-1,-5],['#p2',1,4],['#p3',-1,-3]].forEach(([s,d,r],i)=>{const a=.55+i*.35;const q=e5(p(t,a,.75));st(s,{transform:`translateX(${(1-q)*d*1100}px) rotate(${r*q+(1-q)*d*20}deg) translateY(${Math.sin(t*1.2+i)*8}px)`});$(s+' img').style.transform=`scale(${1.15-.04*t})`});
+    st('#s4sub',{opacity:p(t,1.9,.5),transform:`translateY(${(1-eo(p(t,1.9,.5)))*40}px)`});
+  }
+  // ---- S5
+  else if(T<B[5]){const t=T-B[4];
+    st('#s5b1',{transform:`scale(${1+t*.05})`});
+    const qh=e5(p(t,.3,.6));st('#s5h',{transform:`translateY(${(1-qh)*60}px)`,opacity:qh});
+    const qi=e5(p(t,.5,.8));st('#s5img',{clipPath:`inset(${(1-qi)*50}% 0 ${(1-qi)*50}% 0 round 56px)`});$('#s5imgi').style.transform=`scale(${1.2-.05*t})`;
+    const q4=bk(p(t,1.2,.6));st('#p4',{transform:`scale(${q4}) rotate(${4*q4}deg)`});
+    st('#s5sub',{opacity:p(t,1.7,.5),transform:`translateY(${(1-eo(p(t,1.7,.5)))*40}px)`});
+  }
+  // ---- S6
+  else if(T<B[6]){const t=T-B[5];
+    const w=1792/768*1920;const q=eio(p(t,0,4));st('#s6img',{width:w+'px',transform:`translateX(${-lerp(w*.13,w-1080-w*.04,q)}px)`});
+    const qh=e5(p(t,.3,.6));st('#s6h',{transform:`translateY(${(1-qh)*60}px)`,opacity:qh});
+    $$('#s6tiles .tile').forEach((el,i)=>{const a=.9+i*.18;const q=bk(p(t,a,.4));const f=p(t,1.9+i*.15,.3);const flip=Math.abs(Math.cos(f*Math.PI));st(el,{transform:`scale(${q}) scaleY(${f>0&&f<1?flip:1})`,opacity:cl(q*2)});if(f>.5){el.style.background='#3fae5c';el.style.borderColor='#3fae5c'}else{el.style.background='rgba(255,255,255,.14)';el.style.borderColor='rgba(255,255,255,.55)'}});
+    st('#s6sub',{opacity:p(t,2.6,.5),transform:`translateY(${(1-eo(p(t,2.6,.5)))*40}px)`});
+  }
+  // ---- S7
+  else {const t=T-B[6];
+    const ql=bk(p(t,.3,.7));st('#s7logo',{transform:`scale(${ql})`,opacity:cl(ql*2)});
+    $$('#s7slogan span').forEach((s,i)=>{const q=bk(p(t,1.0+i*.14,.45));st(s,{display:'inline-block',transform:`translateY(${(1-q)*50}px) scale(${q})`,opacity:cl(q)})});
+    const qc=bk(p(t,1.8,.6));st('#s7cta',{transform:`scale(${qc})`,opacity:cl(qc*2)});
+    CF.forEach(c=>{const tt=Math.max(0,t-.3);st(c.d,{transform:`translate(${c.x+Math.sin(tt*2+c.ph)*c.sw}px,${c.y+c.v*tt}px) rotate(${c.r+c.vr*tt}deg)`})});
+  }
+}
+window.render=render;render(0);
+</script>
+</body></html>
