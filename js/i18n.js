@@ -128,7 +128,7 @@ const MN = {
   "A daily word game, picture books of legends and history games — free for everyone.":
     "Өдөр бүрийн үгийн тоглоом, домгийн зурагт ном, түүхийн тоглоомууд — бүгдэд үнэгүй.",
   "Legends, picture books and history games": "Домог, зурагт ном, түүхийн тоглоом",
-  "6 picture books · 52 quiz questions · 38 timeline events": "6 зурагт ном · 52 асуулт · 38 үйл явдал",
+  "11 picture books · 57 quiz questions · 42 timeline events": "11 зурагт ном · 57 асуулт · 42 үйл явдал",
   "Explore GRIT Culture": "GRIT Culture үзэх",
   "Guess a five-letter word from Mongolian history in six tries. A new word every day — and its story when you solve it.":
     "Монголын түүхэн таван үсэгтэй үгийг зургаан оролдлогоор таа. Өдөр бүр шинэ үг гарах бөгөөд таасны дараа түүх нь нээгдэнэ.",
@@ -458,7 +458,7 @@ const MN_ATTR = {
   "Scroll right": "Баруун тийш гүйлгэх",
   "Filter stories": "Номнуудыг шүүх",
   "Picture book": "Зурагт ном",
-  "Illustrated map of the heritage sites of Arkhangai and Uvurkhangai": "Архангай, Өвөрхангайн өв соёлын газруудын зурагт газрын зураг",
+  "Illustrated map of the heritage sites of Arkhangai, Uvurkhangai and Khentii": "Архангай, Өвөрхангай, Хэнтийн өв соёлын газруудын зурагт газрын зураг",
   "Illustration: the stupa wall of Erdene Zuu, a stone turtle, a ger and a lake with an island": "Зураг: Эрдэнэ Зуугийн суварган хэрэм, чулуун мэлхий, гэр, арал бүхий нуур",
 };
 
