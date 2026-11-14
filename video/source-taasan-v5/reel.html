@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="mn"><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@500;600;700;800;900&family=Oswald:wght@600;700&display=block" rel="stylesheet">
+<style>
+:root{--bk:#07090a;--cr:#f2efe6;--lime:#c6f25a;--cy:#36d6e7;--gold:#ffcf5a;--dim:rgba(242,239,230,.6)}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{overflow:hidden;background:#000}
+#stage{position:relative;overflow:hidden;font-family:Onest,sans-serif;color:var(--cr);background:var(--bk)}
+.sc{position:absolute;inset:0;visibility:hidden;overflow:hidden;background:var(--bk);transform-origin:50% 50%}
+.abs{position:absolute}
+canvas.fx{position:absolute;left:0;top:0}
+.osw{font-family:Oswald,sans-serif;font-weight:700;text-transform:uppercase;line-height:.92;letter-spacing:.005em}
+.ch{display:inline-block;will-change:transform}
+/* phone */
+#pwrap{position:absolute;perspective:2200px}
+#phone{position:absolute;left:0;top:0;width:540px;height:1080px;border-radius:84px;background:#000;box-shadow:0 0 0 14px #1b201d,0 0 0 16px #323a34,0 60px 140px -30px rgba(0,0,0,.9),0 0 120px -20px rgba(198,242,90,.25);overflow:hidden;transform-origin:50% 50%}
+#phone .bar{display:flex;justify-content:space-between;padding:70px 42px 0;font-size:24px;font-weight:700;color:var(--dim)}
+#phone .ttl{text-align:center;font-weight:800;font-size:40px;letter-spacing:-.04em;margin-top:18px}
+.brd{display:flex;flex-direction:column;gap:9px;align-items:center;margin-top:34px}
+.rw{display:flex;gap:9px}
+.tl{width:80px;height:80px;border-radius:7px;border:2.5px solid rgba(242,239,230,.16);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:44px;position:relative;background:#000;color:var(--cr)}
+.tl.ty{border-color:rgba(242,239,230,.6)}
+.tl.ok{background:var(--lime);border-color:var(--lime);color:#000;box-shadow:0 0 26px rgba(198,242,90,.7)}
+.tl.pr{border:2.5px dashed var(--cr)}
+.tl.pr::after{content:"";position:absolute;top:6px;right:6px;width:9px;height:9px;border-radius:50%;background:var(--cr)}
+.tl.no{background:#141414;border-color:#141414;color:rgba(242,239,230,.3)}
+.kb{position:absolute;left:24px;right:24px;bottom:56px;display:flex;flex-direction:column;gap:9px}
+.kb div{display:flex;gap:7px;justify-content:center}.kb i{width:38px;height:56px;border-radius:7px;background:#1a1a1a}
+.feat .no{font-family:Oswald;font-weight:700;font-size:60px;color:var(--lime);line-height:1}
+.feat .tx{font-weight:800;font-size:40px;line-height:1.15;margin-top:10px}
+.mq{position:absolute;left:0;white-space:nowrap;font-family:Oswald;font-weight:700;text-transform:uppercase;color:transparent;-webkit-text-stroke:2px rgba(242,239,230,.13)}
+.t6{position:absolute;width:128px;height:128px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:72px;background:var(--cr);color:#07090a;backface-visibility:hidden}
+.pill{display:inline-block;padding:22px 52px;border-radius:999px;font-weight:800;font-size:48px;background:var(--cr);color:#07090a}
+#logo{position:absolute;z-index:50}
+#flash{position:absolute;inset:0;background:#fff;z-index:45;pointer-events:none;opacity:0}
+#grain{position:absolute;left:-60px;top:-60px;z-index:60;pointer-events:none;opacity:.05;mix-blend-mode:overlay}
+</style></head><body>
+<div id="stage">
+<section class="sc" id="s1"><canvas class="fx" id="c1"></canvas><div class="abs" id="s1cap" style="font-weight:600;font-size:36px;color:var(--dim);text-align:center;left:0;right:0"></div><div class="abs osw" id="s1n" style="left:0;right:0;text-align:center"></div><div class="abs osw" id="s1new" style="left:0;right:0;text-align:center"></div></section>
+<section class="sc" id="s2"><canvas class="fx" id="c2"></canvas><div id="words"></div></section>
+<section class="sc" id="s3"><canvas class="fx" id="c3"></canvas><div id="pwrap"><div id="phone"><div class="bar"><span>№ 318</span><span>11/14</span></div><div class="ttl">Таасан уу?</div><div class="brd" id="brd"></div><div class="kb"></div><div class="abs" id="toast" style="left:0;right:0;top:430px;text-align:center"><span style="display:inline-block;background:var(--lime);color:#000;font-weight:800;font-size:34px;padding:16px 30px;border-radius:999px">+5 оноо · 2/6</span></div></div></div><div id="feats"></div></section>
+<section class="sc" id="s4"><canvas class="fx" id="c4"></canvas><div class="abs" id="head"></div><div class="abs" id="s4s" style="font-weight:700;font-size:42px;color:var(--dim)">Оноо цуглуулж, цолоо ахиул</div></section>
+<section class="sc" id="s5"><canvas class="fx" id="c5"></canvas><div class="abs" id="s5cap" style="font-weight:600;font-size:34px;color:var(--dim)">Аравтын тогтолцоо · цэргээс хаан хүртэл</div><div class="abs" id="nmbox" style="overflow:hidden;height:130px"><div id="nm"></div></div><div class="abs" id="sb" style="font-weight:600;font-size:36px;color:var(--dim)"></div></section>
+<section class="sc" id="s6"><div id="mqs"></div><div class="abs" id="quote" style="left:0;right:0;text-align:center"></div></section>
+<section class="sc" id="s7" style="background:#0b1f13"><canvas class="fx" id="c7"></canvas><img class="abs" id="s7logo" src="logo.png"><div id="tiles6" style="position:absolute;inset:0;perspective:1600px"></div><div class="abs osw" id="s7q" style="left:0;right:0;text-align:center;color:var(--lime)">уу?</div><div class="abs" id="s7c" style="left:0;right:0;text-align:center"><span class="pill">grit.mn/culture</span><div style="margin-top:28px;font-weight:600;font-size:34px;color:rgba(242,239,230,.7)">Өдөр бүр шинэ үг · @grit_edu_</div></div></section>
+<img id="logo" src="logo.png"><div id="flash"></div><canvas id="grain" width="700" height="700"></canvas>
+</div>
+<script>
+const Q=new URLSearchParams(location.search);const W=+(Q.get('w')||1080),H=+(Q.get('h')||1920),P=H>W;
+document.body.style.cssText=`width:${W}px;height:${H}px`;const stage=document.getElementById('stage');stage.style.width=W+'px';stage.style.height=H+'px';
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const cl=(x,a=0,b=1)=>Math.min(b,Math.max(a,x)),p=(t,a,d)=>cl((t-a)/d),lerp=(a,b,t)=>a+(b-a)*t;
+const eo=t=>1-Math.pow(1-t,3),e5=t=>1-Math.pow(1-t,5),eio=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2,ei=t=>t*t*t;
+const bk=t=>{const c=1.7,c3=c+1;return 1+c3*Math.pow(t-1,3)+c*Math.pow(t-1,2)};
+const st=(el,o)=>{if(typeof el==='string')el=$(el);for(const k in o)el.style[k]=o[k]};
+let seed=29;const rnd=()=>(seed=(seed*16807)%2147483647)/2147483647;
+const B=[0,3.5,7.5,13.5,17.5,23.5,27.5,31.5];window.DUR=B[7];
+$$('canvas.fx').forEach(c=>{c.width=W;c.height=H});
+const shake=(t,t0,a)=>{const k=t-t0;if(k<0||k>.45)return[0,0];const d=a*Math.exp(-k*9);return[Math.sin(k*90)*d,Math.cos(k*77)*d]};
+const glow=(x,c,y,r,col,a)=>{const g=x.createRadialGradient(c,y,0,c,y,r);g.addColorStop(0,col);g.addColorStop(1,'rgba(0,0,0,0)');x.globalAlpha=a;x.fillStyle=g;x.fillRect(c-r,y-r,2*r,2*r);x.globalAlpha=1};
+const fit=(el,maxW,base)=>{el.style.fontSize=base+'px';const w=el.scrollWidth;el.style.fontSize=Math.min(base,base*maxW/w)+'px'};
+// logo
+st('#logo',P?{left:'64px',top:'84px',height:'74px'}:{left:'60px',top:'48px',height:'64px'});
+// dust shared
+const DUST=Array.from({length:260},()=>({x:rnd(),y:rnd(),z:rnd(),ph:rnd()*6}));
+function dust(x,t,sp=1,a=1){for(const d of DUST){const px=((d.x*W+t*sp*(10+d.z*40))%W+W)%W,py=((d.y*H-t*sp*(8+d.z*30))%H+H)%H;x.globalAlpha=a*(.15+.5*d.z)*(.6+.4*Math.sin(t*2+d.ph));x.fillStyle='#f2efe6';const s=.8+d.z*2.2;x.fillRect(px,py,s,s)}x.globalAlpha=1}
+
+/* ---------- S1 toono ---------- */
+const TS=P?1:.8,TX=W/2,TY=P?H/2-40:H/2,R0=230*TS,R1=470*TS,NS=72;
+st('#s1cap',{top:(TY-R1-110)+'px'});$('#s1cap').textContent='Дараагийн үг хүртэл';if(!P)st('#s1cap',{top:'40px'});
+st('#s1n',{top:(TY-150)+'px',fontSize:'300px'});st('#s1new',{top:(TY-110)+'px',fontSize:(P?190:200)+'px'});$('#s1new').innerHTML='Шинэ үг<br>гарлаа';if(!P)$('#s1new').innerHTML='Шинэ үг гарлаа';
+const c1=$('#c1').getContext('2d');
+function drawToono(x,t,lit,zoom,burst){x.save();x.translate(TX,TY);x.scale(zoom,zoom);x.rotate(t*.12);
+  for(let i=0;i<NS;i++){const a=i/NS*Math.PI*2;const on=i<lit;const ext=burst*(.5+.5*Math.sin(i*1.7))*260;x.strokeStyle=on?'#f2efe6':'rgba(242,239,230,.13)';x.lineWidth=on?3.2:2.5;x.globalAlpha=1;x.beginPath();x.moveTo(Math.cos(a)*R0,Math.sin(a)*R0);x.lineTo(Math.cos(a)*(R1+ext),Math.sin(a)*(R1+ext));x.stroke();
+    if(on&&i===lit-1){x.strokeStyle='#c6f25a';x.lineWidth=5;x.shadowColor='#c6f25a';x.shadowBlur=24;x.beginPath();x.moveTo(Math.cos(a)*R0,Math.sin(a)*R0);x.lineTo(Math.cos(a)*R1,Math.sin(a)*R1);x.stroke();x.shadowBlur=0}}
+  x.strokeStyle='#f2efe6';x.lineWidth=6;x.beginPath();x.arc(0,0,R0,0,Math.PI*2);x.stroke();x.lineWidth=2;x.globalAlpha=.5;x.beginPath();x.arc(0,0,R0-24,0,Math.PI*2);x.stroke();
+  // cross bars of the toono crown
+  x.globalAlpha=.35;x.lineWidth=4;for(const o of[-.35,.35]){x.beginPath();x.moveTo(-R0*.95,o*R0);x.lineTo(R0*.95,o*R0);x.stroke();x.beginPath();x.moveTo(o*R0,-R0*.95);x.lineTo(o*R0,R0*.95);x.stroke()}
+  x.restore();x.globalAlpha=1}
+
+/* ---------- S2 words ---------- */
+const WD=[['Хаад','#c6f25a'],['хотууд','#36d6e7'],['домог','#ff8a4c'],['газар нутаг','#c6f25a'],['нэг үгэнд','#f2efe6']];
+$('#words').innerHTML=WD.map(([w])=>`<div class="abs osw wd" style="left:0;top:0;white-space:nowrap">${w}</div>`).join('');
+const WE=$$('.wd');WE.forEach(e=>{fit(e,W*.86,P?330:300);e.dataset.w=e.scrollWidth;e.dataset.h=e.offsetHeight});
+const c2=$('#c2').getContext('2d');
+
+/* ---------- S3 phone ---------- */
+$('#brd').innerHTML=Array.from({length:6},()=>'<div class="rw">'+'<div class="tl"></div>'.repeat(5)+'</div>').join('');
+$('.kb').innerHTML=[10,9,7].map(n=>'<div>'+'<i></i>'.repeat(n)+'</div>').join('');
+const PS=P?1:.8;st('#pwrap',P?{left:(W/2-270)+'px',top:'230px'}:{left:(W*.3-270)+'px',top:(H/2-540)+'px'});
+const FT=[['01','6 оролдлого'],['02','Сэжүүр,<br>үсэг нээх'],['03','Таасны дараа<br>түүх нь']];
+$('#feats').innerHTML=FT.map(([n,t],i)=>{const pos=P?`left:${70+i*330}px;top:1420px;width:310px`:`left:${W*.56}px;top:${230+i*230}px;width:700px`;return `<div class="abs feat" style="${pos}"><div class="no">${n}</div><div class="tx">${t}</div></div>`}).join('');
+const R3=['УЛААН','ТУУЛЬ'],C3=[['pr','pr','no','no','no'],Array(5).fill('ok')];
+const c3=$('#c3').getContext('2d');
+
+/* ---------- S4 headline (per-letter) ---------- */
+const HL=[['Түүхээ','#f2efe6'],['тоглоом','#c6f25a'],['болго.','#f2efe6']];
+$('#head').innerHTML=HL.map(([w,c])=>`<div class="osw hl" style="color:${c};white-space:nowrap">${[...w].map(ch=>`<span class="ch">${ch}</span>`).join('')}</div>`).join('');
+const HS=P?210:230;$$('.hl').forEach(e=>e.style.fontSize=HS+'px');
+st('#head',P?{left:'90px',top:'540px'}:{left:'0',right:'0',top:(H/2-HS*1.45)+'px',textAlign:'center'});
+st('#s4s',P?{left:'94px',top:'1290px'}:{left:'0',right:'0',textAlign:'center',top:(H/2+HS*1.45+20)+'px'});
+const WARP=Array.from({length:520},()=>({a:rnd()*Math.PI*2,z:rnd(),s:.5+rnd()*1.5,c:rnd()<.18?'#c6f25a':'#f2efe6'}));
+const c4=$('#c4').getContext('2d');
+
+/* ---------- S5 fractal army ---------- */
+// level k dot positions in dot units; L1=5x2, L2=10x10, L3=50x20, L4=100x100
+const LV=[{pts:[[.5,.5]],w:1,h:1}];
+const ARR=[[5,2],[2,5],[5,2],[2,5]];
+for(let k=1;k<=4;k++){const prev=LV[k-1];const [cx,cy]=ARR[k-1];const pts=[];for(let b=0;b<10;b++){const bx=(b%cx)*prev.w,by=Math.floor(b/cx)*prev.h;for(const [x,y] of prev.pts)pts.push([x+bx,y+by,b])}LV.push({pts,w:prev.w*cx,h:prev.h*cy})}
+const RK=[['Цэрэг','0 оноо'],['Аравтын ноён','60 оноо · 15 өдөр'],['Зуутын ноён','250 оноо · 60 өдөр'],['Мянгатын ноён','600 оноо · 140 өдөр'],['Түмэний ноён','1000 оноо · 220 өдөр'],['Хаан','1300 оноо · 300 өдөр']];
+const FD=P?860:800,FCX=P?W/2:W*.66,FCY=P?820:H/2;
+st('#s5cap',P?{left:'90px',top:'270px'}:{left:'120px',top:'150px'});
+st('#nmbox',P?{left:'90px',right:'60px',top:'1330px'}:{left:'120px',width:(W*.66-FD/2-160)+'px',top:(H/2-80)+'px'});
+st('#sb',P?{left:'90px',top:'1470px'}:{left:'120px',top:(H/2+60)+'px'});
+$('#nm').innerHTML=RK.map(([n],i)=>`<div style="height:130px;display:flex;align-items:center;font-weight:900;font-size:${P?104:92}px;letter-spacing:-.05em;white-space:nowrap;color:${i===5?'#ffcf5a':'#f2efe6'}">${n}</div>`).join('');
+const c5=$('#c5').getContext('2d');
+
+/* ---------- S6 marquee + quote ---------- */
+const MQ=P?7:5,MS=P?280:250;$('#mqs').innerHTML=Array.from({length:MQ},(_,i)=>`<div class="mq" style="top:${-40+i*(H+80)/MQ}px;font-size:${MS}px">${('Өдөр бүр · Түүх · Нэг үг · ').repeat(6)}</div>`).join('');
+const QL=[['Түүхээ мэдэх хүслээ','#f2efe6'],['өдөр бүрийн','#c6f25a'],['дадал болгоё.','#f2efe6']];
+$('#quote').innerHTML=QL.map(([l,c])=>`<div style="overflow:hidden;padding:4px 0"><div class="ql" style="font-weight:900;letter-spacing:-.05em;color:${c};white-space:nowrap">${l.split(' ').map(w=>`<span class="ch" style="margin:0 .12em">${w}</span>`).join('')}</div></div>`).join('');
+$$('.ql').forEach((e,i)=>e.style.fontSize=(P?[92,124,124]:[96,130,130])[i]+'px');st('#quote',{top:(H/2-200)+'px'});
+
+/* ---------- S7 end ---------- */
+const TW=P?128:120;const TL=[...'ТААСАН'];const TX0=W/2-(TL.length*TW+(TL.length-1)*14)/2;const TYY=P?820:H/2-150;
+$('#tiles6').innerHTML=TL.map((c,i)=>`<div class="t6" style="left:${TX0+i*(TW+14)}px;top:${TYY}px;width:${TW}px;height:${TW}px">${c}</div>`).join('');
+st('#s7logo',P?{width:'620px',left:(W/2-310)+'px',top:'420px'}:{width:'460px',left:(W/2-230)+'px',top:'110px'});
+st('#s7q',{top:(TYY+TW+30)+'px',fontSize:(P?150:130)+'px'});st('#s7c',{top:(TYY+TW+(P?230:200))+'px'});
+const c7=$('#c7').getContext('2d');
+
+/* grain */
+const g=$('#grain'),gx=g.getContext('2d'),gid=gx.createImageData(700,700);for(let i=0;i<gid.data.length;i+=4){const v=rnd()*255;gid.data[i]=gid.data[i+1]=gid.data[i+2]=v;gid.data[i+3]=255}gx.putImageData(gid,0,0);g.style.width=(Math.max(W,H)+120)+'px';g.style.height=(Math.max(W,H)+120)+'px';
+
+function render(T){
+  const si=B.findIndex((b,i)=>T>=b&&T<B[i+1]);const t=T-B[si];
+  $$('.sc').forEach((s,i)=>s.style.visibility=i===si?'visible':'hidden');
+  st(g,{transform:`translate(${(Math.floor(T*12)%5)*-11}px,${(Math.floor(T*12)%7)*-8}px)`});
+  const sc=$$('.sc')[si];
+  // scene-in: zoom-through (big -> 1, blur) + flash
+  if(si>0){const q=e5(p(t,0,.42));sc.style.transform=`scale(${lerp(1.5,1,q)})`;sc.style.filter=q<1?`blur(${(1-q)*18}px)`:'none';st('#flash',{opacity:(1-p(t,0,.25))*.35})}else{sc.style.transform='none';sc.style.filter='none'}
+  st('#logo',{opacity:si>0&&si<6?1:0});
+  if(si===0){
+    c1.clearRect(0,0,W,H);c1.fillStyle='#07090a';c1.fillRect(0,0,W,H);glow(c1,TX,TY,R1*1.6,'rgba(54,214,231,.18)',1);dust(c1,t,.6,.8);
+    const lit=Math.floor(cl(t/2.9)*NS);const z=t<2.95?1+.04*t:1+ei(p(t,2.95,.55))*7;const burst=e5(p(t,2.85,.4));
+    c1.globalAlpha=1-p(t,3.2,.3);drawToono(c1,t,lit,z,burst);c1.globalAlpha=1;
+    const k=t<.6?3:t<1.6?2:t<2.6?1:0;const ts=[0,.6,1.6,2.6][3-k];const qn=p(t,ts,.35);
+    st('#s1n',{opacity:t>2.9?1-p(t,2.9,.15):cl(qn*3),transform:`scale(${t>2.9?1:lerp(1.6,1,e5(qn))})`,filter:`blur(${(1-e5(qn))*12}px)`,color:k===0?'#c6f25a':'#f2efe6',textShadow:`0 0 ${(1-qn)*60}px rgba(198,242,90,.8)`});$('#s1n').textContent=k;
+    const [sx,sy]=shake(t,ts,10);sc.style.transform=`translate(${sx}px,${sy}px)`;
+    st('#s1cap',{opacity:p(t,.1,.4)*(1-p(t,2.8,.2))});
+    const qw=p(t,2.95,.35);st('#s1new',{opacity:cl(qw*3),transform:`scale(${lerp(.4,1,e5(qw))+.05*p(t,3.2,.3)})`,filter:`blur(${(1-e5(qw))*14}px)`});
+    st('#flash',{opacity:(p(t,2.9,.05)-p(t,2.95,.3))*.18});
+  }
+  else if(si===1){
+    c2.clearRect(0,0,W,H);c2.fillStyle='#07090a';c2.fillRect(0,0,W,H);
+    const k=Math.min(4,Math.floor(t/.76)),lt=t-k*.76;glow(c2,W/2,H/2,Math.max(W,H)*.55,WD[k][1],.12+.1*Math.exp(-lt*5));dust(c2,t,3,1);
+    WE.forEach((e,i)=>{const d=t-i*.76;const w=+e.dataset.w,h=+e.dataset.h;const cx=W/2-w/2,cy=H/2-h/2;
+      if(d<0||d>1.25){e.style.opacity=0;return}
+      const qi=e5(cl(d/.3));const qo=eio(cl((d-.76)/.4));const sc2=lerp(3,1,qi)*lerp(1,.55,qo);const y=lerp(0,-H*.32,qo);
+      st(e,{left:cx+'px',top:cy+'px',opacity:cl(qi*2)*(1-qo),transform:`translateY(${y}px) scale(${sc2}) rotate(${(i%2?-1:1)*(1-qi)*8}deg)`,filter:`blur(${(1-qi)*22+qo*8}px)`,color:i===4?'#c6f25a':'#f2efe6'})});
+    const [sx,sy]=shake(t,k*.76+.12,14);$('#words').style.transform=`translate(${sx}px,${sy}px)`;
+  }
+  else if(si===2){
+    c3.clearRect(0,0,W,H);c3.fillStyle='#07090a';c3.fillRect(0,0,W,H);glow(c3,P?W/2:W*.3,H/2,900,'rgba(198,242,90,.16)',1);dust(c3,t,1,.8);
+    const qp=e5(p(t,.1,1.1));const fl=Math.sin(t*1.3)*4;
+    st('#phone',{transform:`scale(${PS}) translateZ(${(1-qp)*-900}px) rotateY(${lerp(75,-10,qp)+fl}deg) rotateX(${lerp(20,4,qp)+Math.cos(t)*2}deg) rotateZ(${(1-qp)*-10}deg)`});
+    const rows=$$('#brd .rw').map(r=>[...r.children]);
+    [[1.0,2.0],[2.7,3.7]].forEach(([ts,tf],r)=>{for(let i=0;i<5;i++){const el=rows[r][i];const tt=ts+i*.15;const ty=t>=tt;el.textContent=ty?R3[r][i]:'';const fq=p(t,tf+i*.11,.28);
+      el.className='tl'+(fq>=.5?' '+C3[r][i]:ty?' ty':'');el.style.transform=fq>0&&fq<1?`rotateX(${fq*180}deg)`:`scale(${ty?1+.16*Math.sin(p(t,tt,.12)*Math.PI):1})`;
+      if(r===1){const j=p(t,4.35+i*.07,.3);if(j>0)el.style.transform=`translateY(${-Math.sin(j*Math.PI)*24}px) scale(${1+.1*Math.sin(j*Math.PI)})`}}});
+    const qt=bk(p(t,4.6,.45));st('#toast',{opacity:cl(qt),transform:`scale(${qt})`});
+    $$('#feats .feat').forEach((f,i)=>{const q=e5(p(t,1.3+i*.8,.55));st(f,{opacity:q,transform:`translate${P?'Y':'X'}(${(1-q)*80}px)`,filter:`blur(${(1-q)*10}px)`})});
+    sc.style.transform=(sc.style.transform||'')+` scale(${1+t*.008})`;
+  }
+  else if(si===3){
+    c4.clearRect(0,0,W,H);c4.fillStyle='#07090a';c4.fillRect(0,0,W,H);
+    const sp=lerp(3.2,.25,e5(p(t,0,1.8)));const cx=W/2,cy=H/2;
+    for(const s of WARP){let z=((s.z-t*sp*.35*s.s)%1+1)%1;const z2=Math.min(1,z+.02*sp);const f=v=>Math.max(W,H)*.03/(v+.02);
+      const x1=cx+Math.cos(s.a)*f(z),y1=cy+Math.sin(s.a)*f(z),x2=cx+Math.cos(s.a)*f(z2),y2=cy+Math.sin(s.a)*f(z2);
+      c4.globalAlpha=cl(1-z)*.7;c4.strokeStyle=s.c;c4.lineWidth=1+(1-z)*2;c4.beginPath();c4.moveTo(x1,y1);c4.lineTo(x2,y2);c4.stroke()}
+    c4.globalAlpha=1;
+    $$('.hl').forEach((l,li)=>{[...l.children].forEach((c,ci)=>{const a=.25+li*.3+ci*.04;const q=p(t,a,.5);const y=q<1?-260*(1-bk(q)):0;st(c,{transform:`translateY(${y}px) rotate(${(1-cl(q))*(ci%2?12:-12)}deg)`,opacity:cl(q*4),textShadow:li===1?`0 0 ${30+20*Math.sin(t*4)}px rgba(198,242,90,.55)`:'none'})})});
+    const [sx,sy]=shake(t,.85,8);$('#head').style.transform=`translate(${sx}px,${sy}px) scale(${1+t*.012})`;
+    const qs=e5(p(t,1.5,.6));st('#s4s',{opacity:qs,transform:`translateY(${(1-qs)*30}px)`});
+  }
+  else if(si===4){
+    c5.clearRect(0,0,W,H);c5.fillStyle='#07090a';c5.fillRect(0,0,W,H);dust(c5,t,.5,.6);
+    const T0=.35,ST=.95;const k=Math.min(4,Math.floor(Math.max(0,t-T0)/ST));const lt=t-T0-k*ST;const kingT=T0+5*ST-.1;const king=t>=kingT;
+    const L=LV[k];const full=FD/Math.max(L.w,L.h);let s,ctrx,ctry;
+    if(k===0){s=FD*.5;ctrx=.5;ctry=.5}else{const pv=LV[k-1];const s0=FD/Math.max(pv.w,pv.h);const q=eio(cl(lt/.75));s=Math.exp(lerp(Math.log(s0),Math.log(full),q));ctrx=lerp(pv.w/2,L.w/2,q);ctry=lerp(pv.h/2,L.h/2,q)}
+    const col=(b,j)=>b===0?'#f2efe6':'#c6f25a';
+    if(t>=T0){const n=L.pts.length;const rad=Math.max(1.1,s*.36);const kq=king?eio(p(t,kingT,.55)):0;
+      glow(c5,FCX,FCY,FD*.75,'rgba(198,242,90,.10)',1);
+      for(let i=0;i<n;i++){const [x,y,b=0]=L.pts[i];let px=FCX+(x-ctrx)*s,py=FCY+(y-ctry)*s;
+        if(px<-10||px>W+10||py<-10||py>H+10)continue;
+        let ap=k===0?bk(cl(lt/.45)):(b===0?1:cl((lt-.12-b*.05)/.25));if(ap<=0)continue;
+        if(king){px=lerp(px,FCX,kq);py=lerp(py,FCY,kq)}
+        c5.globalAlpha=(ap<1?.5+.5*ap:1)*(1-kq*.6);c5.fillStyle=ap<1&&k>0?'#c6f25a':(b===0||k===0?'#f2efe6':(lt<.9?'#c6f25a':'#f2efe6'));
+        const r=rad*(k===0?ap:Math.min(1,ap*1.4))*(1-kq*.5);if(r<2.2)c5.fillRect(px-r,py-r,r*2,r*2);else{c5.beginPath();c5.arc(px,py,r,0,Math.PI*2);c5.fill()}}
+      c5.globalAlpha=1;
+      if(king){const z=p(t,kingT+.45,.5);glow(c5,FCX,FCY,lerp(40,FD,e5(z)),'rgba(255,207,90,1)',(1-z)*.9+.15);
+        c5.save();c5.translate(FCX,FCY);c5.scale(lerp(.3,1,bk(cl(z))),lerp(.3,1,bk(cl(z))));c5.globalAlpha=cl(z*3);c5.fillStyle='#ffcf5a';c5.shadowColor='#ffcf5a';c5.shadowBlur=40;c5.font=`700 ${P?300:280}px Oswald`;c5.textAlign='center';c5.textBaseline='middle';c5.fillText('ХААН',0,0);c5.restore()}}
+    const ri=king?5:(t<T0?0:k);const nq=e5(cl((king?t-kingT:lt)/.35));const prev=Math.max(0,ri-1);
+    $('#nm').style.transform=`translateY(${-130*lerp(ri===0?0:prev,ri,t<T0?1:nq)}px)`;
+    $('#sb').textContent=RK[ri][1];st('#sb',{opacity:p(t,T0,.3)});st('#nmbox',{opacity:p(t,T0,.3)});st('#s5cap',{opacity:p(t,.2,.4)});
+    const [sx,sy]=shake(t,T0+k*ST,k===0?0:6+k*2);c5.canvas.style.transform=`translate(${sx}px,${sy}px)`;
+  }
+  else if(si===5){
+    $$('.mq').forEach((m,i)=>{const dir=i%2?1:-1;const sp=(260+i*30)*(1+1.5*Math.exp(-t*2));m.style.transform=`translateX(${(dir>0?-2400:0)+dir*t*sp}px)`});
+    $$('.ql').forEach((l,li)=>{[...l.children].forEach((w,wi)=>{const a=.3+li*.38+wi*.1;const q=e5(p(t,a,.55));st(w,{transform:`translateY(${(1-q)*120}%) rotateX(${(1-q)*-70}deg)`,opacity:cl(q*2)})})});
+    $('#quote').style.transform=`scale(${1+t*.015})`;
+  }
+  else{
+    c7.clearRect(0,0,W,H);c7.fillStyle='#0b1f13';c7.fillRect(0,0,W,H);glow(c7,W/2,TYY,900,'rgba(198,242,90,.14)',1);dust(c7,t,1,.8);
+    const ql=e5(p(t,.2,.6));st('#s7logo',{opacity:ql,transform:`translateY(${(1-ql)*-50}px) scale(${lerp(.85,1,ql)})`,filter:`blur(${(1-ql)*10}px)`});
+    $$('.t6').forEach((el,i)=>{const a=.45+i*.09;const q=e5(p(t,a,.7));const rx=(1-q)*(i%2?-200:200),rz=(1-q)*(i%2?-1:1)*90;
+      st(el,{transform:`translateZ(${(1-q)*-1400}px) translateY(${(1-q)*(i%2?-500:500)}px) rotateX(${rx}deg) rotateZ(${rz}deg)`,opacity:cl(q*3),background:i===5&&t>1.4?'#c6f25a':'#f2efe6',boxShadow:i===5&&t>1.4?'0 0 40px rgba(198,242,90,.6)':'none'})});
+    const qq=bk(p(t,1.3,.45));st('#s7q',{opacity:cl(qq),transform:`scale(${qq})`});
+    const qc=e5(p(t,1.7,.6));st('#s7c',{opacity:qc,transform:`translateY(${(1-qc)*30}px)`});
+    const [sx,sy]=shake(t,1.15,8);$('#tiles6').style.transform=`translate(${sx}px,${sy}px)`;
+  }
+}
+window.render=render;render(0);
+</script></body></html>
