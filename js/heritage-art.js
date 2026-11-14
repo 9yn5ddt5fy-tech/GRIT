@@ -383,6 +383,60 @@
   const tug = (x, y, k = 1) =>
     `<g transform="translate(${x} ${y}) scale(${k})"><path d="M0 0 V-58" stroke="${K.wood}" stroke-width="2.4"/><path d="M-7 -50 Q0 -36 7 -50 Q0 -46 -7 -50Z" fill="${K.snow}" ${O2}/><path d="M-3 -58 L0 -66 L3 -58Z" fill="${K.gold}" ${O2}/><path d="M0 -44 h16 l-4 6 l4 6 h-16" fill="${K.red}" ${O2}/></g>`;
 
+  // ---------------------------------------------------------------- new sites
+  // Stone slab covered in Old Turkic runes.
+  const runeStele = (x, y, k = 1) => {
+    const q = rnd(Math.round(x * 3 + y));
+    let m = "";
+    for (let c = 0; c < 4; c++)
+      for (let r = 0; r < 7; r++) {
+        const a = -18 + c * 12, b = -118 + r * 14;
+        m += [`M${a} ${b} v9`, `M${a - 3} ${b} l3 4 l3 -4 M${a} ${b + 4} v5`, `M${a - 3} ${b + 2} h6 M${a} ${b} v9`, `M${a - 3} ${b} l6 9 M${a + 3} ${b} l-6 9`][Math.floor(q() * 4)] + " ";
+      }
+    return `<g transform="translate(${x} ${y}) scale(${k})"><path d="M-30 0 V-120 Q-30 -136 0 -138 Q30 -136 30 -120 V0Z" fill="${K.stoneLt}" ${O}/><path d="M-26 -6 V-118 Q-25 -130 0 -132" fill="none" stroke="#fff" stroke-width="2" opacity=".55"/><path d="${m}" stroke="${K.stoneDk}" stroke-width="2.2" fill="none" stroke-linecap="round"/><path d="M-36 0 h72 v8 h-72z" fill="${K.stone}" ${O}/></g>`;
+  };
+  // Slab with three scripts side by side (runes · Sogdian-like · Chinese-like).
+  const triStele = (x, y, k = 1) => {
+    let a = "", b = "", c = "";
+    for (let r = 0; r < 7; r++) a += `M-36 ${-112 + r * 14} v8 M-30 ${-112 + r * 14} l3 4 l3 -4 `;
+    for (let i = 0; i < 3; i++) b += `M${-6 + i * 7} -114 q3 8 0 16 q-3 8 0 16 q3 8 0 16 q-3 8 0 16 q3 8 0 16 `;
+    for (let r = 0; r < 6; r++) for (let i = 0; i < 2; i++) c += `M${22 + i * 10} ${-112 + r * 15} h7 v7 h-7z M${25.5 + i * 10} ${-112 + r * 15} v7 `;
+    return `<g transform="translate(${x} ${y}) scale(${k})"><path d="M-46 0 V-120 Q-46 -134 0 -136 Q46 -134 46 -120 V0Z" fill="${K.stoneLt}" ${O}/><path d="M-16 -122 V-14 M16 -122 V-14" stroke="${K.stone}" stroke-width="1.6"/><path d="${a}" stroke="${K.redDk}" stroke-width="2" fill="none" stroke-linecap="round"/><path d="${b}" stroke="${K.cobalt}" stroke-width="2" fill="none" stroke-linecap="round"/><path d="${c}" stroke="${K.ink}" stroke-width="1.5" fill="none"/><path d="M-52 0 h104 v9 h-104z" fill="${K.stone}" ${O}/></g>`;
+  };
+  // Forested sacred mountain with larches on its flanks.
+  const holyMountain = (x, y, k = 1) => {
+    let s = `<g transform="translate(${x} ${y}) scale(${k})"><path d="M-170 0 Q-110 -60 -40 -118 Q0 -146 40 -118 Q110 -60 170 0Z" fill="#3f7a4f" ${O}/><path d="M-40 -118 Q0 -146 40 -118 Q20 -96 0 -104 Q-22 -94 -40 -118Z" fill="#6aa66a" opacity=".8"/>`;
+    const q = rnd(Math.round(x + y * 2));
+    for (let i = 0; i < 26; i++) {
+      const u = q() * 2 - 1, h = 1 - Math.abs(u);
+      s += larch(u * 150, -8 - h * 92 * q(), 16 + q() * 10, q() < 0.5 ? "#1f6b4a" : "#2c7d55");
+    }
+    return s + `</g>`;
+  };
+  const ovoo = (x, y, k = 1) =>
+    `<g transform="translate(${x} ${y}) scale(${k})"><path d="M-26 0 Q-20 -22 0 -30 Q20 -22 26 0Z" fill="${K.stone}" ${O}/><path d="M-14 -10 q6 -4 10 0 M6 -16 q5 -3 9 1 M-6 -22 q4 -3 8 0" stroke="${K.stoneDk}" stroke-width="1.4" fill="none"/><path d="M0 -28 V-66" stroke="${K.wood}" stroke-width="3"/><path d="M0 -60 q18 4 26 18 q-12 -4 -26 -8Z M0 -50 q-16 6 -22 20 q10 -6 22 -12Z" fill="#3b8be0" ${O2}/><path d="M0 -42 q14 6 18 20 q-8 -6 -18 -10Z" fill="#fff" ${O2}/></g>`;
+  // Grey wolf and fallow doe of the origin legend.
+  const wolf = (x, y, k = 1) =>
+    `<g transform="translate(${x} ${y}) scale(${k})"><path d="M-40 -20 Q-58 -26 -66 -10 Q-56 -16 -44 -12Z" fill="#6f86a8" ${O}/><path d="M-42 -24 Q-30 -40 6 -36 Q24 -36 30 -30 L46 -44 L48 -32 L56 -28 Q52 -18 40 -20 Q30 -16 26 -10 L24 0 H18 L16 -12 Q-10 -10 -24 -12 L-28 0 H-34 L-34 -14 Q-44 -16 -42 -24Z" fill="#7a92b5" ${O}/><circle cx="44" cy="-30" r="1.6" fill="${K.ink}"/><path d="M-20 -30 Q0 -34 20 -30" stroke="#c9d4e6" stroke-width="3" fill="none" stroke-linecap="round"/></g>`;
+  const doe = (x, y, k = 1) =>
+    `<g transform="translate(${x} ${y}) scale(${k})"><path d="M-34 -30 Q-14 -40 18 -34 L28 -52 L32 -50 L38 -60 L40 -50 Q48 -46 46 -40 L36 -36 Q32 -26 24 -24 L22 0 H18 L16 -22 Q-6 -20 -20 -22 L-24 0 H-28 L-28 -24 Q-38 -24 -34 -30Z" fill="#c99456" ${O}/><circle cx="38" cy="-46" r="1.5" fill="${K.ink}"/>${[[-12, -32], [0, -33], [10, -31], [-4, -26]].map(([a, b]) => `<circle cx="${a}" cy="${b}" r="1.8" fill="#fff4dc"/>`).join("")}</g>`;
+  // Five arrows, optionally bound together.
+  const arrows = (x, y, k = 1, bound = false) => {
+    let s = `<g transform="translate(${x} ${y}) scale(${k})">`;
+    for (let i = 0; i < 5; i++) {
+      const a = bound ? (i - 2) * 3 : (i - 2) * 14;
+      s += `<g transform="rotate(${a})"><path d="M0 0 V-70" stroke="${K.wood}" stroke-width="2.6"/><path d="M-4 -66 L0 -78 L4 -66Z" fill="${K.stoneDk}" ${O2}/><path d="M-5 -2 h3.5 v-16 h-3.5z M1.5 -2 h3.5 v-16 h-3.5z" fill="${[K.red, K.gold, K.cobalt, K.teal, K.red][i]}" ${O2}/></g>`;
+    }
+    if (bound) s += `<path d="M-12 -38 h24 v8 h-24z" fill="${K.red}" ${O2}/>`;
+    return s + `</g>`;
+  };
+  // Shagai (knucklebone).
+  const shagai = (x, y, k = 1) =>
+    `<g transform="translate(${x} ${y}) scale(${k})"><path d="M-22 -10 Q-26 -24 -12 -24 Q-4 -18 0 -18 Q4 -18 12 -24 Q26 -24 22 -10 Q26 4 12 4 Q4 -2 0 -2 Q-4 -2 -12 4 Q-26 4 -22 -10Z" fill="#f4e6c6" ${O}/><path d="M-8 -12 q8 4 16 0" stroke="${K.rope}" stroke-width="1.6" fill="none"/></g>`;
+  // Memorial stele on a stepped base.
+  const monument = (x, y, k = 1, c = "#d8d2c4") =>
+    `<g transform="translate(${x} ${y}) scale(${k})"><path d="M-40 0 h80 v-10 h-80z M-30 -10 h60 v-10 h-60z" fill="${K.stoneLt}" ${O}/><path d="M-14 -20 V-120 L0 -134 L14 -120 V-20Z" fill="${c}" ${O}/><path d="M-6 -110 V-36" stroke="${K.stone}" stroke-width="2"/><path d="M4 -104 q3 6 0 12 q-3 6 0 12 q3 6 0 12" stroke="${K.cobalt}" stroke-width="2" fill="none"/></g>`;
+
   // ---------------------------------------------------------------- scenes
   const W = 400,
     H = 250;
@@ -440,6 +494,39 @@
     litter: scene({ sky: "storm", sun: false }, (g) => lake(240, g + 44, 160, 24) + trash(64, g + 54) + trash(138, g + 62) + trash(318, g + 64) + trash(200, g + 58) + birds([[300, 70]])),
     cleanup: scene({ sky: "day" }, (g) => lake(310, g + 40, 104, 20) + P(70, g + 60, 0.95, K.cobalt, "bend", { hat: K.gold, sash: K.red }) + P(128, g + 60, 0.95, K.red, "wave", { hat: false, braids: true, sash: K.cobalt }) + P(186, g + 60, 0.95, K.teal, "bend", { hat: K.red, sash: K.gold }) + bag(226, g + 62) + bag(248, g + 64, K.green) + bag(270, g + 62, K.gold)),
 
+    // Khöshöö Tsaidam
+    "turk-khagan": scene({ sky: "dawn" }, (g) => tug(60, g + 40, 1) + tug(340, g + 40, 1) + P(200, g + 54, 1.45, K.teal, "point", { hat: K.gold, sash: K.red, trim: K.goldLt }) + horse(110, g + 52, 0.8, "#3a2a20") + horse(296, g + 54, -0.75, "#e9dcc0") + ger(150, g + 4, 0.55) + ger(256, g + 2, 0.5)),
+    runes: scene({ sky: "day", forest: false }, (g) => runeStele(150, g + 44, 1) + runeStele(258, g + 46, 0.8) + turtle(150, g + 60, 0.7, false) + P(330, g + 58, 0.7, K.red, "point", { hat: false, braids: true, sash: K.gold })),
+    decipher: scene({ sky: "dusk" }, (g) => runeStele(110, g + 46, 0.9) + book(250, g - 4, 1.6) + P(190, g + 56, 1.05, "#7a4a2c", "point", { hat: false, trim: "#c9a06a", sash: "#5a3a26" }) + `<path d="M285 ${g - 40} l8 -8 M300 ${g - 30} l10 -4 M296 ${g - 50} l4 -10" stroke="${K.goldLt}" stroke-width="3" stroke-linecap="round"/>`),
+    "stele-museum": scene({ sky: "day" }, (g) => hall(200, g + 10, 150, K.cobalt) + runeStele(200, g + 48, 0.62) + P(300, g + 60, 0.65, K.red, "wave", { hat: false, braids: true, sash: K.cobalt }) + P(326, g + 62, 0.55, K.teal, "stand", { hat: K.red }) + P(90, g + 60, 0.65, K.cobalt, "point", { hat: K.gold })),
+
+    // Khar Balgas
+    "uighur-city": scene({ sky: "day" }, (g) => wall(30, g + 32, 340, 40, "#c9a26a") + `<rect x="176" y="${g - 46}" width="48" height="78" fill="#b98f58" ${O}/><rect x="186" y="${g - 60}" width="28" height="16" fill="#b98f58" ${O}/>` + hall(200, g - 62, 40, K.redDk) + hall(96, g - 8, 60) + hall(304, g - 8, 60, K.teal) + tug(46, g + 32, 0.8) + tug(354, g + 32, 0.8) + camel(130, g + 58, 0.6) + P(268, g + 58, 0.55, K.purple, "stand", { hat: K.gold })),
+    "silk-road": scene({ sky: "dawn" }, (g) => camel(80, g + 50, 0.95) + camel(160, g + 54, 0.9) + camel(240, g + 56, 0.85) + `<path d="M50 ${g + 20} q8 -16 22 -10 M130 ${g + 22} q8 -16 22 -10" stroke="${K.red}" stroke-width="5" fill="none"/>` + P(316, g + 58, 0.95, K.purple, "point", { hat: K.gold, sash: K.teal }) + P(352, g + 60, 0.85, K.cobalt, "stand", { hat: K.red })),
+    "three-scripts": scene({ sky: "day", forest: false }, (g) => triStele(200, g + 48, 1.05) + P(90, g + 58, 0.85, K.cobalt, "point", { hat: K.red }) + P(316, g + 58, 0.85, K.red, "wave", { hat: false, braids: true, sash: K.gold })),
+    "city-falls": scene({ sky: "night", clouds: false }, (g) => wall(40, g + 34, 320, 34, "#9b7c52") + ruins(120, g + 2, 0.9) + flames(220, g - 2) + flames(290, g + 4) + horse(70, g + 60, 0.75, "#3a2a20") + horse(340, g + 62, -0.7, "#3a2a20")),
+    "khar-balgas-today": scene({ sky: "day" }, (g) => `<path d="M60 ${g + 40} L80 ${g - 30} L150 ${g - 34} L168 ${g + 40}Z" fill="#c9a26a" ${O}/><path d="M80 ${g - 30} L96 ${g - 46} L140 ${g - 48} L150 ${g - 34}Z" fill="#dcbb85" ${O}/>` + ruins(270, g + 34, 1) + river(W, g + 58) + P(220, g + 52, 0.7, K.cobalt, "point", { hat: K.gold }) + P(246, g + 54, 0.6, K.red, "stand", { hat: false, braids: true }) + birds([[300, 40], [320, 34, 0.8]])),
+
+    // Burkhan Khaldun
+    "merkit-raid": scene({ sky: "storm", sun: false }, (g) => ger(330, g + 30, 0.9) + horse(90, g + 54, 0.95, "#3a2a20") + horse(160, g + 58, 0.85, "#3a2a20") + horse(40, g + 60, 0.75, "#5a3a26") + tug(200, g + 46, 0.8) + P(300, g + 56, 0.8, K.cobalt, "wave", { hat: K.red }) + birds([[250, 60], [270, 54, 0.8]])),
+    "hiding-forest": scene({ sky: "dusk", mountains: false }, (g) => holyMountain(200, g + 40, 1.05) + P(200, g + 48, 0.55, K.cobalt, "stand", { hat: K.red, sash: K.gold }) + larch(170, g + 50, 34) + larch(236, g + 52, 30) + larch(150, g + 54, 26)),
+    "vow-sun": scene({ sky: "dawn", mountains: false }, (g) => holyMountain(110, g + 40, 0.8) + P(260, g + 56, 1.15, K.cobalt, "bend", { hat: false, sash: K.red }) + sparkle(330, g - 70, 9) + sparkle(352, g - 46, 6)),
+    "three-rivers": scene({ sky: "day", mountains: false }, (g) => holyMountain(200, g - 4, 0.95) + `<g fill="none" stroke-linecap="round">${[["M190 " + (g - 10) + " Q120 " + (g + 20) + " 30 " + (g + 70)], ["M200 " + (g - 8) + " Q210 " + (g + 30) + " 190 " + (g + 80)], ["M212 " + (g - 10) + " Q290 " + (g + 20) + " 380 " + (g + 70)]].map(([d]) => `<path d="${d}" stroke="${K.ink}" stroke-width="10.5"/><path d="${d}" stroke="${K.water}" stroke-width="8"/><path d="${d}" stroke="${K.waterLt}" stroke-width="2" stroke-dasharray="8 10"/>`).join("")}</g>`),
+    "burkhan-today": scene({ sky: "day", mountains: false }, (g) => holyMountain(170, g + 40, 0.95) + ovoo(320, g + 50, 1.1) + P(270, g + 60, 0.65, K.red, "stand", { hat: false, braids: true, sash: K.cobalt }) + globe(352, g - 82, 18)),
+
+    // Delüün Boldog
+    "onon-birth": scene({ sky: "dawn" }, (g) => `<path d="M220 ${g + 30} Q300 ${g - 40} 390 ${g + 30}Z" fill="#7fae5a" ${O}/>` + river(W, g + 54) + ger(150, g + 30, 1.1) + horse(70, g + 40, 0.75) + tug(214, g + 30, 0.7) + sparkle(300, g - 60, 8) + birds([[110, 50]])),
+    knucklebone: scene({ sky: "day", mountains: false, forest: false }, (g) => ger(80, g + 26, 1) + P(200, g + 56, 1.35, K.red, "stand", { hat: false, braids: true, trim: K.goldLt, sash: K.cobalt }) + `<ellipse cx="226" cy="${g - 8}" rx="16" ry="10" fill="${K.felt}" ${O}/><circle cx="236" cy="${g - 12}" r="6" fill="${K.skin}" ${O2}/>` + shagai(320, g - 30, 1.5) + sparkle(296, g - 66, 7) + sparkle(352, g - 60, 5)),
+    "hard-childhood": scene({ sky: "day" }, (g) => river(W, g + 50) + fish(240, g + 52, 1) + fish(300, g + 56, 0.9) + P(110, g + 46, 1.1, K.red, "bend", { hat: false, braids: true, sash: K.gold }) + P(170, g + 48, 0.75, K.cobalt, "point", { hat: false }) + P(200, g + 50, 0.6, K.teal, "stand", { hat: false }) + ger(350, g + 18, 0.65)),
+    "birthplace-today": scene({ sky: "day" }, (g) => `<path d="M60 ${g + 40} Q170 ${g - 50} 290 ${g + 40}Z" fill="#7fae5a" ${O}/>` + monument(170, g + 4, 0.75) + river(W, g + 58) + P(270, g + 56, 0.65, K.cobalt, "point", { hat: K.gold }) + P(300, g + 58, 0.55, K.red, "stand", { hat: false, braids: true }) + horse(350, g + 54, -0.55)),
+
+    // Khödöö Aral
+    "kherlen-plain": scene({ sky: "day" }, (g) => `<g fill="none" stroke-linecap="round"><path d="M0 ${g + 30} Q120 ${g + 10} 200 ${g + 50} T400 ${g + 60}" stroke="${K.ink}" stroke-width="10.5"/><path d="M0 ${g + 30} Q120 ${g + 10} 200 ${g + 50} T400 ${g + 60}" stroke="${K.water}" stroke-width="8"/><path d="M90 ${g + 74} Q150 ${g + 60} 200 ${g + 50}" stroke="${K.ink}" stroke-width="8.5"/><path d="M90 ${g + 74} Q150 ${g + 60} 200 ${g + 50}" stroke="${K.water}" stroke-width="6"/></g>` + ger(260, g + 22, 1.2) + ger(320, g + 18, 0.85) + ger(200, g + 14, 0.7) + tug(372, g + 26, 0.8) + horse(90, g + 30, 0.6) + horse(130, g + 34, 0.5, "#e9dcc0", false)),
+    "secret-history": scene({ sky: "dusk", mountains: false }, (g) => ger(80, g + 22, 1.1) + book(230, g + 2, 2) + P(330, g + 58, 1.1, K.purple, "point", { hat: K.gold, sash: K.teal }) + `<path d="M190 ${g - 46} l-6 -10 M230 ${g - 52} v-12 M270 ${g - 46} l6 -10" stroke="${K.goldLt}" stroke-width="3" stroke-linecap="round"/>`),
+    "wolf-doe": scene({ sky: "dawn" }, (g) => wolf(140, g + 50, 1.3) + doe(270, g + 50, 1.25) + lake(330, g + 62, 60, 10) + sparkle(200, g - 70, 8)),
+    "five-arrows": scene({ sky: "day" }, (g) => ger(70, g + 20, 0.9) + P(170, g + 56, 1.3, K.red, "stand", { hat: false, braids: true, trim: K.goldLt, sash: K.cobalt }) + arrows(250, g + 40, 1.3, true) + `<g transform="translate(330 ${g + 30})"><path d="M-14 0 L-4 -30 M2 0 L6 -32" stroke="${K.wood}" stroke-width="2.6"/><path d="M-12 -14 l6 4 M2 -16 l6 -2" stroke="${K.red}" stroke-width="3"/></g>` + P(300, g + 60, 0.65, K.cobalt, "point", { hat: false }) + P(360, g + 60, 0.6, K.teal, "stand", { hat: false })),
+    "khudoo-today": scene({ sky: "day" }, (g) => monument(200, g + 40, 1) + tug(120, g + 40, 0.9) + tug(280, g + 40, 0.9) + river(W, g + 62) + P(80, g + 60, 0.6, K.cobalt, "point", { hat: K.red }) + P(330, g + 62, 0.6, K.red, "wave", { hat: false, braids: true, sash: K.gold })),
+
     // Games
     "game-quiz": scene({ sky: "day" }, (g) => book(130, g + 6, 2.1) + P(266, g + 54, 1.15, K.red, "wave", { hat: false, braids: true, sash: K.cobalt }) + stupa(336, g + 54, 1.6) + `<circle cx="300" cy="${g - 34}" r="14" fill="#fff" ${O}/><path d="M295 ${g - 38} q5 -7 10 0 q0 4 -5 6 v3" stroke="${K.red}" stroke-width="2.6" fill="none" stroke-linecap="round"/><circle cx="300" cy="${g - 25}" r="1.6" fill="${K.red}"/>`),
     "game-timeline": scene({ sky: "dawn" }, (g) => `<path d="M30 ${g - 30} H370" stroke="${K.ink}" stroke-width="3"/>` + [60, 140, 220, 300, 360].map((x, i) => `<circle cx="${x}" cy="${g - 30}" r="9" fill="${[K.red, K.gold, K.green, K.cobalt, K.purple][i]}" ${O}/>`).join("") + turtle(80, g + 54, 0.6) + stupa(200, g + 54, 1.5) + ger(318, g + 50, 0.9)),
@@ -451,10 +538,13 @@
   // left face and a dark right face; no outlines; soft shadows; a calm palette.
   // World units 0..100 on both axes; the back corner (0,0) is at the top.
   // opts.pins: [{ id, x, y, label, side }] become clickable markers (data-open=id).
-  const MAP_W = 1200,
-    MAP_H = 620,
-    MS = 6.1;
-  const iso = (x, y, z = 0) => [MAP_W / 2 + (x - y) * 0.866 * MS, 30 + (x + y) * 0.5 * MS - z * MS];
+  // Two islands share one world grid: Arkhangai/Uvurkhangai on 0..100, and
+  // Khentii on x 108..152, y 20..64 (front right), joined by a wooden bridge.
+  const MAP_W = 1380,
+    MAP_H = 730,
+    MS = 6.1,
+    OX = 600;
+  const iso = (x, y, z = 0) => [OX + (x - y) * 0.866 * MS, 30 + (x + y) * 0.5 * MS - z * MS];
   const f1 = (v) => +v.toFixed(1);
   const pts = (a) => a.map(([x, y, z]) => iso(x, y, z || 0).map(f1).join(' ')).join(' ');
   const poly = (a, fill, extra = '') => `<polygon points="${pts(a)}" fill="${fill}" ${extra}/>`;
@@ -656,16 +746,25 @@
     const cloudBlob = (x, y, k) => `<g transform="translate(${x} ${y}) scale(${k})"><ellipse cx="0" cy="0" rx="46" ry="14" fill="#ffffff"/><circle cx="-14" cy="-8" r="15" fill="#ffffff"/><circle cx="10" cy="-12" r="19" fill="#ffffff"/><ellipse cx="4" cy="4" rx="44" ry="8" fill="#dbeaf3"/></g>`;
     s += `<g class="map-clouds">${cloudBlob(150, 95, 1.2)}${cloudBlob(330, 55, 0.7)}${cloudBlob(880, 70, 0.8)}${cloudBlob(1110, 230, 0.9)}${cloudBlob(90, 290, 0.75)}</g>`;
 
-    // Plate: soil sides with strata, grass lip.
+    // Plate: soil sides with strata, grass lip, and the region's name on the front.
     const T = 5.5;
-    s += poly([[0, 100, 0], [100, 100, 0], [100, 100, -T], [0, 100, -T]], Q.soilL);
-    s += poly([[100, 0, 0], [100, 100, 0], [100, 100, -T], [100, 0, -T]], Q.soilR);
-    for (const z of [-2.2, -3.9]) {
-      const [a1, a2] = iso(0, 100, z), [b1, b2] = iso(100, 100, z), [c1, c2] = iso(100, 0, z);
-      s += `<path d="M${f1(a1)} ${f1(a2)} L${f1(b1)} ${f1(b2)} L${f1(c1)} ${f1(c2)}" stroke="${Q.strata}" stroke-width="1.6" fill="none" opacity=".8"/>`;
-    }
-    s += poly([[0, 100, 0], [100, 100, 0], [100, 100, -0.8], [0, 100, -0.8]], Q.lip) + poly([[100, 0, 0], [100, 100, 0], [100, 100, -0.8], [100, 0, -0.8]], shade(Q.lip, -0.12));
-    s += poly([[0, 0, 0], [100, 0, 0], [100, 100, 0], [0, 100, 0]], Q.grass);
+    const plate = (x0, y0, x1, y1, name, lx) => {
+      let o = poly([[x0, y1, 0], [x1, y1, 0], [x1, y1, -T], [x0, y1, -T]], Q.soilL);
+      o += poly([[x1, y0, 0], [x1, y1, 0], [x1, y1, -T], [x1, y0, -T]], Q.soilR);
+      for (const z of [-2.2, -3.9]) {
+        const [a1, a2] = iso(x0, y1, z), [b1, b2] = iso(x1, y1, z), [c1, c2] = iso(x1, y0, z);
+        o += `<path d="M${f1(a1)} ${f1(a2)} L${f1(b1)} ${f1(b2)} L${f1(c1)} ${f1(c2)}" stroke="${Q.strata}" stroke-width="1.6" fill="none" opacity=".8"/>`;
+      }
+      o += poly([[x0, y1, 0], [x1, y1, 0], [x1, y1, -0.8], [x0, y1, -0.8]], Q.lip) + poly([[x1, y0, 0], [x1, y1, 0], [x1, y1, -0.8], [x1, y0, -0.8]], shade(Q.lip, -0.12));
+      o += poly([[x0, y0, 0], [x1, y0, 0], [x1, y1, 0], [x0, y1, 0]], Q.grass);
+      if (name) {
+        const [nx, ny] = iso(lx || (x0 + x1) / 2, y1, -3.1);
+        o += `<text transform="translate(${f1(nx)} ${f1(ny)}) rotate(30) skewX(30)" text-anchor="middle" dominant-baseline="middle" font-size="13" font-weight="700" letter-spacing="3" fill="#fff6e2" opacity=".9" font-family="Inter Tight, Inter, sans-serif">${name.toUpperCase()}</text>`;
+      }
+      return o;
+    };
+    const R1 = (opts.regions || [])[0], R2 = (opts.regions || [])[1];
+    s += plate(0, 0, 100, 100, R1, 70);
 
     // Field parcels.
     const r = rnd(31);
@@ -723,6 +822,47 @@
         `<ellipse class="map-foam" cx="${f1(wx)}" cy="${f1(wy + H + 26)}" rx="22" ry="6.5" fill="#ffffff" opacity=".95"/><ellipse class="map-foam" style="animation-delay:.5s" cx="${f1(wx + 12)}" cy="${f1(wy + H + 23)}" rx="11" ry="4.5" fill="#ffffff" opacity=".85"/><ellipse class="map-foam" style="animation-delay:.9s" cx="${f1(wx - 13)}" cy="${f1(wy + H + 24)}" rx="9" ry="4" fill="#ffffff" opacity=".85"/>`;
     }
 
+    // ---- Khentii island (x 108..152, y 20..64) and the bridge to it.
+    const X0 = 108, X1 = 152, Y0 = 20, Y1 = 64;
+    s += plate(X0, Y0, X1, Y1, R2);
+    {
+      const r2 = rnd(57);
+      for (let i = 0; i < 14; i++) {
+        const x = X0 + r2() * 38, y = Y0 + r2() * 38, w = 3 + r2() * 6, d = 3 + r2() * 6;
+        s += poly([[x, y, 0], [Math.min(X1, x + w), y, 0], [Math.min(X1, x + w), Math.min(Y1, y + d), 0], [x, Math.min(Y1, y + d), 0]], [Q.grassA, Q.grassB, Q.grassC][i % 3], 'opacity=".55"');
+      }
+      [[124, 30, 5], [146, 44, 5], [118, 56, 4]].forEach(([x, y, rr], i) => {
+        const [hx, hy] = iso(x, y), gid = id + 'k' + i;
+        s += `<defs><radialGradient id="${gid}" cx=".4" cy=".35" r=".7"><stop offset="0" stop-color="${shade(Q.grass, 0.18)}"/><stop offset=".7" stop-color="${Q.grass}"/><stop offset="1" stop-color="${shade(Q.grass, -0.08)}"/></radialGradient></defs>`;
+        s += `<ellipse cx="${f1(hx)}" cy="${f1(hy)}" rx="${f1(1.2247 * rr * MS)}" ry="${f1(0.7071 * rr * MS)}" fill="url(#${gid})"/>`;
+      });
+      for (const rd of [[[108, 40], [116, 44], [126, 50], [136, 56]], [[126, 50], [132, 42], [137, 34]], [[90, 50], [96, 43], [100, 40]]]) {
+        const d = pathD(rd);
+        s += `<path d="${d}" stroke="${Q.pathEdge}" stroke-width="6.5" fill="none" stroke-linecap="round"/><path d="${d}" stroke="${Q.path}" stroke-width="4.5" fill="none" stroke-linecap="round"/>`;
+      }
+      // Kherlen (with the Tsenkher joining at Khödöö Aral) and the Onon.
+      const kherlen = [[116, 30], [120, 40], [128, 46], [138, 50], [146, 56], [152, 58]];
+      const tsenkher = [[130, 64], [133, 58], [138, 54]];
+      const onon = [[120, 24], [128, 26], [136, 27], [144, 26], [152, 25]];
+      for (const rv of [kherlen, tsenkher, onon]) {
+        const d = pathD(rv), wd = rv === tsenkher ? 0.7 : 0.85;
+        s += `<path d="${d}" stroke="${Q.shore}" stroke-width="${f1(16 * wd)}" fill="none" stroke-linecap="round"/><path d="${d}" stroke="${Q.water}" stroke-width="${f1(11 * wd)}" fill="none" stroke-linecap="round"/>` +
+          `<path d="${d}" stroke="${Q.waterDk}" stroke-width="${f1(4 * wd)}" fill="none" stroke-linecap="round" opacity=".55"/>` +
+          `<path d="${d}" stroke="#ffffff" stroke-width="1.3" fill="none" stroke-dasharray="1.5 6 4 17 2 9" stroke-linecap="round" opacity=".7" class="map-flow"/>`;
+      }
+      // Wooden bridge over the gap between the islands.
+      const by = 40, bw = 1.4;
+      let br = poly([[100, by - bw, 0], [108, by - bw, 0], [108, by + bw, 0], [100, by + bw, 0]], '#a4774a') +
+        poly([[100, by + bw, 0], [108, by + bw, 0], [108, by + bw, -0.5], [100, by + bw, -0.5]], '#7a5533');
+      for (let x = 100.6; x < 108; x += 0.9) { const [a1, a2] = iso(x, by - bw), [b1, b2] = iso(x, by + bw); br += `<path d="M${f1(a1)} ${f1(a2)} L${f1(b1)} ${f1(b2)}" stroke="#7a5533" stroke-width=".9"/>`; }
+      for (const sd of [-bw, bw]) {
+        const [a1, a2] = iso(100, by + sd, 1.1), [b1, b2] = iso(108, by + sd, 1.1);
+        br += `<path d="M${f1(a1)} ${f1(a2)} L${f1(b1)} ${f1(b2)}" stroke="#6b4b33" stroke-width="1.4"/>`;
+        for (let x = 100; x <= 108; x += 2) { const [c1, c2] = iso(x, by + sd, 0), [d1, d2] = iso(x, by + sd, 1.1); br += `<path d="M${f1(c1)} ${f1(c2)} L${f1(d1)} ${f1(d2)}" stroke="#6b4b33" stroke-width="1.2"/>`; }
+      }
+      s += br;
+    }
+
     // Mountains along the back edges, then forests at their feet.
     [[6, 3, 7, 9, 1], [18, 2, 8, 12, 2], [31, 3, 7, 8, 3], [44, 2, 6, 7, 4], [86, 3, 7, 9, 5], [97, 6, 6, 8, 6], [3, 15, 7, 10, 7], [3, 38, 6, 7, 8], [3, 60, 7, 9, 9], [3, 82, 5, 6, 10], [70, 2, 6, 6, 11]].forEach(([x, y, rr, h, sd]) =>
       put(x + y - 2, peak(x, y, rr, h, sd * 13, { snow: h >= 8, lt: '#a9bde0', dk: '#5a6f9a' })));
@@ -771,10 +911,30 @@
     [[34, 38], [84, 40]].forEach(([x, y], i) => { const [tx, ty] = iso(x, y, 1.6); put(x + y, peak(x, y, 1, 1.5, 90 + i, { n: 7, lt: '#cfcac0', dk: '#8f8a80' }) + `<path d="M${f1(tx)} ${f1(ty)} v-9" stroke="#6b4b33" stroke-width="1.2"/><path d="M${f1(tx)} ${f1(ty - 8)} q6 2 9 6 M${f1(tx)} ${f1(ty - 6)} q-6 2 -7 6" stroke="#4a8fd4" stroke-width="1.8" fill="none"/>`); });
     // Herds.
     const flock = (x0, y0, n, seed) => { const q = rnd(seed); for (let i = 0; i < n; i++) { const x = x0 + q() * 6, y = y0 + q() * 5; put(x + y, sheep(x, y)); } };
-    flock(46, 30, 12, 31); flock(20, 63, 9, 32); flock(80, 76, 8, 33); flock(64, 52, 9, 34); flock(14, 40, 7, 35);
+    flock(37, 44, 10, 31); flock(20, 63, 9, 32); flock(80, 76, 8, 33); flock(64, 52, 9, 34); flock(14, 40, 7, 35);
     [[40, 40, Q.horse, 1], [42, 41.5, '#e9dcc0', 1], [44.5, 40.5, '#3a2a20', -1], [74, 52, '#3a2a20', -1], [92, 92, Q.horse, 1], [94, 90.5, '#e9dcc0', 1], [48, 54, Q.horse, -1]].forEach(([x, y, c, f]) => put(x + y, horseTiny(x, y, c, f)));
     // Birds over Ugii Lake.
     { const [bx, by] = iso(57, 17, 9); put(0, `<g stroke="#4a5a40" stroke-width="1.2" fill="none" stroke-linecap="round">${[[0, 0], [12, -6], [24, -1], [-10, 8]].map(([dx, dy]) => `<path d="M${f1(bx + dx - 4)} ${f1(by + dy)} q2 -3 4 0 q2 -3 4 0"/>`).join('')}</g>`); }
+
+    // Khar Balgas: square earthen walls with a tall citadel mound.
+    {
+      const kx = 49, ky = 34, kw = 6, kc = '#cfae78';
+      put(kx + ky + 1, boxIso(kx, ky, 0, kw, 0.8, 1.3, kc) + boxIso(kx, ky, 0, 0.8, kw, 1.3, kc));
+      put(kx + ky + kw + 2, boxIso(kx + 2.2, ky + 2.2, 0, 2.4, 2.4, 2.8, '#c49d63') + boxIso(kx + 2.6, ky + 2.6, 2.8, 1.6, 1.6, 0.8, '#d6b884'));
+      put(kx + ky + kw * 2, boxIso(kx, ky + kw - 0.8, 0, 2.5, 0.8, 1.3, kc) + boxIso(kx + 3.6, ky + kw - 0.8, 0, kw - 3.6, 0.8, 1.3, kc) + boxIso(kx + kw - 0.8, ky, 0, 0.8, kw, 1.3, kc));
+    }
+    // Khentii island: Burkhan Khaldun with its ovoo and larch forest.
+    put(114 + 26, peak(114, 26, 5, 9.5, 101, { lt: '#86b56d', dk: '#3b6a46' }));
+    { const q = rnd(102); [[109, 31, 8, 6], [109, 47, 8, 8], [145, 33, 6, 6]].forEach(([x0, y0, w, d]) => { for (let i = 0; i < 9; i++) { const x = x0 + q() * w, y = y0 + q() * d; put(x + y, conifer(x, y, 0.7 + q() * 0.4)); } }); }
+    { const [tx, ty] = iso(112.5, 33, 1.6); put(112.5 + 33, peak(112.5, 33, 1, 1.5, 103, { n: 7, lt: '#cfcac0', dk: '#8f8a80' }) + `<path d="M${f1(tx)} ${f1(ty)} v-9" stroke="#6b4b33" stroke-width="1.2"/><path d="M${f1(tx)} ${f1(ty - 8)} q6 2 9 6 M${f1(tx)} ${f1(ty - 6)} q-6 2 -7 6" stroke="#4a8fd4" stroke-width="1.8" fill="none"/>`); }
+    // Delüün Boldog: a grassy hill on the Onon with a memorial stele.
+    put(140 + 32, peak(140, 32, 3.2, 2.2, 104, { lt: '#a9cf6e', dk: '#6f9a48' }) + boxIso(139.6, 31.4, 2.1, 0.9, 0.9, 3.6, '#e2ddd0') + roofIso(139.6, 31.4, 5.7, 0.9, 0.9, 0.6, '#c8c1b0', 0.1));
+    // Khödöö Aral: the Secret History monument and the great camp nearby.
+    put(133.5 + 51.5, boxIso(132.8, 50.8, 0, 1.6, 1.6, 0.5, '#cfc9bb') + boxIso(133.2, 51.2, 0.5, 0.8, 0.8, 4.6, '#e6e1d4') + roofIso(133.2, 51.2, 5.1, 0.8, 0.8, 0.7, Q.roofR, 0.1));
+    [[124, 57, 1.3], [127.5, 59.5, 1], [121, 60, 0.9], [129, 55.5, 0.8], [147.5, 29.5, 0.9], [150, 33, 0.8]].forEach(([x, y, k]) => put(x + y, gerIso(x, y, k)));
+    { const [px, py] = iso(126, 54, 0), [qx, qy] = iso(126, 54, 5); put(126 + 54, `<path d="M${f1(px)} ${f1(py)} L${f1(qx)} ${f1(qy)}" stroke="#6b4b33" stroke-width="1.6"/><path d="M${f1(qx - 3)} ${f1(qy + 4)} Q${f1(qx)} ${f1(qy + 11)} ${f1(qx + 3)} ${f1(qy + 4)}Z" fill="#f4f2ec"/>`); }
+    flock(140, 40, 9, 105);
+    [[128, 37, Q.horse, 1], [130.5, 38.5, '#e9dcc0', -1], [146, 50, '#3a2a20', 1]].forEach(([x, y, c, f]) => put(x + y, horseTiny(x, y, c, f)));
 
     items.sort((a, b) => a[0] - b[0]);
     s += items.map((i) => i[1]).join('');
@@ -787,7 +947,7 @@
       const lx = left ? sx - 15 - w : sx + 15;
       s += `<g class="map-pin" data-open="${p.id}" role="button" tabindex="0" aria-label="${p.label}" style="--d:${n * 0.35}s"><ellipse cx="${sx}" cy="${sy}" rx="6" ry="2.6" fill="#2b3320" opacity=".25"/><path d="M${sx} ${sy} V${sy - 54}" stroke="#3a4030" stroke-width="1.5"/><g class="map-pin__head"><circle cx="${sx}" cy="${sy - 60}" r="11.5" fill="#c8352b" stroke="#ffffff" stroke-width="2.2" filter="url(#${id}d)"/><text x="${sx}" y="${sy - 55.8}" text-anchor="middle" font-size="12" font-weight="700" fill="#fff" font-family="Inter Tight, Inter, sans-serif">${n + 1}</text></g><g class="map-pin__label"><rect x="${lx}" y="${sy - 74}" width="${w}" height="28" rx="14" fill="#ffffff" filter="url(#${id}d)"/><text x="${lx + w / 2}" y="${sy - 55.4}" text-anchor="middle" font-size="14" font-weight="600" fill="#26301c" font-family="Inter Tight, Inter, sans-serif">${p.label}</text></g></g>`;
     });
-    return wrap(MAP_W, MAP_H, s + `<g pointer-events="none"><filter id="${id}n" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch"/><feColorMatrix values="0 0 0 0 0.2  0 0 0 0 0.18  0 0 0 0 0.12  0 0 0 0.35 0"/></filter><rect width="${MAP_W}" height="${MAP_H}" filter="url(#${id}n)" opacity=".18"/></g>`, opts.label || 'Illustrated map of the heritage sites of Arkhangai and Uvurkhangai', false);
+    return wrap(MAP_W, MAP_H, s + `<g pointer-events="none"><filter id="${id}n" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch"/><feColorMatrix values="0 0 0 0 0.2  0 0 0 0 0.18  0 0 0 0 0.12  0 0 0 0.35 0"/></filter><rect width="${MAP_W}" height="${MAP_H}" filter="url(#${id}n)" opacity=".18"/></g>`, opts.label || 'Illustrated map of the heritage sites of Arkhangai, Uvurkhangai and Khentii', false);
   }
 
   // The horse from the GRIT logo (traced), facing left. Box 352.0 x 442.0.
@@ -804,6 +964,11 @@
     orkhon: { x: 38, y: 99, side: "left" },
     karakorum: { x: 56, y: 86, side: "left" },
     erdenezuu: { x: 82, y: 63 },
+    khoshoo: { x: 77, y: 28 },
+    kharbalgas: { x: 52, y: 37 },
+    burkhan: { x: 114, y: 26, side: "left" },
+    deluun: { x: 140, y: 31.5 },
+    khudoo: { x: 133.5, y: 51.5 },
   };
 
   // Static picture for the home-page project card (and the hero without JS).

@@ -295,10 +295,250 @@ const STORIES = [
       ok: 0,
     },
   },
+  {
+    id: "khoshoo",
+    kind: "history",
+    place: { en: "Arkhangai · Khashaat soum", mn: "Архангай · Хашаат сум" },
+    title: { en: "The Steles of Khöshöö Tsaidam", mn: "Хөшөө Цайдамын гэрэлт хөшөөд" },
+    blurb: {
+      en: "What does writing carved into stone 1,300 years ago tell us?",
+      mn: "1300 жилийн өмнө чулуунд сийлсэн бичиг бидэнд юу өгүүлдэг вэ?",
+    },
+    cover: "runes",
+    pages: [
+      {
+        scene: "turk-khagan",
+        en: "In the 8th century the Turkic Khaganate ruled the steppe from the Orkhon Valley. The wise Bilge Khagan and his brave younger brother, prince Kül Tegin, led their people together.",
+        mn: "VIII зуунд Түрэгийн хаант улс Орхоны хөндийгөөс тал нутгийг захирч байв. Мэргэн ухаант Билгэ хаан, баатар зоригт дүү Күлтегин хоёр ард түмнээ хамтдаа удирдаж байжээ.",
+      },
+      {
+        scene: "runes",
+        en: "When Kül Tegin died, a great stone stele was raised for him in 732, and another for Bilge Khagan in 735. Their deeds were carved on the stones in Old Turkic runic script, with a Chinese text on one side.",
+        mn: "Күлтегинийг нас барахад 732 онд, Билгэ хаанд 735 онд том гэрэлт хөшөө босгожээ. Тэдний гавьяа үйлсийг эртний түрэг руни бичгээр сийлж, нэг талд нь хятад бичгээр бичсэн байна.",
+      },
+      {
+        scene: "steles",
+        en: "The inscriptions speak to the generations to come: stay united, remember the past, and do not leave the forested Ötüken homeland.",
+        mn: "Бичээс хойч үеийнхэнд хандан: эв нэгдлээ хадгал, өнгөрснөө бүү мартагтун, Өтүкэний ойт нутгаа бүү орхи хэмээн сургадаг.",
+      },
+      {
+        scene: "decipher",
+        en: "For more than a thousand years nobody could read these strange letters. In 1889 the Russian explorer Nikolai Yadrintsev found the steles, and in 1893 the Danish scholar Vilhelm Thomsen deciphered the script. At last the stones could speak again.",
+        mn: "Мянга гаруй жилийн турш энэ хачин үсгийг хэн ч уншиж чаддаггүй байлаа. 1889 онд Оросын судлаач Н. Ядринцев хөшөөдийг олж, 1893 онд Данийн эрдэмтэн Вильгельм Томсен бичгийг нь тайлжээ. Ингэж чулуу дахин «ярьж» эхэлсэн юм.",
+      },
+      {
+        scene: "stele-museum",
+        fact: true,
+        en: "Today the steles are kept in a museum built right at the site, so that wind and rain no longer wear the letters away. They are among the oldest known texts in a Turkic language — a heritage shared by Mongolia and the Turkic peoples.",
+        mn: "Өнөөдөр салхи бороонд үсэг нь элэгдэхгүйн тулд хөшөөдийг газар дээр нь барьсан музейд хадгалж байна. Эдгээр нь түрэг хэлний хамгийн эртний бичгийн дурсгалуудын нэг бөгөөд Монгол болон түрэг үндэстнүүдийн хамтын өв юм.",
+      },
+    ],
+    check: {
+      q: { en: "Who deciphered the Old Turkic runic script in 1893?", mn: "1893 онд эртний түрэг бичгийг хэн тайлсан бэ?" },
+      a: [
+        { en: "Vilhelm Thomsen", mn: "Вильгельм Томсен" },
+        { en: "Marco Polo", mn: "Марко Поло" },
+        { en: "Guillaume Boucher", mn: "Гийом Бушье" },
+      ],
+      ok: 0,
+    },
+  },
+  {
+    id: "kharbalgas",
+    kind: "history",
+    place: { en: "Arkhangai · Khotont soum", mn: "Архангай · Хотонт сум" },
+    title: { en: "Khar Balgas: the Uighur Capital", mn: "Хар Балгас: Уйгурын нийслэл" },
+    blurb: {
+      en: "A great steppe city said to have had twelve iron gates.",
+      mn: "Арван хоёр төмөр хаалгатай байсан гэх тал нутгийн том хот.",
+    },
+    cover: "uighur-city",
+    pages: [
+      {
+        scene: "uighur-city",
+        en: "In 744 the Uighurs founded a new khaganate on the steppe. In the Orkhon Valley they built their capital, Ordu-Baliq. Today we call its ruins Khar Balgas — the 'black ruins'.",
+        mn: "744 онд уйгурууд тал нутагт шинэ хаант улс байгуулжээ. Тэд Орхоны хөндийд Ордубалык хэмээх нийслэлээ барьсан бөгөөд түүний туурийг өнөөдөр Хар балгас гэж нэрлэдэг.",
+      },
+      {
+        scene: "silk-road",
+        en: "It was a busy city of merchants. An Arab traveller who came here around 821 wrote of high walls, twelve great iron gates, crowded markets and farm fields all around. Silk Road caravans passed through.",
+        mn: "Энэ бол худалдаачдаар дүүрэн, хөл хөдөлгөөнтэй хот байв. 821 оны орчим ирсэн араб аялагч өндөр хэрэм, арван хоёр том төмөр хаалга, хүн ихтэй зах, эргэн тойрных нь тариан талбайн тухай бичжээ. Торгоны замын жингүүд ч энд ирдэг байв.",
+      },
+      {
+        scene: "three-scripts",
+        en: "Near the palace stood a stele carved in three scripts: Old Turkic, Sogdian and Chinese. Many peoples and many languages met in this city.",
+        mn: "Ордны ойролцоо эртний түрэг, согд, хятад гэсэн гурван бичгээр сийлсэн гэрэлт хөшөө байжээ. Энэ хотод олон ард түмэн, олон хэл нийлж уулздаг байв.",
+      },
+      {
+        scene: "city-falls",
+        en: "In 840 the Kyrgyz attacked from the north. The city burned, and the Uighurs left the steppe for the south-west — the oases of today's Xinjiang and Gansu.",
+        mn: "840 онд хойд зүгээс киргизүүд довтолжээ. Хот шатаж, уйгурууд тал нутгаа орхин баруун урагш — одоогийн Шинжаан, Ганьсугийн баян бүрд рүү нүүсэн байна.",
+      },
+      {
+        scene: "khar-balgas-today",
+        fact: true,
+        en: "More than 1,100 years later, parts of the earthen walls and the tall citadel still rise above the valley. Mongolian and German archaeologists study the site, and it lies within the Orkhon Valley World Heritage area.",
+        mn: "1100 гаруй жилийн дараа ч шороон хэрмийн хэсэг, өндөр цайзын туурь хөндийн дээгүүр сүндэрлэсээр байна. Монгол, Германы археологичид энд судалгаа хийдэг бөгөөд энэ газар Орхоны хөндийн Дэлхийн өвийн нутагт багтдаг.",
+      },
+    ],
+    check: {
+      q: { en: "Who destroyed the Uighur capital in 840?", mn: "840 онд Уйгурын нийслэлийг хэн сүйтгэсэн бэ?" },
+      a: [
+        { en: "The Kyrgyz", mn: "Киргизүүд" },
+        { en: "The Khitans", mn: "Киданчууд" },
+        { en: "The Xiongnu", mn: "Хүннү нар" },
+      ],
+      ok: 0,
+    },
+  },
+  {
+    id: "burkhan",
+    kind: "history",
+    place: { en: "Khentii · Khan Khentii range", mn: "Хэнтий · Хан Хэнтийн нуруу" },
+    title: { en: "Burkhan Khaldun, the Sacred Mountain", mn: "Бурхан Халдун: тахилгат уул" },
+    blurb: {
+      en: "How did the mountain that saved young Temüjin become the most revered mountain of the Mongols?",
+      mn: "Залуу Тэмүжиний амийг аварсан уул хэрхэн монголчуудын хамгийн дээдэлдэг уул болсон бэ?",
+    },
+    cover: "burkhan-today",
+    pages: [
+      {
+        scene: "merkit-raid",
+        en: "When Temüjin — the future Chinggis Khaan — was a young man, Merkit warriors raided his family's camp at dawn. There were not enough horses for everyone, and the family had to scatter.",
+        mn: "Ирээдүйн Чингис хаан — Тэмүжин залуу байхад нэгэн үүрээр мэргидийн цэрэг тэдний нутаг руу дайрчээ. Бүгдэд хүрэлцэх морь байсангүй тул гэр бүлийнхэн нь тал тал тийш бутарчээ.",
+      },
+      {
+        scene: "hiding-forest",
+        en: "Temüjin galloped into the thick forests of Burkhan Khaldun. The Merkits circled the mountain three times, but they could not find him in the dense thickets.",
+        mn: "Тэмүжин Бурхан Халдуны өтгөн ой руу давхин оржээ. Мэргидүүд уулыг гурвантаа тойрон эрсэн ч өтгөн шугуйд нуугдсан түүнийг олж чадсангүй.",
+      },
+      {
+        scene: "vow-sun",
+        en: "When it was safe, Temüjin came down, hung his belt around his neck, faced the sun and knelt nine times. He promised that he and his descendants would always honour the mountain that had saved his life.",
+        mn: "Аюул арилмагц Тэмүжин уулаас бууж, бүсээ хүзүүндээ зүүн, нар зүг харж есөн удаа сөгдөн мөргөжээ. Амийг нь аварсан уулыг өөрөө болон үр удам нь үргэлж тахин дээдлэхээ амласан гэдэг.",
+      },
+      {
+        scene: "three-rivers",
+        en: "Burkhan Khaldun rises in the Khentii mountains, the land where three great rivers begin: the Onon, the Kherlen and the Tuul. For the Mongols it became the sacred heart of their homeland.",
+        mn: "Бурхан Халдун Хэнтийн нуруунд оршдог бөгөөд энэ нутгаас Онон, Хэрлэн, Туул гэсэн гурван том гол эх авдаг. Монголчуудын хувьд энэ нь эх нутгийн ариун зүрх болжээ.",
+      },
+      {
+        scene: "burkhan-today",
+        fact: true,
+        en: "In 2015 'Great Burkhan Khaldun Mountain and its surrounding sacred landscape' was added to the UNESCO World Heritage List. People still climb it to make offerings at the ovoo. Treat sacred places with respect: leave no litter and keep to the paths.",
+        mn: "2015 онд «Их Бурхан Халдун уул ба түүнийг хүрээлэн буй тахилгат газар» ЮНЕСКО-гийн Дэлхийн өвийн жагсаалтад бүртгэгджээ. Хүмүүс одоо ч уулын овоог тахидаг. Тахилгат газрыг хүндэтгэ: хог бүү хая, замаасаа бүү гар.",
+      },
+    ],
+    check: {
+      q: { en: "Which three rivers begin in the Khentii mountains?", mn: "Хэнтийн нуруунаас эх авдаг гурван гол аль нь вэ?" },
+      a: [
+        { en: "Onon, Kherlen and Tuul", mn: "Онон, Хэрлэн, Туул" },
+        { en: "Orkhon, Selenge and Tamir", mn: "Орхон, Сэлэнгэ, Тамир" },
+        { en: "Khovd, Zavkhan and Ider", mn: "Ховд, Завхан, Идэр" },
+      ],
+      ok: 0,
+    },
+  },
+  {
+    id: "deluun",
+    kind: "history",
+    place: { en: "Khentii · Dadal soum", mn: "Хэнтий · Дадал сум" },
+    title: { en: "Delüün Boldog: Where Temüjin Was Born", mn: "Дэлүүн Болдог: Тэмүжиний төрсөн нутаг" },
+    blurb: {
+      en: "The boy who was born clutching a blood clot the size of a knucklebone.",
+      mn: "Баруун гартаа шагай чинээ нөж атгаж төрсөн хүүгийн тухай.",
+    },
+    cover: "onon-birth",
+    pages: [
+      {
+        scene: "onon-birth",
+        en: "The Secret History of the Mongols tells that Temüjin was born at Delüün Boldog on the Onon River. His father Yesügei had just come back from fighting the Tatars, and named his son after a Tatar chief he had captured, Temüjin Üge.",
+        mn: "«Монголын нууц товчоо»-нд өгүүлснээр Тэмүжин Онон голын Дэлүүн болдогт төржээ. Аав Есүхэй нь татартай тулалдаад буцаж ирсэн бөгөөд олзолсон татарын Тэмүжин Үгэ хэмээх ноёны нэрээр хүүдээ нэр өгсөн байна.",
+      },
+      {
+        scene: "knucklebone",
+        en: "The baby was born holding in his right hand a clot of blood the size of a knucklebone. People took it as a sign that he would become a great and powerful ruler.",
+        mn: "Нялх хүү баруун гартаа шагай чинээ нөж атгаж төрсөн гэдэг. Хүмүүс үүнийг агуу хүчит эзэн болохын бэлгэ тэмдэг хэмээн үзжээ.",
+      },
+      {
+        scene: "hard-childhood",
+        en: "When Temüjin was about nine, his father was poisoned by the Tatars. His mother Hoelun raised the children on her own. They gathered wild fruit and roots and caught fish in the Onon to survive.",
+        mn: "Тэмүжин есөн настай байхад аавыг нь татарууд хордуулан алжээ. Ээж Өэлүн хүүхдүүдээ ганцаараа өсгөсөн. Тэд жимс, үндэс түүж, Онон голоос загас барьж амь зуудаг байв.",
+      },
+      {
+        scene: "birthplace-today",
+        fact: true,
+        en: "Historians still debate exactly where Delüün Boldog was. Many place it in Dadal soum of Khentii, where people come to honour Chinggis Khaan. By tradition he was born in 1162.",
+        mn: "Дэлүүн болдог яг хаана байсан талаар түүхчид одоо ч маргасаар байна. Олон хүн үүнийг Хэнтий аймгийн Дадал сумын нутаг гэж үздэг бөгөөд Чингис хааныг хүндэтгэн очдог. Уламжлалаар тэрээр 1162 онд төрсөн гэж үздэг.",
+      },
+    ],
+    check: {
+      q: { en: "What did Temüjin hold in his hand when he was born?", mn: "Тэмүжин төрөхдөө гартаа юу атгасан байсан бэ?" },
+      a: [
+        { en: "A blood clot the size of a knucklebone", mn: "Шагай чинээ нөж" },
+        { en: "A golden arrow", mn: "Алтан сум" },
+        { en: "A white stone", mn: "Цагаан чулуу" },
+      ],
+      ok: 0,
+    },
+  },
+  {
+    id: "khudoo",
+    kind: "history",
+    place: { en: "Khentii · Delgerkhaan soum", mn: "Хэнтий · Дэлгэрхаан сум" },
+    title: { en: "Khödöö Aral and the Secret History", mn: "Хөдөө арал ба «Монголын нууц товчоо»" },
+    blurb: {
+      en: "Where was the oldest Mongolian history book written?",
+      mn: "Монголын хамгийн эртний түүхэн зохиол хаана бичигдсэн бэ?",
+    },
+    cover: "secret-history",
+    pages: [
+      {
+        scene: "kherlen-plain",
+        en: "Khödöö Aral is a wide plain where the Tsenkher River flows into the Kherlen. Its rich pastures made it a favourite place for the great camps and assemblies of the Mongol khans.",
+        mn: "Хөдөө арал бол Цэнхэр гол Хэрлэнд цутгадаг газрын өргөн уудам тал юм. Өвс ус элбэг тул Монголын хаад их орд, их хуралдайгаа энд хийх дуртай байжээ.",
+      },
+      {
+        scene: "secret-history",
+        en: "The last lines of The Secret History of the Mongols say it was finished during a great assembly at Khödöö Aral on the Kherlen, in a Year of the Rat. In Mongolia this is traditionally counted as 1240; many scholars think it was 1228.",
+        mn: "«Монголын нууц товчоо»-ны төгсгөлд их хуралдай Хэрлэний Хөдөө аралд хуралдаж байх үед, хулгана жил бичиж дуусгав хэмээн тэмдэглэсэн байдаг. Монголд үүнийг уламжлан 1240 он гэж тооцдог бол олон эрдэмтэн 1228 он гэж үздэг.",
+      },
+      {
+        scene: "wolf-doe",
+        en: "The book begins with a legend: the ancestor of the Mongols was Börte Chino, the blue-grey wolf born by the will of Heaven, and his wife was Gua Maral, the fallow doe. They crossed a great water and settled at Burkhan Khaldun.",
+        mn: "Ном нэгэн домгоор эхэлдэг: Монголчуудын дээд өвөг нь дээр тэнгэрээс заяат төрсөн Бөртэ чоно, түүний гэргий нь Гуа марал байжээ. Тэд тэнгис гэтэлж ирээд Бурхан Халдунд нутаглажээ.",
+      },
+      {
+        scene: "five-arrows",
+        en: "It also tells how the wise mother Alan Gua gave each of her five sons one arrow to break — easy! Then she bound five arrows together, and none of them could break the bundle. 'If you stand together, no one can defeat you.'",
+        mn: "Мөн мэргэн эх Алан гуа таван хүүдээ нэг нэг сум хугалуулахад амархан хугарчээ. Дараа нь таван сумыг нийлүүлэн боогоод хугал гэхэд хэн нь ч хугалж чадсангүй. «Эв нэгдэлтэй байвал та нарыг хэн ч дийлэхгүй» гэж сургажээ.",
+      },
+      {
+        scene: "khudoo-today",
+        fact: true,
+        en: "The original text in Mongol script was lost. The book survived because the Mongolian words had been written down in Chinese characters. Today a monument stands at Khödöö Aral, and in 1990 Mongolia celebrated the book's 750th anniversary.",
+        mn: "Нууц товчооны монгол бичгийн эх нь алдагдсан ч монгол үгийн дуудлагыг хятад үсгээр тэмдэглэсэн хувилбар нь хадгалагдан үлджээ. Өнөөдөр Хөдөө аралд хөшөө сүндэрлэх бөгөөд 1990 онд Монгол Улс уг зохиолын 750 жилийн ойг тэмдэглэсэн.",
+      },
+    ],
+    check: {
+      q: { en: "What did Alan Gua teach her sons with the five arrows?", mn: "Алан гуа таван сумаар хөвгүүддээ юуг сургасан бэ?" },
+      a: [
+        { en: "If you stand together, no one can defeat you", mn: "Эв нэгдэлтэй бол хэн ч дийлэхгүй" },
+        { en: "How to make arrows", mn: "Сум хэрхэн хийхийг" },
+        { en: "How to hunt deer", mn: "Буга хэрхэн агнахыг" },
+      ],
+      ok: 0,
+    },
+  },
 ];
 
 // ---------------------------------------------------------------- quiz
 const QUIZ = [
+  { q: { en: "Which mountain hid young Temüjin from the Merkits?", mn: "Залуу Тэмүжинийг мэргидээс нуун аварсан уул аль нь вэ?" }, a: [{ en: "Burkhan Khaldun", mn: "Бурхан Халдун" }, { en: "Otgontenger", mn: "Отгонтэнгэр" }, { en: "Khorgo", mn: "Хорго" }], ok: 0, why: { en: "Temüjin vowed that he and his descendants would always honour Burkhan Khaldun.", mn: "Тэмүжин Бурхан Халдуныг үргэлж тахин дээдлэхээ амласан." } },
+  { q: { en: "Where, according to its last lines, was the Secret History of the Mongols written?", mn: "Төгсгөлийн үгэнд нь бичсэнээр «Монголын нууц товчоо» хаана бичигдсэн бэ?" }, a: [{ en: "At Khödöö Aral on the Kherlen", mn: "Хэрлэний Хөдөө аралд" }, { en: "In Karakorum", mn: "Хархорумд" }, { en: "At Erdene Zuu", mn: "Эрдэнэ Зуу хийдэд" }], ok: 0, why: { en: "It was finished during a great assembly at Khödöö Aral, where the Tsenkher meets the Kherlen.", mn: "Цэнхэр гол Хэрлэнд цутгадаг Хөдөө аралд их хуралдайн үеэр бичиж дуусгажээ." } },
+  { q: { en: "Who deciphered the Old Turkic runic script in 1893?", mn: "1893 онд эртний түрэг бичгийг хэн тайлсан бэ?" }, a: [{ en: "Vilhelm Thomsen", mn: "Вильгельм Томсен" }, { en: "Nikolai Przhevalsky", mn: "Николай Пржевальский" }, { en: "William of Rubruck", mn: "Гийом де Рубрук" }], ok: 0, why: { en: "The Danish scholar Vilhelm Thomsen read the Orkhon inscriptions in 1893.", mn: "Данийн эрдэмтэн Вильгельм Томсен 1893 онд Орхоны бичээсийг тайлжээ." } },
+  { q: { en: "Who destroyed the Uighur capital Ordu-Baliq in 840?", mn: "840 онд Уйгурын нийслэл Ордубалыкийг хэн сүйтгэсэн бэ?" }, a: [{ en: "The Kyrgyz", mn: "Киргизүүд" }, { en: "The Khitans", mn: "Киданчууд" }, { en: "The Tatars", mn: "Татарууд" }], ok: 0, why: { en: "After the Kyrgyz attack, the Uighurs moved south-west to the oases of Xinjiang and Gansu.", mn: "Киргизийн довтолгооны дараа уйгурууд баруун урагш Шинжаан, Ганьсу руу нүүжээ." } },
+  { q: { en: "In which year did Burkhan Khaldun become a UNESCO World Heritage site?", mn: "Бурхан Халдун уул хэдэн онд ЮНЕСКО-гийн Дэлхийн өвд бүртгэгдсэн бэ?" }, a: ["2004", "2015", "2021"], ok: 1, why: { en: "'Great Burkhan Khaldun Mountain and its surrounding sacred landscape' was inscribed in 2015.", mn: "«Их Бурхан Халдун уул ба түүнийг хүрээлэн буй тахилгат газар» 2015 онд бүртгэгджээ." } },
   { q: { en: "In which year was the Great Mongol State founded?", mn: "Их Монгол Улс хэдэн онд байгуулагдсан бэ?" }, a: ["1162", "1206", "1260"], ok: 1, why: { en: "In 1206 Temüjin was proclaimed Chinggis Khaan at a great assembly (khuraltai) by the Onon River.", mn: "1206 онд Онон голын эхэнд хуралдсан их хуралдайгаар Тэмүжинг Чингис хаан хэмээн өргөмжилсөн." } },
   { q: { en: "Which state, founded in 209 BC, is often called the first state of the steppe nomads?", mn: "МЭӨ 209 онд байгуулагдсан, тал нутгийн нүүдэлчдийн анхны төр гэгддэг улс аль нь вэ?" }, a: [{ en: "The Xiongnu (Hunnu)", mn: "Хүннү" }, { en: "The Uighur Khaganate", mn: "Уйгурын хаант улс" }, { en: "The Turkic Khaganate", mn: "Түрэгийн хаант улс" }], ok: 0, why: { en: "Modu Chanyu united the tribes and founded the Xiongnu state in 209 BC.", mn: "МЭӨ 209 онд Модун шаньюй аймгуудыг нэгтгэж Хүннү гүрнийг байгуулсан." } },
   { q: { en: "Who founded Erdene Zuu Monastery in 1585?", mn: "1585 онд Эрдэнэ Зуу хийдийг хэн байгуулсан бэ?" }, a: [{ en: "Abtai Sain Khan", mn: "Абтай Сайн хан" }, { en: "Ögedei Khaan", mn: "Өгөдэй хаан" }, { en: "Zanabazar", mn: "Занабазар" }], ok: 0, why: { en: "Abtai Sain Khan of the Khalkha built it beside the ruins of Karakorum.", mn: "Халхын Абтай Сайн хан эртний Хархорумын туурийн дэргэд барьсан." } },
@@ -355,6 +595,10 @@ const QUIZ = [
 
 // ---------------------------------------------------------------- timeline
 const EVENTS = [
+  { y: 735, en: "A stele is raised for Bilge Khagan at Khöshöö Tsaidam", mn: "Хөшөө Цайдамд Билгэ хааны хөшөөг босгов" },
+  { y: 840, en: "The Kyrgyz destroy the Uighur capital Ordu-Baliq", mn: "Киргизүүд Уйгурын нийслэл Ордубалыкийг сүйтгэв" },
+  { y: 1893, en: "Vilhelm Thomsen deciphers the Old Turkic runes", mn: "Вильгельм Томсен эртний түрэг бичгийг тайлав" },
+  { y: 2015, en: "Burkhan Khaldun becomes a UNESCO World Heritage site", mn: "Бурхан Халдун уул ЮНЕСКО-гийн Дэлхийн өвд бүртгэгдэв" },
   { y: -209, en: "Modu Chanyu founds the Xiongnu state", mn: "Модун шаньюй Хүннү гүрнийг байгуулав" },
   { y: 732, en: "A stele is raised for Kül Tegin in the Orkhon Valley", mn: "Орхоны хөндийд Күлтегины хөшөөг босгов" },
   { y: 1206, en: "The Great Mongol State is founded", mn: "Их Монгол Улс байгуулагдав" },
@@ -786,14 +1030,20 @@ const UI = {
     orkhon: { en: "Orkhon Waterfall", mn: "Орхоны хүрхрээ" },
     karakorum: { en: "Karakorum", mn: "Хархорум" },
     erdenezuu: { en: "Erdene Zuu", mn: "Эрдэнэ Зуу" },
+    khoshoo: { en: "Khöshöö Tsaidam", mn: "Хөшөө Цайдам" },
+    kharbalgas: { en: "Khar Balgas", mn: "Хар Балгас" },
+    burkhan: { en: "Burkhan Khaldun", mn: "Бурхан Халдун" },
+    deluun: { en: "Delüün Boldog", mn: "Дэлүүн Болдог" },
+    khudoo: { en: "Khödöö Aral", mn: "Хөдөө арал" },
   };
+  const MAP_REGIONS = [{ en: "Arkhangai · Uvurkhangai", mn: "Архангай · Өвөрхангай" }, { en: "Khentii", mn: "Хэнтий" }];
   const mapEl = document.getElementById("hmap");
   const legendEl = document.getElementById("hmap-legend");
   function renderMap() {
     if (!mapEl || !art.isoMap) return;
     const ids = Object.keys(MAP_LABELS);
     const pins = ids.map((id) => ({ id, label: t(MAP_LABELS[id]), ...art.MAP_PINS[id] }));
-    mapEl.innerHTML = art.isoMap({ pins, label: t(UI.mapLabel) });
+    mapEl.innerHTML = art.isoMap({ pins, label: t(UI.mapLabel), regions: MAP_REGIONS.map(t) });
     if (legendEl)
       legendEl.innerHTML = ids.map((id, i) => `<button type="button" class="chip" data-open="${id}"><b>${i + 1}</b> ${t(MAP_LABELS[id])}</button>`).join("");
   }
@@ -811,13 +1061,19 @@ const UI = {
   // The GRIT horse tours the map along the roads, resting at each site and
   // lighting up its pin. Clicking the horse opens the site it stands at.
   // Each leg: world-coordinate waypoints ending at the site, then its id.
+  // Khentii is the small island on the right (x 108..152); the bridge is at y 40.
   const TOUR = [
     [[[22, 36], [28, 46], [33, 56]], "taikhar"],
     [[[34, 64], [34, 80], [42, 92]], "orkhon"],
     [[[48, 90], [56, 86], [58, 82]], "karakorum"],
     [[[56, 66], [62, 58], [80, 58], [84, 60]], "erdenezuu"],
-    [[[80, 50], [74, 40], [68, 30], [64, 24]], "ugii"],
-    [[[56, 26], [45, 28], [32, 31], [26, 34]], "terkh"],
+    [[[90, 50], [96, 43], [100, 40], [108, 40], [116, 44], [126, 50], [131, 53.5]], "khudoo"],
+    [[[126, 50], [132, 42], [137, 34.5]], "deluun"],
+    [[[132, 31], [124, 33], [117, 31.5]], "burkhan"],
+    [[[115, 38], [108, 40], [100, 40], [92, 35], [82, 31]], "khoshoo"],
+    [[[72, 30], [66, 26], [64, 24]], "ugii"],
+    [[[60, 30], [57, 38], [55.5, 41.5]], "kharbalgas"],
+    [[[46, 33], [32, 31], [26, 34]], "terkh"],
   ];
   const START = [26, 34];
   const SPEED = 7; // world units per second
