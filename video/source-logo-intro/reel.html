@@ -1,0 +1,122 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@500;700;800;900&display=block" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{overflow:hidden;background:#000}
+#stage{position:relative;overflow:hidden;background:#07090a;font-family:Onest,sans-serif;color:#f2efe6}
+#gl{position:absolute;left:0;top:0;width:100%;height:100%}
+.kw{position:absolute;font-weight:900;letter-spacing:-.05em;white-space:nowrap;line-height:1}
+.kw i{position:absolute;left:-.12em;right:-.12em;top:.12em;bottom:.02em;border-radius:.16em;z-index:-1;transform-origin:left center}
+.kw span{position:relative;display:inline-block}
+#icon{position:absolute}
+#word{position:absolute;font-weight:900;letter-spacing:-.04em;white-space:nowrap}
+#tag{position:absolute;font-weight:700;white-space:nowrap;color:rgba(242,239,230,.75)}
+#grain{position:absolute;left:-60px;top:-60px;z-index:60;pointer-events:none;opacity:.05;mix-blend-mode:overlay}
+</style></head><body>
+<div id="stage">
+<canvas id="gl"></canvas>
+<div id="kws"></div>
+<img id="icon" src="icon-horse.svg">
+<div id="word">GRIT</div>
+<div id="tag">Grow · Reach · Inspire · Teach</div>
+<canvas id="grain" width="700" height="700"></canvas>
+</div>
+<script>
+const Q=new URLSearchParams(location.search);const W=+(Q.get('w')||1920),H=+(Q.get('h')||1080),P=H>W,RS=+(Q.get('rs')||1);
+document.body.style.cssText=`width:${W}px;height:${H}px`;const stage=document.getElementById('stage');stage.style.width=W+'px';stage.style.height=H+'px';
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const cl=(x,a=0,b=1)=>Math.min(b,Math.max(a,x)),p=(t,a,d)=>cl((t-a)/d),lerp=(a,b,t)=>a+(b-a)*t;
+const eo=t=>1-Math.pow(1-t,3),e5=t=>1-Math.pow(1-t,5),eio=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
+const bk=t=>{const c=1.7,c3=c+1;return 1+c3*Math.pow(t-1,3)+c*Math.pow(t-1,2)};
+const st=(el,o)=>{if(typeof el==='string')el=$(el);for(const k in o)el.style[k]=o[k]};
+let seed=41;const rnd=()=>(seed=(seed*16807)%2147483647)/2147483647;
+window.DUR=10;
+
+/* ---------- WebGL raymarched metaballs ---------- */
+const cv=$('#gl');cv.width=Math.round(W*RS);cv.height=Math.round(H*RS);
+const gl=cv.getContext('webgl',{preserveDrawingBuffer:true,antialias:false});
+const VS=`attribute vec2 a;void main(){gl_Position=vec4(a,0.,1.);}`;
+const FS=`precision highp float;
+uniform vec2 R;uniform float T;uniform vec4 S[7];uniform vec3 C[7];uniform float M;uniform vec3 BX;uniform float ROT;uniform float ZM;uniform vec3 BC;
+float smin(float a,float b,float k){float h=clamp(.5+.5*(b-a)/k,0.,1.);return mix(b,a,h)-k*h*(1.-h);}
+float sdRB(vec3 p,vec3 b,float r){vec3 q=abs(p)-b+r;return length(max(q,0.))+min(max(q.x,max(q.y,q.z)),0.)-r;}
+mat2 rot(float a){float c=cos(a),s=sin(a);return mat2(c,-s,s,c);}
+vec4 map(vec3 p){float d=1e5;vec3 col=vec3(0.);float wsum=0.;
+  for(int i=0;i<7;i++){float di=length(p-S[i].xyz)-S[i].w;float w=exp(-6.*max(di,0.));col+=C[i]*w;wsum+=w;d=smin(d,di,.55);}
+  col/=max(wsum,1e-4);
+  vec3 q=p-BC;q.xz*=rot(ROT);q.yz*=rot(ROT*.35);float db=sdRB(q,BX,.13);
+  d=mix(d,db,M);col=mix(col,vec3(.17,.42,.27),M*.85);
+  return vec4(d,col);}
+vec3 nrm(vec3 p){vec2 e=vec2(.002,0.);return normalize(vec3(map(p+e.xyy).x-map(p-e.xyy).x,map(p+e.yxy).x-map(p-e.yxy).x,map(p+e.yyx).x-map(p-e.yyx).x));}
+void main(){vec2 uv=(gl_FragCoord.xy-.5*R)/min(R.x,R.y);
+  vec3 ro=vec3(0.,0.,6.5*ZM),rd=normalize(vec3(uv,-1.6));
+  float t=0.;vec4 h;bool hit=false;
+  for(int i=0;i<90;i++){h=map(ro+rd*t);if(h.x<.002){hit=true;break;}t+=h.x*.9;if(t>14.)break;}
+  vec2 q=gl_FragCoord.xy/R;vec3 bg=vec3(.028,.035,.04)+vec3(.05,.12,.08)*pow(1.-length(uv*.8),2.)*.6;
+  vec3 c=bg;
+  if(hit){vec3 p=ro+rd*t;vec3 n=nrm(p);vec3 l=normalize(vec3(-.5,.8,.6));vec3 l2=normalize(vec3(.7,-.3,.5));
+    float dif=max(dot(n,l),0.);float dif2=max(dot(n,l2),0.)*.35;vec3 hv=normalize(l-rd);float sp=pow(max(dot(n,hv),0.),60.);
+    float fr=pow(1.-max(dot(n,-rd),0.),3.);
+    vec3 base=h.yzw;c=base*(.22+.85*dif+dif2)+vec3(1.)*sp*.9+fr*mix(vec3(.78,.95,.35),vec3(.21,.84,.9),.5+.5*n.y)*.55;
+    // fake subsurface / iridescence
+    c+=base*pow(1.-abs(n.z),2.)*.25;}
+  // soft glow around shapes
+  float g=0.;for(int i=0;i<7;i++){float dd=length(uv*6.5*ZM/1.6-S[i].xy*1.0);g+=S[i].w*.05/(dd*dd+.08);}
+  c+=vec3(.5,.8,.4)*g*.06*(1.-M);
+  c=pow(c,vec3(.95));gl_FragColor=vec4(c,1.);}`;
+function sh(type,src){const s=gl.createShader(type);gl.shaderSource(s,src);gl.compileShader(s);if(!gl.getShaderParameter(s,gl.COMPILE_STATUS))throw gl.getShaderInfoLog(s);return s}
+const pr=gl.createProgram();gl.attachShader(pr,sh(gl.VERTEX_SHADER,VS));gl.attachShader(pr,sh(gl.FRAGMENT_SHADER,FS));gl.linkProgram(pr);gl.useProgram(pr);
+const buf=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,buf);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,1,-1,-1,1,1,1]),gl.STATIC_DRAW);
+const la=gl.getAttribLocation(pr,'a');gl.enableVertexAttribArray(la);gl.vertexAttribPointer(la,2,gl.FLOAT,false,0,0);
+const U=n=>gl.getUniformLocation(pr,n);gl.viewport(0,0,cv.width,cv.height);
+const COLS=[[.78,.95,.35],[.21,.84,.9],[.17,.42,.27],[.95,.93,.88],[.55,.86,.45],[.13,.6,.62],[.85,.97,.55]];
+gl.uniform3fv(U('C'),new Float32Array(COLS.flat()));
+const ORB=Array.from({length:7},(_,i)=>({a:rnd()*6.28,r:1.4+rnd()*1.2,sp:(.5+rnd()*.6)*(i%2?1:-1),ph:rnd()*6.28,rad:.45+rnd()*.35,inc:(rnd()-.5)*1.2,from:[(rnd()-.5)*16,(rnd()-.5)*10]}));
+
+/* ---------- keywords ---------- */
+const KW=[['Grow','#c6f25a','#07090a'],['Reach','#36d6e7','#07090a'],['Inspire','#f2efe6','#07090a'],['Teach','#2c6a41','#f2efe6']];
+const KP=P?[[.1,.17],[.5,.29],[.1,.71],[.46,.83]]:[[.07,.16],[.62,.22],[.08,.72],[.66,.78]];
+const KF=P?120:130;
+$('#kws').innerHTML=KW.map(([w,bg,fg],i)=>`<div class="kw" style="left:${KP[i][0]*W}px;top:${KP[i][1]*H}px;font-size:${KF}px"><i style="background:${bg}"></i><span>${w}.</span></div>`).join('');
+/* ---------- logo pieces ---------- */
+const LS=P?320:350;
+let LC=[0,0];function place(){const cx=P?W/2:W/2-330,cy=P?H/2-170:H/2;LC=[cx-W/2,-(cy-H/2)];const IS=LS*.9;st('#icon',{width:IS+'px',height:IS+'px',left:(cx-IS/2)+'px',top:(cy-IS/2)+'px'});
+  if(P){st('#word',{left:'0',right:'0',textAlign:'center',top:(cy+LS/2+50)+'px',fontSize:'190px'});st('#tag',{left:'0',right:'0',textAlign:'center',top:(cy+LS/2+260)+'px',fontSize:'40px'})}
+  else{st('#word',{left:(cx+LS/2+70)+'px',top:(cy-165)+'px',fontSize:'240px'});st('#tag',{left:(cx+LS/2+80)+'px',top:(cy+95)+'px',fontSize:'40px'})}}
+place();
+/* grain */
+const g=$('#grain'),gx=g.getContext('2d'),gid=gx.createImageData(700,700);for(let i=0;i<gid.data.length;i+=4){const v=rnd()*255;gid.data[i]=gid.data[i+1]=gid.data[i+2]=v;gid.data[i+3]=255}gx.putImageData(gid,0,0);g.style.width=(Math.max(W,H)+120)+'px';g.style.height=(Math.max(W,H)+120)+'px';
+
+// world units: screen half-height ~ 6.5/1.6*0.5 ≈ 2 units at z=0 for min(R)
+function render(T){
+  const t=T;const arr=[];const asp=W/H;const unitX=P?1:asp;
+  const conv=eio(p(t,5.2,1.3));     // converge to centre
+  const morph=eio(p(t,6.2,.9));     // sphere -> rounded box
+  const outq=0;
+  const zm=lerp(1.15,1,e5(p(t,0,2)))*lerp(1,.94,p(t,7,3));const k2w=6.5*zm/(1.6*Math.min(W,H));
+  const logoX=LC[0]*k2w, logoY=LC[1]*k2w; const half=LS*.5*k2w;
+  ORB.forEach((o,i)=>{const enter=e5(p(t,.05+i*.08,1.1));const a=o.a+t*o.sp;
+    let x=Math.cos(a)*o.r*unitX*.9,y=Math.sin(a*1.3+o.ph)*o.r*.75,z=Math.sin(a)*o.inc;
+    // keyword phase: blobs drift toward the active keyword a little
+    x=lerp(o.from[0],x,enter);y=lerp(o.from[1],y,enter);
+    x=lerp(x,logoX,conv);y=lerp(y,logoY,conv);z=lerp(z,0,conv);
+    let r=o.rad*(.6+.4*Math.sin(t*1.7+o.ph))*enter;r=lerp(r,.9,conv);
+    if(outq>0){const b=outq;x=lerp(x,logoX+Math.cos(i*.9+t)*5*unitX,b);y=lerp(y,logoY+Math.sin(i*1.7+t)*4,b);r*=1-b*.6}
+    arr.push(x,y,z,r)});
+  gl.uniform2f(U('R'),cv.width,cv.height);gl.uniform1f(U('T'),t);gl.uniform4fv(U('S'),new Float32Array(arr));
+  gl.uniform1f(U('M'),morph*(1-outq));const bs=lerp(.9,half,morph);gl.uniform3f(U('BX'),bs,bs,lerp(.9,half*.32,morph));gl.uniform3f(U('BC'),logoX*morph,logoY*morph,0);
+  gl.uniform1f(U('ROT'),lerp(1.4,0,e5(p(t,6.2,1.6)))+Math.sin(t*.8)*.06*(1-morph));gl.uniform1f(U('ZM'),zm);
+  gl.drawArrays(gl.TRIANGLE_STRIP,0,4);
+  // keywords: each pops with highlight sweep, leaves before convergence
+  $$('.kw').forEach((k,i)=>{const a=1.2+i*.85;const q=bk(p(t,a,.5));const out=eio(p(t,5.0+i*.06,.45));const hl=k.querySelector('i');
+    st(k,{opacity:cl(q*2)*(1-out),transform:`translateY(${(1-cl(q))*60-out*40}px) scale(${lerp(.6,1,cl(q))*(1-out*.2)})`,filter:`blur(${out*14}px)`});
+    hl.style.transform=`scaleX(${eo(p(t,a+.15,.4))})`;k.querySelector('span').style.color=p(t,a+.3,.1)>0?KW[i][2]:'#f2efe6'});
+  // logo reveal
+  const qi=e5(p(t,7.05,.7));st('#icon',{opacity:qi*(1-outq*0),transform:`scale(${lerp(.4,1,qi)}) rotate(${(1-qi)*-25}deg)`,filter:`blur(${(1-qi)*12}px)`});
+  const qw=e5(p(t,7.5,.7));st('#word',{opacity:qw,transform:`translate${P?'Y':'X'}(${(1-qw)*80}px)`,filter:`blur(${(1-qw)*14}px)`,clipPath:`inset(0 ${(1-qw)*100}% 0 0)`});
+  const qt=e5(p(t,8.0,.7));st('#tag',{opacity:qt,transform:`translateY(${(1-qt)*20}px)`});
+  st(g,{transform:`translate(${(Math.floor(T*12)%5)*-11}px,${(Math.floor(T*12)%7)*-8}px)`});
+}
+window.render=render;render(0);
+</script></body></html>
