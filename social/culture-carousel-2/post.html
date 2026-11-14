@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="mn"><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@500;700;800;900&family=JetBrains+Mono:wght@600;700;800&family=Playfair+Display:ital,wght@1,600;1,700&display=block" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:3240px;height:1440px;overflow:hidden;background:#fff}
+#c{position:relative;width:3240px;height:1440px;overflow:hidden;font-family:Onest,sans-serif;color:#141414}
+#photo{position:absolute;left:0;width:3240px;top:-110px;filter:saturate(1.05)}
+#haze{position:absolute;inset:0;background:linear-gradient(180deg,rgba(242,240,232,.95) 0%,rgba(242,240,232,.88) 32%,rgba(242,240,232,.55) 47%,rgba(242,240,232,0) 64%)}
+.mono{font-family:'JetBrains Mono',monospace;font-weight:700;text-transform:uppercase;letter-spacing:.08em}
+.big{font-weight:900;text-transform:uppercase;line-height:.9;letter-spacing:-.015em}
+.serif{font-family:'Playfair Display',serif;font-style:italic;font-weight:700;text-transform:none;letter-spacing:-.01em}
+.abs{position:absolute}
+.b{color:#1f5fae}
+svg{position:absolute;left:0;top:0}
+.dot{display:inline-block;width:18px;height:18px;border-radius:50%;background:#1f5fae;box-shadow:0 0 0 6px rgba(31,95,174,.18);vertical-align:middle}
+</style></head><body>
+<div id="c">
+  <img id="photo" src="../../assets/img/hero.jpg">
+  <div id="haze"></div>
+
+  <!-- khadag ribbon behind the text -->
+  <svg width="3240" height="1440" viewBox="0 0 3240 1440">
+    <defs>
+      <path id="rib" d="M-120 1010 C 300 1020, 700 985, 950 850 S 1380 120, 1620 120 S 2040 700, 2290 850 S 2900 1030, 3360 800"/>
+      <linearGradient id="silk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5aa2ec"/><stop offset=".45" stop-color="#2f7fd6"/><stop offset="1" stop-color="#1c5fb0"/></linearGradient>
+      <pattern id="ulz" width="70" height="70" patternUnits="userSpaceOnUse"><path d="M35 14 L56 35 L35 56 L14 35Z M25 25 L45 45 M45 25 L25 45" fill="none" stroke="rgba(255,255,255,.16)" stroke-width="3"/></pattern>
+    </defs>
+    <use href="#rib" fill="none" stroke="rgba(10,30,60,.22)" stroke-width="150" transform="translate(0 14)"/>
+    <use href="#rib" fill="none" stroke="#1c5fb0" stroke-width="146"/>
+    <use href="#rib" fill="none" stroke="#3f8ee0" stroke-width="96"/>
+    <use href="#rib" fill="none" stroke="#7cb8f3" stroke-width="34" transform="translate(0 -26)" opacity=".55"/>
+    <use href="#rib" fill="none" stroke="#bfe0ff" stroke-width="8" transform="translate(0 -40)" opacity=".5"/>
+    <use href="#rib" fill="none" stroke="#164f96" stroke-width="10" transform="translate(0 66)" opacity=".8"/>
+    <use href="#rib" fill="none" stroke="url(#ulz)" stroke-width="146"/>
+    <text font-family="Onest" font-weight="800" font-size="50" letter-spacing="5" fill="#ffffff" dy="18"><textPath href="#rib" startOffset="10">ТҮҮХЭЭ МЭД ✦ ДОМГОО СОНС ✦ ӨВӨӨ ХАМГААЛ ✦ ТҮҮХЭЭ ТҮГЭЭ ✦ ТҮҮХЭЭ МЭД ✦ ДОМГОО СОНС ✦ ӨВӨӨ ХАМГААЛ ✦ ТҮҮХЭЭ ТҮГЭЭ ✦ ТҮҮХЭЭ МЭД ✦ ДОМГОО СОНС ✦</textPath></text>
+  </svg>
+
+  <!-- slide 1 -->
+  <div class="abs mono" style="left:80px;top:96px;font-size:28px;color:#333"><span class="dot"></span>&nbsp; GRIT Culture · Цуврал 01</div>
+  <div class="abs big" style="left:76px;top:170px;font-size:150px">Түүхээ<br><span class="serif b" style="font-size:162px">мэд,</span><br>түүхээ<br><span class="serif b" style="font-size:162px">хайрла.</span></div>
+
+  <!-- slide 2 -->
+  <div class="abs" style="left:1080px;width:1080px;top:470px;text-align:center">
+    <div class="mono" style="font-size:30px;color:#333">Нэг нутаг</div>
+    <div class="big" style="font-size:104px;margin-top:22px">Мянган жил.</div>
+    <div class="serif b" style="font-size:112px;line-height:1">мянган домог.</div>
+  </div>
+
+  <!-- slide 3 -->
+  <img class="abs" src="logo-dark-icon.png" style="left:3088px;top:72px;width:92px;height:92px;border-radius:16px;background:#fff;box-shadow:0 4px 0 rgba(0,0,0,.18)">
+  <div class="abs serif b" style="left:2226px;top:40px;font-size:300px;line-height:1">“</div>
+  <div class="abs big" style="left:2240px;top:250px;font-size:116px">Эв <span class="serif b" style="font-size:126px">нэгдэлтэй</span><br>бол хэн ч<br>дийлэхгүй.</div>
+  <div class="abs" style="left:2244px;top:640px;font-size:32px;font-weight:700;color:#333">Алан гуа · <span class="serif" style="font-weight:600">«Монголын нууц товчоо»</span></div>
+  <!-- timeline strip -->
+  <div class="abs" style="left:2240px;right:80px;top:1180px;height:4px;background:rgba(255,255,255,.85)"></div>
+  <div class="abs mono" style="left:2240px;top:1146px;width:920px;display:flex;justify-content:space-between;font-size:24px;color:#fff;text-shadow:0 2px 8px rgba(0,0,0,.5)">
+    <div style="text-align:left"><span class="dot" style="background:#fff;box-shadow:0 0 0 6px rgba(255,255,255,.3)"></span><div style="margin-top:22px">VIII зуун<br><b>Хөшөө Цайдам</b></div></div>
+    <div style="text-align:center"><span class="dot" style="background:#fff;box-shadow:0 0 0 6px rgba(255,255,255,.3)"></span><div style="margin-top:22px">XIII зуун<br><b>Хархорум</b></div></div>
+    <div style="text-align:right"><span class="dot" style="background:#fff;box-shadow:0 0 0 6px rgba(255,255,255,.3)"></span><div style="margin-top:22px">XVI зуун<br><b>Эрдэнэ Зуу</b></div></div>
+  </div>
+  <div class="abs" style="left:2240px;top:1370px;font-size:24px;font-weight:700;color:#fff;letter-spacing:.04em;text-shadow:0 2px 8px rgba(0,0,0,.5)">grit.mn/culture · @grit_edu_</div>
+
+  <!-- golden cloud curls (üülen khee) -->
+  <svg width="3240" height="1440" viewBox="0 0 3240 1440">
+    <g fill="none" stroke="#d9a425" stroke-width="9" stroke-linecap="round">
+      <g transform="translate(860 170) scale(1.25)"><path d="M0 0 C0 -40 50 -40 50 0 C50 22 25 22 25 4 C25 -8 38 -8 38 2"/><path d="M50 0 C50 -60 120 -60 120 0 C120 30 85 30 85 6 C85 -10 104 -10 104 4"/><path d="M-10 14 H130"/></g>
+      <g transform="translate(1210 250) scale(.8)"><path d="M0 0 C0 -40 50 -40 50 0 C50 22 25 22 25 4 C25 -8 38 -8 38 2"/><path d="M50 0 C50 -60 120 -60 120 0 C120 30 85 30 85 6 C85 -10 104 -10 104 4"/><path d="M-10 14 H130"/></g>
+    </g>
+  </svg>
+</div>
+</body></html>
