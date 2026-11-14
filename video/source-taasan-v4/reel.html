@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="mn"><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@500;600;700;800;900&family=Playfair+Display:ital,wght@0,600;0,700;1,500;1,600&display=block" rel="stylesheet">
+<style>
+:root{--bk:#0a0e0b;--g:#12301e;--cr:#f2efe6;--lime:#c6f25a;--gold:#e3b75a;--dim:rgba(242,239,230,.6)}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1080px;height:1920px;overflow:hidden;background:#000}
+#stage{position:relative;width:1080px;height:1920px;overflow:hidden;font-family:Onest,sans-serif;color:var(--cr);background:var(--bk)}
+.sc{position:absolute;inset:0;visibility:hidden;overflow:hidden;background:var(--bk)}
+.abs{position:absolute}
+.serif{font-family:'Playfair Display',serif;font-style:italic;font-weight:500;letter-spacing:-.01em}
+.sans{font-weight:900;letter-spacing:-.05em}
+.ln{overflow:hidden;line-height:1.02}
+.ln>span{display:inline-block}
+.rule{height:2px;background:rgba(242,239,230,.25);transform-origin:left}
+/* phone */
+#phone{position:absolute;left:270px;top:250px;width:540px;height:1080px;border-radius:84px;background:#000;box-shadow:0 0 0 14px #1d231f,0 0 0 16px #2c342e,0 60px 120px -40px rgba(0,0,0,.8);overflow:hidden}
+#phone .bar{display:flex;justify-content:space-between;align-items:center;padding:70px 40px 0;font-size:24px;font-weight:700;color:var(--dim)}
+#phone .ttl{text-align:center;font-weight:800;font-size:40px;letter-spacing:-.04em;margin-top:18px;color:var(--cr)}
+.brd{display:flex;flex-direction:column;gap:9px;align-items:center;margin-top:34px}
+.rw{display:flex;gap:9px}
+.tl{width:80px;height:80px;border-radius:7px;border:2.5px solid rgba(242,239,230,.16);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:44px;color:var(--cr);position:relative;background:#000}
+.tl.ty{border-color:rgba(242,239,230,.6)}
+.tl.ok{background:var(--cr);border-color:var(--cr);color:#000}
+.tl.pr{border:2.5px dashed var(--cr)}
+.tl.pr::after{content:"";position:absolute;top:6px;right:6px;width:9px;height:9px;border-radius:50%;background:var(--cr)}
+.tl.no{background:#151515;border-color:#151515;color:rgba(242,239,230,.3)}
+.kb{position:absolute;left:24px;right:24px;bottom:56px;display:flex;flex-direction:column;gap:9px}
+.kb div{display:flex;gap:7px;justify-content:center}
+.kb i{width:38px;height:56px;border-radius:7px;background:#1a1a1a}
+.feat{position:absolute;top:1420px;width:300px}
+.feat .no{font-family:'Playfair Display';font-style:italic;font-size:54px;color:var(--lime)}
+.feat .tx{font-weight:700;font-size:34px;line-height:1.2;margin-top:8px}
+#logo{position:absolute;left:64px;top:84px;height:74px;z-index:50}
+#wipe{position:absolute;left:0;right:0;height:3px;background:var(--lime);z-index:45;box-shadow:0 0 30px 4px rgba(198,242,90,.6)}
+#grain{position:absolute;inset:-60px;z-index:60;pointer-events:none;opacity:.05;mix-blend-mode:overlay}
+.pill{display:inline-block;padding:24px 54px;border-radius:999px;font-weight:800;font-size:50px;background:var(--cr);color:var(--bk)}
+.t6{display:inline-flex;width:112px;height:112px;border-radius:12px;align-items:center;justify-content:center;font-weight:900;font-size:62px;margin:0 6px;background:var(--cr);color:var(--bk)}
+</style></head><body>
+<div id="stage">
+
+<!-- 1 toono countdown -->
+<section class="sc" id="s1">
+  <svg class="abs" id="toono" width="1080" height="1920" style="left:0;top:0"></svg>
+  <div class="abs" id="s1cap" style="left:0;right:0;top:340px;text-align:center;font-weight:600;font-size:36px;color:var(--dim)">Дараагийн үг хүртэл</div>
+  <div class="abs serif" id="s1n" style="left:0;right:0;top:770px;text-align:center;font-size:300px;line-height:1"></div>
+  <div class="abs" id="s1new" style="left:0;right:0;top:1440px;text-align:center"><span class="serif" style="font-size:96px;color:var(--lime)">Шинэ үг</span><span style="font-weight:900;font-size:96px;letter-spacing:-.05em"> гарлаа</span></div>
+</section>
+
+<!-- 2 editorial list -->
+<section class="sc" id="s2">
+  <div class="abs" id="s2cap" style="left:90px;top:330px;font-weight:600;font-size:36px;color:var(--dim)">Монголын түүх, нэг тоглоомд</div>
+  <div class="abs" id="s2list" style="left:90px;right:70px;top:430px">
+    <div class="ln sans" style="font-size:160px"><span>Хаад,</span></div><div class="rule"></div>
+    <div class="ln serif" style="font-size:160px"><span>хотууд,</span></div><div class="rule"></div>
+    <div class="ln sans" style="font-size:160px"><span>домог,</span></div><div class="rule"></div>
+    <div class="ln serif" style="font-size:150px"><span>газар нутаг</span></div><div class="rule"></div>
+    <div class="ln" style="font-size:58px;font-weight:700;margin-top:34px;color:var(--lime)"><span>— өдөр бүр нэг үгэнд.</span></div>
+  </div>
+</section>
+
+<!-- 3 phone -->
+<section class="sc" id="s3">
+  <div class="abs" style="left:-200px;top:300px;width:1480px;height:1100px;background:radial-gradient(ellipse at center,rgba(44,106,65,.35),transparent 65%)"></div>
+  <div id="phone">
+    <div class="bar"><span>№ 318</span><span>11/14</span></div>
+    <div class="ttl">Таасан уу?</div>
+    <div class="brd" id="brd"></div>
+    <div class="kb"><div>${''}</div></div>
+    <div class="abs" id="toast" style="left:0;right:0;top:420px;text-align:center"><span style="display:inline-block;background:var(--cr);color:#000;font-weight:800;font-size:34px;padding:16px 30px;border-radius:999px">+5 оноо · 2/6</span></div>
+  </div>
+  <div class="feat" id="f1" style="left:90px"><div class="no">01</div><div class="tx">6 оролдлого</div></div>
+  <div class="feat" id="f2" style="left:400px"><div class="no">02</div><div class="tx">Сэжүүр,<br>үсэг нээх</div></div>
+  <div class="feat" id="f3" style="left:710px"><div class="no">03</div><div class="tx">Таасны дараа<br>түүх нь</div></div>
+</section>
+
+<!-- 4 headline -->
+<section class="sc" id="s4">
+  <svg class="abs" id="toono4" width="1080" height="1920" style="left:0;top:0;opacity:.18"></svg>
+  <div class="abs" id="s4t" style="left:90px;right:60px;top:560px">
+    <div class="ln sans" style="font-size:190px"><span>Түүхээ</span></div>
+    <div class="ln serif" style="font-size:200px;color:var(--lime)"><span>тоглоом</span></div>
+    <div class="ln sans" style="font-size:190px"><span>болго.</span></div>
+  </div>
+  <div class="abs" id="s4s" style="left:94px;top:1290px;font-weight:600;font-size:42px;color:var(--dim)">Оноо цуглуулж, цолоо ахиул</div>
+</section>
+
+<!-- 5 arav dots -->
+<section class="sc" id="s5">
+  <canvas class="abs" id="dots" width="1080" height="1920" style="left:0;top:0"></canvas>
+  <div class="abs" id="s5cap" style="left:90px;top:300px;font-weight:600;font-size:36px;color:var(--dim)">Аравтын тогтолцоо · цэргээс хаан хүртэл</div>
+  <div class="abs" id="s5name" style="left:90px;right:60px;top:1340px"></div>
+  <div class="abs" id="s5scale" style="left:90px;right:60px;top:1590px;display:flex;gap:30px;font-weight:800;font-size:34px"></div>
+</section>
+
+<!-- 6 photo line -->
+<section class="sc" id="s6">
+  <img class="abs" id="s6img" src="culture-hero.jpg" style="height:1920px;top:0;left:0">
+  <div class="abs" style="inset:0;background:linear-gradient(180deg,rgba(10,14,11,.55) 0%,rgba(10,14,11,.35) 35%,rgba(10,14,11,.9) 75%,#0a0e0b 100%)"></div>
+  <div class="abs" id="s6t" style="left:90px;right:60px;top:1040px">
+    <div class="ln sans" style="font-size:84px"><span>Түүхээ мэдэх хүслээ</span></div>
+    <div class="ln serif" style="font-size:96px;color:var(--lime)"><span>өдөр бүрийн дадал</span></div>
+    <div class="ln sans" style="font-size:84px"><span>болгоё.</span></div>
+  </div>
+</section>
+
+<!-- 7 end -->
+<section class="sc" id="s7" style="background:var(--g)">
+  <svg class="abs" id="toono7" width="1080" height="1920" style="left:0;top:0;opacity:.14"></svg>
+  <img class="abs" id="s7logo" src="logo.png" style="width:640px;left:220px;top:420px">
+  <div class="abs" id="s7tiles" style="left:0;right:0;top:830px;text-align:center"></div>
+  <div class="abs" id="s7q" style="left:0;right:0;top:960px;text-align:center"><span class="serif" style="font-size:130px">уу?</span></div>
+  <div class="abs" id="s7s" style="left:0;right:0;top:1150px;text-align:center;font-weight:600;font-size:42px;color:rgba(242,239,230,.8)">Өдөр бүр шинэ үг · Үнэгүй</div>
+  <div class="abs" id="s7c" style="left:0;right:0;top:1270px;text-align:center"><span class="pill">grit.mn/culture</span><div style="margin-top:34px;font-weight:600;font-size:36px;color:rgba(242,239,230,.7)">@grit_edu_</div></div>
+</section>
+
+<img id="logo" src="logo.png">
+<div id="wipe"></div>
+<canvas id="grain" width="600" height="1040"></canvas>
+</div>
+<script>
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const cl=(x,a=0,b=1)=>Math.min(b,Math.max(a,x)),p=(t,a,d)=>cl((t-a)/d),lerp=(a,b,t)=>a+(b-a)*t;
+const eo=t=>1-Math.pow(1-t,3),e5=t=>1-Math.pow(1-t,5),eio=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
+const bk=t=>{const c=1.6,c3=c+1;return 1+c3*Math.pow(t-1,3)+c*Math.pow(t-1,2)};
+const st=(el,o)=>{if(typeof el==='string')el=$(el);for(const k in o)el.style[k]=o[k]};
+let seed=17;const rnd=()=>(seed=(seed*16807)%2147483647)/2147483647;
+const B=[0,3.5,7.5,13.5,17.5,23.5,27.5,31.5];window.DUR=B[7];
+
+/* toono: ring of roof poles + crown */
+function toono(svg,cx,cy,r0,r1,n){let s=`<g transform="translate(${cx},${cy})"><g class="sp">`;for(let i=0;i<n;i++){const a=i/n*Math.PI*2;s+=`<line x1="${Math.cos(a)*r0}" y1="${Math.sin(a)*r0}" x2="${Math.cos(a)*r1}" y2="${Math.sin(a)*r1}" stroke="#f2efe6" stroke-width="3" stroke-linecap="round"/>`}
+  s+=`</g><circle r="${r0}" fill="none" stroke="#f2efe6" stroke-width="5"/><circle r="${r0-22}" fill="none" stroke="#f2efe6" stroke-width="2" opacity=".5"/><circle class="ring" r="${r1+30}" fill="none" stroke="#c6f25a" stroke-width="4" opacity="0"/></g>`;svg.innerHTML=s}
+toono($('#toono'),540,920,230,470,72);toono($('#toono4'),760,980,260,760,90);toono($('#toono7'),540,700,240,900,90);
+const SP=[...$$('#toono .sp line')];const ringC=2*Math.PI*500;const RING=$('#toono .ring');RING.setAttribute('stroke-dasharray',ringC);RING.setAttribute('transform','rotate(-90)');
+
+/* phone board + keyboard */
+$('#brd').innerHTML=Array.from({length:6},()=>'<div class="rw">'+'<div class="tl"></div>'.repeat(5)+'</div>').join('');
+$('.kb').innerHTML=[10,9,7].map(n=>'<div>'+'<i></i>'.repeat(n)+'</div>').join('');
+const R3=['УЛААН','ТУУЛЬ'],C3=[['pr','pr','no','no','no'],Array(5).fill('ok')];
+
+/* dots */
+const STG=[[1,'Цэрэг','0 оноо'],[10,'Аравтын ноён','60 оноо · 15 өдөр'],[100,'Зуутын ноён','250 оноо · 60 өдөр'],[1000,'Мянгатын ноён','600 оноо · 140 өдөр'],[10000,'Түмэний ноён','1000 оноо · 220 өдөр']];
+const FX=110,FY=420,FS=860;
+const LAY=STG.map(([n])=>{const cols=n===10?5:Math.ceil(Math.sqrt(n));const rows=Math.ceil(n/cols);const cell=FS/Math.max(cols,rows);const ox=FX+(FS-cols*cell)/2,oy=FY+(FS-rows*cell)/2;const pts=[];for(let i=0;i<n;i++){const c=i%cols,r=Math.floor(i/cols);pts.push([ox+(c+.5)*cell,oy+(r+.5)*cell])}const cx=FX+FS/2,cy=FY+FS/2;pts.sort((a,b)=>Math.hypot(a[0]-cx,a[1]-cy)-Math.hypot(b[0]-cx,b[1]-cy));return{pts,rad:Math.max(1.7,cell*.36)}});
+$('#s5scale').innerHTML=['1','10','100','1 000','10 000','Хаан'].map(x=>`<span>${x}</span>`).join('');
+const dx=$('#dots').getContext('2d');
+
+/* end tiles */
+$('#s7tiles').innerHTML='ТААСАН'.split('').map(c=>`<span class="t6">${c}</span>`).join('');
+
+/* grain */
+const g=$('#grain'),gx=g.getContext('2d'),id=gx.createImageData(600,1040);for(let i=0;i<id.data.length;i+=4){const v=rnd()*255;id.data[i]=id.data[i+1]=id.data[i+2]=v;id.data[i+3]=255}gx.putImageData(id,0,0);g.style.width='1200px';g.style.height='2080px';
+
+function lines(sel,t,a0,gap){$$(sel+' .ln>span').forEach((s,i)=>{const q=e5(p(t,a0+i*gap,.7));s.style.transform=`translateY(${(1-q)*110}%)`});}
+
+function render(T){
+  const si=B.findIndex((b,i)=>T>=b&&T<B[i+1]);const t=T-B[si];
+  $$('.sc').forEach((s,i)=>s.style.visibility=i===si?'visible':'hidden');
+  st(g,{transform:`translate(${(Math.floor(T*12)%5)*-11}px,${(Math.floor(T*12)%7)*-8}px)`});
+  // wipe-in: new scene revealed bottom→top behind a thin lime line
+  const sc=$$('.sc')[si];const q=si>0?eio(p(t,0,.55)):1;sc.style.clipPath=`inset(${(1-q)*100}% 0 0 0)`;
+  st('#wipe',{display:si>0&&q<1?'block':'none',top:(1920*(1-q)-1)+'px'});
+  st('#logo',{opacity:si>0&&si<6?1:0});
+  if(si===0){
+    const f=cl(t/3);const on=Math.floor(f*SP.length);SP.forEach((l,i)=>l.setAttribute('opacity',i<on?.95:.14));
+    $('#toono g').setAttribute('transform',`translate(540,920) rotate(${t*6})`);
+    const z=p(t,2.95,.3);RING.setAttribute('opacity',z);RING.setAttribute('stroke-dashoffset',ringC*(1-eo(p(t,2.95,.45))));
+    const k=t<.6?3:t<1.6?2:t<2.6?1:0;const ts=[0,.6,1.6,2.6][3-k];const qn=e5(p(t,ts,.4));
+    st('#s1n',{opacity:t<.15?p(t,0,.15):qn,filter:`blur(${(1-qn)*14}px)`,transform:`scale(${1.12-.12*qn})`,color:k===0?'#c6f25a':'#f2efe6'});$('#s1n').textContent=k;
+    st('#s1cap',{opacity:p(t,.1,.4)});
+    const qw=e5(p(t,2.9,.6));st('#s1new',{opacity:qw,transform:`translateY(${(1-qw)*40}px)`});
+  }
+  else if(si===1){
+    st('#s2cap',{opacity:p(t,.4,.4)});lines('#s2list',t,.5,.28);
+    $$('#s2list .rule').forEach((r,i)=>r.style.transform=`scaleX(${eo(p(t,.7+i*.28,.7))})`);
+  }
+  else if(si===2){
+    const qp=e5(p(t,.3,.9));st('#phone',{transform:`translateY(${(1-qp)*300}px) rotate(${(1-qp)*-4}deg)`});
+    const rows=$$('#brd .rw').map(r=>[...r.children]);
+    [[.9,1.95],[2.6,3.65]].forEach(([ts,tf],r)=>{for(let i=0;i<5;i++){const el=rows[r][i];const tt=ts+i*.16;const ty=t>=tt;el.textContent=ty?R3[r][i]:'';const fq=p(t,tf+i*.12,.3);
+      el.className='tl'+(fq>=.5?' '+C3[r][i]:ty?' ty':'');el.style.transform=fq>0&&fq<1?`scaleY(${Math.abs(Math.cos(fq*Math.PI))})`:`scale(${ty?1+.1*Math.sin(p(t,tt,.12)*Math.PI):1})`;
+      if(r===1){const j=p(t,4.4+i*.07,.3);if(j>0)el.style.transform=`translateY(${-Math.sin(j*Math.PI)*20}px)`}}});
+    const qt=bk(p(t,4.6,.45));st('#toast',{opacity:cl(qt),transform:`scale(${qt})`});
+    ['#f1','#f2','#f3'].forEach((s,i)=>{const q=e5(p(t,1.4+i*.9,.6));st(s,{opacity:q,transform:`translateY(${(1-q)*40}px)`})});
+  }
+  else if(si===3){
+    $('#toono4 g').setAttribute('transform',`translate(760,980) rotate(${t*4})`);
+    lines('#s4t',t,.4,.22);const qs=e5(p(t,1.3,.6));st('#s4s',{opacity:qs,transform:`translateY(${(1-qs)*30}px)`});
+  }
+  else if(si===4){
+    st('#s5cap',{opacity:p(t,.3,.4)});
+    const T0=.5,STEP=.95;const k=Math.min(4,Math.floor(Math.max(0,t-T0)/STEP));const lt=t-T0-k*STEP;const king=t>T0+5*STEP-.15;
+    dx.clearRect(0,0,1080,1920);
+    if(!king||t<T0+5*STEP+.3){const L=LAY[k];const n=L.pts.length;const fade=king?1-p(t,T0+5*STEP-.15,.45):1;
+      for(let i=0;i<n;i++){const ap=cl((lt-.45*i/n)/.25);if(t<T0)break;if(ap<=0&&k>0){continue}const [x,y]=L.pts[i];const r=L.rad*(k===0?bk(cl(lt/.4)):eo(ap))*(king?1-.6*(1-fade):1);
+        dx.globalAlpha=fade*(ap<1?.6+.4*ap:1);dx.fillStyle=ap<1&&k>0?'#c6f25a':'#f2efe6';dx.beginPath();dx.arc(x,y,Math.max(.1,r),0,Math.PI*2);dx.fill()}
+      dx.globalAlpha=1}
+    let nm,sb;if(king){nm='Хаан';sb='1300 оноо · 300 өдөр'}else{[,nm,sb]=STG[k]}
+    const qn=e5(p(t,king?T0+5*STEP-.1:T0+k*STEP,.5));
+    $('#s5name').innerHTML=`<div class="serif" style="font-size:${king?200:110}px;line-height:1;color:${king?'#e3b75a':'#f2efe6'};transform:translateY(${(1-qn)*30}px);opacity:${t<T0?0:qn}">${nm}</div><div style="font-weight:600;font-size:36px;color:rgba(242,239,230,.6);margin-top:18px;opacity:${t<T0?0:qn}">${sb}</div>`;
+    if(king)st('#s5name',{top:(1340-400*e5(p(t,T0+5*STEP-.1,.6)))+'px'});else st('#s5name',{top:'1340px'});
+    $$('#s5scale span').forEach((s,i)=>{const cur=king?5:k;s.style.color=i===cur?(i===5?'#e3b75a':'#c6f25a'):i<cur?'rgba(242,239,230,.75)':'rgba(242,239,230,.25)';s.style.opacity=p(t,.3,.4)});
+  }
+  else if(si===5){
+    const w=1792/768*1920;st('#s6img',{width:w+'px',transform:`translateX(${-lerp(w*.42,w-1080-w*.04,eio(p(t,0,4)))}px) scale(1.02)`});
+    lines('#s6t',t,.5,.3);
+  }
+  else{
+    $('#toono7 g').setAttribute('transform',`translate(540,700) rotate(${t*4})`);
+    const ql=e5(p(t,.2,.7));st('#s7logo',{opacity:ql,transform:`translateY(${(1-ql)*40}px)`});
+    $$('#s7tiles .t6').forEach((el,i)=>{const q=p(t,.7+i*.09,.3);el.style.opacity=q>0?1:0;el.style.transform=`scaleY(${q<1?Math.abs(Math.cos((1-q)*Math.PI/2)):1})`;el.style.background=i===5&&t>1.6?'#c6f25a':'#f2efe6'});
+    const qq=e5(p(t,1.4,.6));st('#s7q',{opacity:qq,transform:`translateY(${(1-qq)*30}px)`});
+    st('#s7s',{opacity:p(t,1.7,.5)});const qc=e5(p(t,2.0,.6));st('#s7c',{opacity:qc,transform:`translateY(${(1-qc)*30}px)`});
+  }
+}
+window.render=render;render(0);
+</script></body></html>
