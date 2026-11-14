@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="mn"><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@500;600;700;800;900&family=Oswald:wght@600;700&display=block" rel="stylesheet">
+<style>
+:root{--sf:#ffb703;--red:#d62828;--blue:#2a6fdb;--grn:#2a9d5c;--ind:#1d2a5b;--org:#f77f00;--cr:#fff3d6;--pk:#ff5d73}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1080px;height:1920px;overflow:hidden;background:#000}
+#stage{position:relative;width:1080px;height:1920px;overflow:hidden;font-family:Onest,sans-serif;color:var(--ind)}
+.sc{position:absolute;inset:0;visibility:hidden;overflow:hidden}
+.abs{position:absolute}
+.lay{position:absolute;left:0;top:0;overflow:visible}
+.tl{position:absolute;width:170px;height:170px;border-radius:24px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:96px;color:#fff;box-shadow:0 10px 0 rgba(0,0,0,.18)}
+.seal{position:absolute;padding:26px 40px;border-radius:22px;background:var(--red);color:#fff;font-weight:900;font-size:62px;letter-spacing:-.02em;white-space:nowrap;box-shadow:inset 0 0 0 7px var(--red),inset 0 0 0 11px #fff,0 14px 0 rgba(0,0,0,.15)}
+.bt{position:absolute;width:170px;height:170px;border-radius:24px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:100px;color:var(--ind);background:#fff;border:6px solid rgba(29,42,91,.18)}
+.note{position:absolute;font-weight:800;font-size:40px;white-space:nowrap}
+#book{position:absolute;left:70px;right:70px;top:1120px;border-radius:36px;background:#fff;box-shadow:0 26px 0 rgba(0,0,0,.1);overflow:hidden}
+.bar{position:absolute;left:300px;height:120px;border-radius:0 26px 26px 0}
+.bl{position:absolute;left:70px;width:220px;height:120px;display:flex;align-items:center;font-weight:900;font-size:50px;color:#fff}
+.bv{position:absolute;height:120px;display:flex;align-items:center;font-family:Oswald;font-weight:700;font-size:52px;color:#fff}
+#brd,#arrows,#n1,#n2{margin-top:110px}#s3h{margin-top:40px}
+#grid{position:absolute;inset:0;z-index:40;pointer-events:none}
+#grid i{position:absolute;width:120px;height:120px}
+.cta{display:inline-block;background:var(--sf);color:var(--ind);font-weight:900;font-size:54px;padding:24px 56px;border-radius:999px;box-shadow:0 10px 0 rgba(0,0,0,.25)}
+</style></head><body>
+<div id="stage">
+
+<!-- 1 question -->
+<section class="sc" id="s1" style="background:var(--sf)">
+  <svg class="lay" id="s1pat" width="1080" height="1920"></svg>
+  <svg class="lay" id="s1bor" width="1080" height="1920"></svg>
+  <div class="abs" id="s1t" style="left:90px;right:60px;top:430px;font-weight:900;font-size:138px;line-height:1.02;letter-spacing:-.045em">
+    <div class="w1">Өнөөдрийн</div><div class="w1">үг юу вэ?</div>
+  </div>
+  <div id="s1tiles"></div>
+  <div class="seal" id="s1seal" style="left:300px;top:1300px;transform:rotate(-6deg)">Өдөр бүр шинэ</div>
+</section>
+
+<!-- 2 steppe -->
+<section class="sc" id="s2" style="background:linear-gradient(180deg,#7cc8ff 0%,#bfe6ff 55%,#e8f6ff 100%)">
+  <div id="s2layers"></div>
+  <div class="seal" id="se1" style="left:110px;top:300px;transform:rotate(-5deg)">Өдөр бүр</div>
+  <div class="seal" id="se2" style="left:560px;top:450px;transform:rotate(4deg);background:var(--ind);box-shadow:inset 0 0 0 7px var(--ind),inset 0 0 0 11px #fff,0 14px 0 rgba(0,0,0,.15)">1 үг</div>
+  <div class="seal" id="se3" style="left:190px;top:620px;transform:rotate(-2deg);background:var(--org);box-shadow:inset 0 0 0 7px var(--org),inset 0 0 0 11px #fff,0 14px 0 rgba(0,0,0,.15)">6 оролдлого</div>
+  <img class="abs" id="horse2" src="icon.svg" style="width:170px">
+  <div class="abs" id="s2sub" style="left:80px;right:80px;top:1480px;color:#fff;font-weight:900;font-size:60px;line-height:1.12;letter-spacing:-.03em">Монголын түүхийн<br>5 үсэгтэй үгийг таа</div>
+</section>
+
+<!-- 3 how to play -->
+<section class="sc" id="s3" style="background:var(--cr)">
+  <svg class="lay" id="s3bor" width="1080" height="1920"></svg>
+  <div class="abs" id="s3h" style="left:83px;top:250px;font-weight:900;font-size:96px;letter-spacing:-.045em">Ингэж тоглоно</div>
+  <div id="brd"></div>
+  <svg class="lay" id="arrows" width="1080" height="1920"></svg>
+  <div class="note" id="n1" style="left:110px;top:735px;color:#c98a00;transform:rotate(-4deg)">үг дотор бий</div>
+  <div class="note" id="n2" style="left:560px;top:735px;color:#8a8478;transform:rotate(3deg)">байхгүй</div>
+  <div id="book">
+    <div style="height:22px;background:repeating-linear-gradient(90deg,var(--red) 0 60px,var(--sf) 60px 120px,var(--blue) 120px 180px,var(--grn) 180px 240px)"></div>
+    <div style="padding:40px 50px 46px">
+      <div style="display:flex;justify-content:space-between;align-items:center"><div style="font-weight:900;font-size:76px;letter-spacing:-.03em">Тууль</div><div style="background:var(--grn);color:#fff;font-weight:900;font-size:40px;padding:12px 26px;border-radius:999px">+5 оноо</div></div>
+      <div style="font-size:40px;font-weight:600;line-height:1.35;margin-top:16px;color:#3b4366">Монгол ардын баатарлаг тууль. Туульч хүн «Жангар», «Гэсэр» мэтийг шөнөжин хайлдаг.</div>
+    </div>
+  </div>
+  <div id="conf3"></div>
+</section>
+
+<!-- 4 rank parade -->
+<section class="sc" id="s4" style="background:linear-gradient(180deg,#ff5d73 0%,#ff8a4c 60%,#ffb703 100%)">
+  <svg class="lay" id="s4sun" width="1080" height="1920"></svg>
+  <div class="abs" id="s4h" style="left:80px;right:60px;top:240px;color:#fff;font-weight:900;font-size:104px;line-height:1;letter-spacing:-.045em">Цэргээс<br>Хаан хүртэл</div>
+  <div class="abs" id="s4sub" style="left:84px;top:480px;color:#fff;font-weight:700;font-size:42px;opacity:.95">Оноо, өдрөөр цолоо ахиул</div>
+  <div class="abs" id="strip" style="left:0;top:0;width:3000px;height:1920px"></div>
+  <img class="abs" id="horse4" src="icon.svg" style="width:150px">
+</section>
+
+<!-- 5 class race -->
+<section class="sc" id="s5" style="background:var(--grn)">
+  <svg class="lay" id="s5pat" width="1080" height="1920"></svg>
+  <div class="abs" id="s5h" style="left:80px;right:60px;top:250px;color:#fff;font-weight:900;font-size:104px;line-height:1;letter-spacing:-.045em">Ангиараа<br>өрсөлд</div>
+  <div class="abs" id="s5sub" style="left:84px;top:500px;color:#fff;font-weight:700;font-size:42px;opacity:.95">Ангийн кодоор нэгдээд хамтдаа оноо цуглуул</div>
+  <div id="race"></div>
+</section>
+
+<!-- 6 end -->
+<section class="sc" id="s6" style="background:var(--ind)">
+  <svg class="lay" id="s6pat" width="1080" height="1920"></svg>
+  <svg class="lay" id="s6bor" width="1080" height="1920"></svg>
+  <img class="abs" id="s6logo" src="logo.png" style="width:720px;left:180px;top:430px">
+  <div class="abs" id="s6t" style="left:0;right:0;top:860px;text-align:center;font-weight:900;font-size:132px;letter-spacing:-.045em;color:var(--sf)">Таасан уу?</div>
+  <div class="abs" id="s6sub" style="left:0;right:0;top:1040px;text-align:center;font-weight:700;font-size:44px;color:#fff">Өдөр бүр шинэ үг · Үнэгүй</div>
+  <div class="abs" id="s6cta" style="left:0;right:0;top:1170px;text-align:center"><span class="cta">grit.mn/culture</span><div style="margin-top:36px;font-weight:700;font-size:38px;color:rgba(255,255,255,.8)">Instagram · @grit_edu_</div></div>
+</section>
+
+<div id="grid"></div>
+</div>
+<script>
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const cl=(x,a=0,b=1)=>Math.min(b,Math.max(a,x)),p=(t,a,d)=>cl((t-a)/d),lerp=(a,b,t)=>a+(b-a)*t;
+const eo=t=>1-Math.pow(1-t,3),e5=t=>1-Math.pow(1-t,5),eio=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
+const bk=t=>{const c=1.8,c3=c+1;return 1+c3*Math.pow(t-1,3)+c*Math.pow(t-1,2)};
+const st=(el,o)=>{if(typeof el==='string')el=$(el);for(const k in o)el.style[k]=o[k]};
+let seed=5;const rnd=()=>(seed=(seed*16807)%2147483647)/2147483647;
+const NS='http://www.w3.org/2000/svg';
+const B=[0,4,10,17,23,27,32];window.DUR=B[6];
+const BGC=['#ffb703','#7cc8ff','#fff3d6','#ff5d73','#2a9d5c','#1d2a5b'];
+const TC=['#d62828','#2a6fdb','#2a9d5c','#1d2a5b','#f77f00'];
+
+/* ---- ornament helpers ---- */
+function meander(y,u,h,x0,x1){let d=`M${x0},${y+h}`;for(let x=x0;x<x1;x+=u){d+=` L${x},${y} L${x+u*.62},${y} L${x+u*.62},${y+h*.62} L${x+u*.3},${y+h*.62} L${x+u*.3},${y+h*.3}`;d+=` M${x+u*.3},${y+h*.3} M${x+u*.62},${y+h*.62} L${x+u*.62},${y+h} L${x+u},${y+h}`}return d}
+function band(svg,y,col,w=6){const g=document.createElementNS(NS,'g');g.setAttribute('fill','none');g.setAttribute('stroke',col);g.setAttribute('stroke-width',w);g.setAttribute('stroke-linejoin','round');
+  g.innerHTML=`<path d="M30,${y-18}H1050"/><path d="${meander(y,72,46,30,1050)}"/><path d="M30,${y+64}H1050"/>`;svg.appendChild(g);return g}
+function cloud(x,y,s,col,op){return `<g transform="translate(${x},${y}) scale(${s})" fill="none" stroke="${col}" stroke-width="9" stroke-linecap="round" opacity="${op}"><path d="M0,0 C0,-40 50,-40 50,0 C50,22 25,22 25,4 C25,-8 38,-8 38,2"/><path d="M50,0 C50,-60 120,-60 120,0 C120,30 85,30 85,6 C85,-10 104,-10 104,4"/><path d="M120,0 C120,-40 170,-40 170,0"/><path d="M-10,12 H180"/></g>`}
+function ulzii(cx,cy,R,col,w){let s=`<g transform="translate(${cx},${cy}) rotate(45)" fill="none" stroke="${col}" stroke-width="${w}" stroke-linecap="round">`;const k=R/3;for(let i=-1;i<=1;i++){s+=`<path d="M${-R},${i*k}H${R}M${i*k},${-R}V${R}"/>`}
+  [[R,0],[-R,0],[0,R],[0,-R]].forEach(([x,y])=>{const vert=x===0;s+=vert?`<path d="M${-k},${y} A${k},${k} 0 0 ${y>0?0:1} ${k},${y}"/>`:`<path d="M${x},${-k} A${k},${k} 0 0 ${x>0?1:0} ${x},${k}"/>`});
+  [[R,R],[-R,R],[R,-R],[-R,-R]].forEach(([x,y])=>{s+=`<path d="M${x},${y-Math.sign(y)*k*2} A${k*.9},${k*.9} 0 1 ${x*y>0?1:0} ${x-Math.sign(x)*k*2},${y}"/>`});return s+'</g>'}
+function prepDraw(g){g.querySelectorAll('path').forEach(pa=>{const L=pa.getTotalLength();pa.dataset.L=L;pa.style.strokeDasharray=L;pa.style.strokeDashoffset=L})}
+function draw(g,q){g.querySelectorAll('path').forEach(pa=>pa.style.strokeDashoffset=pa.dataset.L*(1-q))}
+
+/* ---- S1 ---- */
+let pat='';for(let i=0;i<14;i++){pat+=cloud(rnd()*900,200+rnd()*1600,.9+rnd()*.8,'#fff',.35)}$('#s1pat').innerHTML=pat;
+const s1b=[band($('#s1bor'),70,'#1d2a5b'),band($('#s1bor'),1790,'#1d2a5b')];s1b.forEach(prepDraw);
+$('#s1tiles').innerHTML=TC.map((c,i)=>`<div class="tl" style="left:${83+i*186}px;top:1000px;background:${c}">?</div>`).join('');
+const LET='АБВГДЕЖЗИЙКЛМНОӨПРСТУҮФХЦЧШЭЮЯ';
+
+/* ---- S2 steppe ---- */
+function hill(y0,amp,f,ph,w=2400){let d=`M0,1920 L0,${y0}`;for(let x=0;x<=w;x+=30){d+=` L${x},${(y0+Math.sin(x*f+ph)*amp+Math.sin(x*f*2.3+ph*1.7)*amp*.35).toFixed(1)}`}return d+` L${w},1920 Z`}
+function mtn(y0,w=2400){let d=`M0,1920 L0,${y0}`;let x=0;let i=0;while(x<w){const pw=260+((i*137)%5)*60;const ph=200+((i*71)%4)*70;d+=` L${x+pw/2},${y0-ph} L${x+pw},${y0}`;x+=pw;i++}return d+` L${w},1920 Z`}
+const L2=[{d:mtn(1050),c:'#6c7bd9',v:14,snow:true},{d:hill(1180,40,.004,1),c:'#7ccf6a',v:30},{d:hill(1300,50,.003,2),c:'#3fae5c',v:55,gers:true},{d:hill(1440,45,.0035,4),c:'#2a8a49',v:90},{d:hill(1560,40,.004,0),c:'#1f6b39',v:130}];
+$('#s2layers').innerHTML=`<svg class="lay" id="sun2" width="1080" height="1920"><g transform="translate(830,330)"><circle r="120" fill="#ffb703"/><g id="rays2" fill="none" stroke="#ffb703" stroke-width="10" stroke-linecap="round">${Array.from({length:16},(_,i)=>`<path transform="rotate(${i*22.5})" d="M0,-150 V-185"/>`).join('')}</g></g></svg>`+
+ `<svg class="lay" id="cl2" width="2400" height="1920">${[[100,420,1],[700,260,.8],[1300,500,1.1],[1800,330,.9]].map(([x,y,s])=>cloud(x,y,s,'#fff',.95)).join('')}</svg>`+
+ L2.map((l,i)=>`<svg class="lay hl" width="2400" height="1920" style="filter:drop-shadow(0 -10px 12px rgba(0,0,0,.18))"><path d="${l.d}" fill="${l.c}"/>${l.snow?mtnSnow():''}${l.gers?gers():''}</svg>`).join('');
+function mtnSnow(){let s='';let x=0,i=0;while(x<2400){const pw=260+((i*137)%5)*60;const ph=200+((i*71)%4)*70;const tx=x+pw/2,ty=1050-ph;s+=`<path d="M${tx},${ty} L${tx-pw*.16},${ty+ph*.32} L${tx-pw*.05},${ty+ph*.25} L${tx},${ty+ph*.34} L${tx+pw*.07},${ty+ph*.24} L${tx+pw*.16},${ty+ph*.32}Z" fill="#fff"/>`;x+=pw;i++}return s}
+function gers(){return [[380,1255],[470,1262],[1250,1268],[1340,1262],[1900,1250]].map(([x,y])=>`<g transform="translate(${x},${y})"><path d="M-46,30 V0 Q0,-36 46,0 V30 Z" fill="#fff"/><path d="M-46,4 Q0,-30 46,4" fill="none" stroke="#d62828" stroke-width="5"/><rect x="-10" y="8" width="20" height="22" fill="#f77f00"/></g>`).join('')}
+
+/* ---- S3 board ---- */
+const R3=[['У','Л','А','А','Н'],['Т','У','У','Л','Ь']];const C3=[['#ffb703','#ffb703','#b8b2a7','#b8b2a7','#b8b2a7'],Array(5).fill('#2a9d5c')];
+$('#brd').innerHTML=R3.map((r,ri)=>r.map((c,i)=>`<div class="bt" style="left:${83+i*186}px;top:${470+ri*196}px"></div>`).join('')).join('');
+$('#arrows').innerHTML='<g fill="none" stroke-width="7" stroke-linecap="round"><path id="a1" stroke="#c98a00" d="M250,728 C240,690 200,680 170,656"/><path id="a2" stroke="#8a8478" d="M640,728 C630,690 580,680 545,656"/><path id="a1h" stroke="#c98a00" d="M168,690 L166,654 L202,660"/><path id="a2h" stroke="#8a8478" d="M545,690 L543,654 L579,660"/></g>';
+const AR=$('#arrows g');prepDraw(AR);
+const CF3=Array.from({length:60},()=>({x:540+(rnd()-.5)*200,y:870,vx:(rnd()-.5)*1500,vy:-900-rnd()*900,r:rnd()*360,vr:(rnd()-.5)*900,c:['#d62828','#ffb703','#2a6fdb','#2a9d5c','#f77f00','#ff5d73'][Math.floor(rnd()*6)],s:14+rnd()*16}));
+$('#conf3').innerHTML=CF3.map(c=>`<i style="position:absolute;left:0;top:0;width:${c.s}px;height:${c.s*.5}px;background:${c.c};border-radius:3px"></i>`).join('');
+
+/* ---- S4 parade ---- */
+const RK=[['Цэрэг','0 оноо','#1d2a5b'],['Аравтын ноён','60 оноо','#2a6fdb'],['Зуутын ноён','250 оноо','#2a9d5c'],['Мянгатын ноён','600 оноо','#7b3fd1'],['Түмэний ноён','1000 оноо','#d62828'],['Хаан','1300 оноо','#ffb703']];
+const PX=RK.map((r,i)=>380+i*440),GY=1500;
+let sh=`<svg class="lay" width="3000" height="1920" style="filter:drop-shadow(0 -10px 12px rgba(0,0,0,.18))"><path d="${hill(1470,30,.003,1,3000)}" fill="#3fae5c"/><path d="${hill(1600,30,.004,3,3000)}" fill="#2a8a49"/></svg>`;
+sh+=`<svg class="lay" id="flags" width="3000" height="1920"></svg>`;
+RK.forEach(([n,s],i)=>{sh+=`<div class="abs rkl" style="left:${PX[i]-160}px;top:${GY+20}px;width:320px;text-align:center;color:#fff;font-weight:700;font-size:36px">${s}</div>`});
+$('#strip').innerHTML=sh;
+function flagPath(x,top,w,h,t,i){let d='';const N=12;const pts=[];for(let k=0;k<=N;k++){const u=k/N;const yo=Math.sin(t*5-u*4+i)*14*u;pts.push([x+u*w,top+yo])}d=`M${x},${top}`;pts.forEach(([a,b])=>d+=` L${a},${b}`);const last=pts[N];d+=` L${last[0]-30},${last[1]+h/2} L${last[0]},${last[1]+h}`;for(let k=N;k>=0;k--){d+=` L${pts[k][0]},${pts[k][1]+h}`}return d+'Z'}
+
+/* ---- S5 race ---- */
+const CLS=[['8А','#ffb703'],['9Б','#d62828'],['10В','#2a6fdb'],['7Г','#ffffff']];
+$('#race').innerHTML=CLS.map(([n,c],i)=>`<div class="bar" id="b${i}" style="background:${c}"></div><div class="bl" id="l${i}">${n}</div><div class="bv" id="v${i}"></div>`).join('')+`<svg class="abs" id="crown5" viewBox="0 0 24 24" style="width:110px;height:110px;fill:#ffb703;stroke:#1d2a5b;stroke-width:1.2"><path d="M3 18h18v2H3zM4 16l-1-9 5 4 4-7 4 7 5-4-1 9z"/></svg>`;
+const VAL=(i,t)=>{const k=[ [0,120,260,420,560,700], [0,200,330,400,470,520], [0,60,180,470,640,660], [0,160,220,300,380,430] ][i];const f=cl(t/4.2)*5;const j=Math.min(4,Math.floor(f));return lerp(k[j],k[j+1],eio(f-j))};
+$('#s5pat').innerHTML=ulzii(880,1500,220,'rgba(255,255,255,.12)',22)+ulzii(150,1750,140,'rgba(255,255,255,.1)',16);
+
+/* ---- S6 ---- */
+$('#s6pat').innerHTML=`<g id="ul6">${ulzii(0,0,330,'rgba(255,183,3,.14)',26)}</g>`;
+const s6b=[band($('#s6bor'),80,'#ffb703',5),band($('#s6bor'),1780,'#ffb703',5)];s6b.forEach(prepDraw);
+
+/* ---- transition grid ---- */
+$('#grid').innerHTML=Array.from({length:9*16},(_,k)=>`<i style="left:${(k%9)*120}px;top:${Math.floor(k/9)*120}px"></i>`).join('');
+const GR=$$('#grid i');
+
+function render(T){
+  const si=B.findIndex((b,i)=>T>=b&&T<B[i+1]);const t=T-B[si];
+  $$('.sc').forEach((s,i)=>s.style.visibility=i===si?'visible':'hidden');
+  // tile-wave transition
+  GR.forEach(g=>g.style.transform='scale(0)');
+  for(let i=1;i<B.length-1;i++){const b=B[i];if(T>b-.5&&T<b+.5){GR.forEach((g,k)=>{const cx=k%9,cy=Math.floor(k/9);const d=(cx+cy)/23*.3;let s;if(T<b){s=e5(p(T,b-.5+d,.2))}else{s=1-eo(p(T,b+d,.2))}g.style.transform=`scale(${s*1.02}) rotate(${(1-s)*45}deg)`;g.style.background=BGC[i];g.style.borderRadius=`${(1-s)*40}px`})}}
+  if(si===0){
+    s1b.forEach((g,i)=>draw(g,eio(p(t,.1+i*.2,1.3))));
+    $$('#s1pat g').forEach((g,i)=>g.style.transform=`translateX(${Math.sin(t*.6+i)*20}px)`);
+    $$('#s1t .w1').forEach((w,i)=>{const q=e5(p(t,.2+i*.18,.6));st(w,{transform:`translateY(${(1-q)*120}px)`,opacity:q})});
+    $$('#s1tiles .tl').forEach((el,i)=>{const a=.75+i*.1;const q=p(t,a,.55);const y=q<1?-900*(1-bk(q)):0;el.style.transform=`translateY(${y}px) rotate(${(1-q)*(i%2?20:-20)}deg)`;el.style.opacity=q>0?1:0;
+      const rs=1.7+i*.12,re=2.6+i*.16;if(t>rs&&t<re){el.textContent=LET[Math.floor((t*24+i*7))%LET.length];el.style.transform+=` translateY(${Math.sin(t*40)*4}px)`}else el.textContent='?';
+      if(t>=re){const j=p(t,re,.3);el.style.transform=`translateY(${-Math.sin(j*Math.PI)*40}px)`}});
+    const qs=p(t,3.1,.3);st('#s1seal',{opacity:qs>0?1:0,transform:`rotate(-6deg) scale(${qs<1?lerp(1.8,1,eo(qs)):1})`});
+  }
+  else if(si===1){
+    const pan=t*1.8;$$('#s2layers .hl').forEach((l,i)=>l.style.transform=`translateX(${-L2[i].v*pan}px)`);
+    $('#cl2').style.transform=`translateX(${-t*25}px)`;$('#rays2').setAttribute('transform',`rotate(${t*12})`);
+    ['#se1','#se2','#se3'].forEach((s,i)=>{const q=p(t,.5+i*.45,.28);const rot=[-5,4,-2][i];st(s,{opacity:q>0?1:0,transform:`rotate(${rot}deg) scale(${q<1?lerp(1.9,1,eo(q)):1}) translate(${q<1&&q>.6?Math.sin(t*90)*3:0}px,0)`})});
+    const hx=lerp(-200,1150,p(t,.2,5.6));const hy=1270-Math.abs(Math.sin(t*7))*46;st('#horse2',{left:hx+'px',top:hy+'px',transform:`rotate(${Math.sin(t*7)*6}deg)`});
+    const qq=e5(p(t,1.9,.6));st('#s2sub',{opacity:qq,transform:`translateY(${(1-qq)*60}px)`});
+  }
+  else if(si===2){
+    const qh=e5(p(t,.1,.5));st('#s3h',{opacity:qh,transform:`translateX(${(1-qh)*-80}px)`});
+    const tiles=$$('#brd .bt');
+    [[.4,1.3],[3.3,4.1]].forEach(([ts,tf],r)=>{for(let i=0;i<5;i++){const el=tiles[r*5+i];el.style.opacity=r===1?e5(p(t,ts-.35,.3)):1;const tt=ts+i*.16;const typed=t>=tt;el.textContent=typed?R3[r][i]:'';const fq=p(t,tf+i*.12,.32);
+      if(fq>=.5){el.style.background=C3[r][i];el.style.color='#fff';el.style.borderColor=C3[r][i]}else{el.style.background='#fff';el.style.color='#1d2a5b';el.style.borderColor=typed?'rgba(29,42,91,.6)':'rgba(29,42,91,.18)'}
+      let tr=fq>0&&fq<1?`scaleY(${Math.abs(Math.cos(fq*Math.PI))})`:`scale(${typed?1+.14*Math.sin(p(t,tt,.14)*Math.PI):1})`;
+      if(r===1){const j=p(t,4.9+i*.07,.35);tr+=` translateY(${-Math.sin(j*Math.PI)*36}px)`}el.style.transform=tr}});
+    draw(AR,eo(p(t,2.0,.6)));['#n1','#n2'].forEach((s,i)=>{const q=bk(p(t,2.1+i*.15,.4));st(s,{opacity:cl(q),transform:`rotate(${i?3:-4}deg) scale(${q})`})});
+    const qa=1-p(t,2.95,.3);st('#arrows',{opacity:qa});st('#n1',{opacity:Math.min(qa,cl(bk(p(t,2.1,.4))))});st('#n2',{opacity:Math.min(qa,cl(bk(p(t,2.25,.4))))});
+    const qb=e5(p(t,5.05,.6));st('#book',{transform:`translateY(${(1-qb)*1100}px) rotate(${(1-qb)*6}deg)`});
+    const ct=t-4.75;$$('#conf3 i').forEach((el,k)=>{const c=CF3[k];if(ct<0||ct>1.6){el.style.opacity=0;return}el.style.opacity=1;el.style.transform=`translate(${c.x+c.vx*ct}px,${c.y+c.vy*ct+1400*ct*ct}px) rotate(${c.r+c.vr*ct}deg)`});
+  }
+  else if(si===3){
+    $('#s4sun').innerHTML=`<g transform="translate(860,760)"><circle r="150" fill="#ffd166" opacity=".9"/>${Array.from({length:18},(_,i)=>`<path transform="rotate(${i*20+t*10})" d="M0,-185 V-230" stroke="#ffd166" stroke-width="12" stroke-linecap="round"/>`).join('')}</g>`+cloud(80-t*20,820,1.2,'#fff',.6)+cloud(620-t*30,640,.9,'#fff',.5);
+    const qh=e5(p(t,.1,.5));st('#s4h',{opacity:qh,transform:`translateY(${(1-qh)*60}px)`});st('#s4sub',{opacity:p(t,.5,.4)});
+    const pan=lerp(0,3000-1080-40,eio(p(t,.4,5.2)));$('#strip').style.transform=`translateX(${-pan}px)`;
+    let fs='';RK.forEach(([n],i)=>{const H=480+i*120;const top=GY-H;const rise=e5(p(t,.25+i*.72,.6));const pole=GY-H*rise;fs+=`<path d="M${PX[i]},${GY} V${pole}" stroke="#5a2e12" stroke-width="12" stroke-linecap="round"/><circle cx="${PX[i]}" cy="${pole-10}" r="16" fill="#ffd166"/>`;
+      if(i===5)fs+=`<g transform="translate(${PX[i]-34},${pole-90}) scale(2.8)" opacity="${rise}"><path d="M3 18h18v2H3zM4 16l-1-9 5 4 4-7 4 7 5-4-1 9z" fill="#ffd166" stroke="#5a2e12" stroke-width=".8"/></g>`;
+      const fq=e5(p(t,.55+i*.72,.5));if(fq>0){const w=330*fq;fs+=`<path d="${flagPath(PX[i]+6,pole+8,w,130,t,i)}" fill="${RK[i][2]}" stroke="rgba(0,0,0,.15)" stroke-width="3"/>`;fs+=`<text x="${PX[i]+30}" y="${pole+94+Math.sin(t*5-1+i)*7}" fill="#fff" font-family="Onest" font-weight="900" font-size="${i>0&&i<5?36:46}" opacity="${p(t,.75+i*.72,.3)}">${n}</text>`}});
+    $('#flags').innerHTML=fs;$$('.rkl').forEach((e,i)=>e.style.opacity=p(t,.8+i*.72,.3));
+    st('#horse4',{left:(200+t*30)+'px',top:(GY-170-Math.abs(Math.sin(t*7))*40)+'px',transform:`rotate(${Math.sin(t*7)*6}deg)`});
+  }
+  else if(si===4){
+    const qh=e5(p(t,.1,.5));st('#s5h',{opacity:qh,transform:`translateY(${(1-qh)*60}px)`});st('#s5sub',{opacity:p(t,.4,.4)});
+    $$('#s5pat g').forEach((g,i)=>g.style.transformOrigin='center');$('#s5pat').style.transform=`rotate(${t*2}deg)`;
+    const tv=Math.max(0,t-.5);const vals=CLS.map((c,i)=>VAL(i,tv));const order=vals.map((v,i)=>[v,i]).sort((a,b)=>b[0]-a[0]).map(x=>x[1]);
+    const rankPos={};order.forEach((idx,r)=>rankPos[idx]=r);
+    const sig=x=>1/(1+Math.exp(-x/18));CLS.forEach((c,i)=>{const fr=vals.reduce((acc,v,j)=>j===i?acc:acc+sig(v-vals[i]),0);const y=700+fr*170;const w=60+vals[i]*0.9;const q=e5(p(t,.3+i*.08,.4));
+      st('#b'+i,{top:y+'px',width:w*q+'px',transition:'none'});st('#l'+i,{top:y+'px',opacity:q,color:i===3?'#fff':'#fff'});st('#v'+i,{top:y+'px',left:(300+w*q+20)+'px',opacity:q});$('#v'+i).textContent=Math.round(vals[i]);
+      $('#l'+i).style.left='70px';$('#b'+i).style.color=i===3?'#1d2a5b':'#fff'});
+    // smooth reorder: lerp y using previous? compute fractional rank by value distances
+    const top=order[0];const qc=bk(p(t,4.0,.4));const ty=700+0*170;st('#crown5',{left:(300+(60+vals[top]*.9)-60)+'px',top:(ty-95)+'px',opacity:cl(qc),transform:`scale(${qc}) rotate(${(1-cl(qc))*-30}deg)`});
+  }
+  else{
+    $('#ul6').setAttribute('transform',`translate(540,1500) rotate(${t*6})`);
+    s6b.forEach((g,i)=>draw(g,eio(p(t,.1+i*.15,1.2))));
+    const ql=bk(p(t,.2,.6));st('#s6logo',{opacity:cl(ql*2),transform:`scale(${ql})`});
+    const qt=e5(p(t,.8,.6));st('#s6t',{opacity:qt,transform:`translateY(${(1-qt)*60}px)`});st('#s6sub',{opacity:p(t,1.2,.5)});
+    const qc=bk(p(t,1.6,.5));st('#s6cta',{opacity:cl(qc*2),transform:`scale(${qc})`});
+  }
+}
+window.render=render;render(0);
+</script></body></html>
