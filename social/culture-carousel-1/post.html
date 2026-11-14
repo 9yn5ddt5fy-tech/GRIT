@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="mn"><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@500;700;800;900&family=JetBrains+Mono:wght@500;700;800&display=block" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:3240px;height:1440px;overflow:hidden;background:#fff}
+#c{position:relative;width:3240px;height:1440px;overflow:hidden;font-family:Onest,sans-serif;color:#111}
+#photo{position:absolute;left:0;width:3240px;top:-110px}
+#haze{position:absolute;inset:0;background:linear-gradient(180deg,rgba(236,241,243,.94) 0%,rgba(236,241,243,.86) 30%,rgba(236,241,243,.6) 46%,rgba(236,241,243,0) 64%)}
+.mono{font-family:'JetBrains Mono',monospace;font-weight:700;text-transform:uppercase;letter-spacing:.06em}
+.big{font-weight:900;text-transform:uppercase;line-height:.9;letter-spacing:-.015em;color:#111}
+.abs{position:absolute}
+.g{color:#2f6b3c}
+svg{position:absolute;left:0;top:0}
+</style></head><body>
+<div id="c">
+  <img id="photo" src="../../assets/img/hero.jpg">
+  <div id="haze"></div>
+
+  <!-- slide 1 -->
+  <div class="abs mono" style="left:80px;top:96px;font-size:30px;color:#222">GRIT Culture · Түүхээ таньё</div>
+  <div class="abs big" style="left:76px;top:170px;font-size:172px">Түүхээ<br>мэд.<br>Түүхээ<br>хайрла.</div>
+
+  <!-- slide 2 -->
+  <div class="abs" style="left:1080px;width:1080px;top:470px;text-align:center">
+    <div class="big" style="font-size:52px;letter-spacing:.01em;color:#222">Нэг нутаг.</div>
+    <div class="big" style="font-size:96px;margin-top:22px">Мянган жил.</div>
+    <div class="big g" style="font-size:96px;margin-top:6px">Мянган домог.</div>
+  </div>
+
+  <!-- slide 3 -->
+  <div class="abs mono" style="left:2240px;top:96px;font-size:30px;line-height:1.5;color:#222">VIII зуун: <span class="g">Хөшөө Цайдам.</span><br>XIII зуун: <span class="g">Хархорум.</span><br>XVI зуун: <span class="g">Эрдэнэ Зуу.</span></div>
+  <div class="abs big" style="left:2236px;top:300px;font-size:118px">Эв нэгдэлтэй<br>бол хэн ч<br>дийлэхгүй.</div>
+  <div class="abs mono" style="left:2240px;top:690px;font-size:28px;color:#222;letter-spacing:.04em">— Алан гуа, <i style="text-transform:none">«Монголын нууц товчоо»</i></div>
+  <img class="abs" src="logo-dark-icon.png" style="left:3088px;top:72px;width:92px;height:92px;border-radius:16px;background:#fff;box-shadow:0 4px 0 rgba(0,0,0,.2)">
+  <div class="abs mono" style="left:2240px;top:1360px;font-size:26px;color:#fff;letter-spacing:.04em;text-shadow:0 2px 8px rgba(0,0,0,.45);text-transform:none">grit.mn/culture · @grit_edu_</div>
+
+  <!-- ribbon across all slides + sparkles -->
+  <svg width="3240" height="1440" viewBox="0 0 3240 1440">
+    <defs><path id="rib" d="M-120 1000 C 300 1010, 700 975, 950 840 S 1380 110, 1620 110 S 2040 700, 2290 840 S 2900 1020, 3360 790"/></defs>
+    <use href="#rib" fill="none" stroke="rgba(0,0,0,.18)" stroke-width="128" transform="translate(0 10)"/>
+    <use href="#rib" fill="none" stroke="#2f5d38" stroke-width="124"/>
+    <text font-family="JetBrains Mono" font-weight="800" font-size="46" letter-spacing="6" fill="#f3efe2" dy="16"><textPath href="#rib" startOffset="0">ТҮҮХЭЭ МЭД · ДОМГОО СОНС · ӨВӨӨ ХАМГААЛ · ТҮҮХЭЭ ТҮГЭЭ · ТҮҮХЭЭ МЭД · ДОМГОО СОНС · ӨВӨӨ ХАМГААЛ · ТҮҮХЭЭ ТҮГЭЭ · ТҮҮХЭЭ МЭД · ДОМГОО СОНС · ӨВӨӨ ХАМГААЛ ·</textPath></text>
+    <g fill="#f7eaa4" stroke="#111" stroke-width="5" stroke-linejoin="round">
+      <path d="M920 150 L940 216 L1006 236 L940 256 L920 322 L900 256 L834 236 L900 216Z"/>
+      <path d="M1010 340 L1018 368 L1046 376 L1018 384 L1010 412 L1002 384 L974 376 L1002 368Z"/>
+      <path d="M1250 230 L1266 282 L1318 298 L1266 314 L1250 366 L1234 314 L1182 298 L1234 282Z"/>
+    </g>
+  </svg>
+</div>
+</body></html>
