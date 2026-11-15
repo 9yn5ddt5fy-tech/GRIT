@@ -249,29 +249,39 @@ const STORIES = [
   },
   {
     id: "ugii",
-    kind: "nature",
+    kind: "legend",
     place: { en: "Arkhangai · Ugiinuur soum", mn: "Архангай · Өгийнуур сум" },
-    title: { en: "Ugii Lake: A Home for Birds", mn: "Өгий нуур: шувуудын гэр" },
+    title: { en: "The Legend of Ugii Lake", mn: "Өгийнуурын домог" },
     blurb: {
-      en: "The lake where GRIT began, and why thousands of birds stop here every year.",
-      mn: "GRIT-ийн ажил эхэлсэн нуур, мянга мянган шувуу яагаад жил бүр энд буудаг вэ?",
+      en: "A lake born of a girl's tears — and the birds that come to it every year.",
+      mn: "Нэгэн бүсгүйн нулимсаар бүрэлдсэн нуур ба жил бүр түүнд ирдэг шувуудын тухай.",
     },
-    cover: "birds-migrate",
+    cover: "ugii-tears",
     pages: [
+      {
+        scene: "ugii-love",
+        en: "Long ago, a rich noble had a beautiful daughter named Ögii. She fell in love with a poor young horse herder, and the two would secretly meet out on the pastures.",
+        mn: "Эрт урьд цагт нэгэн баян тайж Өгий хэмээх үзэсгэлэнт охинтой байжээ. Өгий ядуу адуучин залууд сэтгэл алдарч, тэр хоёр бэлчээрт нууцаар уулздаг байв.",
+      },
+      {
+        scene: "ugii-apart",
+        en: "But the noble's servants caught them and took the young herder away. Before they were parted, he told her: 'I will become Avzaga Khairkhan mountain in my homeland, and I will give you a beautiful lake.'",
+        mn: "Гэвч тайжийн зарц нар тэднийг барьж, адуучин залууг авч одов. Салахын өмнө залуу «Би нутагтаа Авзага хайрхан уул болж, харин чамд нэгэн сайхан нуур өгье» гэж хэлжээ.",
+      },
+      {
+        scene: "ugii-tears",
+        en: "Ögii wept and wept, and her tears gathered into a lake. People named it after her: Ugii Lake. They say the lake is guarded by a female spirit, so people treat it with respect and never pollute its water. The legend is told a little differently in different places.",
+        mn: "Өгий уйлж гашуудан, нулимс нь хуралдсаар нуур болжээ. Хүмүүс түүнийг охины нэрээр Өгийнуур гэж нэрлэсэн гэдэг. Нуурыг эм савдаг сахидаг тул хүмүүс хүндэтгэн, усыг нь бузарлахгүй байхыг цээрлэдэг. Домгийг нутаг бүрт арай өөрөөр ярьдаг.",
+      },
       {
         scene: "ugii-lake",
         en: "In Ugiinuur soum of Arkhangai lies Ugii Lake, a freshwater lake fed by the Khögshin Orkhon River. It is near here that GRIT ran its very first program.",
-        mn: "Архангай аймгийн Өгийнуур суманд Хөгшин Орхон гол цутгадаг цэнгэг устай Өгий нуур оршдог. Яг энэ нуурын ойролцоо GRIT анхны хөтөлбөрөө хэрэгжүүлсэн юм.",
+        mn: "Архангай аймгийн Өгийнуур суманд Хөгшин Орхон гол цутгадаг цэнгэг устай Өгийнуур оршдог. Яг энэ нуурын ойролцоо GRIT анхны хөтөлбөрөө хэрэгжүүлсэн юм.",
       },
       {
         scene: "birds-migrate",
         en: "Every spring and autumn, thousands of migrating birds stop at the lake to rest and feed on their long journey. That is why, in 1998, Ugii Lake was listed as a wetland of international importance under the Ramsar Convention.",
-        mn: "Хавар, намар бүр олон мянган нүүдлийн шувуу урт аяллынхаа замд энд амарч, хооллодог. Тиймээс 1998 онд Өгий нуурыг Рамсарын конвенцоор олон улсын ач холбогдол бүхий намгархаг газрын жагсаалтад оруулсан.",
-      },
-      {
-        scene: "fishing",
-        en: "The lake is rich in fish such as perch and pike. Herders graze their animals along its shores, and every summer many tourists come to visit.",
-        mn: "Нуурт алгана, цурхай зэрэг загас элбэг. Эрэг дагуу нь малчид мал маллаж, зун бүр олон жуулчин ирдэг.",
+        mn: "Хавар, намар бүр олон мянган нүүдлийн шувуу урт аяллынхаа замд энд амарч, хооллодог. Тиймээс 1998 онд Өгийнуурыг Рамсарын конвенцоор олон улсын ач холбогдол бүхий намгархаг газрын жагсаалтад оруулсан.",
       },
       {
         scene: "litter",
@@ -286,7 +296,7 @@ const STORIES = [
       },
     ],
     check: {
-      q: { en: "In 1998, Ugii Lake was added to which list?", mn: "1998 онд Өгий нуурыг ямар жагсаалтад оруулсан бэ?" },
+      q: { en: "In 1998, Ugii Lake was added to which list?", mn: "1998 онд Өгийнуурыг ямар жагсаалтад оруулсан бэ?" },
       a: [
         { en: "The Ramsar list of important wetlands", mn: "Рамсарын чухал намгархаг газрын жагсаалт" },
         { en: "The Red Book of endangered species", mn: "Ховордсон амьтдын Улаан ном" },
@@ -1026,7 +1036,7 @@ const UI = {
   const MAP_LABELS = {
     terkh: { en: "Terkhiin Tsagaan Lake", mn: "Тэрхийн Цагаан нуур" },
     taikhar: { en: "Taikhar Rock", mn: "Тайхар чулуу" },
-    ugii: { en: "Ugii Lake", mn: "Өгий нуур" },
+    ugii: { en: "Ugii Lake", mn: "Өгийнуур" },
     orkhon: { en: "Orkhon Waterfall", mn: "Орхоны хүрхрээ" },
     karakorum: { en: "Karakorum", mn: "Хархорум" },
     erdenezuu: { en: "Erdene Zuu", mn: "Эрдэнэ Зуу" },
