@@ -49,7 +49,7 @@ const MN = {
   // Home: projects
   "Projects": "Төслүүд",
   "Scholarships and learning for rural students.": "Орон нутгийн сурагчдад тэтгэлэг, боловсролын боломж.",
-  "Protecting Ugii Lake and the steppe.": "Өгий нуур, тал хээрээ хамгаалъя.",
+  "Protecting Ugii Lake and the steppe.": "Өгийнуур, тал хээрээ хамгаалъя.",
 
   // Home: student success
   "Student success": "Сурагчдын амжилт",
@@ -328,10 +328,10 @@ const MN = {
   "GRIT EDU Uvurkhangai · Program plan · 22 pages": "GRIT EDU Өвөрхангай · Хөтөлбөрийн төлөвлөгөө · 22 хуудас",
 
   // Environment page
-  "A community recycling program on the shore of Ugii Lake.": "Өгий нуурын эрэг дээрх олон нийтийн дахин боловсруулалтын хөтөлбөр.",
-  "Why Ugii Lake": "Яагаад Өгий нуур вэ",
+  "A community recycling program on the shore of Ugii Lake.": "Өгийнуурын эрэг дээрх олон нийтийн дахин боловсруулалтын хөтөлбөр.",
+  "Why Ugii Lake": "Яагаад Өгийнуур вэ",
   "Ugii Lake in Arkhangai is one of Mongolia's protected freshwater lakes and a major summer tourism destination. Every summer, camps and resorts along its shore welcome visitors — and with them comes waste that has nowhere to go.":
-    "Архангай аймгийн Өгий нуур нь Монгол Улсын тусгай хамгаалалттай цэнгэг усны нууруудын нэг бөгөөд зуны аялал жуулчлалын томоохон төв юм. Зун бүр эргийн дагуух жуулчны бааз, амралтын газрууд олон зочин хүлээн авдаг ч тэдэнтэй хамт хаях газаргүй хог хаягдал ч ирдэг.",
+    "Архангай аймгийн Өгийнуур нь Монгол Улсын тусгай хамгаалалттай цэнгэг усны нууруудын нэг бөгөөд зуны аялал жуулчлалын томоохон төв юм. Зун бүр эргийн дагуух жуулчны бааз, амралтын газрууд олон зочин хүлээн авдаг ч тэдэнтэй хамт хаях газаргүй хог хаягдал ч ирдэг.",
   "GRIT Environment was founded to change that. We set up a community recycling program on the shore of the lake, working together with the local government, tourist camps and the school in Ugiinuur soum.":
     "GRIT Environment үүнийг өөрчлөх зорилгоор байгуулагдсан. Бид Өгийнуур сумын Засаг даргын Тамгын газар, жуулчны баазууд, сургуультай хамтран нуурын эрэг дээр олон нийтийн оролцоотой дахин боловсруулалтын хөтөлбөр хэрэгжүүлсэн.",
   "The first season": "Эхний улирал",
