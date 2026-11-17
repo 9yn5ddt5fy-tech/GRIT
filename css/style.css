@@ -3464,3 +3464,6 @@ body.hbook-open { overflow: hidden; }
 .hero__bg--winter img { object-position: center 40%; }
 .hero__bg--winter::after { background: linear-gradient(180deg, rgba(12, 12, 32, .25) 0%, rgba(12, 12, 32, 0) 35%, rgba(12, 12, 32, .5) 100%); }
 @media (max-width: 700px) { .hero__bg--winter img { object-position: center top; } }
+/* Hero fades into the page below */
+.hero__bg--winter::before { content: ""; position: absolute; left: 0; right: 0; bottom: -1px; height: 22%; z-index: 1; pointer-events: none; background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, var(--bg) 100%); }
+[data-theme="dark"] .hero__bg--winter::before { background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, var(--bg) 100%); }
