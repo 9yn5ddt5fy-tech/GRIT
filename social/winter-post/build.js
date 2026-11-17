@@ -25,6 +25,7 @@ function toono(cx, cy) {
   const R = 430, r0 = 150;
   // glow behind
   s += `<circle cx="${cx}" cy="${cy}" r="${R + 60}" fill="url(#halo)"/>`;
+  s += `<g opacity=".22" filter="url(#blur30)">` + Array.from({ length: 16 }, (_, i) => { const a = (i / 16) * Math.PI * 2, b = a + .07; return `<path d="M${cx} ${cy} L${cx + Math.cos(a) * 900} ${cy + Math.sin(a) * 900} L${cx + Math.cos(b) * 900} ${cy + Math.sin(b) * 900}Z" fill="#cfe6ff"/>`; }).join('') + `</g>`;
   // outer ring (thick, pale blue) with curl ornament
   s += `<g filter="url(#paint)"><circle cx="${cx}" cy="${cy}" r="${R}" fill="none" stroke="#a9d2f2" stroke-width="40" opacity=".9"/>`;
   s += `<circle cx="${cx}" cy="${cy}" r="${R}" fill="none" stroke="#e8f4ff" stroke-width="3" stroke-dasharray="2 22" opacity=".9"/>`;
@@ -59,6 +60,7 @@ function ger(x, y, k) {
     <path d="M-160 -60 H160" stroke="#8d6a8f" stroke-width="10" opacity=".7"/>
     <path d="M-176 -96 Q-80 -190 0 -200 Q80 -190 176 -96 Q90 -110 0 -110 Q-90 -110 -176 -96Z" fill="#eef2f8"/>
     <path d="M-176 -96 Q-80 -190 0 -200 Q80 -190 176 -96" fill="none" stroke="#9eb0cc" stroke-width="5"/>
+    <ellipse cx="0" cy="-40" rx="120" ry="90" fill="#ffcf7a" opacity=".28" filter="url(#blur30)"/>
     <rect x="-28" y="-95" width="56" height="95" rx="4" fill="#f2b84b"/>
     <rect x="-28" y="-95" width="56" height="95" rx="4" fill="url(#door)"/>
     <path d="M-12 -200 C -40 -260 30 -300 0 -360 C -30 -420 40 -450 10 -520" fill="none" stroke="#dfe6f2" stroke-width="22" stroke-linecap="round" opacity=".35"/>
@@ -74,7 +76,7 @@ for (let i = 0; i < 260; i++) { const x = rnd() * W, y = rnd() * H, r = rnd() < 
 
 const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">
 <defs>
-  <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#151d36"/><stop offset=".45" stop-color="#2f3c63"/><stop offset=".8" stop-color="#5b6b92"/><stop offset="1" stop-color="#8a98b8"/></linearGradient>
+  <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#14162f"/><stop offset=".35" stop-color="#2d2f5c"/><stop offset=".62" stop-color="#4f4f82"/><stop offset=".85" stop-color="#7c7aa6"/><stop offset="1" stop-color="#a7a9c8"/></linearGradient>
   <radialGradient id="halo"><stop offset="0" stop-color="#d9efff" stop-opacity=".55"/><stop offset=".55" stop-color="#8ec2f0" stop-opacity=".22"/><stop offset="1" stop-color="#8ec2f0" stop-opacity="0"/></radialGradient>
   <linearGradient id="beam" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#e6f4ff"/><stop offset="1" stop-color="#7fb6ea"/></linearGradient>
   <radialGradient id="moon" cx=".45" cy=".4" r=".6"><stop offset="0" stop-color="#f6e08a"/><stop offset="1" stop-color="#d9b54a"/></radialGradient>
@@ -100,12 +102,14 @@ const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" 
 ${clouds[2].body}${clouds[0].body}${clouds[1].body}
 ${toono(540, 1000)}
 ${clouds[3].body}
-<path d="M0 1500 Q270 1440 540 1470 T1080 1450 V1920 H0Z" fill="url(#ground)" filter="url(#paint)"/>
+<path d="M0 1450 L120 1380 L210 1420 L330 1330 L470 1430 L600 1360 L720 1410 L860 1320 L980 1400 L1080 1360 V1600 H0Z" fill="#6f6d98" opacity=".85" filter="url(#paint)"/><path d="M330 1330 L300 1362 L322 1356 L340 1372 L360 1350 Z M860 1320 L830 1352 L852 1346 L872 1362 L890 1340 Z M600 1360 L578 1384 L598 1380 L616 1392 Z" fill="#dfe3f2" filter="url(#paint)"/><path d="M0 1480 Q200 1430 420 1470 T860 1450 T1080 1470 V1600 H0Z" fill="#9b9cc0" filter="url(#paint)"/><path d="M0 1500 Q270 1440 540 1470 T1080 1450 V1920 H0Z" fill="url(#ground)" filter="url(#paint)"/>
 <path d="M0 1560 Q300 1520 600 1550 T1080 1530" fill="none" stroke="#b7c3d8" stroke-width="10" opacity=".6" filter="url(#paint)"/>
 ${clouds[4].body}${clouds[5].body}
 ${ger(330, 1585, 1.3)}
 <rect width="${W}" height="${H}" filter="url(#frostF)" mask="url(#frostMask)" opacity=".85"/>
 ${snow}
+<radialGradient id="vig" cx=".5" cy=".48" r=".75"><stop offset=".6" stop-color="#0b0c1c" stop-opacity="0"/><stop offset="1" stop-color="#0b0c1c" stop-opacity=".55"/></radialGradient><rect width="${W}" height="${H}" fill="url(#vig)"/>
+${[[90,620,16],[1000,880,22],[160,1260,12],[940,1640,18],[60,1830,26],[1030,300,14]].map(([x,y,r])=>`<circle cx="${x}" cy="${y}" r="${r}" fill="#ffffff" opacity=".55" filter="url(#blur2)"/>`).join('')}
 <rect width="${W}" height="${H}" filter="url(#grain)" opacity=".18" style="mix-blend-mode:overlay"/>
 </svg>`;
 
@@ -116,8 +120,7 @@ const html = `<!doctype html><html lang="mn"><head><meta charset="utf-8">
 .t{position:absolute;font-family:'Bad Script',cursive;color:#f4f8ff;text-shadow:0 0 18px rgba(190,220,255,.65),0 2px 0 rgba(30,40,70,.35)}
 .s{position:absolute;left:0;right:0;text-align:center;font-family:Onest,sans-serif;font-weight:800;color:#fff;letter-spacing:-.02em;text-shadow:0 2px 14px rgba(20,30,60,.7)}
 </style></head><body><div id="c">${svg}
-<div class="t" style="left:70px;top:150px;font-size:210px;line-height:1;transform:rotate(-7deg)">Өвөл</div>
-<div class="t" style="left:330px;top:330px;font-size:190px;line-height:1;transform:rotate(-7deg)">ирлээ</div>
+<div class="t" style="left:40px;right:40px;top:250px;text-align:center;font-size:178px;line-height:1;white-space:nowrap;transform:rotate(-8deg)">Өвөл ирлээ</div>
 <div class="s" style="top:1690px;font-size:52px;line-height:1.15">Урт шөнө — домог сонсох цаг</div>
 <div class="s" style="top:1780px;font-size:30px;font-weight:600;opacity:.9;letter-spacing:.02em">GRIT Culture · grit.mn/culture</div>
 <img src="logo.png" style="position:absolute;left:56px;top:60px;height:70px;filter:drop-shadow(0 2px 8px rgba(0,0,0,.4))">
