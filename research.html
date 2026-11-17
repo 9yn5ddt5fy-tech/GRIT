@@ -65,16 +65,16 @@
 
     <section class="section container">
       <div class="pubs">
-        <div class="pub pub--soon" data-reveal>
-          <div class="pub__cover"><span class="pub__soon">Coming soon</span></div>
+        <a class="pub" href="#preprint" data-reveal>
+          <div class="pub__cover pub__cover--paper" aria-hidden="true"><span class="pub__kicker">Preprint · 2026</span><span class="pub__cover-title">From Belief to Navigation</span><span class="pub__cover-foot">GRIT EDU</span></div>
           <div class="pub__body">
-            <p class="eyebrow">Research</p>
-            <h3 class="pub__title">New research paper</h3>
-            <p class="pub__desc">Research by the founder of GRIT is being finalised and will be published here soon.</p>
-            <p class="pub__meta">Bayarmagnai Usukhgerel · 2026</p>
-            
+            <p class="eyebrow">Research · Preprint</p>
+            <h3 class="pub__title">From Belief to Navigation</h3>
+            <p class="pub__desc">Why do so few students from Mongolia’s provinces reach international scholarships? Self-efficacy, navigational capacity and perceived financial barriers.</p>
+            <p class="pub__meta">GRIT EDU · Preprint · November 2026</p>
+            <span class="project__link">Read <span aria-hidden="true">→</span></span>
           </div>
-        </div>
+        </a>
         <a class="pub" href="edu.html#report" data-reveal>
           <div class="pub__cover"><img src="assets/report/page-01.jpg" alt="" loading="lazy"></div>
           <div class="pub__body">
@@ -95,6 +95,41 @@
             <span class="project__link">Read <span aria-hidden="true">→</span></span>
           </div>
         </a>
+      </div>
+    </section>
+
+    <section class="section container paper" id="preprint">
+      <div class="paper__head" data-reveal>
+        <p class="eyebrow">New research</p>
+        <h2 class="paper__title">From Belief to Navigation: Self-Efficacy, Navigational Capacity, and Perceived Financial Barriers in Mongolian Provincial Students’ Aspirations and Actions Toward International Scholarships</h2>
+        <p class="paper__authors">Bayarmagnai Usukhgerel (GRIT EDU) · Yesukhei Tumurbaatar (National University of Mongolia) · Enkhkhuslen Demberel (Independent researcher)</p>
+        <p class="paper__meta">Preprint · November 2026 · Not peer reviewed</p>
+      </div>
+      <div class="paper__grid">
+        <div data-reveal>
+          <p class="paper__abstract">Why do so few students from Mongolia’s provinces reach international scholarships? Cost is the reason students name most often, but our data point elsewhere. In a discovery sample of 258 secondary-school students and a preregistered confirmatory sample of 59, self-efficacy, students’ belief in their own ability, was the strongest predictor of aspiring to study abroad, while perceived financial barriers predicted neither aspiration nor preparatory action. The proposed role of navigational capacity (advice, contacts and knowledge of application steps) was supported in the first sample but not confirmed in the second.</p>
+          <div class="paper__links">
+            <a class="btn btn--dark" href="https://doi.org/10.5281/zenodo.24303670" target="_blank" rel="noopener">Read the preprint</a>
+            <a class="btn btn--outline" href="https://doi.org/10.17605/OSF.IO/5X389" target="_blank" rel="noopener">Preregistration</a>
+            <a class="btn btn--outline" href="https://osf.io/5bvrx" target="_blank" rel="noopener">Data</a>
+          </div>
+        </div>
+        <aside class="paper__side" data-reveal>
+          <div class="paper__nums">
+            <div><b>258</b><span>students in the discovery sample</span></div>
+            <div><b>59</b><span>students in the preregistered confirmatory sample</span></div>
+          </div>
+          <h3 class="paper__h">Key findings</h3>
+          <ol class="paper__findings">
+            <li>Self-efficacy was the strongest predictor of aspiring to study abroad.</li>
+            <li>Perceived financial barriers predicted neither aspiration nor preparatory action.</li>
+            <li>Navigational capacity was supported in the first sample but not confirmed in the second.</li>
+          </ol>
+        </aside>
+      </div>
+      <div class="cite" data-reveal>
+        <div class="cite__top"><span class="cite__label">Cite as</span><button class="btn btn--small btn--outline cite__copy" type="button" data-copy="#cite-text">Copy</button></div>
+        <p class="cite__text" id="cite-text" translate="no">Usukhgerel, B., Tumurbaatar, Y., &amp; Demberel, E. (2026). From belief to navigation: Self-efficacy, navigational capacity, and perceived financial barriers in Mongolian provincial students’ aspirations and actions toward international scholarships [Preprint]. Zenodo. https://doi.org/10.5281/zenodo.24303670</p>
       </div>
     </section>
 
@@ -136,5 +171,15 @@
 
   <script src="js/i18n.js?v=41"></script>
   <script src="js/main.js?v=40"></script>
+<script>
+document.addEventListener("click", (e) => {
+  const b = e.target.closest("[data-copy]");
+  if (!b) return;
+  const t = document.querySelector(b.dataset.copy).textContent.trim();
+  const mn = (document.documentElement.lang || "").startsWith("mn");
+  const done = () => { b.textContent = mn ? "Хуулсан" : "Copied"; setTimeout(() => (b.textContent = mn ? "Хуулах" : "Copy"), 1800); };
+  (navigator.clipboard ? navigator.clipboard.writeText(t) : Promise.reject()).then(done, () => { const r = document.createRange(); r.selectNodeContents(document.querySelector(b.dataset.copy)); const sel = getSelection(); sel.removeAllRanges(); sel.addRange(r); });
+});
+</script>
 </body>
 </html>
