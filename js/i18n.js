@@ -337,10 +337,11 @@ const MN = {
   "Location, School or Family?": "Байршил уу, сургууль уу, гэр бүл үү?",
   "Are rural schools in Mongolia really weaker than schools in the capital? A survey of 2,567 students at 107 schools.":
     "Хөдөөгийн сургууль хотынхоос үнэхээр сул байдаг уу? 107 сургуулийн 2,567 сурагчийг хамруулсан судалгаа.",
-  "Enkhkhuslen Demberel · Preprint · November 2026": "Энххүслэн Дэмбэрэл · Preprint · 2026 оны 11-р сар",
+  "Enkhkhuslen Demberel et al. · Preprint · November 2026": "Энххүслэн Дэмбэрэл нар · Preprint · 2026 оны 11-р сар",
   "Location, School or Family? A Multilevel Analysis of Regional Educational Inequality among Secondary School Students in Mongolia":
     "Байршил уу, сургууль уу, гэр бүл үү? Монголын ахлах ангийн сурагчдын бүс нутгийн боловсролын тэгш бус байдлын олон түвшний шинжилгээ",
-  "Enkhkhuslen Demberel (Independent researcher)": "Энххүслэн Дэмбэрэл (бие даасан судлаач)",
+  "Enkhkhuslen Demberel (Encompass Youth Council) · Bayarmagnai Usukhgerel (GRIT EDU) · Uyanga Tsenddorj (National University of Mongolia)":
+    "Энххүслэн Дэмбэрэл (Encompass Youth Council) · Баярмагнай Үсүхгэрэл (GRIT EDU) · Уянга Цэнддорж (МУИС)",
   "Are rural schools in Mongolia really weaker than schools in the capital? Many families move their children to Ulaanbaatar believing so. In a survey of 2,567 students in grades 9–12 at 107 schools across 28 of Mongolia's 30 provinces and capital districts, school location did not predict how students rated their teaching, exam preparation or school resources once family circumstances were taken into account, and plans to attend university were similar everywhere (68–74%). What mattered more was the family and the individual school: parental involvement predicted every outcome, more than half of students reported no working science laboratory, and about 30% of the differences in resources lay between individual schools rather than regions.":
     "Хөдөөгийн сургууль хотынхоос үнэхээр сул байдаг уу? Ийм итгэлээр олон гэр бүл хүүхдээ Улаанбаатар руу шилжүүлдэг. Монголын 30 засаг захиргааны нэгжийн 28-ын 107 сургуулийн 9–12-р ангийн 2,567 сурагчийг хамруулсан судалгаагаар гэр бүлийн нөхцөлийг харгалзан үзэхэд сургуулийн байршил нь сурагчдын багшлалт, ЭЕШ-ын бэлтгэл, сургуулийн нөөцийн үнэлгээнд нөлөөлөөгүй бөгөөд их сургуульд суралцахаар төлөвлөж буй сурагчдын хувь бүх байршилд ойролцоо (68–74%) байв. Харин гэр бүл болон тухайн сургууль илүү чухал байлаа: эцэг эхийн оролцоо бүх үзүүлэлттэй холбоотой гарч, сурагчдын талаас илүү нь ажиллаж буй лабораторигүй гэж хариулсан бөгөөд нөөцийн ялгааны 30 орчим хувь нь бүс нутгийн бус, сургууль хоорондын ялгаа байв.",
   "Questionnaire": "Асуулга",
