@@ -3452,3 +3452,8 @@ body.hbook-open { overflow: hidden; }
 .cite__label { font-size: 13px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); }
 .cite__text { margin-top: 10px; font-size: 14px; line-height: 1.6; color: var(--text); word-break: break-word; }
 @media (max-width: 860px) { .paper__grid { grid-template-columns: 1fr; gap: 28px; } .paper__abstract { font-size: 16px; } }
+.pub__cover--alt { background: linear-gradient(160deg, #2c4a5e, #172a36); }
+.paper + .paper { padding-top: 0; }
+.paper__nums--3 { grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.paper__nums--3 b { font-size: 34px; }
+@media (max-width: 600px) { .paper__nums--3 b { font-size: 26px; } .paper__nums--3 { gap: 10px; } }
