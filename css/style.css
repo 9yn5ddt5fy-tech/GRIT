@@ -3457,3 +3457,5 @@ body.hbook-open { overflow: hidden; }
 .paper__nums--3 { grid-template-columns: repeat(3, 1fr); gap: 12px; }
 .paper__nums--3 b { font-size: 34px; }
 @media (max-width: 600px) { .paper__nums--3 b { font-size: 26px; } .paper__nums--3 { gap: 10px; } }
+.pub__cover--photo { background: linear-gradient(180deg, rgba(18, 32, 44, .72) 0%, rgba(18, 32, 44, .12) 42%, rgba(18, 32, 44, .25) 62%, rgba(18, 32, 44, .85) 100%), url(../assets/img/paper-location-cover.jpg) center / cover; }
+.pub__cover--photo .pub__cover-title { text-shadow: 0 2px 14px rgba(0, 0, 0, .7), 0 0 2px rgba(0, 0, 0, .5); }
