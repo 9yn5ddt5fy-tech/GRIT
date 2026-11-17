@@ -577,6 +577,16 @@
     felt: '#f6f0e1', feltRoof: '#e8dcc3', door: '#d4602f',
     ruin: '#dcc493', sheep: '#ffffff', horse: '#8a5a3c',
   };
+  // Season of the map. Set to 'summer' to bring back the green map.
+  const SEASON = 'winter';
+  let WINTER = false;
+  const QW = {
+    bg1: '#bcd3ea', bg2: '#eef3f9',
+    grass: '#eaeff7', grassA: '#dfe6f1', grassB: '#f5f8fc', grassC: '#d5deeb', lip: '#c2cee0',
+    path: '#dde3ed', pathEdge: '#c3ccdb',
+    water: '#b8dcec', waterLt: '#eaf7fc', waterDk: '#94c3d8', shore: '#d6e1ec',
+    tree: '#5b8669', treeLt: '#7aa486', conifer: '#2e5e4b', coniferLt: '#467a60',
+  };
   const shadowE = (x, y, rx, ry, op = 0.16) => {
     const [sx, sy] = iso(x, y);
     return `<ellipse cx="${f1(sx)}" cy="${f1(sy)}" rx="${f1(rx)}" ry="${f1(ry)}" fill="#3d4a2c" opacity="${op}"/>`;
@@ -648,13 +658,15 @@
     return `<ellipse cx="${f1(bx + r * 0.7)}" cy="${f1(by + 1)}" rx="${f1(r * 1.1)}" ry="${f1(r * 0.42)}" fill="#3d4a2c" opacity=".16"/>` +
       `<path d="M${f1(bx)} ${f1(by)} L${f1(cx)} ${f1(cy)}" stroke="#7b5a3c" stroke-width="${f1(1.4 * k)}"/>` +
       `<circle cx="${f1(cx)}" cy="${f1(cy)}" r="${f1(r)}" fill="${c}"/>` +
-      `<path d="M${f1(cx - r)} ${f1(cy)} A${f1(r)} ${f1(r)} 0 0 1 ${f1(cx + r * 0.7)} ${f1(cy - r * 0.7)} A${f1(r * 1.2)} ${f1(r * 1.2)} 0 0 0 ${f1(cx - r)} ${f1(cy)}Z" fill="${shade(c, 0.22)}"/>`;
+      `<path d="M${f1(cx - r)} ${f1(cy)} A${f1(r)} ${f1(r)} 0 0 1 ${f1(cx + r * 0.7)} ${f1(cy - r * 0.7)} A${f1(r * 1.2)} ${f1(r * 1.2)} 0 0 0 ${f1(cx - r)} ${f1(cy)}Z" fill="${shade(c, 0.22)}"/>` +
+      (WINTER ? `<path d="M${f1(cx - r * 0.95)} ${f1(cy - r * 0.15)} A${f1(r)} ${f1(r)} 0 0 1 ${f1(cx + r * 0.95)} ${f1(cy - r * 0.15)} Q${f1(cx)} ${f1(cy - r * 0.45)} ${f1(cx - r * 0.95)} ${f1(cy - r * 0.15)}Z" fill="#ffffff"/>` : '');
   };
   const conifer = (x, y, k = 1) => {
     const [bx, by] = iso(x, y), hh = 3.2 * k * MS, ww = 0.9 * k * MS;
     return `<ellipse cx="${f1(bx + ww * 0.8)}" cy="${f1(by + 1)}" rx="${f1(ww)}" ry="${f1(ww * 0.38)}" fill="#3d4a2c" opacity=".16"/>` +
       `<path d="M${f1(bx)} ${f1(by - hh)} L${f1(bx - ww)} ${f1(by - 1)} L${f1(bx)} ${f1(by)}Z" fill="${Q.coniferLt}"/>` +
-      `<path d="M${f1(bx)} ${f1(by - hh)} L${f1(bx + ww)} ${f1(by - 1)} L${f1(bx)} ${f1(by)}Z" fill="${Q.conifer}"/>`;
+      `<path d="M${f1(bx)} ${f1(by - hh)} L${f1(bx + ww)} ${f1(by - 1)} L${f1(bx)} ${f1(by)}Z" fill="${Q.conifer}"/>` +
+      (WINTER ? `<path d="M${f1(bx)} ${f1(by - hh)} L${f1(bx - ww * 0.42)} ${f1(by - hh * 0.55)} L${f1(bx)} ${f1(by - hh * 0.62)} L${f1(bx + ww * 0.42)} ${f1(by - hh * 0.55)}Z" fill="#ffffff"/><path d="M${f1(bx - ww * 0.7)} ${f1(by - hh * 0.22)} L${f1(bx)} ${f1(by - hh * 0.32)} L${f1(bx + ww * 0.7)} ${f1(by - hh * 0.22)}" stroke="#ffffff" stroke-width="${f1(1.6 * k)}" fill="none" stroke-linecap="round"/>` : '');
   };
   const stupaIso = (x, y, z, k = 1) => {
     const [sx, sy] = iso(x, y, z), r = 0.55 * k * MS;
@@ -723,6 +735,12 @@
   const turtleIso = (x, y, k = 1) => { const [sx, sy] = iso(x, y), r = 1.3 * k * MS; return `<ellipse cx="${f1(sx + r * 0.3)}" cy="${f1(sy + 1)}" rx="${f1(r * 1.15)}" ry="${f1(r * 0.42)}" fill="#3d4a2c" opacity=".16"/><path d="M${f1(sx - r)} ${f1(sy)} Q${f1(sx - r)} ${f1(sy - r * 1.1)} ${f1(sx)} ${f1(sy - r * 1.05)} Q${f1(sx + r)} ${f1(sy - r * 1.1)} ${f1(sx + r)} ${f1(sy)}Z" fill="${Q.rockLt}"/><path d="M${f1(sx)} ${f1(sy - r * 1.05)} Q${f1(sx + r)} ${f1(sy - r * 1.1)} ${f1(sx + r)} ${f1(sy)} L${f1(sx + r * 0.1)} ${f1(sy)}Z" fill="${Q.rock}"/><ellipse cx="${f1(sx + r * 1.15)}" cy="${f1(sy - r * 0.25)}" rx="${f1(r * 0.28)}" ry="${f1(r * 0.2)}" fill="${Q.rock}"/>`; };
 
   function isoMap(opts = {}) {
+    WINTER = (opts.season || SEASON) === 'winter';
+    const saved = { ...Q };
+    if (WINTER) Object.assign(Q, QW);
+    try { return isoMapInner(opts); } finally { Object.assign(Q, saved); WINTER = false; }
+  }
+  function isoMapInner(opts) {
     const id = 'm' + ++uid;
     const items = []; // [depth, svg]
     const put = (d, svg) => items.push([d, svg]);
@@ -746,7 +764,7 @@
       for (let x = 0; x < MAP_W; x += 150) d += ` Q${x + 75} ${f1(y0 - amp * (0.3 + q() * 0.7))} ${x + 150} ${f1(y0 + (q() - 0.5) * amp * 0.4)}`;
       return `<path d="${d} L${MAP_W} ${MAP_H}Z" fill="${col}"/>`;
     };
-    s += roll(318, 26, 73, '#b5d48a') + roll(372, 30, 74, '#a3c977') + roll(440, 26, 75, '#93bf68');
+    s += WINTER ? roll(318, 26, 73, '#e2e9f3') + roll(372, 30, 74, '#d4dded') + roll(440, 26, 75, '#c7d2e5') : roll(318, 26, 73, '#b5d48a') + roll(372, 30, 74, '#a3c977') + roll(440, 26, 75, '#93bf68');
     s += `<rect y="330" width="${MAP_W}" height="${MAP_H - 330}" fill="url(#${id}f)"/>`;
     const cloudBlob = (x, y, k) => `<g transform="translate(${x} ${y}) scale(${k})"><ellipse cx="0" cy="0" rx="46" ry="14" fill="#ffffff"/><circle cx="-14" cy="-8" r="15" fill="#ffffff"/><circle cx="10" cy="-12" r="19" fill="#ffffff"/><ellipse cx="4" cy="4" rx="44" ry="8" fill="#dbeaf3"/></g>`;
     s += `<g class="map-clouds">${cloudBlob(150, 95, 1.2)}${cloudBlob(330, 55, 0.7)}${cloudBlob(880, 70, 0.8)}${cloudBlob(1110, 230, 0.9)}${cloudBlob(90, 290, 0.75)}</g>`;
@@ -785,7 +803,7 @@
       s += `<ellipse cx="${f1(hx)}" cy="${f1(hy)}" rx="${f1(1.2247 * rr * MS)}" ry="${f1(0.7071 * rr * MS)}" fill="url(#${gid})"/>`;
     });
     // Kharkhorin's farm fields: striped plots.
-    [[40, 78, 7, 5, '#cfd08a'], [41, 84.5, 6, 4, '#c3cd85'], [30, 80, 7, 4.5, '#d6d496'], [64, 88, 6, 5, '#c9d08e'], [84, 64, 5, 4, '#d2d293']].forEach(([x, y, w, d, c]) => {
+    [[40, 78, 7, 5, '#cfd08a'], [41, 84.5, 6, 4, '#c3cd85'], [30, 80, 7, 4.5, '#d6d496'], [64, 88, 6, 5, '#c9d08e'], [84, 64, 5, 4, '#d2d293']].map(([x, y, w, d, c]) => [x, y, w, d, WINTER ? '#f4f6fa' : c]).forEach(([x, y, w, d, c]) => {
       s += poly([[x, y, 0], [x + w, y, 0], [x + w, y + d, 0], [x, y + d, 0]], c);
       for (let k = 0.6; k < d; k += 0.8) { const [a1, a2] = iso(x + 0.2, y + k), [b1, b2] = iso(x + w - 0.2, y + k); s += `<path d="M${f1(a1)} ${f1(a2)} L${f1(b1)} ${f1(b2)}" stroke="${shade(c, -0.12)}" stroke-width="1" opacity=".8"/>`; }
     });
@@ -870,14 +888,14 @@
 
     // Mountains along the back edges, then forests at their feet.
     [[6, 3, 7, 9, 1], [18, 2, 8, 12, 2], [31, 3, 7, 8, 3], [44, 2, 6, 7, 4], [86, 3, 7, 9, 5], [97, 6, 6, 8, 6], [3, 15, 7, 10, 7], [3, 38, 6, 7, 8], [3, 60, 7, 9, 9], [3, 82, 5, 6, 10], [70, 2, 6, 6, 11]].forEach(([x, y, rr, h, sd]) =>
-      put(x + y - 2, peak(x, y, rr, h, sd * 13, { snow: h >= 8, lt: '#a9bde0', dk: '#5a6f9a' })));
+      put(x + y - 2, peak(x, y, rr, h, sd * 13, { snow: WINTER || h >= 8, lt: '#a9bde0', dk: '#5a6f9a' })));
     const forest = (x0, y0, n, seed, conif) => { const q = rnd(seed); for (let i = 0; i < n; i++) { const x = x0 + q() * 12, y = y0 + q() * 10; put(x + y, conif || q() < 0.35 ? conifer(x, y, 0.8 + q() * 0.4) : treeIso(x, y, 0.8 + q() * 0.4)); } };
     forest(24, 8, 22, 1, true); forest(8, 58, 18, 2, true); forest(84, 48, 16, 3); forest(16, 86, 14, 4); forest(82, 8, 16, 5, true); forest(8, 32, 14, 6, true); forest(62, 4, 14, 7); forest(36, 26, 12, 8); forest(86, 88, 12, 9); forest(8, 74, 10, 10); forest(90, 30, 10, 11); forest(66, 92, 8, 12); forest(48, 44, 6, 13);
     // Tree rows along roads (as in city maps).
-    roads.forEach((rd, ri) => rd.forEach(([x, y], i) => { if (i % 1 === 0 && i < rd.length - 1) { const [nx, ny] = rd[i + 1]; for (let t = 0.1; t < 1; t += 0.22) for (const sd of [1, -1]) { const px = x + (nx - x) * t + 1.5 * sd, py = y + (ny - y) * t - 1.5 * sd; if (px > E0 - 1 && px < E1 + 1 && py > E0 - 1 && py < E1 + 1) continue; put(px + py, treeIso(px, py, 0.55, ri % 2 ? Q.tree : '#7aa556')); } } }));
+    roads.forEach((rd, ri) => rd.forEach(([x, y], i) => { if (i % 1 === 0 && i < rd.length - 1) { const [nx, ny] = rd[i + 1]; for (let t = 0.1; t < 1; t += 0.22) for (const sd of [1, -1]) { const px = x + (nx - x) * t + 1.5 * sd, py = y + (ny - y) * t - 1.5 * sd; if (px > E0 - 1 && px < E1 + 1 && py > E0 - 1 && py < E1 + 1) continue; put(px + py, treeIso(px, py, 0.55, ri % 2 || WINTER ? Q.tree : '#7aa556')); } } }));
 
     // Terkhiin Tsagaan Lake: island with conifers; Khorgo volcano behind.
-    put(17 + 27, peak(17, 27, 2, 1.2, 77, { lt: '#9fb070', dk: '#6f8150' }) + conifer(16.4, 26.6, 0.6) + conifer(17.6, 27.4, 0.5));
+    put(17 + 27, peak(17, 27, 2, 1.2, 77, WINTER ? { lt: '#f4f7fb', dk: '#b9c6da' } : { lt: '#9fb070', dk: '#6f8150' }) + conifer(16.4, 26.6, 0.6) + conifer(17.6, 27.4, 0.5));
     put(26 + 13, peak(26, 13, 6.5, 6, 41, { top: 0.4, lt: '#b49a86', dk: '#7e655a', crater: '#4f4038' }));
     // Taikhar Rock.
     {
@@ -929,11 +947,11 @@
       put(kx + ky + kw * 2, boxIso(kx, ky + kw - 0.8, 0, 2.5, 0.8, 1.3, kc) + boxIso(kx + 3.6, ky + kw - 0.8, 0, kw - 3.6, 0.8, 1.3, kc) + boxIso(kx + kw - 0.8, ky, 0, 0.8, kw, 1.3, kc));
     }
     // Khentii island: Burkhan Khaldun with its ovoo and larch forest.
-    put(114 + 26, peak(114, 26, 5, 9.5, 101, { lt: '#86b56d', dk: '#3b6a46' }));
+    put(114 + 26, peak(114, 26, 5, 9.5, 101, WINTER ? { lt: '#a9c3b2', dk: '#36624a', snow: true } : { lt: '#86b56d', dk: '#3b6a46' }));
     { const q = rnd(102); [[109, 31, 8, 6], [109, 47, 8, 8], [145, 33, 6, 6]].forEach(([x0, y0, w, d]) => { for (let i = 0; i < 9; i++) { const x = x0 + q() * w, y = y0 + q() * d; put(x + y, conifer(x, y, 0.7 + q() * 0.4)); } }); }
     { const [tx, ty] = iso(112.5, 33, 1.6); put(112.5 + 33, peak(112.5, 33, 1, 1.5, 103, { n: 7, lt: '#cfcac0', dk: '#8f8a80' }) + `<path d="M${f1(tx)} ${f1(ty)} v-9" stroke="#6b4b33" stroke-width="1.2"/><path d="M${f1(tx)} ${f1(ty - 8)} q6 2 9 6 M${f1(tx)} ${f1(ty - 6)} q-6 2 -7 6" stroke="#4a8fd4" stroke-width="1.8" fill="none"/>`); }
     // Delüün Boldog: a grassy hill on the Onon with a memorial stele.
-    put(140 + 32, peak(140, 32, 3.2, 2.2, 104, { lt: '#a9cf6e', dk: '#6f9a48' }) + boxIso(139.6, 31.4, 2.1, 0.9, 0.9, 3.6, '#e2ddd0') + roofIso(139.6, 31.4, 5.7, 0.9, 0.9, 0.6, '#c8c1b0', 0.1));
+    put(140 + 32, peak(140, 32, 3.2, 2.2, 104, WINTER ? { lt: '#f4f7fb', dk: '#c0cbdc' } : { lt: '#a9cf6e', dk: '#6f9a48' }) + boxIso(139.6, 31.4, 2.1, 0.9, 0.9, 3.6, '#e2ddd0') + roofIso(139.6, 31.4, 5.7, 0.9, 0.9, 0.6, '#c8c1b0', 0.1));
     // Khödöö Aral: the Secret History monument and the great camp nearby.
     put(133.5 + 51.5, boxIso(132.8, 50.8, 0, 1.6, 1.6, 0.5, '#cfc9bb') + boxIso(133.2, 51.2, 0.5, 0.8, 0.8, 4.6, '#e6e1d4') + roofIso(133.2, 51.2, 5.1, 0.8, 0.8, 0.7, Q.roofR, 0.1));
     [[124, 57, 1.3], [127.5, 59.5, 1], [121, 60, 0.9], [129, 55.5, 0.8], [147.5, 29.5, 0.9], [150, 33, 0.8]].forEach(([x, y, k]) => put(x + y, gerIso(x, y, k)));
@@ -952,6 +970,12 @@
       const lx = left ? sx - 15 - w : sx + 15;
       s += `<g class="map-pin" data-open="${p.id}" role="button" tabindex="0" aria-label="${p.label}" style="--d:${n * 0.35}s"><ellipse cx="${sx}" cy="${sy}" rx="6" ry="2.6" fill="#2b3320" opacity=".25"/><path d="M${sx} ${sy} V${sy - 54}" stroke="#3a4030" stroke-width="1.5"/><g class="map-pin__head"><circle cx="${sx}" cy="${sy - 60}" r="11.5" fill="#c8352b" stroke="#ffffff" stroke-width="2.2" filter="url(#${id}d)"/><text x="${sx}" y="${sy - 55.8}" text-anchor="middle" font-size="12" font-weight="700" fill="#fff" font-family="Inter Tight, Inter, sans-serif">${n + 1}</text></g><g class="map-pin__label"><rect x="${lx}" y="${sy - 74}" width="${w}" height="28" rx="14" fill="#ffffff" filter="url(#${id}d)"/><text x="${lx + w / 2}" y="${sy - 55.4}" text-anchor="middle" font-size="14" font-weight="600" fill="#26301c" font-family="Inter Tight, Inter, sans-serif">${p.label}</text></g></g>`;
     });
+    if (WINTER) {
+      const q = rnd(404);
+      let fl = '<g pointer-events="none" fill="#ffffff">';
+      for (let i = 0; i < 260; i++) fl += `<circle cx="${f1(q() * MAP_W)}" cy="${f1(q() * MAP_H)}" r="${f1(0.8 + q() * 2.2)}" opacity="${f1(0.45 + q() * 0.5)}"/>`;
+      s += fl + '</g>';
+    }
     return wrap(MAP_W, MAP_H, s + `<g pointer-events="none"><filter id="${id}n" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch"/><feColorMatrix values="0 0 0 0 0.2  0 0 0 0 0.18  0 0 0 0 0.12  0 0 0 0.35 0"/></filter><rect width="${MAP_W}" height="${MAP_H}" filter="url(#${id}n)" opacity=".18"/></g>`, opts.label || 'Illustrated map of the heritage sites of Arkhangai, Uvurkhangai and Khentii', false);
   }
 
