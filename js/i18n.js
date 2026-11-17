@@ -324,6 +324,7 @@ const MN = {
   "Preprint · November 2026": "Preprint · 2026 оны 11-р сар",
   "Why do so few students from Mongolia’s provinces reach international scholarships? Cost is the reason students name most often, but our data point elsewhere. In a discovery sample of 258 secondary-school students and a preregistered confirmatory sample of 59, self-efficacy, students’ belief in their own ability, was the strongest predictor of aspiring to study abroad, while perceived financial barriers predicted neither aspiration nor preparatory action. The proposed role of navigational capacity (advice, contacts and knowledge of application steps) was supported in the first sample but not confirmed in the second.":
     "Яагаад хөдөөгийн сурагчид гадаадын тэтгэлэгт цөөн хүрдэг вэ? Сурагчид ихэвчлэн \"мөнгө\" гэж хариулдаг ч бидний судалгаа өөр зүйлийг харуулав. 258 сурагчтай анхны түүвэр болон урьдчилан бүртгүүлсэн 59 сурагчтай баталгаажуулах түүвэрт сурагчийн өөртөө итгэх итгэл гадаадад суралцах эрмэлзлийн хамгийн хүчтэй урьдчилагч байсан бол санхүүгийн саад эрмэлзэлд ч, бэлтгэл алхамд ч нөлөөлөөгүй. Зөвлөгөө, холбоо, өргөдлийн алхмын мэдлэг зэрэг \"навигацийн чадвар\" нь анхны түүвэрт үйлдэлтэй холбоотой гарсан ч хоёр дахь түүвэрт батлагдаагүй.",
+  "Winter night illustration: a glowing ger roof crown with the GRIT horse above a snowy camp": "Өвлийн шөнийн зураг: цастай гэрүүдийн дээгүүр гэрэлтэх тооно, дотор нь GRIT морь",
   "Read the preprint": "Судалгааг унших",
   "Preregistration": "Урьдчилсан бүртгэл",
   "Data": "Өгөгдөл",
