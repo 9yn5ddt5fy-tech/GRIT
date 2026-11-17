@@ -14,7 +14,7 @@ const [y, mo, d] = day.split('-').map(Number);
 const no = Math.round((Date.UTC(y, mo - 1, d) - EPOCH) / 864e5) + 1;
 const [, word, cat, info, era] = rows[(no - 1) % rows.length];
 const title = word[0] + word.slice(1).toLowerCase();
-const cfg = { no, date: day.replace(/-/g, '.'), label, word, cat, era, title, info, cta: 'Маргааш шинэ үг таана уу?', logo: process.env.LOGO };
+const cfg = { no, date: day.replace(/-/g, '.'), label, word, cat, era, title, info, cta: 'Маргаашийн үгээ таахад бэлэн үү?', logo: process.env.LOGO };
 const cfgPath = path.join(__dirname, `story-${no}.json`);
 fs.writeFileSync(cfgPath, JSON.stringify(cfg, null, 2));
 execFileSync('node', [path.join(__dirname, 'buildstory.js'), cfgPath], { stdio: 'inherit' });

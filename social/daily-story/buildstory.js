@@ -81,7 +81,7 @@ const SK = SKIES[(CFG.no - 1) % SKIES.length];
 seed = 100 + CFG.no;
 const cl3 = [cloud(70, 360, 1.1, 'mid'), cloud(1010, 300, 1.2, 'mid'), cloud(540, 150, .8, 'dk'), cloud(980, 1500, 1.15, 'lt'), cloud(60, 1560, 1.05, 'mid')];
 let snow3 = '';
-for (let i = 0; i < 300; i++) { const x = rnd() * W3, y = rnd() * H3, r = rnd() < .86 ? 1.2 + rnd() * 2.4 : 4 + rnd() * 3.5; snow3 += `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${r.toFixed(1)}" fill="#ffffff" opacity="${(.3 + rnd() * .55).toFixed(2)}"${r > 4 ? ' filter="url(#blur2)"' : ''}/>`; }
+for (let i = 0; i < 170; i++) { const x = rnd() * W3, y = rnd() * H3, r = rnd() < .86 ? 1.2 + rnd() * 2.4 : 4 + rnd() * 3.5; snow3 += `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${r.toFixed(1)}" fill="#ffffff" opacity="${(.3 + rnd() * .55).toFixed(2)}"${r > 4 ? ' filter="url(#blur2)"' : ''}/>`; }
 const letters = [...CFG.word];
 const TS = 158, GAP = 18, tw = letters.length * TS + (letters.length - 1) * GAP, tx0 = (W3 - tw) / 2, ty0 = 590;
 const tiles3 = letters.map((ch, i) => {
@@ -105,15 +105,10 @@ const svg3 = `<svg xmlns="http://www.w3.org/2000/svg" width="${W3}" height="${H3
 </defs>
 <rect width="${W3}" height="${H3}" fill="url(#sky3)"/>
 <rect width="${W3}" height="${H3}" filter="url(#wash)" opacity=".5"/>
-<g opacity=".28">${toono(540, 640, 520, 170)}</g>
-<g filter="url(#paint)"><circle cx="880" cy="230" r="58" fill="url(#moon)"/></g>
-<circle cx="880" cy="230" r="120" fill="#f6e08a" opacity=".12" filter="url(#blur30)"/>
-${cl3[2].body}${cl3[0].body}${cl3[1].body}
-<path d="${mt3}" fill="#6a6894" opacity=".9" filter="url(#paint)"/>
-<path d="M0 ${hz3 + 40} Q300 ${hz3} 540 ${hz3 + 30} T1080 ${hz3 + 20} V1920 H0Z" fill="#8c8cb4" filter="url(#paint)"/>
-<path d="M0 ${hz3 + 90} Q320 ${hz3 + 50} 640 ${hz3 + 80} T1080 ${hz3 + 70} V1920 H0Z" fill="url(#groundN3)" filter="url(#paint)"/>
-${cl3[3].body}${cl3[4].body}
-${ger(250, 1760, .62)}${ger(420, 1782, .42)}
+<g filter="url(#paint)"><circle cx="905" cy="150" r="58" fill="url(#moon)"/></g>
+<circle cx="905" cy="150" r="130" fill="#f6e08a" opacity=".12" filter="url(#blur30)"/>
+<path d="M0 1700 Q270 1650 540 1675 T1080 1660 V1920 H0Z" fill="url(#groundN3)" filter="url(#paint)"/>
+<path d="M0 1700 Q270 1650 540 1675 T1080 1660" fill="none" stroke="#e7ebf6" stroke-width="8" opacity=".5" filter="url(#paint)"/>
 ${tiles3}
 ${snow3}
 <rect width="${W3}" height="${H3}" fill="url(#vig3)"/>
@@ -128,17 +123,18 @@ const html3 = `<!doctype html><html lang="mn"><head><meta charset="utf-8">
 .abs{position:absolute}
 .script{font-family:'Bad Script',cursive;color:#f4f8ff;white-space:nowrap;text-shadow:0 0 18px rgba(190,220,255,.65),0 2px 0 rgba(30,40,70,.35)}
 .chip{display:inline-flex;align-items:center;gap:14px;padding:12px 26px;border-radius:999px;background:rgba(255,255,255,.14);border:2px solid rgba(255,255,255,.35);backdrop-filter:blur(10px);font-weight:700;font-size:30px}
-.card{position:absolute;left:70px;right:70px;top:880px;padding:52px 56px 50px;border-radius:40px;background:rgba(20,22,52,.42);border:2px solid rgba(255,255,255,.22);backdrop-filter:blur(18px) saturate(120%);box-shadow:0 30px 60px -30px rgba(0,0,0,.6)}
-.card h3{font-family:'Bad Script',cursive;font-weight:400;font-size:64px;color:#ffe9a8;line-height:1}
-.card p{margin-top:22px;font-size:40px;line-height:1.42;font-weight:600;color:#f1f3fb}
+.card{position:absolute;left:96px;right:96px;top:900px;text-align:center}
+.card h3{font-family:'Bad Script',cursive;font-weight:400;font-size:60px;color:#ffe9a8;line-height:1}
+.card i{display:block;width:80px;height:3px;margin:26px auto 0;background:rgba(255,255,255,.45);border-radius:2px}
+.card p{margin-top:26px;font-size:38px;line-height:1.45;font-weight:500;color:#eef1fa}
 </style></head><body><div id="c">${svg3}
 <img src="${CFG.logo || 'logo.png'}" class="abs" style="left:64px;top:250px;height:62px;filter:drop-shadow(0 2px 8px rgba(0,0,0,.4))">
 <div class="abs" style="right:64px;top:264px;font-weight:700;font-size:28px;letter-spacing:.06em;opacity:.9">№${CFG.no} · ${esc(CFG.date)}</div>
 <div class="abs script" style="left:0;right:0;text-align:center;top:350px;font-size:116px;line-height:1">${esc(CFG.label)}</div>
-<div class="abs" style="left:0;right:0;text-align:center;top:505px"><span class="chip">${esc(CFG.cat)} · ${esc(CFG.era)}</span></div>
+<div class="abs" style="left:0;right:0;text-align:center;top:500px;font-weight:600;font-size:28px;letter-spacing:.08em;opacity:.75">${esc(CFG.cat + ' · ' + CFG.era).toUpperCase()}</div>
 ${'' /* tiles live in the SVG */}
-<div class="card"><h3>${esc(CFG.title)}</h3><p>${esc(CFG.info).replace(/(\S+-\S+)/g, '<span style="white-space:nowrap">$1</span>')}</p></div>
-<div class="abs" style="left:0;right:0;text-align:center;top:1440px;font-weight:800;font-size:44px;letter-spacing:-.02em;text-shadow:0 2px 14px rgba(20,30,60,.8)">${esc(CFG.cta)}</div>
+<div class="card"><h3>${esc(CFG.title)}</h3><i></i><p>${esc(CFG.info).replace(/(\S+-\S+)/g, '<span style="white-space:nowrap">$1</span>')}</p></div>
+<div class="abs" style="left:0;right:0;text-align:center;top:1450px;font-weight:800;font-size:44px;letter-spacing:-.02em;text-shadow:0 2px 14px rgba(20,30,60,.8)">${esc(CFG.cta)}</div>
 <div class="abs" style="left:0;right:0;text-align:center;top:1506px;font-weight:600;font-size:30px;opacity:.92;text-shadow:0 2px 10px rgba(20,30,60,.8)">grit.mn/culture/taasan-uu</div>
 </div></body></html>`;
 fs.writeFileSync(__dirname + `/story-${CFG.no}.html`, html3);
