@@ -83,6 +83,47 @@ const L = DESK
 let snowH = '';
 for (let i = 0; i < (DESK ? 420 : 230); i++) { const x = rnd() * W2, y = rnd() * H2, r = rnd() < .86 ? 1.2 + rnd() * 2.4 : 4 + rnd() * 3.5; snowH += `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${r.toFixed(1)}" fill="#ffffff" opacity="${(.3 + rnd() * .55).toFixed(2)}"${r > 4 ? ' filter="url(#blur2)"' : ''}/>`; }
 
+
+// ---- winter livestock shelter, sheep and goats (painterly, desktop hero)
+function shelter(x, y, k) {
+  let fence = '';
+  for (let i = -6; i <= 7; i++) { if (i >= -1 && i <= 2) continue; const fx = i * 34; fence += `<path d="M${fx} 0 V-58" stroke="#5a4552" stroke-width="7" stroke-linecap="round"/><path d="M${fx - 5} -60 h10" stroke="#f1f4fb" stroke-width="7" stroke-linecap="round"/>`; }
+  return `<g transform="translate(${x} ${y}) scale(${k})" filter="url(#paint)">
+    <ellipse cx="20" cy="10" rx="300" ry="26" fill="#3a3f66" opacity=".22"/>
+    ${fence}
+    <path d="M-220 -40 H260 M-220 -18 H260" stroke="#6b5363" stroke-width="7" stroke-linecap="round"/>
+    <path d="M-222 -46 H262" stroke="#eef2fa" stroke-width="5" stroke-linecap="round" opacity=".9"/>
+    <path d="M-40 0 V-96 L150 -104 V0Z" fill="#5d4858"/>
+    <path d="M-40 0 V-96 L-80 -84 V0Z" fill="#4a3946"/>
+    ${[-20, 10, 40, 70, 100, 130].map((px) => `<path d="M${px} -4 V-96" stroke="#4a3946" stroke-width="3" opacity=".6"/>`).join('')}
+    <path d="M-10 0 V-62 H70 V0Z" fill="#262840" opacity=".85"/>
+    <path d="M-92 -86 L-48 -116 L168 -124 L182 -100 Z" fill="#f3f6fc"/>
+    <path d="M-92 -86 L182 -100" stroke="#b9c6dd" stroke-width="6"/>
+    <path d="M-60 -112 q40 -14 90 -6 q60 -12 120 -4" fill="none" stroke="#ffffff" stroke-width="10" stroke-linecap="round" opacity=".8"/>
+  </g>`;
+}
+function sheepW(x, y, k, f = 1) {
+  return `<g transform="translate(${x} ${y}) scale(${k * f} ${k})" filter="url(#paint)">
+    <ellipse cx="0" cy="4" rx="34" ry="7" fill="#3a3f66" opacity=".22"/>
+    <path d="M-16 -6 V6 M-6 -6 V7 M10 -6 V6 M18 -6 V6" stroke="#3b3346" stroke-width="4" stroke-linecap="round"/>
+    ${[[-16, -22, 13], [-3, -27, 15], [12, -24, 13], [-10, -14, 12], [8, -14, 12]].map(([a, b, r]) => `<circle cx="${a}" cy="${b}" r="${r}" fill="#ece7dc"/>`).join('')}
+    <path d="M-26 -30 q16 -10 40 -6" stroke="#ffffff" stroke-width="5" fill="none" stroke-linecap="round" opacity=".9"/>
+    <ellipse cx="27" cy="-24" rx="8" ry="10" fill="#2f2a36" transform="rotate(18 27 -24)"/>
+    <path d="M22 -32 l-6 -4" stroke="#2f2a36" stroke-width="4" stroke-linecap="round"/>
+  </g>`;
+}
+function goat(x, y, k, f = 1, c = '#6e5a52') {
+  return `<g transform="translate(${x} ${y}) scale(${k * f} ${k})" filter="url(#paint)">
+    <ellipse cx="0" cy="4" rx="30" ry="6" fill="#3a3f66" opacity=".22"/>
+    <path d="M-14 -10 V6 M-6 -10 V7 M10 -10 V6 M16 -10 V6" stroke="#2f2a36" stroke-width="3.6" stroke-linecap="round"/>
+    <path d="M-22 -16 Q-22 -32 0 -32 Q20 -32 22 -18 Q20 -8 0 -8 Q-20 -8 -22 -16Z" fill="${c}"/>
+    <path d="M-20 -26 q14 -8 34 -4" stroke="#ffffff" stroke-width="4" fill="none" stroke-linecap="round" opacity=".55"/>
+    <path d="M18 -26 L30 -42 Q38 -44 38 -36 L30 -24Z" fill="${c}"/>
+    <path d="M31 -42 q-2 -12 -10 -16 M34 -42 q2 -12 -4 -18" stroke="#d8cbb8" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <path d="M37 -30 l-2 8" stroke="${c}" stroke-width="3" stroke-linecap="round"/>
+    <path d="M-22 -18 l-6 -6" stroke="${c}" stroke-width="4" stroke-linecap="round"/>
+  </g>`;
+}
 const hz = L.horizon;
 let mtnH = `M0 ${hz}`, mx = 0, mk = 0;
 while (mx < W2) { const w = 140 + ((mk * 97) % 5) * 40, h = 60 + ((mk * 61) % 4) * 42; mtnH += ` L${mx + w / 2} ${hz - h} L${mx + w} ${hz - ((mk * 37) % 3) * 12}`; mx += w; mk++; }
@@ -104,6 +145,7 @@ ${toono(...L.toono)}
 <path d="M0 ${hz + 40} Q${W2 * .25} ${hz} ${W2 * .5} ${hz + 30} T${W2} ${hz + 20} V${H2} H0Z" fill="#8c8cb4" filter="url(#paint)"/>
 <path d="M0 ${hz + 90} Q${W2 * .3} ${hz + 50} ${W2 * .6} ${hz + 80} T${W2} ${hz + 70} V${H2} H0Z" fill="url(#groundN)" filter="url(#paint)"/>
 ${L.clouds.slice(3).map((c) => c.body).join('')}
+${DESK ? `<path d="M1900 ${hz + 60} Q2100 ${hz - 70} 2330 ${hz - 95} Q2480 ${hz - 100} ${W2} ${hz - 60} V${hz + 90} H1900Z" fill="#9c9dc4" filter="url(#paint)"/><path d="M1960 ${hz + 30} Q2140 ${hz - 70} 2340 ${hz - 88} Q2480 ${hz - 92} ${W2} ${hz - 54}" fill="none" stroke="#e7ebf6" stroke-width="10" opacity=".55" filter="url(#paint)"/>` + shelter(2220, hz - 72, .9) + goat(2010, hz - 14, 1.05, 1, '#6e5a52') + sheepW(2090, hz - 28, 1.1, -1) + sheepW(2165, hz - 24, 1, 1) + goat(2240, hz - 20, .95, -1, '#3e3540') + sheepW(2325, hz - 32, 1.05, 1) + goat(2400, hz - 36, .9, -1, '#8a7a6c') + sheepW(1945, hz + 2, .9, 1) : ''}
 ${L.gers.map(([x, y, k]) => ger(x, y, k)).join('')}
 ${snowH}
 <rect width="${W2}" height="${H2}" fill="url(#vigH)"/>
