@@ -633,7 +633,7 @@
   // Two islands share one world grid: Arkhangai/Uvurkhangai on 0..100, and
   // Khentii on x 108..152, y 20..64 (front right), joined by a wooden bridge.
   const MAP_W = 1380,
-    MAP_H = 730,
+    MAP_H = 790,
     MS = 6.1,
     OX = 600;
   const iso = (x, y, z = 0) => [OX + (x - y) * 0.866 * MS, 30 + (x + y) * 0.5 * MS - z * MS];
@@ -836,45 +836,71 @@
       `<radialGradient id="${id}h" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#fff7d9" stop-opacity=".95"/><stop offset="1" stop-color="#fff7d9" stop-opacity="0"/></radialGradient>` +
       `<linearGradient id="${id}f" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f3efdc" stop-opacity="0"/><stop offset="1" stop-color="#f3efdc" stop-opacity=".55"/></linearGradient>` +
       `<filter id="${id}d" x="-20%" y="-20%" width="140%" height="160%"><feDropShadow dx="0" dy="2" stdDeviation="2.5" flood-color="#2b3320" flood-opacity=".22"/></filter></defs>`;
-    s += `<rect width="${MAP_W}" height="${MAP_H}" fill="url(#${id}s)"/>`;
-    s += `<circle cx="1010" cy="120" r="120" fill="url(#${id}h)"/><circle cx="1010" cy="120" r="34" fill="#fff6d6"/>`;
-    // two ranges of distant mountains, bluish and soft
-    const ridge = (y0, amp, seed, col) => {
-      const q = rnd(seed); let d = `M0 ${MAP_H} L0 ${y0}`;
-      for (let x = 0; x <= MAP_W; x += 60) d += ` L${x + 30} ${f1(y0 - amp * (0.4 + q() * 0.6))} L${x + 60} ${f1(y0 - amp * q() * 0.35)}`;
-      return `<path d="${d} L${MAP_W} ${MAP_H}Z" fill="${col}"/>`;
+    // Diorama backdrop: plain warm paper with a soft light in the middle and puffy clouds.
+    s += `<defs><radialGradient id="${id}bg" cx=".5" cy=".45" r=".75"><stop offset="0" stop-color="${WINTER ? '#f1efea' : '#f2eee3'}"/><stop offset="1" stop-color="${WINTER ? '#e2dfd8' : '#e6e0d1'}"/></radialGradient></defs>`;
+    s += `<rect width="${MAP_W}" height="${MAP_H}" fill="url(#${id}bg)"/>`;
+    const puff = (x, y, k, seed) => {
+      const q = rnd(seed); const bl = [];
+      for (let i = 0; i < 7; i++) bl.push([(q() - 0.5) * 70, (q() - 0.6) * 18, 10 + q() * 13]);
+      bl.sort((a, b) => a[1] - b[1]);
+      let o = `<g transform="translate(${x} ${y}) scale(${k})">`;
+      o += `<ellipse cx="4" cy="16" rx="44" ry="7" fill="#b9b6ae" opacity=".22"/>`;
+      o += bl.map(([bx, by, r]) => `<circle cx="${f1(bx)}" cy="${f1(by + 3)}" r="${f1(r)}" fill="#cfd3da"/>`).join('');
+      o += bl.map(([bx, by, r]) => `<circle cx="${f1(bx - r * 0.12)}" cy="${f1(by)}" r="${f1(r * 0.92)}" fill="#ffffff"/>`).join('');
+      o += bl.map(([bx, by, r]) => `<circle cx="${f1(bx - r * 0.3)}" cy="${f1(by - r * 0.3)}" r="${f1(r * 0.35)}" fill="#ffffff" opacity=".9"/>`).join('');
+      return o + `</g>`;
     };
-    s += ridge(250, 90, 71, '#b9d3e6') + ridge(300, 70, 72, '#9fc2d8');
-    // rolling steppe below the horizon
-    const roll = (y0, amp, seed, col) => {
-      const q = rnd(seed); let d = `M0 ${MAP_H} L0 ${y0}`;
-      for (let x = 0; x < MAP_W; x += 150) d += ` Q${x + 75} ${f1(y0 - amp * (0.3 + q() * 0.7))} ${x + 150} ${f1(y0 + (q() - 0.5) * amp * 0.4)}`;
-      return `<path d="${d} L${MAP_W} ${MAP_H}Z" fill="${col}"/>`;
-    };
-    s += WINTER ? roll(318, 26, 73, '#e2e9f3') + roll(372, 30, 74, '#d4dded') + roll(440, 26, 75, '#c7d2e5') : roll(318, 26, 73, '#b5d48a') + roll(372, 30, 74, '#a3c977') + roll(440, 26, 75, '#93bf68');
-    s += `<rect y="330" width="${MAP_W}" height="${MAP_H - 330}" fill="url(#${id}f)"/>`;
-    const cloudBlob = (x, y, k) => `<g transform="translate(${x} ${y}) scale(${k})"><ellipse cx="0" cy="0" rx="46" ry="14" fill="#ffffff"/><circle cx="-14" cy="-8" r="15" fill="#ffffff"/><circle cx="10" cy="-12" r="19" fill="#ffffff"/><ellipse cx="4" cy="4" rx="44" ry="8" fill="#dbeaf3"/></g>`;
-    s += `<g class="map-clouds">${cloudBlob(150, 95, 1.2)}${cloudBlob(330, 55, 0.7)}${cloudBlob(880, 70, 0.8)}${cloudBlob(1110, 230, 0.9)}${cloudBlob(90, 290, 0.75)}</g>`;
+    s += `<g class="map-clouds">${puff(150, 90, 1.1, 1)}${puff(420, 40, 0.6, 2)}${puff(1180, 120, 0.9, 3)}${puff(1290, 300, 0.7, 4)}${puff(90, 330, 0.75, 5)}${puff(980, 40, 0.55, 6)}${puff(1250, 520, 0.6, 7)}</g>`;
 
+    const pxStart = s.length; // everything from here to the pins gets the pixel filter
     // Plate: soil sides with strata, grass lip, and the region's name on the front.
-    const T = 5.5;
+    const T = 12;
+    const sq = (x, y, w, c, op = 1) => `<rect x="${f1(x)}" y="${f1(y)}" width="${w}" height="${w}" fill="${c}"${op < 1 ? ` opacity="${op}"` : ''}/>`;
     const plate = (x0, y0, x1, y1, name, lx) => {
-      let o = poly([[x0, y1, 0], [x1, y1, 0], [x1, y1, -T], [x0, y1, -T]], Q.soilL);
-      o += poly([[x1, y0, 0], [x1, y1, 0], [x1, y1, -T], [x1, y0, -T]], Q.soilR);
-      for (const z of [-2.2, -3.9]) {
-        const [a1, a2] = iso(x0, y1, z), [b1, b2] = iso(x1, y1, z), [c1, c2] = iso(x1, y0, z);
-        o += `<path d="M${f1(a1)} ${f1(a2)} L${f1(b1)} ${f1(b2)} L${f1(c1)} ${f1(c2)}" stroke="${Q.strata}" stroke-width="1.6" fill="none" opacity=".8"/>`;
+      // layers from the top down: snow (or turf), brown soil, dark bedrock
+      const L = WINTER
+        ? [[0, -1, '#f4f7fb', '#d4dce8'], [-1, -4.6, '#7d5838', '#5e412a'], [-4.6, -T, '#4c4744', '#36322f']]
+        : [[0, -1, '#7fae46', '#5f8b33'], [-1, -4.6, '#7d5838', '#5e412a'], [-4.6, -T, '#4c4744', '#36322f']];
+      let o = '';
+      for (const [za, zb, cl, cr] of L) {
+        o += poly([[x0, y1, za], [x1, y1, za], [x1, y1, zb], [x0, y1, zb]], cl);
+        o += poly([[x1, y0, za], [x1, y1, za], [x1, y1, zb], [x1, y0, zb]], cr);
       }
-      o += poly([[x0, y1, 0], [x1, y1, 0], [x1, y1, -0.8], [x0, y1, -0.8]], Q.lip) + poly([[x1, y0, 0], [x1, y1, 0], [x1, y1, -0.8], [x1, y0, -0.8]], shade(Q.lip, -0.12));
+      // wavy seams between the layers
+      const seam = (z, amp, col, w, seed) => {
+        const q = rnd(seed); let d = '';
+        const run = (a, b, n, f) => { for (let i = 0; i <= n; i++) { const t = i / n; const [px, py] = f(t); d += `${d && i ? ' L' : (d ? ' M' : 'M')}${f1(px)} ${f1(py + (q() - 0.5) * amp)}`; } };
+        run(0, 1, 40, (t) => iso(x0 + (x1 - x0) * t, y1, z));
+        run(0, 1, Math.round(40 * (y1 - y0) / (x1 - x0)), (t) => iso(x1, y1 - (y1 - y0) * t, z));
+        return `<path d="${d}" stroke="${col}" stroke-width="${w}" fill="none" stroke-linejoin="round"/>`;
+      };
+      o += seam(-1, 2.2, WINTER ? '#ffffff' : '#9cc65e', 2.4, 3) + seam(-4.6, 3, '#5a514a', 2.2, 4);
+      // pebbles and pixel grit on the sides
+      const q = rnd(Math.round(x0 * 7 + y1));
+      const nL = Math.round((x1 - x0) * 5), nR = Math.round((y1 - y0) * 5);
+      for (let i = 0; i < nL + nR; i++) {
+        const left = i < nL, t = q(), z = -1.4 - q() * (T - 1.8);
+        const [px, py] = left ? iso(x0 + (x1 - x0) * t, y1, z) : iso(x1, y1 - (y1 - y0) * t, z);
+        const deep = z < -4.6, c = deep ? (q() < 0.5 ? '#6a635d' : '#2c2926') : (q() < 0.5 ? '#9a7350' : '#4f3622');
+        o += sq(px, py, q() < 0.8 ? 2 : 3, c, 0.85);
+      }
       o += poly([[x0, y0, 0], [x1, y0, 0], [x1, y1, 0], [x0, y1, 0]], Q.grass);
       if (name) {
-        const [nx, ny] = iso(lx || (x0 + x1) / 2, y1, -3.1);
-        o += `<text transform="translate(${f1(nx)} ${f1(ny)}) rotate(30) skewX(30)" text-anchor="middle" dominant-baseline="middle" font-size="13" font-weight="700" letter-spacing="3" fill="#fff6e2" opacity=".9" font-family="Inter Tight, Inter, sans-serif">${name.toUpperCase()}</text>`;
+        const [nx, ny] = iso(lx || (x0 + x1) / 2, y1, -8.2);
+        o += `<text transform="translate(${f1(nx)} ${f1(ny)}) rotate(30) skewX(30)" text-anchor="middle" dominant-baseline="middle" font-size="14" font-weight="700" letter-spacing="4" fill="#efe9de" opacity=".8" font-family="Inter Tight, Inter, sans-serif">${name.toUpperCase()}</text>`;
       }
       return o;
     };
+    // Pixel texture on the top surface (drawn right after each plate).
+    const grain = (x0, y0, x1, y1, seed) => {
+      const q = rnd(seed), n = Math.round((x1 - x0) * (y1 - y0) * 0.32);
+      const cols = WINTER ? ['#d8e0ec', '#ffffff', '#c9d3e2', '#e4eaf3'] : ['#7aa944', '#9cc65e', '#6c9a3a', '#a9cf6e'];
+      let o = '';
+      for (let i = 0; i < n; i++) { const [px, py] = iso(x0 + q() * (x1 - x0), y0 + q() * (y1 - y0)); o += sq(px, py, q() < 0.7 ? 2 : 3, cols[i % 4], 0.8); }
+      return o;
+    };
     const R1 = (opts.regions || [])[0], R2 = (opts.regions || [])[1];
-    s += plate(0, 0, 100, 100, R1, 70);
+    s += plate(0, 0, 100, 100, R1, 70) + grain(0, 0, 100, 100, 61);
 
     // Field parcels.
     const r = rnd(31);
@@ -934,7 +960,7 @@
 
     // ---- Khentii island (x 108..152, y 20..64) and the bridge to it.
     const X0 = 108, X1 = 152, Y0 = 20, Y1 = 64;
-    s += plate(X0, Y0, X1, Y1, R2);
+    s += plate(X0, Y0, X1, Y1, R2) + grain(X0, Y0, X1, Y1, 62);
     {
       const r2 = rnd(57);
       for (let i = 0; i < 14; i++) {
@@ -975,9 +1001,9 @@
 
     // Mountains along the back edges, then forests at their feet.
     [[6, 3, 7, 9, 1], [18, 2, 8, 12, 2], [31, 3, 7, 8, 3], [44, 2, 6, 7, 4], [86, 3, 7, 9, 5], [97, 6, 6, 8, 6], [3, 15, 7, 10, 7], [3, 38, 6, 7, 8], [3, 60, 7, 9, 9], [3, 82, 5, 6, 10], [70, 2, 6, 6, 11]].forEach(([x, y, rr, h, sd]) =>
-      put(x + y - 2, peak(x, y, rr, h, sd * 13, { snow: WINTER || h >= 8, lt: '#a9bde0', dk: '#5a6f9a' })));
+      put(x + y - 2, peak(x, y, rr, h, sd * 13, { snow: WINTER || h >= 8, lt: WINTER ? '#b8bcc4' : '#a9bde0', dk: WINTER ? '#686d77' : '#5a6f9a' })));
     const forest = (x0, y0, n, seed, conif) => { const q = rnd(seed); for (let i = 0; i < n; i++) { const x = x0 + q() * 12, y = y0 + q() * 10; put(x + y, conif || q() < 0.35 ? conifer(x, y, 0.8 + q() * 0.4) : treeIso(x, y, 0.8 + q() * 0.4)); } };
-    forest(24, 8, 22, 1, true); forest(8, 58, 18, 2, true); forest(84, 48, 16, 3); forest(16, 86, 14, 4); forest(82, 8, 16, 5, true); forest(8, 32, 14, 6, true); forest(62, 4, 14, 7); forest(36, 26, 12, 8); forest(86, 88, 12, 9); forest(8, 74, 10, 10); forest(90, 30, 10, 11); forest(66, 92, 8, 12); forest(48, 44, 6, 13);
+    forest(24, 8, 34, 1, true); forest(8, 58, 30, 2, true); forest(84, 48, 22, 3, true); forest(16, 86, 18, 4); forest(82, 8, 26, 5, true); forest(8, 32, 24, 6, true); forest(62, 4, 22, 7, true); forest(36, 26, 14, 8); forest(86, 88, 16, 9); forest(8, 74, 16, 10, true); forest(90, 30, 18, 11, true); forest(66, 92, 10, 12); forest(48, 44, 6, 13); forest(1, 8, 22, 14, true); forest(10, 1, 20, 15, true);
     // Tree rows along roads (as in city maps).
     roads.forEach((rd, ri) => rd.forEach(([x, y], i) => { if (i % 1 === 0 && i < rd.length - 1) { const [nx, ny] = rd[i + 1]; for (let t = 0.1; t < 1; t += 0.22) for (const sd of [1, -1]) { const px = x + (nx - x) * t + 1.5 * sd, py = y + (ny - y) * t - 1.5 * sd; if (px > E0 - 1 && px < E1 + 1 && py > E0 - 1 && py < E1 + 1) continue; put(px + py, treeIso(px, py, 0.55, ri % 2 || WINTER ? Q.tree : '#7aa556')); } } }));
 
@@ -1035,7 +1061,7 @@
     }
     // Khentii island: Burkhan Khaldun with its ovoo and larch forest.
     put(114 + 26, peak(114, 26, 5, 9.5, 101, WINTER ? { lt: '#a9c3b2', dk: '#36624a', snow: true } : { lt: '#86b56d', dk: '#3b6a46' }));
-    { const q = rnd(102); [[109, 31, 8, 6], [109, 47, 8, 8], [145, 33, 6, 6]].forEach(([x0, y0, w, d]) => { for (let i = 0; i < 9; i++) { const x = x0 + q() * w, y = y0 + q() * d; put(x + y, conifer(x, y, 0.7 + q() * 0.4)); } }); }
+    { const q = rnd(102); [[109, 31, 8, 6], [109, 47, 8, 8], [145, 33, 6, 6], [109, 21, 12, 5], [142, 58, 9, 5]].forEach(([x0, y0, w, d]) => { for (let i = 0; i < 15; i++) { const x = x0 + q() * w, y = y0 + q() * d; put(x + y, conifer(x, y, 0.7 + q() * 0.4)); } }); }
     { const [tx, ty] = iso(112.5, 33, 1.6); put(112.5 + 33, peak(112.5, 33, 1, 1.5, 103, { n: 7, lt: '#cfcac0', dk: '#8f8a80' }) + `<path d="M${f1(tx)} ${f1(ty)} v-9" stroke="#6b4b33" stroke-width="1.2"/><path d="M${f1(tx)} ${f1(ty - 8)} q6 2 9 6 M${f1(tx)} ${f1(ty - 6)} q-6 2 -7 6" stroke="#4a8fd4" stroke-width="1.8" fill="none"/>`); }
     // Delüün Boldog: a grassy hill on the Onon with a memorial stele.
     put(140 + 32, peak(140, 32, 3.2, 2.2, 104, WINTER ? { lt: '#f4f7fb', dk: '#c0cbdc' } : { lt: '#a9cf6e', dk: '#6f9a48' }) + boxIso(139.6, 31.4, 2.1, 0.9, 0.9, 3.6, '#e2ddd0') + roofIso(139.6, 31.4, 5.7, 0.9, 0.9, 0.6, '#c8c1b0', 0.1));
@@ -1049,6 +1075,15 @@
     items.sort((a, b) => a[0] - b[0]);
     s += items.map((i) => i[1]).join('');
 
+    // Pixel-art look: sample the scene in PX-sized blocks. Animations inside are
+    // switched off (frozen rivers, icefall), so the filter is computed only once.
+    {
+      const PX = 3;
+      let body = s.slice(pxStart);
+      if (WINTER) body = body.replace(/ class="map-(flow|fall|foam)"/g, '');
+      s = s.slice(0, pxStart) + `<filter id="${id}px" x="0" y="0" width="${MAP_W}" height="${MAP_H}" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB"><feFlood x="${PX / 2}" y="${PX / 2}" width="1" height="1" flood-color="#000"/><feComposite width="${PX}" height="${PX}"/><feTile result="t"/><feComposite in="SourceGraphic" in2="t" operator="in"/><feMorphology operator="dilate" radius="${PX / 2}"/></filter>` +
+        `<g filter="url(#${id}px)">${body}</g>`;
+    }
     // Pins.
     (opts.pins || []).forEach((p, n) => {
       const [sx, sy] = iso(p.x, p.y);
@@ -1060,7 +1095,7 @@
     if (WINTER) {
       const q = rnd(404);
       let fl = '<g pointer-events="none" fill="#ffffff">';
-      for (let i = 0; i < 260; i++) fl += `<circle cx="${f1(q() * MAP_W)}" cy="${f1(q() * MAP_H)}" r="${f1(0.8 + q() * 2.2)}" opacity="${f1(0.45 + q() * 0.5)}"/>`;
+      for (let i = 0; i < 170; i++) fl += `<circle cx="${f1(q() * MAP_W)}" cy="${f1(q() * MAP_H)}" r="${f1(0.8 + q() * 2.2)}" opacity="${f1(0.45 + q() * 0.5)}"/>`;
       s += fl + '</g>';
     }
     return wrap(MAP_W, MAP_H, s + `<g pointer-events="none"><filter id="${id}n" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch"/><feColorMatrix values="0 0 0 0 0.2  0 0 0 0 0.18  0 0 0 0 0.12  0 0 0 0.35 0"/></filter><rect width="${MAP_W}" height="${MAP_H}" filter="url(#${id}n)" opacity=".18"/></g>`, opts.label || 'Illustrated map of the heritage sites of Arkhangai, Uvurkhangai and Khentii', false);
