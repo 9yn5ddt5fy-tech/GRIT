@@ -128,7 +128,7 @@ const MN = {
   "A daily word game, picture books of legends and history games — free for everyone.":
     "Өдөр бүрийн үгийн тоглоом, домгийн зурагт ном, түүхийн тоглоомууд — бүгдэд үнэгүй.",
   "Legends, picture books and history games": "Домог, зурагт ном, түүхийн тоглоом",
-  "11 picture books · 57 quiz questions · 42 timeline events": "11 зурагт ном · 57 асуулт · 42 үйл явдал",
+  "12 picture books · 57 quiz questions · 42 timeline events": "12 зурагт ном · 57 асуулт · 42 үйл явдал",
   "Explore GRIT Culture": "GRIT Culture үзэх",
   "Guess a five-letter word from Mongolian history in six tries. A new word every day — and its story when you solve it.":
     "Монголын түүхэн таван үсэгтэй үгийг зургаан оролдлогоор таа. Өдөр бүр шинэ үг гарах бөгөөд таасны дараа түүх нь нээгдэнэ.",
