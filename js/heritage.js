@@ -8,6 +8,64 @@
 // ---------------------------------------------------------------- stories
 const STORIES = [
   {
+    id: "es",
+    kind: "tradition",
+    place: { en: "All of Mongolia · 22 Dec – 12 Mar", mn: "Монгол даяар · 12.22 – 3.12" },
+    title: { en: "The Nine Nines of Winter", mn: "Өвлийн есөн ес" },
+    blurb: {
+      en: "Why do herders say that vodka freezes, ox horns crack and hilltops turn brown? The 81 days of winter, counted in nines.",
+      mn: "Архи хөлдөнө, үхрийн эвэр хагарна, довын толгой борлоно гэж малчид яагаад хэлдэг вэ? Өвлийн 81 хоногийг есөөр тоолох нь.",
+    },
+    cover: "es-solstice",
+    pages: [
+      {
+        scene: "es-solstice",
+        en: "The longest night of the year is the winter solstice, on 22 December. From that day, Mongolians count the coldest part of winter in nine blocks of nine days — the “nine nines”. The count lasts 81 days and ends in mid-March, and each nine has its own saying.",
+        mn: "Жилийн хамгийн урт шөнө бол 12-р сарын 22-ны өвлийн туйл. Энэ өдрөөс эхлэн монголчууд өвлийн хамгийн хүйтэн үеийг есөн хоногоор есөн удаа тоолдог. Үүнийг «есөн ес» гэнэ. Нийт 81 хоног үргэлжилж, 3-р сарын дундуур дуусна. Ес бүр өөрийн гэсэн хэллэгтэй.",
+      },
+      {
+        scene: "es-vodka",
+        en: "First nine: “milk vodka freezes.” Second nine: “twice-distilled vodka freezes.” The cold grows stronger, until even vodka distilled from milk, and then the stronger twice-distilled kind, freeze outdoors. Herders insulate their gers and keep the animals in their pens at night.",
+        mn: "Нэг ес — нэрмэл архи хөлдөнө. Хоёр ес — хорз архи хөлдөнө. Хүйтэн улам чангарч, сүүнээс нэрсэн архи ч, түүнийг дахин нэрсэн хүчтэй хорз ч гадаа хөлдөнө. Малчид гэрээ дулаалж, малаа хашаандаа хоноглуулна.",
+      },
+      {
+        scene: "es-horns",
+        en: "Third nine: “a three-year-old ox's horns freeze and crack.” Fourth nine: “a four-year-old ox's horns freeze and crack.” This is the coldest time of the year — it is said that even the hard horns of young cattle crack in the frost. In some places it drops below minus 40 degrees.",
+        mn: "Гурван ес — гунан үхрийн эвэр хуга хөлдөнө. Дөрвөн ес — дөнөн үхрийн эвэр хуга хөлдөнө. Энэ бол жилийн хамгийн хүйтэн үе. Гурав, дөрвөн настай үхрийн хатуу эвэр ч хүйтэнд хагарна гэдэг. Зарим нутагт хасах 40 хэмээс ч доош хүйтэрдэг.",
+      },
+      {
+        scene: "es-tracks",
+        en: "Fifth nine: “porridge set outside no longer freezes.” Sixth nine: “tracks show through the snow.” The cold begins to ease, and food left outdoors stops freezing. The sun grows warmer, and paths appear as lines across the snow.",
+        mn: "Таван ес — тавьсан будаа хөлдөхгүй. Зургаан ес — зурайсан зам гарна. Хүйтэн сулрах нь мэдэгдэж, гадаа тавьсан будаа хөлдөхөө больно. Нар илчтэй болж, цасан дундуур явсан замууд зурайн харагдана.",
+      },
+      {
+        scene: "es-thaw",
+        en: "Seventh nine: “hilltops turn brown.” Eighth nine: “everything turns to slush.” Snow melts off the tops of the hillocks and the brown earth shows through. Then the snow keeps melting, and the ground is wet and muddy everywhere.",
+        mn: "Долоон ес — довын толгой борлоно. Найман ес — нал шал болно. Довын оройн цас хайлж, бор шороо ил гарна. Дараа нь цас хайлсаар, хаа сайгүй нойтон шавар болно.",
+      },
+      {
+        scene: "es-spring",
+        en: "Ninth nine: “ordinary warmth returns.” The 81 cold days are behind us and warm days arrive. Spring is near, and soon it will be time to welcome the newborn lambs and kids.",
+        mn: "Есөн ес — ердийн дулаан болно. Хүйтний 81 хоног ард хоцорч, дулаан цаг ирнэ. Удахгүй хавар болж, хурга ишгээ хүлээн авах цаг ойртоно.",
+      },
+      {
+        scene: "es-count",
+        fact: true,
+        en: "Why count this way? The nine nines are a folk calendar built on herders' observations over many generations. Knowing when the cold will peak and when it will ease helps herders prepare hay, fuel and shelters in time. Some regions start the count on 21 December, and the sayings differ a little from place to place.",
+        mn: "Яагаад ингэж тоолдог вэ? Есөн ес бол олон үеийн малчдын ажиглалтаас үүссэн ардын тоолол. Хүйтэн хэзээ оргилдож, хэзээ сулрахыг мэдсэнээр малчид өвс тэжээл, түлээ, хашаа хороогоо цагт нь бэлддэг. Зарим нутагт 12-р сарын 21-нээс тоолж эхэлдэг, хэллэг нь ч нутаг нутагт бага зэрэг өөр байдаг.",
+      },
+    ],
+    check: {
+      q: { en: "Which nines are the coldest time of the year?", mn: "Аль есүүд жилийн хамгийн хүйтэн үе вэ?" },
+      a: [
+        { en: "The third and fourth nines", mn: "Гурав, дөрвөн ес" },
+        { en: "The first nine", mn: "Нэг ес" },
+        { en: "The eighth nine", mn: "Найман ес" },
+      ],
+      ok: 0,
+    },
+  },
+  {
     id: "terkh",
     kind: "legend",
     place: { en: "Arkhangai · Tariat soum", mn: "Архангай · Тариат сум" },
@@ -654,6 +712,7 @@ const UI = {
   legend: { en: "Legend", mn: "Домог" },
   history: { en: "History", mn: "Түүх" },
   nature: { en: "Nature", mn: "Байгаль" },
+  tradition: { en: "Tradition", mn: "Уламжлал" },
   all: { en: "All", mn: "Бүгд" },
   read: { en: "Read the story", mn: "Ном унших" },
   readAgain: { en: "Read again", mn: "Дахин унших" },
@@ -740,7 +799,7 @@ const UI = {
 
   function renderFilters() {
     if (!filters) return;
-    filters.innerHTML = ["all", "legend", "history", "nature"]
+    filters.innerHTML = ["all", "legend", "history", "nature", "tradition"]
       .map((k) => `<button type="button" class="chip${filter === k ? " is-active" : ""}" data-filter="${k}" aria-pressed="${filter === k}">${t(UI[k])}</button>`)
       .join("");
   }

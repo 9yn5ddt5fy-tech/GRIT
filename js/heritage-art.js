@@ -47,6 +47,7 @@
     dawn: { sky: ["#e05a4a", "#f39b55", "#fde2ae"], mtn: "#b0679a", mtnLt: "#d494b6", cloud: "#b8443a" },
     night: { sky: ["#0b1440", "#1c2b6e", "#3b4a95"], mtn: "#3c4790", mtnLt: "#5662ad", cloud: "#1c2b6e" },
     storm: { sky: ["#26345a", "#4f6390", "#93a7c6"], mtn: "#5a6795", mtnLt: "#7886b4", cloud: "#26345a" },
+    winter: { sky: ["#4f74b8", "#a3bfe6", "#eef4fc"], mtn: "#8597c9", mtnLt: "#b7c4e6", cloud: "#4f74b8" },
   };
   const O = `stroke="${K.ink}" stroke-width="1.3" stroke-linejoin="round" stroke-linecap="round"`;
   const O2 = `stroke="${K.ink}" stroke-width="1" stroke-linejoin="round" stroke-linecap="round"`;
@@ -123,8 +124,11 @@
     const id = "h" + ++uid;
     const m = MOOD[o.sky || "day"];
     const night = o.sky === "night";
+    const wn = !!o.winter;
     const g = H * (o.ground || 0.7);
-    let s = `<defs><linearGradient id="${id}s" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${m.sky[0]}"/><stop offset="0.55" stop-color="${m.sky[1]}"/><stop offset="1" stop-color="${m.sky[2]}"/></linearGradient><linearGradient id="${id}g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${night ? "#3f6b48" : K.grass}"/><stop offset="1" stop-color="${night ? "#2c4f36" : "#6fb043"}"/></linearGradient></defs>`;
+    const gTop = wn ? (night ? "#aeb8de" : "#f7faff") : night ? "#3f6b48" : K.grass;
+    const gBot = wn ? (night ? "#7d89bd" : "#d6e2f1") : night ? "#2c4f36" : "#6fb043";
+    let s = `<defs><linearGradient id="${id}s" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${m.sky[0]}"/><stop offset="0.55" stop-color="${m.sky[1]}"/><stop offset="1" stop-color="${m.sky[2]}"/></linearGradient><linearGradient id="${id}g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${gTop}"/><stop offset="1" stop-color="${gBot}"/></linearGradient></defs>`;
     s += `<rect width="${W}" height="${H}" fill="url(#${id}s)"/>`;
     if (night) {
       const r = rnd(7);
@@ -136,14 +140,38 @@
     }
     if (o.clouds !== false) s += cloud(W * 0.2, H * 0.17, 0.75, m.cloud) + cloud(W * 0.58, H * 0.1, 0.55, m.cloud);
     if (o.mountains !== false) s += range(W, g - 30, m, o.seed || 3);
-    s += hill(W, H, g - 26, 16, 5, night ? "#1f4f4a" : K.teal, night ? "#2f6b60" : K.tealLt);
+    s += wn
+      ? hill(W, H, g - 26, 16, 5, night ? "#6f7cb4" : "#c6d4ea", night ? "#9aa6d6" : "#ffffff")
+      : hill(W, H, g - 26, 16, 5, night ? "#1f4f4a" : K.teal, night ? "#2f6b60" : K.tealLt);
     if (o.forest !== false) {
       const r = rnd((o.seed || 3) + 11);
-      for (let x = 8; x < W; x += 16 + r() * 22) if (r() > 0.35) s += larch(x, g - 18 - r() * 8, 12 + r() * 8, night ? "#163a33" : "#145c45");
+      for (let x = 8; x < W; x += 16 + r() * 22)
+        if (r() > 0.35) {
+          const ty = g - 18 - r() * 8, th = 12 + r() * 8;
+          s += larch(x, ty, th, night ? "#163a33" : "#145c45");
+          if (wn) s += `<path d="M${x} ${ty - th} L${x + th * 0.2} ${ty - th * 0.7} L${x - th * 0.2} ${ty - th * 0.7}Z M${x - th * 0.3} ${ty - th * 0.28} H${x + th * 0.3}" fill="#fff" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/>`;
+        }
     }
-    s += hill(W, H, g - 8, 12, 9, night ? "#2f5b3c" : K.green, night ? "#3f7048" : K.greenLt);
+    s += wn
+      ? hill(W, H, g - 8, 12, 9, night ? "#8f9bcf" : "#e3ebf7", night ? "#b9c3e8" : "#ffffff")
+      : hill(W, H, g - 8, 12, 9, night ? "#2f5b3c" : K.green, night ? "#3f7048" : K.greenLt);
+    if (wn && o.thaw) {
+      // bare brown hilltops and meltwater puddles
+      const r = rnd(41);
+      for (let i = 0; i < 7; i++) {
+        const x = 20 + i * 58 + r() * 20, y = g - 14 - r() * 6;
+        s += `<path d="M${(x - 16).toFixed(1)} ${(y + 3).toFixed(1)} Q${x.toFixed(1)} ${(y - 6 - r() * 3).toFixed(1)} ${(x + 16).toFixed(1)} ${(y + 3).toFixed(1)}Z" fill="#a07a52" opacity="0.8"/>`;
+      }
+    }
     s += `<rect y="${g}" width="${W}" height="${H - g}" fill="url(#${id}g)"/>`;
-    s += meadow(W, H, g, 13, night);
+    if (wn) {
+      const r = rnd(17);
+      for (let i = 0; i < 14; i++) {
+        const x = r() * W, y = g + 10 + r() * (H - g - 16);
+        s += `<path d="M${(x - 14).toFixed(1)} ${y.toFixed(1)} q14 -5 28 0" stroke="${night ? "#6c78ae" : "#b9cbe4"}" stroke-width="1.6" fill="none" stroke-linecap="round"/>`;
+      }
+      if (o.thaw > 1) for (let i = 0; i < 5; i++) { const x = 30 + r() * (W - 60), y = g + 14 + r() * (H - g - 24); s += `<ellipse cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" rx="${(10 + r() * 14).toFixed(1)}" ry="${(3 + r() * 2).toFixed(1)}" fill="#8a6a48" opacity=".55"/><ellipse cx="${(x + 2).toFixed(1)}" cy="${(y - 0.6).toFixed(1)}" rx="${(6 + r() * 8).toFixed(1)}" ry="2" fill="${K.waterLt}" opacity=".8"/>`; }
+    } else s += meadow(W, H, g, 13, night);
     return { s, g, id };
   }
 
@@ -152,6 +180,10 @@
     let s = '<g pointer-events="none">';
     if (o.sky === "night") s += `<rect width="${W}" height="${H}" fill="#0b1440" opacity="0.28"/>`;
     if (o.sky === "storm") s += `<rect width="${W}" height="${H}" fill="#26345a" opacity="0.12"/>`;
+    if (o.snowfall) {
+      const r = rnd(29);
+      for (let i = 0; i < o.snowfall; i++) s += `<circle cx="${(r() * W).toFixed(1)}" cy="${(r() * H).toFixed(1)}" r="${(0.9 + r() * 1.9).toFixed(1)}" fill="#fff" opacity="${(0.55 + r() * 0.4).toFixed(2)}"/>`;
+    }
     s += `<filter id="${id}n" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" stitchTiles="stitch"/><feColorMatrix values="0 0 0 0 0.16  0 0 0 0 0.11  0 0 0 0 0.08  0 0 0 0.55 0"/></filter><rect width="${W}" height="${H}" filter="url(#${id}n)" opacity="0.32"/>`;
     if (o.frame !== false) {
       const b = Math.round(Math.min(W, H) * 0.036);
@@ -437,6 +469,53 @@
   const monument = (x, y, k = 1, c = "#d8d2c4") =>
     `<g transform="translate(${x} ${y}) scale(${k})"><path d="M-40 0 h80 v-10 h-80z M-30 -10 h60 v-10 h-60z" fill="${K.stoneLt}" ${O}/><path d="M-14 -20 V-120 L0 -134 L14 -120 V-20Z" fill="${c}" ${O}/><path d="M-6 -110 V-36" stroke="${K.stone}" stroke-width="2"/><path d="M4 -104 q3 6 0 12 q-3 6 0 12 q3 6 0 12" stroke="${K.cobalt}" stroke-width="2" fill="none"/></g>`;
 
+
+  // Winter's nine nines: cattle, sheep, a frozen jug, a pen and the 9x9 count.
+  function ox(x, y, k = 1, c = "#5a3a2a", cracked = false) {
+    let s = `<g transform="translate(${x} ${y}) scale(${k} ${Math.abs(k)})">`;
+    s += leg(-14, -16, -15, 0, c) + leg(-8, -16, -7, 0, c) + leg(9, -16, 8, 0, c) + leg(15, -16, 16, 0, c);
+    s += `<path d="M-24 -18 Q-26 -36 -6 -36 Q14 -38 20 -30 Q24 -20 18 -14 Q0 -11 -20 -13 Q-25 -14 -24 -18Z" fill="${c}" ${O}/>`;
+    s += `<path d="M-23 -22 q-6 4 -5 12" stroke="${c}" stroke-width="2.4" fill="none" stroke-linecap="round"/>`;
+    s += `<path d="M-14 -36 q10 -4 24 -1" stroke="#fff" stroke-width="3.4" fill="none" stroke-linecap="round" opacity=".9"/>`;
+    s += `<path d="M18 -30 Q30 -34 34 -24 Q35 -16 28 -15 Q22 -16 18 -22Z" fill="${c}" ${O}/><circle cx="29" cy="-26" r="1.1" fill="${K.ink}"/><ellipse cx="32" cy="-18" rx="3" ry="2.2" fill="#3a2418"/>`;
+    s += `<path d="M22 -31 Q18 -40 24 -44 M28 -32 Q32 -41 38 -40" stroke="${K.ink}" stroke-width="4.6" fill="none" stroke-linecap="round"/><path d="M22 -31 Q18 -40 24 -44 M28 -32 Q32 -41 38 -40" stroke="#efe6d2" stroke-width="2.8" fill="none" stroke-linecap="round"/>`;
+    if (cracked) s += `<path d="M19.5 -38 l2 1 l-1.5 1.6 l2 .8 M33 -39 l-.6 2 l1.6 .2 l-.8 2" stroke="${K.redDk}" stroke-width=".9" fill="none"/><path d="M14 -48 l2 -4 l2 4 l-2 4z M40 -48 l1.5 -3 l1.5 3 l-1.5 3z" fill="#dff0ff" stroke="#9cc4ea" stroke-width=".6"/>`;
+    s += `<path d="M30 -14 q1 4 -1 6" stroke="#dff0ff" stroke-width="1.4" fill="none"/>`;
+    return s + `</g>`;
+  }
+  function sheepB(x, y, k = 1, c = "#f4efe4") {
+    let s = `<g transform="translate(${x} ${y}) scale(${k} ${Math.abs(k)})">`;
+    s += `<path d="M-9 -8 V0 M-4 -8 V0 M5 -8 V0 M10 -8 V0" stroke="${K.ink}" stroke-width="2.2" stroke-linecap="round"/>`;
+    s += `<path d="M-15 -12 Q-17 -22 -8 -22 Q-5 -28 2 -24 Q9 -28 12 -21 Q18 -19 15 -11 Q12 -6 0 -7 Q-14 -6 -15 -12Z" fill="${c}" ${O}/>`;
+    s += `<ellipse cx="16" cy="-17" rx="5" ry="4" fill="#2f2622" ${O2}/><path d="M13 -20 l-4 -2" stroke="#2f2622" stroke-width="2" stroke-linecap="round"/><circle cx="17.5" cy="-18" r=".8" fill="#fff"/>`;
+    return s + `</g>`;
+  }
+  function jug(x, y, k = 1) {
+    let s = `<g transform="translate(${x} ${y}) scale(${k})">`;
+    s += `<ellipse cx="0" cy="1" rx="16" ry="3" fill="#3b4a6a" opacity=".2"/>`;
+    s += `<path d="M-9 0 Q-15 -14 -9 -26 L-6 -34 H6 L9 -26 Q15 -14 9 0Z" fill="${K.woodLt}" ${O}/>`;
+    s += `<path d="M-12 -14 H12" stroke="${K.gold}" stroke-width="2.2"/><path d="M-7 -34 h14 v-4 h-14z" fill="${K.wood}" ${O2}/>`;
+    s += `<path d="M-6 -38 Q0 -46 6 -38" fill="#e8f4ff" stroke="#9cc4ea" stroke-width="1"/>`;
+    s += `<path d="M-10 -24 l-1 5 l-1 -5 M-4 -26 l-.8 4 l-.8 -4 M8 -22 l-1 6 l-1 -6" fill="#dff0ff" stroke="#9cc4ea" stroke-width=".7"/>`;
+    s += `<path d="M18 -30 l3 -6 l3 6 l-3 6z M-24 -20 l2 -4 l2 4 l-2 4z" fill="#fff" stroke="#9cc4ea" stroke-width=".8"/>`;
+    return s + `</g>`;
+  }
+  function pen(x0, x1, y) {
+    let s = `<path d="M${x0} ${y - 14} H${x1} M${x0} ${y - 6} H${x1}" stroke="${K.wood}" stroke-width="2.6"/>`;
+    for (let x = x0; x <= x1; x += 18) s += `<path d="M${x} ${y} V${y - 20}" stroke="${K.wood}" stroke-width="3" stroke-linecap="round"/><path d="M${x - 2.5} ${y - 21} h5" stroke="#fff" stroke-width="3" stroke-linecap="round"/>`;
+    return s + `<path d="M${x0} ${y - 15.6} H${x1}" stroke="#fff" stroke-width="1.6" opacity=".9"/>`;
+  }
+  function tally(cx, cy) {
+    const cols = ["#3d5fa8", "#3d5fa8", "#2c3f86", "#2c3f86", "#4f7cc4", "#6e9fd4", "#a0794e", "#7fb6c9", "#5aa34a"];
+    let s = `<path d="M${cx - 118} ${cy + 40} V${cy + 96} M${cx + 118} ${cy + 40} V${cy + 96}" stroke="${K.wood}" stroke-width="5" stroke-linecap="round"/><rect x="${cx - 132}" y="${cy - 46}" width="264" height="92" rx="8" fill="${K.felt}" ${O}/><rect x="${cx - 126}" y="${cy - 40}" width="252" height="80" rx="5" fill="none" stroke="${K.red}" stroke-width="1.6"/>`;
+    for (let n = 0; n < 9; n++) {
+      const bx = cx - 117 + n * 27.5;
+      for (let i = 0; i < 9; i++) s += `<circle cx="${(bx + (i % 3) * 7.5).toFixed(1)}" cy="${(cy - 18 + Math.floor(i / 3) * 7.5).toFixed(1)}" r="2.6" fill="${cols[n]}"/>`;
+      s += `<text x="${(bx + 7.5).toFixed(1)}" y="${cy + 24}" text-anchor="middle" font-family="Inter Tight, Inter, sans-serif" font-weight="700" font-size="11" fill="${K.ink}">${n + 1}</text>`;
+    }
+    return s;
+  }
+
   // ---------------------------------------------------------------- scenes
   const W = 400,
     H = 250;
@@ -452,6 +531,14 @@
   const P = person;
 
   const SCENES = {
+    // Winter's nine nines
+    "es-solstice": scene({ sky: "night", winter: true, snowfall: 40 }, (g) => ger(130, g + 22, 1.25) + `<rect x="${130 - 7.5}" y="${g + 3}" width="15" height="19" fill="#ffd36b" opacity=".55"/>` + ger(232, g + 14, 0.8) + pen(280, 370, g + 30) + sheepB(305, g + 28, 0.75) + sheepB(340, g + 30, 0.75, "#e9e1d2") + P(186, g + 46, 0.9, K.red, "point", { hat: false, braids: true, sash: K.gold })),
+    "es-vodka": scene({ sky: "storm", sun: false, winter: true, snowfall: 70 }, (g) => ger(110, g + 22, 1.3) + jug(214, g + 42, 1.25) + P(258, g + 46, 1, K.cobalt, "point", { hat: K.red, sash: K.gold }) + horse(340, g + 40, -0.75, "#6b4a36", false)),
+    "es-horns": scene({ sky: "winter", sun: false, winter: true, snowfall: 110, seed: 5 }, (g) => pen(40, 360, g + 18) + ox(130, g + 48, 1.35, "#4e3226", true) + ox(270, g + 40, -1.05, "#7a5440") + ger(350, g + 8, 0.55)),
+    "es-tracks": scene({ sky: "winter", winter: true, sunX: 300 }, (g) => `<path d="M-10 ${g + 64} Q120 ${g + 30} 200 ${g + 24} T420 ${g + 4}" stroke="#c9a77c" stroke-width="7" fill="none" stroke-linecap="round" opacity=".75"/><path d="M-10 ${g + 64} Q120 ${g + 30} 200 ${g + 24} T420 ${g + 4}" stroke="#a5835c" stroke-width="2" fill="none" stroke-dasharray="3 7" stroke-linecap="round"/>` + ger(80, g + 18, 0.9) + horse(240, g + 40, 0.9) + P(282, g + 44, 0.9, K.red, "wave", { hat: K.gold, sash: K.cobalt }) + `<g transform="translate(120 ${g + 50})"><path d="M-12 0 Q0 9 12 0Z" fill="${K.cobalt}" ${O}/><ellipse cx="0" cy="0" rx="12" ry="3" fill="#f3e3b8" ${O2}/><path d="M-3 -4 q-3 -5 0 -9 M3 -4 q3 -5 0 -9" stroke="#fff" stroke-width="1.6" fill="none" opacity=".85"/></g>`),
+    "es-thaw": scene({ sky: "day", winter: true, thaw: 2, seed: 9 }, (g) => ger(310, g + 14, 0.95) + sheepB(110, g + 40, 0.95) + sheepB(150, g + 46, 0.85, "#e8dfcf") + sheepB(196, g + 38, 0.9) + P(250, g + 48, 0.9, K.cobalt, "stand", { hat: K.red, sash: K.orange }) + birds([[90, 56], [110, 50, 0.8]])),
+    "es-spring": scene({ sky: "day", seed: 11 }, (g) => ger(320, g + 16, 1) + sheepB(110, g + 42, 1) + sheepB(140, g + 48, 0.6, "#fffaf0") + sheepB(178, g + 40, 0.95, "#e8dfcf") + sheepB(206, g + 48, 0.55) + P(258, g + 48, 0.95, K.red, "wave", { hat: false, braids: true, sash: K.gold }) + birds([[70, 50], [92, 44, 0.8], [250, 36]])),
+    "es-count": scene({ sky: "winter", winter: true, mountains: false, forest: false, sun: false, snowfall: 30 }, (g) => tally(200, g - 46) + P(70, g + 50, 0.9, K.cobalt, "point", { hat: K.red }) + P(338, g + 50, 0.7, K.red, "stand", { hat: false, braids: true })),
     // Terkhiin Tsagaan Lake
     "valley-well": scene({ sky: "day" }, (g) => ger(105, g + 18, 1.25) + ger(165, g + 10, 0.8) + well(250, g + 34) + P(212, g + 40, 0.95, K.red, "point", { hat: false, braids: true, trim: K.goldLt, sash: K.cobalt }) + P(292, g + 42, 0.95, K.cobalt, "stand", { hat: K.red }) + horse(55, g + 46, 0.85) + horse(345, g + 36, -0.7, "#e9dcc0", false)),
     "well-flood": scene({ sky: "storm", sun: false }, (g) => lake(230, g + 40, 158, 26) + well(240, g + 34) + spring(240, g + 18) + ger(78, g + 22, 1.15) + P(128, g + 46, 0.95, K.red, "wave", { hat: false, braids: true, sash: K.cobalt }) + birds([[320, 60], [340, 52, 0.8]])),
