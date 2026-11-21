@@ -332,7 +332,7 @@ const MN = {
   "From Belief to Navigation": "Итгэлээс зорилгодоо хүрэх алхам хүртэл",
   "Why do so few students from Mongolia’s provinces reach international scholarships? Self-efficacy, navigational capacity and perceived financial barriers.":
     "Орон нутгийн сурагчид гадаадын тэтгэлэгт яагаад цөөн хүрдэг вэ? Өөртөө итгэх итгэл, мэдээлэл, зөвлөгөө олох чадвар, санхүүгийн саадын нөлөө.",
-  "GRIT EDU · Preprint · November 2026": "GRIT EDU · Preprint · 2026 оны 11-р сар",
+  "Bayarmagnai Usukhgerel et al. · Preprint · November 2026": "Ө. Баярмагнай болон бусад · Preprint · 2026 оны 11-р сар",
   "New research": "Шинэ судалгаа",
   "From Belief to Navigation: Self-Efficacy, Navigational Capacity, and Perceived Financial Barriers in Mongolian Provincial Students’ Aspirations and Actions Toward International Scholarships":
     "Итгэлээс зорилгодоо хүрэх алхам хүртэл: Орон нутгийн сурагчдын гадаадын тэтгэлэгт хүрэх эрмэлзэл, үйлдэлд өөртөө итгэх итгэл, мэдээлэл, зөвлөгөө олох чадвар, санхүүгийн саад хэрхэн нөлөөлдөг вэ",
