@@ -46,7 +46,7 @@
     <label>Ангийн код<input name="code" maxlength="6" required placeholder="K7QX2M"></label>
     <label>Багшийн код<input name="teacher" maxlength="8" required placeholder="••••••••" type="password"></label>
     <button type="submit">Нээх</button>
-    <p class="muted" style="flex-basis:100%;font-size:12.5px">Кодуудыг GRIT-ээс авна. Багшийн кодыг сурагчдад бүү өгөөрэй.</p>
+    <p class="muted" style="flex-basis:100%;font-size:12.5px">Кодыг GRIT-ээс авна. Багшийн кодыг сурагчдад бүү өгөөрэй.</p>
   </form>
   <p class="err" id="err"></p>
   <div id="out"></div>
@@ -56,7 +56,7 @@ const TU_API = window.TU_API || { url: 'https://wrjgihdvjwriurdiotih.supabase.co
 async function rpc(fn,args){let r,j;try{const h={'Content-Type':'application/json',apikey:TU_API.key};if(/^eyJ/.test(TU_API.key))h.Authorization='Bearer '+TU_API.key;
   r=await fetch(TU_API.url.replace(/\/$/,'')+'/rest/v1/rpc/'+fn,{method:'POST',headers:h,body:JSON.stringify(args)});j=await r.json().catch(()=>null)}catch(e){throw new Error('network')}
   if(!r.ok)throw new Error((j&&j.message)||'network');if(j&&j.error)throw new Error(j.error);return j}
-const MSG={teacher:'Ангийн код эсвэл багшийн код буруу байна.',pin_format:'PIN 4 оронтой тоо байна.',network:'Сүлжээний алдаа. Дахин оролдоно уу.'};
+const MSG={teacher:'Ангийн код эсвэл багшийн код буруу байна.',pin_format:'PIN нь 4 оронтой тоо байх ёстой.',network:'Сүлжээний алдаа. Дахин оролдоно уу.'};
 const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const EPOCH=new Date(2026,10,1);
 const dayDate=n=>{if(!n)return '—';const d=new Date(EPOCH);d.setDate(d.getDate()+n-1);return `${String(d.getMonth()+1).padStart(2,'0')}.${String(d.getDate()).padStart(2,'0')}`};
@@ -76,7 +76,7 @@ function draw(){
   <h2>Сурагчид</h2><div class="wrap"><table><tr><th>Нэр</th><th>Цол</th><th>Оноо</th><th>Өдөр</th><th>Сүүлд тоглосон</th><th></th></tr>`+
   data.members.map(m=>`<tr class="${m.last_day&&today-m.last_day<=2?'':'idle'}"><td><b>${esc(m.nickname)}</b> ${m.locked?'<span class="tag warn">Түгжигдсэн</span>':''}</td><td>${esc(m.rank)}</td><td>${m.points}</td><td>${m.days}</td><td>${dayDate(m.last_day)}</td>
     <td class="act"><button class="ghost" data-pin="${m.id}" data-n="${esc(m.nickname)}">PIN солих</button> <button class="ghost" data-del="${m.id}" data-n="${esc(m.nickname)}">Хасах</button></td></tr>`).join('')+`</table></div>
-  <p class="muted" style="margin-top:8px;font-size:12.5px">Саарал мөр = сүүлийн 3 хоногт тоглоогүй. <button class="ghost" id="csv">CSV татах</button></p>
+  <p class="muted" style="margin-top:8px;font-size:12.5px">Саарал мөр: сүүлийн 3 хоногт тоглоогүй сурагч. <button class="ghost" id="csv">CSV татах</button></p>
   <h2>Сургуулийн ангиуд</h2><div class="wrap"><table><tr><th>Анги</th><th>Цол</th><th>Дундаж оноо</th><th>Сурагч</th><th>7 хоногт</th></tr>`+
   (data.school||[]).map(x=>`<tr><td><b>${esc(x.name)}</b></td><td>${esc(x.rank)}</td><td>${x.avg_points}</td><td>${x.size}</td><td>${x.active_week_pct}%</td></tr>`).join('')+`</table></div>`;
   document.getElementById('out').innerHTML=h}
