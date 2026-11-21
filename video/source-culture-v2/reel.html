@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="mn"><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700;800;900&display=block" rel="stylesheet">
+<style>
+:root{--cr:#f6f1e4;--g:#1f4d2e;--gd:#0f2a1b;--red:#b8322a;--gold:#e5ad41}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{overflow:hidden;background:#000}
+#stage{position:relative;overflow:hidden;font-family:Onest,sans-serif;color:var(--cr);background:#000}
+.sec{position:absolute;inset:0;display:none;overflow:hidden}
+.lay{position:absolute;inset:0;overflow:hidden;display:none}
+.lay .bg{position:absolute;inset:-5%}
+.lay .bg svg{width:100%;height:100%;display:block}
+.lay .shade{position:absolute;inset:0;background:linear-gradient(0deg,rgba(8,14,10,.78) 0%,rgba(8,14,10,.25) 34%,rgba(8,14,10,0) 52%)}
+.info{position:absolute;left:96px;bottom:84px;display:flex;align-items:flex-end;gap:34px}
+.seal{width:118px;height:118px;flex:none;border-radius:10px;background:var(--red);display:flex;align-items:center;justify-content:center;box-shadow:inset 0 0 0 5px var(--red),inset 0 0 0 8px var(--gold),0 14px 30px -12px rgba(0,0,0,.6);font-weight:800;font-size:50px;color:var(--cr);letter-spacing:-.02em}
+.tx .cp{font-weight:600;font-size:24px;color:rgba(246,241,228,.82);letter-spacing:.02em}
+.tx .nm{font-weight:800;font-size:82px;letter-spacing:-.035em;line-height:1.02;margin-top:6px;text-shadow:0 4px 30px rgba(0,0,0,.35)}
+.tx .ft{font-weight:500;font-size:32px;color:rgba(246,241,228,.92);margin-top:10px}
+.band{position:absolute;top:-10%;height:120%;width:150px;z-index:40;display:none;transform-origin:50% 50%;
+  background-color:var(--red);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40'%3E%3Crect width='40' height='40' fill='%23b8322a'/%3E%3Cpath d='M4 36V4h32v24H16V16h8' fill='none' stroke='%23e5ad41' stroke-width='4.4'/%3E%3C/svg%3E");background-size:40px 40px;
+  box-shadow:-6px 0 0 var(--gold),6px 0 0 var(--gold),-10px 0 0 #7a1d18,10px 0 0 #7a1d18,0 0 60px rgba(0,0,0,.5)}
+#brand{position:absolute;left:62px;top:46px;z-index:30;display:flex;align-items:center;gap:12px;font-weight:800;font-size:28px;letter-spacing:-.02em;padding:10px 20px 10px 14px;border-radius:999px;background:rgba(10,20,14,.55);backdrop-filter:blur(8px)}
+#brand img{height:40px}
+#cnt{position:absolute;right:62px;top:50px;z-index:30;font-weight:700;font-size:24px;letter-spacing:.06em;color:#f6f1e4;padding:12px 22px;border-radius:999px;background:rgba(10,20,14,.55);backdrop-filter:blur(8px)}
+.line{display:block;white-space:nowrap}
+.w{display:inline-block;white-space:pre}
+.tl{display:inline-flex;width:112px;height:112px;margin:0 6px;border-radius:12px;align-items:center;justify-content:center;font-weight:800;font-size:62px;border:3px solid rgba(246,241,228,.3);color:var(--cr);backface-visibility:hidden}
+.tl.ok{background:var(--gold);border-color:var(--gold);color:#22180a}
+.orn{width:220px;height:16px;margin:26px auto;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16'%3E%3Cpath d='M1.5 14.5V1.5h13v10h-8v-5h3' fill='none' stroke='%23e5ad41' stroke-width='2'/%3E%3C/svg%3E");background-size:16px 16px;opacity:.85}
+.pill{display:inline-block;padding:18px 46px;border-radius:999px;font-weight:800;font-size:38px;background:var(--cr);color:var(--g)}
+</style></head><body>
+<div id="stage">
+  <section class="sec" id="J"><div class="lay" id="map" style="background:#eef3f9"><div class="bg" id="mapbg" style="inset:0"></div><div style="position:absolute;left:0;right:0;top:110px;text-align:center"><div id="mt" style="display:inline-block;padding:30px 60px 34px;border-radius:28px;background:rgba(255,255,255,.82);backdrop-filter:blur(10px);box-shadow:0 30px 60px -30px rgba(20,40,30,.35);color:#173d25;font-weight:800;font-size:72px;letter-spacing:-.03em;line-height:1.14"></div></div></div><div id="lays"></div></section>
+  <section class="sec" id="S3" style="background:radial-gradient(ellipse at 50% 40%,#1d4a2f 0%,#0f2a1b 70%)"><div id="l3" style="position:absolute;left:0;right:0;top:170px;text-align:center;font-weight:800;font-size:92px;letter-spacing:-.035em;line-height:1.18"></div><div class="orn" id="o3" style="position:absolute;left:50%;margin-left:-110px;top:560px"></div><div id="tiles" style="position:absolute;left:0;right:0;top:640px;text-align:center"></div><div id="t3c" style="position:absolute;left:0;right:0;top:790px;text-align:center;font-weight:600;font-size:28px;color:rgba(246,241,228,.75)">«Таасан уу?» · өдөр бүр шинэ түүхэн үг</div></section>
+  <section class="sec" id="S4"><div style="position:absolute;inset:-4%" id="hbg"><img src="hero-winter.jpg" style="width:100%;height:100%;object-fit:cover;object-position:50% 80%;filter:blur(7px)"></div><div style="position:absolute;inset:0;background:radial-gradient(ellipse at 50% 48%,rgba(12,18,32,.55),rgba(10,14,26,.88))"></div>
+    <div id="end" style="position:absolute;left:0;right:0;top:300px;text-align:center"><div style="display:inline-flex;align-items:center;gap:26px"><img id="eh" src="icon-horse.svg" style="height:140px"><div id="et" style="font-weight:800;font-size:126px;letter-spacing:-.045em;line-height:1">GRIT Culture</div></div>
+    <div id="es" style="font-weight:600;font-size:36px;margin-top:22px;color:rgba(246,241,228,.88)">Монголын түүх, өв соёл · хүүхэд бүрт</div><div class="orn" id="eo"></div><div id="ep"><span class="pill">grit.mn/culture</span></div><div id="em" style="margin-top:24px;font-weight:600;font-size:24px;color:rgba(246,241,228,.7)">Үнэ төлбөргүй · @grit_edu_</div></div></section>
+  <div class="band" id="band"></div>
+  <div id="brand"><img src="icon-horse.svg"><span>GRIT Culture</span></div><div id="cnt"></div>
+</div>
+<script src="../../js/heritage-art.js"></script>
+<script>
+const Q=new URLSearchParams(location.search);const W=+(Q.get('w')||1920),H=+(Q.get('h')||1080);
+document.body.style.cssText=`width:${W}px;height:${H}px`;const stage=document.getElementById('stage');stage.style.width=W+'px';stage.style.height=H+'px';
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const cl=(x,a=0,b=1)=>Math.min(b,Math.max(a,x)),p=(t,a,d)=>cl((t-a)/d),lerp=(a,b,t)=>a+(b-a)*t;
+const eo=t=>1-Math.pow(1-t,3),e5=t=>1-Math.pow(1-t,5),eio=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
+const bk=t=>{const c=1.6,c3=c+1;return 1+c3*Math.pow(t-1,3)+c*Math.pow(t-1,2)};
+const st=(el,o)=>{if(typeof el==='string')el=$(el);for(const k in o)el.style[k]=o[k]};
+const ART=window.HERITAGE_ART;
+const MAP_END=4.5,SD=2.25,J_END=MAP_END+10*SD,S3_END=J_END+4.5;window.DUR=S3_END+5;
+const WIPE=.55,SL=H*.28;
+// slanted edge that sweeps left -> right; returns clip polygon for the incoming layer and positions the band
+function wipe(k){const x=lerp(-SL-100,W+SL+100,eio(k));return{x,clip:`polygon(0 0,${x+SL/2}px 0,${x-SL/2}px ${H}px,0 ${H}px)`}}
+function band(on,x){const b=$('#band');if(!on){b.style.display='none';return}st(b,{display:'block',left:(x-75)+'px',transform:`skewX(${-Math.atan(SL/H)*180/Math.PI}deg)`})}
+// words rise softly, one after another
+function wset(el,lines){el=typeof el==='string'?$(el):el;el.innerHTML=lines.map(l=>`<span class="line">${l.split(' ').map(w=>`<span class="w">${w} </span>`).join('')}</span>`).join('');el._w=[...el.querySelectorAll('.w')];return el}
+function wanim(el,t,t0,sg=.09){el=typeof el==='string'?$(el):el;el._w.forEach((w,i)=>{const k=e5(p(t,t0+i*sg,.6));w.style.opacity=k;w.style.transform=`translateY(${(1-k)*34}px)`;w.style.filter=`blur(${(1-k)*8}px)`})}
+
+/* map opening */
+$('#mapbg').innerHTML=ART.cover();st($('#mapbg').firstElementChild,{width:'100%',height:'100%'});
+wset('#mt',['Уул, нуур, хад чулуу бүр','өөрийн түүхтэй.']);
+/* places */
+const PL=[['lake-island','Архангай · Тариат сум','Тэрхийн Цагаан нуур','Галт уулын лаав голыг хааж үүссэн нуур'],
+['taikhar-rock','Архангай · Их Тамир сум','Тайхар чулуу','Тал дунд ганцаараа сүндэрлэх боржин хад'],
+['karakorum-city','Өвөрхангай · 1220 он','Хархорум','Их Монгол Улсын нийслэл'],
+['stupa-wall','Өвөрхангай · 1585 он','Эрдэнэ Зуу','108 суварга бүхий хийд'],
+['waterfall','Орхоны хөндий','Орхоны хүрхрээ','ЮНЕСКО-гийн Дэлхийн өвийн нутагт'],
+['steles','Архангай · 732 он','Хөшөө Цайдам','Эртний түрэг бичигтэй гэрэлт хөшөө'],
+['ugii-lake','Архангай · Өгийнуур сум','Өгийнуур','Нүүдлийн шувуудын амардаг нуур'],
+['burkhan-today','Хэнтий','Бурхан Халдун','Монголчуудын тахилгат уул'],
+['secret-history','Хэнтий · Хөдөө арал','Хөдөө арал','«Монголын нууц товчоо» бичигдсэн газар'],
+['es-solstice','12-р сарын 22 – 3-р сарын 12','Өвлийн есөн ес','Өвлийн 81 хоногийг есөөр тоолох уламжлал']];
+const lays=$('#lays');const L=PL.map(([id,cp,nm,ft],i)=>{const d=document.createElement('div');d.className='lay';d.innerHTML=`<div class="bg">${ART.SCENES[id]()}</div><div class="shade"></div><div class="info"><div class="seal">${String(i+1).padStart(2,'0')}</div><div class="tx"><div class="cp">${cp}</div><div class="nm">${nm}</div><div class="ft">${ft}</div></div></div>`;lays.appendChild(d);return d});
+function J(t){// map
+  const mapOn=t<MAP_END+WIPE;$('#map').style.display=mapOn?'block':'none';
+  if(mapOn){st('#mapbg',{transform:`scale(${lerp(1.0,1.22,eio(p(t,0,MAP_END+WIPE)))}) translateY(${lerp(0,30,p(t,0,MAP_END))}px)`,transformOrigin:'50% 62%'});wanim('#mt',t,.3,.12)}
+  let bandX=null;
+  L.forEach((d,i)=>{const s=MAP_END+i*SD,e=s+SD+WIPE;const on=t>=s&&t<e||(i===L.length-1&&t>=s);d.style.display=on?'block':'none';if(!on)return;
+    const k=p(t,s,WIPE);if(k<1){const w=wipe(k);d.style.clipPath=w.clip;bandX=w.x}else d.style.clipPath='none';
+    const lt=t-s;st(d.querySelector('.bg'),{transform:`scale(${lerp(1.02,1.12,lt/(SD+WIPE))}) translateX(${(i%2?-1:1)*lerp(-20,20,lt/(SD+WIPE))}px)`});
+    const sk=p(lt,.3,.32);st(d.querySelector('.seal'),{transform:`scale(${lerp(1.9,1,eo(sk))}) rotate(${lerp(-14,-4,eo(sk))}deg)`,opacity:cl(sk*3)});
+    const tx=d.querySelector('.tx');[...tx.children].forEach((c,j)=>{const k2=e5(p(lt,.45+j*.12,.55));st(c,{opacity:k2,transform:`translateY(${(1-k2)*26}px)`})})});
+  band(bandX!==null,bandX);
+  const idx=Math.floor((t-MAP_END)/SD);$('#cnt').textContent=t>=MAP_END?`${String(cl(idx+1,1,10)).padStart(2,'0')} / 10`:''}
+
+/* S3: three lines and the word tiles */
+wset('#l3',['Домог сонс.','Түүхээ мэд.','Өдөр бүр нэг үг таа.']);
+$('#tiles').innerHTML=[...'ТУУЛЬ'].map(c=>`<span class="tl">${c}</span>`).join('');
+function S3(t){wanim('#l3',t,.25,.1);const ok=eo(p(t,1.6,.5));st('#o3',{opacity:ok*.85,transform:`scaleX(${ok})`});
+  $$('#tiles .tl').forEach((e,i)=>{const a=p(t,1.9+i*.07,.35);const f=p(t,2.6+i*.14,.36);const ang=f<.5?f*180:180-f*180;e.className='tl'+(f>=.5?' ok':'');st(e,{opacity:eo(a),transform:`translateY(${(1-eo(a))*30}px) perspective(700px) rotateX(${ang}deg)`})});
+  const c=eo(p(t,3.4,.5));st('#t3c',{opacity:c,transform:`translateY(${(1-c)*16}px)`})}
+
+/* S4: logo over the winter night */
+function S4(t){st('#hbg',{transform:`scale(${lerp(1.08,1.0,eo(p(t,0,5)))})`});
+  const h=bk(p(t,.2,.7));st('#eh',{transform:`scale(${h})`,opacity:cl(h*2)});const tt=e5(p(t,.45,.7));st('#et',{opacity:tt,transform:`translateX(${(1-tt)*40}px)`,filter:`blur(${(1-tt)*6}px)`});
+  ['#es','#eo','#ep','#em'].forEach((s,i)=>{const k=eo(p(t,1.1+i*.22,.6));st(s,{opacity:k,transform:s==='#eo'?`scaleX(${k})`:`translateY(${(1-k)*18}px)`})})}
+
+/* master with ornament-band wipes between sections */
+const SECS=[['J',0,J_END,J],['S3',J_END,S3_END,S3],['S4',S3_END,window.DUR,S4]];
+window.render=function(t){let bx=null;
+  SECS.forEach(([id,a,b,f],i)=>{const el=document.getElementById(id);const incoming=i>0&&t>=a&&t<a+WIPE;const on=(t>=a&&t<b)||(i<SECS.length-1&&t>=b&&t<b+WIPE)||(i===SECS.length-1&&t>=a);
+    el.style.display=on?'block':'none';if(!on)return;el.style.zIndex=incoming?2:1;
+    if(incoming){const w=wipe(p(t,a,WIPE));el.style.clipPath=w.clip;bx=w.x}else el.style.clipPath='none';f(t-a)});
+  if(bx!==null)band(true,bx);else if(t>=J_END)band(false);
+  const inJ=t<J_END;st('#brand',{opacity:t<S3_END?1:0,color:'#f6f1e4'});
+  st('#cnt',{display:inJ&&t>=MAP_END?'block':'none'})};
+</script></body></html>
