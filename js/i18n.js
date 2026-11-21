@@ -101,6 +101,21 @@ const MN = {
   "Legends and history of our homeland, as picture books and games.": "Нутаг усныхаа домог, түүхийг зурагт ном, тоглоомоор.",
   "Legends and history of Mongolia's cultural and natural heritage, told as picture books and games.":
     "Монголын соёлын болон байгалийн өвийн домог, түүхийг зурагт ном, тоглоомоор хүргэнэ.",
+  "About GRIT Culture": "GRIT Culture-ийн тухай",
+  "GRIT Culture is a free, open project by GRIT EDU for every child who wants to learn the history of Mongolia and the traditions Mongolian people still live by and pass on to their children.":
+    "GRIT Culture бол Монголын түүх, мөн монголчуудын өнөөг хүртэл хэрэглэж, үр хүүхэддээ уламжлан ярьдаг ёс заншлыг сурах хүсэлтэй бүх хүүхдэд зориулсан GRIT EDU-ийн үнэгүй, нээлттэй төсөл юм.",
+  "Today, many teenagers do not know their own history and traditions, or how much these matter to their lives and their future. Our history, legends and customs are part of what makes us independent, and part of the identity that sets us apart from other countries and nations. A child who knows where they come from stands on firmer ground.":
+    "Өнөөдөр олон өсвөр насныхан өөрийн түүх, уламжлалаа мэддэггүй, эдгээр нь тэдний амьдрал, ирээдүйд хэр үнэ цэнэтэй, чухал болохыг ч ойлгодоггүй. Түүх, домог, ёс заншил маань биднийг тусгаар тогтносон ард түмэн болгож, бусад улс үндэстнээс ялгаруулдаг өвөрмөц байдлын маань нэг хэсэг юм. Хаанаас гаралтайгаа мэддэг хүүхэд илүү бат бөх суурин дээр зогсдог.",
+  "Mongolia has world-class heritage — Karakorum, Erdene Zuu, the Orkhon Valley, Khöshöö Tsaidam, Burkhan Khaldun — and customs such as counting the nine nines of winter. Yet most material about them is long, dry text written for adults. So we turned them into short illustrated picture books and games that a child with a phone would choose to open, and come back to the next day.":
+    "Монгол орон Хархорум, Эрдэнэ Зуу, Орхоны хөндий, Хөшөө Цайдам, Бурхан Халдун зэрэг дэлхийн хэмжээний өвтэй, өвлийн есөн ес тоолох мэт ёс заншилтай. Гэвч тэдгээрийн тухай материалын ихэнх нь томчуудад зориулсан урт, хуурай текст байдаг. Тиймээс бид эдгээрийг утастай хүүхэд өөрөө сонирхоод нээж, маргааш нь дахин эргэж ирмээр богино зурагт ном, тоглоом болгосон.",
+  "GRIT Culture in numbers": "GRIT Culture тоогоор",
+  "Picture books": "Зурагт ном",
+  "Heritage sites on the map": "Газрын зураг дээрх өвийн газар",
+  "Quiz questions": "Сорилын асуулт",
+  "Timeline events": "Он дарааллын үйл явдал",
+  "GRIT Culture impact report": "GRIT Culture-ийн үр дүнгийн тайлан",
+  "We are preparing our own evaluation of GRIT Culture: how many children use the site, how they and their teachers use the books and games, and what they learn. A short public report will be published here soon.":
+    "Бид GRIT Culture-ийн өөрсдийн үнэлгээг бэлдэж байна: сайтыг хэдэн хүүхэд ашиглаж байгаа, хүүхдүүд болон багш нар ном, тоглоомыг хэрхэн хэрэглэж байгаа, юу сурч байгааг судалж байна. Богино тайланг удахгүй энд нийтэлнэ.",
   "Why heritage": "Яагаад өв соёл вэ",
   "Every hill, lake and stone in the places where we work has a story. Grandparents tell legends about them, and historians write about the empires that rose and fell around them. Yet many students grow up next to these places without ever hearing their stories.":
     "Бидний ажилладаг нутгийн уул, нуур, чулуу бүр өөрийн түүхтэй. Өвөө эмээ нар тэдгээрийн тухай домог ярьж, түүхчид тэнд мандаж мөхсөн гүрнүүдийн тухай бичдэг. Гэвч олон сурагч эдгээр газрын дэргэд өсөж торнидог ч тэдний түүхийг сонсож амжилгүй үлддэг.",
