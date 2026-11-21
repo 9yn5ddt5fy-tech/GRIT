@@ -289,11 +289,11 @@
   <div class="ex"><div class="tile">Д</div><div class="tile">О</div><div class="tile">М</div><div class="tile absent">О</div><div class="tile">Г</div></div>
   <div class="rule"><b>Бүдэг</b> үсэг үгэнд байхгүй.</div>
   <div class="divider"><svg class="stitchline"></svg></div>
-  <p>Таасан өдөр бүр <b>оноо</b> авна: 1-р оролдлогоор 6 оноо … 6-р оролдлогоор 1 оноо. Цол ахихад <b>оноо болон тоглосон өдөр</b> хоёулаа хэрэгтэй: <b>цэрэгээс эхлээд хаан</b> хүртэл.</p>
+  <p>Таасан өдөр бүр <b>оноо</b> авна: 1-р оролдлогоор 6 оноо … 6-р оролдлогоор 1 оноо. Цол ахихад <b>оноо болон тоглосон өдөр</b> хоёулаа хэрэгтэй: <b>цэргээс эхлээд хаан</b> хүртэл.</p>
   <p>Ангийн кодоор <b>ангидаа нэгдвэл</b> ангиараа өрсөлдөнө.</p>
   <p>Гацвал <b>сэжүүр</b> товчийг дарж үгийн төрөл, хамаарах үеийг харж болно. Сэжүүр нэг удаа л нээгдэнэ.</p>
   <p>Сэжүүр авсан ч олохгүй байвал <b>хоосон нүднээс нэгийг дарж</b> тэр байрны үсгийг нээж болно. Үсэг нээх боломж <b>2 хоногт нэг удаа</b> гарна.</p>
-  <p>Өдөр бүр бүх хүнд ижил үг гарна. Үр дүнгээ story-доо хуваалцаарай.</p>
+  <p>Өдөр бүр бүх хүнд ижил үг гарна. Үр дүнгээ Instagram story-доо хуваалцаарай.</p>
 </div></div>
 
 <div class="overlay" id="resOv"><div class="sheet">
@@ -388,7 +388,7 @@ const TU_API = window.TU_API || { url: 'https://wrjgihdvjwriurdiotih.supabase.co
 const ERR = {
   session: 'Нэвтрэлт дууссан, дахин оролдоно уу', word: '5 үсэг оруулна уу', over: 'Өнөөдрийн тоглоом дууссан',
   reveal: 'Үсэг нээх боломжгүй байна', pos: 'Хоосон нүд сонгоно уу', code: 'Ангийн код буруу байна',
-  nickname: 'Нэр 2–20 үсэг, тоо байна', pin_format: 'PIN 4 оронтой тоо байна', pin: 'PIN буруу байна',
+  nickname: 'Нэр 2–20 үсэг эсвэл тооноос бүрдэнэ', pin_format: 'PIN нь 4 оронтой тоо байх ёстой', pin: 'PIN буруу байна',
   locked: 'Олон удаа буруу оруулсан тул 15 минут хүлээнэ үү', already: 'Та аль хэдийн ангид бүртгэлтэй байна',
   network: 'Сүлжээний алдаа, дахин оролдоно уу'
 };
@@ -476,7 +476,7 @@ function render(){
   if(S.finished)setTimeout(()=>openResult(S.solved),300)}
 async function load(){
   try{S=token?await call('tu_state'):await startGuest();loadedAt=Date.now();render()}
-  catch(e){toast(errMsg(e),4000);document.getElementById('dateLbl').textContent='Сүлжээ шалгаад дахин ачаална уу'}}
+  catch(e){toast(errMsg(e),4000);document.getElementById('dateLbl').textContent='Интернэт холболтоо шалгаад хуудсаа дахин ачаална уу'}}
 
 /* ---------- letter reveal: after the hint, once every 2 days ---------- */
 function updateRevealUI(){
@@ -541,7 +541,7 @@ async function submit(){
   updateRevealUI()}
 const PRAISE=['Гайхамшигтай','Мундаг','Гоё','Сайн байна','Арай гэж','Фүү, амжлаа'];
 function finish(win){
-  setTimeout(()=>toast(win?PRAISE[S.guesses.length-1]+(S.points?` · +${S.points} оноо`:''):'Хариу: '+S.answer.w.toLowerCase(),1600),1500);
+  setTimeout(()=>toast(win?PRAISE[S.guesses.length-1]+(S.points?` · +${S.points} оноо`:''):'Хариулт: '+S.answer.w.toLowerCase(),1600),1500);
   if(win){setTimeout(gallop,1700);setTimeout(()=>openResult(true),4300)}
   else setTimeout(()=>openResult(false),2800)}
 
@@ -628,7 +628,7 @@ async function openBoard(){
         <label>PIN (4 тоо)<input name="pin" inputmode="numeric" pattern="[0-9]{4}" maxlength="4" required placeholder="••••"></label>
         <button class="btn" type="submit">Нэгдэх</button>
       </form>
-      <p class="muted small">Бид имэйл, утасны дугаар авахгүй. Ангийн самбарт зөвхөн хоч нэр харагдана.</p></div></details>`;
+      <p class="muted small">Бид таны имэйл, утасны дугаарыг цуглуулдаггүй. Ангийн самбарт зөвхөн хоч нэр харагдана.</p></div></details>`;
   }
   if(b.top&&b.top.length)h+=`<h3>Шилдэг ангиуд</h3><table class="lb"><tr><th>#</th><th>Анги</th><th>Цол</th><th>Дундаж</th><th>7 хоног</th></tr>${b.top.slice(0,10).map(classRow).join('')}</table>`;
   box.innerHTML=h+joinHTML;
