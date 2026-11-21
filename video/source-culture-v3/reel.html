@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="mn"><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700;800;900&family=PT+Serif&display=block" rel="stylesheet">
+<style>
+:root{--cr:#f5f3ee;--g:#1f4d2e;--g2:#2f7a49;--gold:#e5ad41;--ink:#0b0f0d}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{overflow:hidden;background:#000}
+#stage{position:relative;overflow:hidden;font-family:Onest,sans-serif;color:var(--cr);background:var(--ink)}
+.sc{position:absolute;inset:0;display:none;overflow:hidden}
+.dark{background:radial-gradient(ellipse at 50% 40%,#15201b 0%,#0a0d0c 72%)}
+.light{background:radial-gradient(ellipse at 50% 40%,#ffffff 0%,#eceae4 78%);color:#121614}
+.abs{position:absolute}
+canvas.fx{position:absolute;left:0;top:0}
+/* masked word reveal */
+.hd{font-weight:900;letter-spacing:-.045em;line-height:1.02}
+.ln{display:block;white-space:nowrap}
+.mk{display:inline-block;overflow:hidden;vertical-align:bottom;padding:0 .02em .12em;margin-bottom:-.12em}
+.wd{display:inline-block;will-change:transform}
+.gr{background:linear-gradient(100deg,#ffe3a0 0%,#e5ad41 55%,#c98a1f 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.grg{background:linear-gradient(100deg,#3a9a5c 0%,#1f4d2e 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.glass{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);backdrop-filter:blur(18px);border-radius:28px}
+#brand{position:absolute;left:62px;top:48px;z-index:30;display:flex;align-items:center;gap:12px;font-weight:800;font-size:26px;letter-spacing:-.02em;padding:10px 22px 10px 14px;border-radius:999px;background:rgba(12,18,15,.55);backdrop-filter:blur(10px);color:#f5f3ee}
+#brand img{height:36px}
+/* S1 slot */
+#slot{position:absolute;left:50%;height:190px;overflow:hidden;border-radius:999px;transform:translateX(-50%)}
+#slot .rl{position:absolute;left:0;right:0;top:0}
+#slot .it{height:190px;line-height:190px;text-align:center;font-weight:900;font-size:120px;letter-spacing:-.045em;white-space:nowrap}
+/* S2 coverflow */
+#cf{position:absolute;left:0;right:0;top:120px;height:560px;perspective:1800px}
+.cv{position:absolute;left:50%;top:0;width:520px;height:440px;margin-left:-260px;border-radius:26px;overflow:hidden;background:#fff;box-shadow:0 40px 80px -40px rgba(0,0,0,.45);transform-style:preserve-3d}
+.cv .im{position:absolute;left:0;top:0;width:100%;height:340px}
+.cv .im svg{width:100%;height:100%;display:block}
+.cv .lb{position:absolute;left:28px;right:20px;bottom:26px;font-weight:800;font-size:32px;letter-spacing:-.02em;color:#141916}
+/* S3 rank card */
+#rk{position:absolute;width:640px;padding:46px 50px}
+#rk .em{width:150px;height:150px;border-radius:40px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:52px;color:#140f05}
+#rk .nmw{height:110px;overflow:hidden;margin-top:26px}
+#rk .nm{font-weight:900;font-size:96px;letter-spacing:-.045em;line-height:110px}
+#rk .bar{display:flex;gap:10px;margin-top:30px}
+#rk .bar i{flex:1;height:12px;border-radius:6px;background:rgba(255,255,255,.12);overflow:hidden}
+#rk .bar i b{display:block;height:100%;background:linear-gradient(90deg,#ffe3a0,#e5ad41)}
+.toast{position:absolute;padding:14px 26px;border-radius:999px;background:var(--gold);color:#140f05;font-weight:800;font-size:34px}
+/* S4 tiles */
+.tl{position:absolute;width:128px;height:128px;border-radius:24px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:68px;border:2px solid rgba(245,243,238,.18);color:var(--cr);backface-visibility:hidden;background:rgba(255,255,255,.03)}
+.tl.ok{background:linear-gradient(160deg,#ffd97f,#e5ad41);border-color:transparent;color:#140f05;box-shadow:0 18px 40px -16px rgba(229,173,65,.7)}
+.tl.pr{border:2px dashed rgba(245,243,238,.9)}
+.tl.no{background:#171c1a;border-color:#171c1a;color:rgba(245,243,238,.35)}
+/* S5 reader */
+.win{position:absolute;border-radius:30px;background:#fff;box-shadow:0 50px 100px -50px rgba(0,0,0,.5),0 0 0 1px #e3e1da;overflow:hidden;color:#151a17}
+.opt{display:flex;align-items:center;gap:16px;padding:20px 26px;border-radius:18px;border:2px solid #e8e6df;font-weight:600;font-size:28px;margin-top:14px;background:#fff}
+.opt i{width:26px;height:26px;border-radius:50%;border:2.5px solid #c9c6bd;flex:none}
+/* S7 swipe stack */
+.card{position:absolute;left:50%;top:50%;width:1180px;height:700px;margin:-350px 0 0 -590px;border-radius:38px;overflow:hidden;background:#000;box-shadow:0 60px 120px -50px rgba(0,0,0,.8)}
+.card .bg{position:absolute;inset:0}
+.card .bg svg{width:100%;height:100%;display:block}
+.card .chip{position:absolute;left:34px;bottom:34px;padding:22px 32px;border-radius:24px;background:rgba(12,18,15,.55);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.16)}
+.card .chip .n{font-weight:900;font-size:58px;letter-spacing:-.04em;line-height:1}
+.card .chip .c{font-weight:600;font-size:24px;color:rgba(245,243,238,.8);margin-top:8px}
+.card .no{position:absolute;right:34px;top:34px;width:84px;height:84px;border-radius:50%;background:rgba(12,18,15,.55);backdrop-filter:blur(16px);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:30px;border:1px solid rgba(255,255,255,.16)}
+.pill{display:inline-block;padding:20px 48px;border-radius:999px;font-weight:800;font-size:40px;background:linear-gradient(160deg,#ffd97f,#e5ad41);color:#140f05;box-shadow:0 20px 40px -18px rgba(229,173,65,.8)}
+#flash{position:absolute;inset:0;background:#fff;z-index:55;pointer-events:none;opacity:0}
+</style></head><body>
+<div id="stage">
+<section class="sc dark" id="s1"><canvas class="fx" id="c1"></canvas><div class="abs" id="s1cap" style="left:0;right:0;text-align:center;font-weight:600;font-size:30px;color:rgba(245,243,238,.6)">Өнөөдрийн асуулт</div><div id="slot" class="glass"><div class="rl" id="rl"></div></div><div class="abs hd" id="hd1" style="left:0;right:0;text-align:center;font-size:150px"></div></section>
+<section class="sc light" id="s2"><div id="cf"></div><div class="abs hd" id="hd2" style="left:0;right:0;text-align:center;font-size:110px;color:#121614"></div><div class="abs" id="cap2" style="left:0;right:0;text-align:center;font-weight:600;font-size:30px;color:#5a6059">Домог · түүх · ёс заншил</div></section>
+<section class="sc dark" id="s3"><canvas class="fx" id="c3"></canvas><div class="abs hd" id="hd3" style="left:140px;font-size:128px"></div><div id="rk" class="glass"><div style="display:flex;align-items:center;gap:26px"><div class="em" id="rem"></div><div><div style="font-weight:600;font-size:26px;color:rgba(245,243,238,.6)">Таны цол</div><div style="font-weight:800;font-size:40px;margin-top:6px"><span id="rpt">0</span> оноо</div></div></div><div class="nmw"><div id="rnm"></div></div><div class="bar" id="rbar"></div><div style="font-weight:600;font-size:22px;color:rgba(245,243,238,.55);margin-top:18px">Аравтаас хаан хүртэл · аравтын тогтолцоо</div></div><div id="toasts"></div></section>
+<section class="sc dark" id="s4"><canvas class="fx" id="c4"></canvas><div class="abs hd" id="hd4" style="left:140px;font-size:120px"></div><div id="tiles"></div><div class="abs glass" id="story" style="width:690px;padding:30px 36px"></div></section>
+<section class="sc light" id="s5"><div class="abs hd" id="hd5" style="left:130px;font-size:118px;color:#121614"></div><div class="win" id="win"></div></section>
+<section class="sc" id="s6" style="background:#060908"><canvas class="fx" id="c6"></canvas><div class="abs hd" id="hd6" style="left:0;right:0;text-align:center;font-size:104px;font-weight:800"></div></section>
+<section class="sc dark" id="s7"><canvas class="fx" id="c7"></canvas><div id="stack"></div></section>
+<section class="sc light" id="s8"><div class="abs hd" id="hd8" style="left:0;right:0;text-align:center;font-size:130px;color:#121614"></div>
+  <div class="abs" id="lg" style="left:0;right:0;text-align:center"><div style="display:inline-flex;align-items:center;gap:28px"><img id="lgi" src="icon-horse.svg" style="height:150px;filter:brightness(0) saturate(100%) invert(22%) sepia(35%) saturate(800%) hue-rotate(95deg) brightness(.9)"><div class="hd" id="lgt" style="font-size:140px;color:#121614"></div></div>
+  <div id="lgs" style="margin-top:20px;font-weight:600;font-size:34px;color:#4d534c">Монголын түүх, өв соёл · хүүхэд бүрт</div><div id="lgp" style="margin-top:34px"><span class="pill">grit.mn/culture</span></div><div id="lgm" style="margin-top:26px;font-weight:600;font-size:24px;color:#6a6f68">Үнэ төлбөргүй · @grit_edu_</div></div></section>
+<div id="brand"><img src="icon-horse.svg"><span>GRIT Culture</span></div>
+<div id="flash"></div>
+</div>
+<script src="../../js/heritage-art.js"></script>
+<script>
+const Q=new URLSearchParams(location.search);const W=+(Q.get('w')||1920),H=+(Q.get('h')||1080);
+document.body.style.cssText=`width:${W}px;height:${H}px`;const stage=document.getElementById('stage');stage.style.width=W+'px';stage.style.height=H+'px';
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const cl=(x,a=0,b=1)=>Math.min(b,Math.max(a,x)),p=(t,a,d)=>cl((t-a)/d),lerp=(a,b,t)=>a+(b-a)*t;
+const eo=t=>1-Math.pow(1-t,3),e5=t=>1-Math.pow(1-t,5),eio=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2,ei=t=>t*t*t;
+const bk=t=>{const c=1.5,c3=c+1;return 1+c3*Math.pow(t-1,3)+c*Math.pow(t-1,2)};
+const st=(el,o)=>{if(typeof el==='string')el=$(el);for(const k in o)el.style[k]=o[k]};
+let seed=53;const rnd=()=>(seed=(seed*16807)%2147483647)/2147483647;
+const ART=window.HERITAGE_ART;const scn=id=>ART.SCENES[id]();
+const B=[0,5,10.5,16,22,28,32,37,42];window.DUR=B[8];
+$$('canvas.fx').forEach(c=>{c.width=W;c.height=H});
+
+/* masked word reveal: lines -> words that slide up from behind a mask */
+function wset(el,lines){el=typeof el==='string'?$(el):el;el.innerHTML=lines.map(l=>`<span class="ln">${l}</span>`).join('');
+  el.querySelectorAll('.ln').forEach(ln=>{const walk=(n,cls)=>[...n.childNodes].forEach(c=>{if(c.nodeType===3){const f=document.createDocumentFragment();c.nodeValue.split(/(\s+)/).forEach(w=>{if(!w)return;if(/^\s+$/.test(w)){f.appendChild(document.createTextNode(' '));return}const m=document.createElement('span');m.className='mk';m.innerHTML=`<span class="wd ${cls}">${w}</span>`;f.appendChild(m)});c.replaceWith(f)}else{const k=c.classList.contains('gr')?'gr':c.classList.contains('grg')?'grg':cls;c.classList.remove('gr','grg');walk(c,k)}});walk(ln,'')});
+  el._w=[...el.querySelectorAll('.wd')];return el}
+function wrev(el,t,t0,o={}){el=typeof el==='string'?$(el):el;const sg=o.sg??.07,d=o.d??.7;el._w.forEach((w,i)=>{const k=e5(p(t,t0+i*sg,d));let y=(1-k)*110,a=1;if(o.out!=null){const ko=ei(p(t,o.out+i*.03,.4));y-=ko*110}w.style.transform=`translateY(${y}%)`})}
+
+/* soft moving light for dark scenes */
+function aura(x,t,cols,a=1){x.clearRect(0,0,W,H);cols.forEach(([r,g,b,s],i)=>{const cx=W*(.5+.32*Math.sin(t*.35+i*2.1)),cy=H*(.5+.28*Math.cos(t*.28+i*1.7)),rad=H*(.55+.15*Math.sin(t*.5+i));const gr=x.createRadialGradient(cx,cy,0,cx,cy,rad);gr.addColorStop(0,`rgba(${r},${g},${b},${s*a})`);gr.addColorStop(1,`rgba(${r},${g},${b},0)`);x.fillStyle=gr;x.fillRect(0,0,W,H)})}
+
+/* ---------- S1: slot of places, then the question ---------- */
+const NAMES=['Хархорум?','Хөшөө Цайдам?','Тайхар чулуу?','Бурхан Халдун?','Эрдэнэ Зуу?','Хар Балгас?','Өвлийн есөн ес?','Өгийнуур?','Хөдөө арал?','Тэрхийн Цагаан нуур?'];
+$('#rl').innerHTML=[...NAMES,...NAMES].map((n,i)=>`<div class="it">${n.replace('?','<span class="gr">?</span>')}</div>`).join('');
+wset('#hd1',['Түүхээ','хэр <span class="gr">мэдэх</span> вэ?']);
+const c1=$('#c1').getContext('2d');
+function S1(t){aura(c1,t,[[47,122,73,.35],[229,173,65,.18],[30,60,90,.25]]);
+  // slot spins fast then slows on the last name
+  const total=NAMES.length+6;const sp=eio(p(t,.3,2.6));const pos=sp*total;st('#rl',{transform:`translateY(${-pos*190}px)`});
+  const sw=lerp(900,1180,eo(p(t,0,.6)));const shrink=eio(p(t,3.0,.45));st('#slot',{top:(H/2-95)+'px',width:sw*(1-shrink)+'px',opacity:1-shrink});
+  st('#s1cap',{top:(H/2-170)+'px',opacity:eo(p(t,.2,.5))*(1-shrink)});
+  st('#hd1',{top:(H/2-150)+'px'});wrev('#hd1',t,3.15,{sg:.09,out:B[1]-.5})}
+
+/* ---------- S2: coverflow of the 12 picture books ---------- */
+const BOOKS=[['es-solstice','Өвлийн есөн ес'],['lake-island','Тэрхийн Цагаан нуур'],['taikhar-rock','Тайхар чулуу'],['silver-tree','Хархорум'],['stupa-wall','Эрдэнэ Зуу'],['waterfall','Орхоны хөндий'],['ugii-lake','Өгийнуур'],['steles','Хөшөө Цайдам'],['uighur-city','Хар Балгас'],['burkhan-today','Бурхан Халдун'],['onon-birth','Дэлүүн Болдог'],['secret-history','Хөдөө арал']];
+const cf=$('#cf');const CV=BOOKS.map(([id,nm])=>{const d=document.createElement('div');d.className='cv';d.innerHTML=`<div class="im">${scn(id)}</div><div class="lb">${nm}</div>`;cf.appendChild(d);return d});
+wset('#hd2',['12 <span class="grg">зурагт ном</span>']);
+function S2(t){const f=lerp(-1.5,8.5,eio(p(t,0,4.6)));
+  CV.forEach((d,i)=>{const o=i-f;const a=Math.abs(o);const x=Math.sign(o)*(a<1?a*330:330+(a-1)*170);const ry=-cl(o,-1,1)*48;const z=-a*140;const vis=a<4.2;
+    d.style.display=vis?'block':'none';if(!vis)return;st(d,{transform:`translateX(${x}px) translateZ(${z}px) rotateY(${ry}deg)`,zIndex:100-Math.round(a*10),opacity:cl(4.2-a)*eo(p(t,0,.4)),filter:`brightness(${1-cl(a*.12,0,.35)})`})});
+  st('#hd2',{top:'720px'});wrev('#hd2',t,.6,{sg:.08});st('#cap2',{top:'860px',opacity:eo(p(t,1.1,.6))})}
+
+/* ---------- S3: ranks ---------- */
+wset('#hd3',['Түүхээ','<span class="gr">тоглоом</span>','болго.']);
+const RK=[['Аравт','10','#e9946e','#c2643f',0],['Зуут','100','#eef0f6','#a9adb9',60],['Мянгат','1000','#ffe08a','#d9a43a',180],['Түмэн','10K','#8fe0aa','#2f7a49',320],['Хаан','♛','#ff9a86','#b8322a',540]];
+$('#rnm').innerHTML=RK.map(r=>`<div class="nm">${r[0]}</div>`).join('');$('#rbar').innerHTML=RK.map(()=>'<i><b></b></i>').join('');
+const toasts=$('#toasts');const TO=[0,1,2,3].map(()=>{const d=document.createElement('div');d.className='toast';d.textContent='+6 оноо';toasts.appendChild(d);return d});
+const c3=$('#c3').getContext('2d');
+function S3(t){aura(c3,t+3,[[229,173,65,.22],[47,122,73,.3],[90,40,30,.18]]);
+  st('#hd3',{top:(H/2-200)+'px'});wrev('#hd3',t,.1,{sg:.09});
+  const rx=W-140-640,ry=H/2-250;const ci=e5(p(t,.4,.7));st('#rk',{left:rx+'px',top:ry+'px',opacity:ci,transform:`translateY(${(1-ci)*60}px) scale(${lerp(.94,1,ci)})`});
+  const step=cl((t-1.2)/.85,0,4);const si=Math.floor(step);const fr=step-si;const r=RK[si];
+  const nx=si<4?RK[si+1]:r;const sm=e5(cl(fr*2.5-1.2,0,1));
+  st('#rnm',{transform:`translateY(${-(si+(si<4?sm:0))*110}px)`});
+  const em=$('#rem');const cur=sm>.5&&si<4?nx:r;em.style.background=`linear-gradient(160deg,${cur[2]},${cur[3]})`;em.textContent=cur[1];em.style.transform=`scale(${1+.12*Math.sin(cl(fr*2.5-1.2,0,1)*Math.PI)})`;
+  const pts=Math.round(lerp(r[4],nx[4],sm));$('#rpt').textContent=pts;
+  $$('#rbar b').forEach((b,i)=>b.style.width=(i<si?100:i===si?sm*100*(si<4?1:0)+(si===4?100:0):0)+'%');
+  TO.forEach((d,i)=>{const k=p(t,1.4+i*.85,.9);st(d,{left:(rx+430)+'px',top:(ry-10-eo(k)*90)+'px',opacity:k>0&&k<1?Math.sin(k*Math.PI):0,transform:`scale(${lerp(.7,1,eo(k))})`})})}
+
+/* ---------- S4: word tiles ---------- */
+wset('#hd4',['Өдөр бүр','<span class="gr">нэг үг.</span>','Нэг түүх.']);
+const ROWS=[[['У','pr'],['Л','pr'],['А','no'],['А','no'],['Н','no']],[['Т','ok'],['У','ok'],['У','ok'],['Л','ok'],['Ь','ok']]];
+const tiles=$('#tiles');const TL=[];ROWS.forEach((r,ri)=>r.forEach(([ch,k],ci)=>{const e=document.createElement('div');e.className='tl';tiles.appendChild(e);TL.push({e,ri,ci,k,ch})}));
+const EM=[];for(let ri=2;ri<4;ri++)for(let ci=0;ci<5;ci++){const e=document.createElement('div');e.className='tl';tiles.appendChild(e);EM.push({e,ri,ci})}
+$('#story').innerHTML='<div style="font-weight:600;font-size:22px;color:#e5ad41">Өнөөдрийн үгийн түүх</div><div style="font-weight:900;font-size:58px;letter-spacing:-.04em;margin-top:8px">Тууль</div><div style="font-size:27px;line-height:1.45;color:rgba(245,243,238,.82);margin-top:10px">Баатрын гавьяа үйлсийг магтан дуулдаг, урт хэмжээний шүлэглэсэн зохиол.</div>';
+const c4=$('#c4').getContext('2d');
+function S4(t){aura(c4,t+7,[[47,122,73,.28],[229,173,65,.16]]);
+  st('#hd4',{top:(H/2-200)+'px'});wrev('#hd4',t,.1,{sg:.08});
+  const ts=128,g=14,slide=eio(p(t,3.9,.6)),x0=W-150-5*ts-4*g-slide*300,y0=H/2-2*ts-1.5*g-slide*120;
+  TL.forEach(o=>{const t0=.6+o.ri*1.2+o.ci*.12;const typed=p(t,t0-.35,.1);const fl=p(t,t0+.25,.32);const ang=fl<.5?fl*180:180-fl*180;
+    o.e.className='tl'+(fl>=.5?' '+o.k:'');o.e.textContent=typed>0?o.ch:'';o.e.style.borderColor=fl<.5&&typed>0?'rgba(245,243,238,.6)':'';
+    const pop=o.ri===1&&fl>=1?1+.1*Math.sin(p(t,t0+.6,.3)*Math.PI):1;const a=eo(p(t,.25+o.ci*.05,.4));
+    st(o.e,{left:(x0+o.ci*(ts+g))+'px',top:(y0+o.ri*(ts+g))+'px',transform:`perspective(800px) rotateX(${ang}deg) scale(${pop*lerp(.7,1,a)})`,opacity:a})});
+  EM.forEach(o=>st(o.e,{left:(x0+o.ci*(ts+g))+'px',top:(y0+o.ri*(ts+g))+'px',opacity:eo(p(t,.3+o.ci*.05,.4))*(1-slide)}));
+  const sk=eo(p(t,4.3,.6));st('#story',{left:(W-150-690)+'px',top:(y0+2*(ts+g)+30)+'px',opacity:sk,transform:`translateY(${(1-sk)*40}px)`})}
+
+/* ---------- S5: reader and quiz ---------- */
+wset('#hd5',['Унш.','<span class="grg">Шалга.</span>','Цээжил.']);
+const win=$('#win');const PG='Хотын хамгийн гайхамшигт зүйл бол Мөнгөн мод байв. Үүнийг олзлогдон Монголд ирсэн Парисын дархан Гийом Бушье хийжээ.';
+win.innerHTML=`<div style="position:absolute;inset:0"><div style="position:absolute;left:40px;top:32px;font-size:20px;color:#6a6f68">Өвөрхангай · Хархорин сум</div><div style="position:absolute;left:40px;top:60px;font-weight:800;font-size:32px;letter-spacing:-.02em">Хархорум ба Мөнгөн мод</div>
+<div style="position:absolute;left:40px;top:122px;width:560px;height:350px;border-radius:20px;overflow:hidden">${scn('silver-tree')}</div>
+<div id="pgtx" style="position:absolute;left:636px;top:128px;right:44px;font-family:'PT Serif',Georgia,serif;font-size:31px;line-height:1.55;color:#1d221e"></div>
+<div style="position:absolute;left:40px;right:40px;bottom:34px;display:flex;justify-content:space-between;align-items:center"><span style="padding:14px 28px;border-radius:999px;border:2px solid #1d221e;font-weight:700;font-size:20px">← Өмнөх</span><span id="dots" style="display:flex;gap:8px"></span><span style="padding:14px 28px;border-radius:999px;background:#1d221e;color:#fff;font-weight:700;font-size:20px">Дараах →</span></div></div>
+<div id="qz" style="position:absolute;inset:0;padding:50px 60px;background:#fff"><div style="font-weight:700;font-size:20px;color:#2f7a49">Шалгаад үзье</div><div style="font-weight:800;font-size:44px;margin-top:14px;letter-spacing:-.03em">Мөнгөн модыг хэн бүтээсэн бэ?</div>
+<div class="opt" id="o1"><i></i>Гийом Бушье</div><div class="opt"><i></i>Марко Поло</div><div class="opt"><i></i>Гийом де Рубрук</div><div id="ok" style="margin-top:24px;font-weight:800;font-size:32px;color:#2f7a49">✓ Зөв!  <span style="color:#e5ad41;letter-spacing:6px">★★★</span></div></div>`;
+$('#dots').innerHTML=[0,1,2,3,4].map(i=>`<i style="width:${i===2?30:10}px;height:10px;border-radius:5px;background:${i===2?'#2f7a49':'#d6d3ca'}"></i>`).join('');
+function S5(t){st('#hd5',{top:(H/2-200)+'px'});wrev('#hd5',t,.15,{sg:.1});const l3=$('#hd5').children[2];l3.style.visibility=t<4.2?'hidden':'visible';if(t>=4.2)l3.querySelectorAll('.wd').forEach(w=>w.style.transform=`translateY(${(1-e5(p(t,4.2,.6)))*110}%)`);
+  const ww=1040,wh=660,wx=W-130-ww,wy=(H-wh)/2;const k=e5(p(t,.1,.7));st(win,{left:wx+'px',top:wy+'px',width:ww+'px',height:wh+'px',transform:`translateY(${(1-k)*120}px) scale(${lerp(.95,1,k)})`,opacity:k});
+  const n=Math.floor(PG.length*p(t,.8,1.9));$('#pgtx').textContent=PG.slice(0,n)+(n<PG.length&&Math.floor(t*4)%2?'|':'');
+  const sw=eio(p(t,3.0,.5));st('#qz',{transform:`translateX(${(1-sw)*100}%)`});
+  const sel=p(t,3.8,.25);st('#o1',{borderColor:sel>0?'#2f7a49':'#e8e6df',background:sel>0?'#e9f4ec':'#fff'});$('#o1 i').style.cssText=sel>0?'background:#2f7a49;border-color:#2f7a49':'';
+  st('#ok',{opacity:eo(p(t,4.0,.3)),transform:`scale(${lerp(.85,1,bk(p(t,4.0,.4)))})`,transformOrigin:'0 50%'})}
+
+/* ---------- S6: aurora and the message ---------- */
+wset('#hd6',['Нутаг усныхаа домгийг,','<span class="gr">өв соёлоо</span>','хойч үедээ өвлүүлье.']);
+const c6=$('#c6').getContext('2d');
+function S6(t){aura(c6,t*1.6+11,[[47,122,73,.55],[229,173,65,.32],[30,70,110,.3],[150,60,40,.18]]);st('#hd6',{top:(H/2-170)+'px'});wrev('#hd6',t,.3,{sg:.12,d:.9})}
+
+/* ---------- S7: swipe stack of places ---------- */
+const PL=[['karakorum-city','Хархорум','Их Монгол Улсын нийслэл'],['lake-island','Тэрхийн Цагаан нуур','Галт уулын нуур'],['steles','Хөшөө Цайдам','Эртний түрэг бичиг'],['stupa-wall','Эрдэнэ Зуу','108 суварга'],['waterfall','Орхоны хүрхрээ','Дэлхийн өв'],['ugii-lake','Өгийнуур','Нүүдлийн шувууд'],['burkhan-today','Бурхан Халдун','Тахилгат уул'],['es-solstice','Өвлийн есөн ес','Өвлийн уламжлал']];
+const stack=$('#stack');const CD=PL.map(([id,nm,cp],i)=>{const d=document.createElement('div');d.className='card';d.innerHTML=`<div class="bg">${scn(id)}</div><div class="chip"><div class="n">${nm}</div><div class="c">${cp}</div></div><div class="no">${String(i+1).padStart(2,'0')}</div>`;stack.appendChild(d);return d});
+const c7=$('#c7').getContext('2d');
+function S7(t){aura(c7,t+20,[[47,122,73,.3],[229,173,65,.15]]);const per=(B[7]-B[6]-.4)/PL.length;
+  CD.forEach((d,i)=>{const s=.2+i*per;const out=p(t,s+per-.18,.3);const pos=i-cl((t-.2)/per,0,PL.length-1);
+    const vis=pos>-1&&pos<3.2&&out<1;d.style.display=vis?'block':'none';if(!vis)return;
+    const back=Math.max(0,pos);const dir=i%2?-1:1;
+    st(d,{zIndex:50-i,transform:`translate(${dir*ei(out)*1500}px,${back*-38+ei(out)*120}px) rotate(${dir*ei(out)*22+back*(i%2?2.2:-2.2)}deg) scale(${1-back*.06})`,opacity:cl(1.2-back*.35)*eo(p(t,0,.3))});
+    st(d.querySelector('.bg'),{transform:`scale(${lerp(1.12,1.02,cl((t-s)/per))})`})})}
+
+/* ---------- S8: free, then logo ---------- */
+wset('#hd8',['Үнэ төлбөргүй.','<span class="grg">Өдөр бүр шинэ.</span>']);wset('#lgt',['GRIT <span class="grg">Culture</span>']);
+function S8(t){st('#hd8',{top:(H/2-140)+'px',display:t<2.6?'block':'none'});wrev('#hd8',t,.1,{sg:.1,out:2.0});
+  const lk=t>=2.4;st('#lg',{top:(H/2-170)+'px',display:lk?'block':'none'});
+  const ik=bk(p(t,2.4,.6));st('#lgi',{transform:`scale(${ik}) rotate(${(1-ik)*-14}deg)`,opacity:cl(ik*2)});wrev('#lgt',t,2.6,{sg:.08});
+  ['#lgs','#lgp','#lgm'].forEach((s,i)=>{const k=eo(p(t,3.1+i*.22,.5));st(s,{opacity:k,transform:`translateY(${(1-k)*20}px)`})})}
+
+/* ---------- master ---------- */
+const SC=[S1,S2,S3,S4,S5,S6,S7,S8];
+window.render=function(t){let i=0;for(let k=0;k<8;k++)if(t>=B[k])i=k;$$('.sc').forEach((s,k)=>s.style.display=k===i?'block':'none');
+  const lt=t-B[i];SC[i](lt);
+  const pk=e5(p(lt,0,.5));$$('.sc')[i].style.transform=`scale(${lerp(1.04,1,pk)})`;$$('.sc')[i].style.filter=lt<.25?`blur(${(1-p(lt,0,.25))*10}px)`:'';
+  st('#flash',{opacity:0});
+  st('#brand',{display:i===7?'none':'flex'})};
+</script></body></html>
