@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="mn"><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700;800;900&display=block" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1080px;height:1350px;overflow:hidden;background:#000}
+.s{position:relative;width:1080px;height:1350px;overflow:hidden;font-family:Onest,sans-serif;color:#f5f1e6;display:none;
+  background:radial-gradient(ellipse at 30% 20%,#2a5a3b 0%,#173a26 45%,#0f2a1b 100%)}
+.s::before{content:"";position:absolute;inset:0;opacity:.07;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Cpath d='M6 54V6h48v36H24V24h12' fill='none' stroke='%23f5f1e6' stroke-width='3'/%3E%3C/svg%3E");background-size:60px 60px}
+.on{display:block}
+.brand{position:absolute;left:64px;top:60px;display:flex;align-items:center;gap:12px;font-weight:800;font-size:28px;letter-spacing:-.02em}
+.brand img{height:40px}
+.meta{position:absolute;right:64px;top:66px;font-weight:700;font-size:24px;letter-spacing:.06em;color:rgba(245,241,230,.75)}
+.tile{display:inline-flex;align-items:center;justify-content:center;width:150px;height:150px;border-radius:26px;margin:0 7px;font-weight:900;font-size:92px;background:linear-gradient(160deg,#ffdd8a,#e5ad41);color:#1b1305;box-shadow:0 24px 40px -18px rgba(0,0,0,.55),inset 0 2px 0 rgba(255,255,255,.5)}
+.tile.e{background:rgba(245,241,230,.06);border:3px dashed rgba(245,241,230,.45);box-shadow:none}
+.chip{display:inline-block;padding:12px 26px;border-radius:999px;background:rgba(245,241,230,.12);border:1px solid rgba(245,241,230,.25);font-weight:700;font-size:26px}
+/* slide 2 */
+.panel{position:absolute;left:0;top:0;bottom:0;width:790px;padding:150px 64px 0}
+.strip{position:absolute;right:0;top:0;bottom:0;width:290px;background:linear-gradient(180deg,rgba(245,241,230,.1),rgba(245,241,230,.04));border-left:1px solid rgba(245,241,230,.15);display:flex;align-items:center;justify-content:center}
+.mon{font-family:'Noto Sans Mongolian';writing-mode:vertical-lr;font-size:150px;line-height:1;color:#fffdf6;text-shadow:0 10px 24px rgba(15,42,27,.45)}
+h2{font-weight:900;font-size:76px;letter-spacing:-.04em;line-height:1.02;display:inline-block;position:relative}
+h2::after{content:"";position:absolute;left:-8px;right:-8px;bottom:2px;height:18px;background:rgba(229,173,65,.45);z-index:-1;border-radius:4px}
+.sec{margin-top:46px;padding-top:34px;border-top:1px solid rgba(245,241,230,.18)}
+.sec:first-of-type{border-top:0;padding-top:0}
+.sec h3{display:flex;align-items:center;gap:16px;font-weight:800;font-size:30px;letter-spacing:.02em;text-transform:uppercase}
+.sec h3 i{width:22px;height:22px;border-radius:6px;background:#e5ad41;flex:none}
+.sec p{margin-top:14px;font-size:29px;line-height:1.5;color:rgba(245,241,230,.9)}
+.tag{position:absolute;left:64px;bottom:64px;display:inline-flex;align-items:center;gap:10px;padding:14px 26px;border-radius:999px;background:#f5f1e6;color:#173a26;font-weight:800;font-size:26px}
+</style></head><body>
+<!-- 1: cover -->
+<section class="s" id="s1">
+  <div class="brand"><img src="icon-horse.svg"><span>GRIT Culture</span></div><div class="meta">№24 · 11.24</div>
+  <div style="position:absolute;left:0;right:0;top:330px;text-align:center">
+    <div style="font-weight:700;font-size:30px;letter-spacing:.22em;color:#e5ad41">ӨДРИЙН ҮГ</div>
+    <div style="margin-top:46px">${TILES}</div>
+    <div style="margin-top:56px;font-weight:900;font-size:68px;letter-spacing:-.04em">Нирун улс</div>
+    <div style="margin-top:26px"><span class="chip">Төр улс · V–VI зуун</span></div>
+  </div>
+  <div style="position:absolute;left:0;right:0;bottom:90px;text-align:center;font-weight:700;font-size:30px;color:rgba(245,241,230,.8)">Утгыг нь мэдэх үү? &nbsp;→</div>
+</section>
+<!-- 2: meaning -->
+<section class="s" id="s2">
+  <div class="panel">
+    <div style="font-weight:700;font-size:24px;letter-spacing:.2em;color:#e5ad41;margin-bottom:22px">№24 · ТӨР УЛС</div>
+    <h2>Нирун улс</h2>
+    <div class="sec" style="margin-top:56px"><h3><i></i>Юу вэ?</h3><p>Нирун (Жужан) бол V–VI зуунд Монголын нутагт оршиж байсан нүүдэлчдийн хаант улс.</p></div>
+    <div class="sec"><h3><i></i>«Хаган» цол</h3><p>402 онд Нирун улсын захирагч Шэлүн өөрийгөө «хаган» хэмээн өргөмжилсөн. Энэ цолыг анх Нирун улсын захирагчид хэрэглэсэн гэж үздэг.</p></div>
+    <div class="sec"><h3><i></i>Түрэгт шилжсэн нь</h3><p>552 онд Нируны харьяанд байсан түрэгүүд боссоноор Түрэгийн хаант улс байгуулагдсан.</p></div>
+  </div>
+  <div class="strip"><div id="vt" style="display:flex;flex-direction:column;gap:18px"></div></div>
+  <div class="tag">✦ Мэдэх үү?</div>
+</section>
+<!-- 3: CTA -->
+<section class="s" id="s3">
+  <div class="brand"><img src="icon-horse.svg"><span>GRIT Culture</span></div>
+  <div style="position:absolute;left:0;right:0;top:330px;text-align:center">
+    <div style="font-weight:900;font-size:92px;letter-spacing:-.045em;line-height:1.04">Маргаашийн<br>үгээ таах уу?</div>
+    <div style="margin-top:64px">${EMPTY}</div>
+    <div style="margin-top:64px;font-weight:600;font-size:30px;color:rgba(245,241,230,.8)">5 үсэг · 6 оролдлого · өдөр бүр шинэ түүх</div>
+  </div>
+  <div style="position:absolute;left:0;right:0;bottom:110px;text-align:center"><span style="display:inline-block;padding:22px 48px;border-radius:999px;background:linear-gradient(160deg,#ffdd8a,#e5ad41);color:#1b1305;font-weight:800;font-size:36px">grit.mn/culture/taasan-uu</span><div style="margin-top:22px;font-weight:600;font-size:24px;color:rgba(245,241,230,.65)">@grit_edu_</div></div>
+</section>
+<script>
+const s=new URLSearchParams(location.search).get('s')||'1';
+const T=[...'НИРУН'].map(c=>`<span class="tile">${c}</span>`).join(''),E=[...'НИРУН'].map(()=>`<span class="tile e"></span>`).join('');
+document.querySelectorAll('.s').forEach(x=>x.innerHTML=x.innerHTML.replace('${TILES}',T).replace('${EMPTY}',E));
+document.getElementById('vt').innerHTML=[...'НИРУН'].map(c=>`<span class="tile" style="width:150px;height:150px;font-size:84px;margin:0">${c}</span>`).join('');
+document.getElementById('s'+s).classList.add('on');
+</script></body></html>

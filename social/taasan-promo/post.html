@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="mn"><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700;800;900&display=block" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1080px;height:1350px;overflow:hidden;background:#000}
+.s{position:relative;width:1080px;height:1350px;overflow:hidden;font-family:Onest,sans-serif;color:#f4f2ed;display:none;background:#0b0b0b}
+.on{display:block}
+/* cross-stitch (хатгамал) field: tiny x marks */
+.xs{position:absolute;inset:0;opacity:.09;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='26' height='26'%3E%3Cpath d='M8 8l10 10M18 8L8 18' stroke='%23f4f2ed' stroke-width='2.2' stroke-linecap='round'/%3E%3C/svg%3E");background-size:26px 26px}
+.brand{position:absolute;left:64px;top:60px;display:flex;align-items:center;gap:12px;font-weight:800;font-size:28px;letter-spacing:-.02em;z-index:5}
+.brand img{height:40px}
+.pg{position:absolute;right:64px;top:66px;font-weight:700;font-size:24px;color:rgba(244,242,237,.6);z-index:5}
+.t{display:inline-flex;align-items:center;justify-content:center;width:124px;height:124px;border-radius:16px;margin:6px;font-weight:900;font-size:70px;color:#f4f2ed;border:3px solid rgba(244,242,237,.2);vertical-align:middle}
+.t.ok{background:#f4f2ed;color:#0b0b0b;border-color:#f4f2ed}
+.t.pr{border:3px dashed #f4f2ed}
+.t.no{background:#1b1b1b;border-color:#1b1b1b;color:rgba(244,242,237,.32)}
+.t.g{background:linear-gradient(160deg,#ffdd8a,#e5ad41);border-color:transparent;color:#1b1305}
+.sm{width:84px;height:84px;font-size:46px;border-radius:12px;margin:4px}
+.lbl{display:inline-block;padding:12px 24px;border-radius:999px;border:2px solid #e5ad41;color:#e5ad41;font-weight:800;font-size:24px;letter-spacing:.12em}
+.hd{font-weight:900;letter-spacing:-.045em;line-height:1.02}
+.row{display:flex;align-items:center;gap:30px;padding:30px 0;border-top:1px solid rgba(244,242,237,.12)}
+.row:first-child{border-top:0}
+.row p{font-size:30px;line-height:1.4;color:rgba(244,242,237,.88)}
+.row b{color:#f4f2ed}
+.rk{display:flex;align-items:center;gap:24px;padding:11px 0}
+.rk .em{width:86px;height:86px;border-radius:22px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:27px;color:#140f05;flex:none}
+.rk .nm{font-weight:900;font-size:46px;letter-spacing:-.03em}
+.rk .ds{font-size:24px;color:rgba(244,242,237,.6);margin-top:4px}
+.ln{position:absolute;left:111px;width:3px;background:rgba(244,242,237,.15)}
+</style></head><body>
+<!-- 1 -->
+<section class="s" id="s1"><div class="xs"></div><div class="brand"><img src="icon-horse.svg"><span>GRIT Culture</span></div><div class="pg">1/4</div>
+  <div style="position:absolute;left:0;right:0;top:250px;text-align:center;transform:rotate(-4deg)">
+    <div><span class="t pr">У</span><span class="t pr">Л</span><span class="t no">А</span><span class="t no">А</span><span class="t no">Н</span></div>
+    <div><span class="t ok">Т</span><span class="t ok">У</span><span class="t ok">У</span><span class="t ok">Л</span><span class="t ok">Ь</span></div>
+  </div>
+  <div style="position:absolute;left:64px;right:64px;top:700px">
+    <span class="lbl">ӨДӨР БҮРИЙН ТОГЛООМ</span>
+    <div class="hd" style="font-size:104px;margin-top:30px">Таасан уу?</div>
+    <div style="font-weight:700;font-size:40px;line-height:1.3;margin-top:22px;color:rgba(244,242,237,.9)">Таван үсэгтэй түүхэн үгийг<br>зургаан оролдлогоор таа.</div>
+  </div>
+  <div style="position:absolute;left:64px;bottom:64px;font-weight:600;font-size:26px;color:rgba(244,242,237,.6)">Үнэ төлбөргүй · бүртгэлгүй &nbsp;→</div>
+</section>
+<!-- 2 how to play -->
+<section class="s" id="s2"><div class="xs"></div><div class="brand"><img src="icon-horse.svg"><span>GRIT Culture</span></div><div class="pg">2/4</div>
+  <div style="position:absolute;left:64px;right:64px;top:190px">
+    <div class="hd" style="font-size:80px">Хэрхэн тоглох вэ?</div>
+    <div style="margin-top:44px">
+      <div class="row"><span class="t ok sm">Т</span><p><b>Бүтэн будагдсан</b> үсэг зөв байрандаа байна.</p></div>
+      <div class="row"><span class="t pr sm">У</span><p><b>Оёдлын хүрээтэй</b> үсэг үгэнд бий, гэхдээ өөр байранд байна.</p></div>
+      <div class="row"><span class="t no sm">А</span><p><b>Бүдэг</b> үсэг үгэнд байхгүй.</p></div>
+      <div class="row"><span class="t sm" style="font-size:40px">?</span><p>Гацвал <b>сэжүүр</b> аваад үгийн төрөл, хамаарах үеийг харж болно.</p></div>
+    </div>
+    <div style="margin-top:40px;padding:30px 34px;border-radius:22px;background:rgba(244,242,237,.06);border:1px solid rgba(244,242,237,.14);font-size:29px;line-height:1.45;color:rgba(244,242,237,.88)">Таасны дараа тухайн үгийн <b style="color:#e5ad41">түүхэн тайлбар</b> нээгдэнэ. Өдөр бүр бүх хүнд ижил үг гарна.</div>
+  </div>
+</section>
+<!-- 3 ranks -->
+<section class="s" id="s3"><div class="xs"></div><div class="brand"><img src="icon-horse.svg"><span>GRIT Culture</span></div><div class="pg">3/4</div>
+  <div style="position:absolute;left:64px;right:64px;top:190px">
+    <div class="hd" style="font-size:80px">Цэргээс хаан хүртэл</div>
+    <div style="font-size:29px;line-height:1.45;color:rgba(244,242,237,.8);margin-top:20px">Таасан өдөр бүр оноо авна. Оноо болон тоглосон өдрөөрөө Чингис хааны аравтын тогтолцооны цолоор ахина.</div>
+    <div style="position:relative;margin-top:34px" id="ladder"></div>
+    <div style="margin-top:26px;padding:26px 32px;border-radius:22px;background:rgba(229,173,65,.12);border:1px solid rgba(229,173,65,.4);font-size:28px;line-height:1.45">Багшаасаа <b>ангийн код</b> аваад ангидаа нэгдвэл ангиараа өрсөлдөнө.</div>
+  </div>
+</section>
+<!-- 4 CTA -->
+<section class="s" id="s4"><div class="xs"></div><div class="brand"><img src="icon-horse.svg"><span>GRIT Culture</span></div><div class="pg">4/4</div>
+  <div style="position:absolute;left:0;right:0;top:300px;text-align:center">
+    <div><span class="t g">Т</span><span class="t g">А</span><span class="t g">А</span><span class="t g">С</span><span class="t g">А</span><span class="t g">Н</span></div>
+    <div><span class="t">У</span><span class="t">У</span><span class="t" style="color:#e5ad41">?</span></div>
+    <div class="hd" style="font-size:76px;margin-top:60px">Өнөөдрийн үгээ<br>тааж чадах уу?</div>
+  </div>
+  <div style="position:absolute;left:0;right:0;bottom:120px;text-align:center"><span style="display:inline-block;padding:24px 50px;border-radius:999px;background:#f4f2ed;color:#0b0b0b;font-weight:800;font-size:38px">grit.mn/culture/taasan-uu</span>
+    <div style="margin-top:22px;font-weight:600;font-size:26px;color:rgba(244,242,237,.6)">Өдөр бүр шинэ үг · @grit_edu_</div></div>
+</section>
+<script>
+const s=new URLSearchParams(location.search).get('s')||'1';
+const R=[['Цэрэг','·','#bdbdbd','#7d7d7d','Аравтын нэг гишүүн'],['Аравтын ноён','10','#e9946e','#c2643f','Арван цэргийг удирдагч'],['Зуутын ноён','100','#eef0f6','#a9adb9','Зуун цэргийг удирдагч'],['Мянгатын ноён','1000','#ffe08a','#d9a43a','Мянган цэргийг удирдагч'],['Түмэний ноён','10K','#8fe0aa','#2f7a49','Арван мянган цэргийг удирдагч'],['Хаан','♛','#ff9a86','#b8322a','Хамгийн дээд цол']];
+document.getElementById('ladder').innerHTML=R.map(r=>`<div class="rk"><div class="em" style="background:linear-gradient(160deg,${r[2]},${r[3]})">${r[1]}</div><div><div class="nm">${r[0]}</div><div class="ds">${r[4]}</div></div></div>`).join('');
+document.getElementById('s'+s).classList.add('on');
+</script></body></html>
