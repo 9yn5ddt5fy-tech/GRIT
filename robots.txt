@@ -1,4 +1,6 @@
 User-agent: *
 Allow: /
+Disallow: /culture/admin/
+Disallow: /culture/teacher/
 
 Sitemap: https://grit.mn/sitemap.xml

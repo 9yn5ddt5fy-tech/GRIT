@@ -25,36 +25,38 @@
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:wght@500;600;700&family=PT+Serif:ital@0;1&family=Instrument+Serif&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=91">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:wght@500;600;700&family=PT+Serif:ital@0;1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css?v=92">
   <script>
     (function () {
       var d = document.documentElement, s = null, l = null;
       d.classList.add("js");
       try { s = localStorage.getItem("grit-theme"); l = localStorage.getItem("grit-lang"); } catch (e) {}
       if (s === "dark" || (!s && window.matchMedia && matchMedia("(prefers-color-scheme: dark)").matches)) d.setAttribute("data-theme", "dark");
-      if (l === "mn") d.setAttribute("data-lang", "mn");
+      // Mongolian is the default; English only when the visitor chose it.
+      if (l !== "en") { d.setAttribute("data-lang", "mn"); d.lang = "mn"; d.classList.add("i18n-wait"); setTimeout(function () { d.classList.remove("i18n-wait"); }, 2500); }
     })();
   </script>
 </head>
 <body>
+  <a class="skip-link" href="#main">Skip to main content</a>
   <header class="site-header site-header--overlay">
     <div class="site-header__inner">
       <a class="logo" href="/" aria-label="GRIT home"><img class="logo__light" src="assets/img/logo.png?v=2" alt="GRIT"><img class="logo__dark" src="assets/img/logo-dark.png?v=2" alt=""></a>
       <nav class="nav" id="site-nav">
-        <a href="/" aria-current="page">Home</a>
+        <a href="/culture/">Culture</a>
+        <a href="/#projects">Projects</a>
         <a href="/#where">Where we work</a>
-        <a href="/#projects">GRIT</a>
         <a href="/#success">Success</a>
         <a href="/#team">Team</a>
         <a href="research.html">Research</a>
-        <a href="/culture/">Culture</a>
-        <a href="plan.html">Coming soon</a>
+        <a href="plan.html">Plan 2027</a>
+        <a href="#contact">Contact</a>
       </nav>
       <div class="header-actions">
         <button class="pill-btn lang-toggle" type="button" aria-label="Монгол хэл рүү шилжих">МН</button>
         <button class="pill-btn theme-toggle" type="button" aria-label="Night mode"><svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg><svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button>
-        <a class="header-cta" href="#contact">Contact</a>
+        <a class="header-cta" href="/#support">Support us</a>
       </div>
       <button class="nav-toggle" aria-controls="site-nav" aria-expanded="false" aria-label="Open menu">
         <span></span><span></span><span></span>
@@ -62,7 +64,7 @@
     </div>
   </header>
 
-  <main>
+  <main id="main">
     <section class="hero">
       <div class="hero__bg hero__bg--winter"><picture><source media="(max-width: 700px)" srcset="assets/img/hero-winter-m.jpg?v=4"><img src="assets/img/hero-winter.jpg?v=4" alt="Winter night illustration: a glowing ger roof crown with the GRIT horse above a snowy camp" fetchpriority="high"></picture></div>
       <div class="container hero__content">
@@ -187,6 +189,7 @@
             <div>
               <h3 class="program__name">Ugiinuur, Arkhangai <span class="tag tag--done">Completed</span></h3>
               <p class="program__meta">First program, 2025 · 20 students, four weeks, a team of seven.</p>
+              <a class="program__link" href="edu.html">Results of the first program <span aria-hidden="true">→</span></a>
             </div>
           </div>
           <div class="program">
@@ -194,6 +197,7 @@
             <div>
               <h3 class="program__name">Kharkhorin, Uvurkhangai <span class="tag tag--soon">In preparation</span></h3>
               <p class="program__meta">Second program, 2027 · A 21-day residential summer camp for 30 students from Arvaikheer, Kharkhorin and Khujirt.</p>
+              <a class="program__link" href="plan.html">See the program plan <span aria-hidden="true">→</span></a>
             </div>
           </div>
         </div>
@@ -202,18 +206,18 @@
 
     <section class="section photos-glow" aria-label="Program photos">
       <div class="marquee" data-reveal>
-        <div class="photo"><img src="assets/img/photo-6.jpg" alt="A teacher with GRIT EDU students in class" loading="lazy"></div>
-        <div class="photo"><img src="assets/img/photo-7.jpg" alt="GRIT team on the road to Ugiinuur" loading="lazy"></div>
-        <div class="photo"><img src="assets/img/photo-8.jpg" alt="GRIT teachers in front of Ugiinuur school" loading="lazy"></div>
-        <div class="photo"><img src="assets/img/photo-9.jpg" alt="English grammar lesson" loading="lazy"></div>
-        <!-- hidden for now (face on screen): <div class="photo"><img src="assets/img/photo-10.jpg" alt="Online speech from a student studying abroad" loading="lazy"></div> -->
-        <!-- hidden for now (face on screen): <div class="photo"><img src="assets/img/photo-11.jpg" alt="Students listening to a speaker from abroad" loading="lazy"></div> -->
-        <div class="photo"><img src="assets/img/photo-12.jpg" alt="A student taking notes in class" loading="lazy"></div>
-        <div class="photo"><img src="assets/img/photo-13.jpg" alt="GRIT team dinner after classes" loading="lazy"></div>
-        <div class="photo"><img src="assets/img/photo-1.jpg" alt="GRIT program photo" loading="lazy"></div>
-        <!-- hidden for now (face on screen): <div class="photo"><img src="assets/img/photo-2.jpg" alt="GRIT program photo" loading="lazy"></div> -->
-        <div class="photo"><img src="assets/img/photo-3.jpg" alt="GRIT program photo" loading="lazy"></div>
-        <div class="photo"><img src="assets/img/photo-4.jpg" alt="GRIT program photo" loading="lazy"></div>
+        <div class="photo"><img src="assets/img/t/photo-6.jpg" data-full="assets/img/photo-6.jpg" alt="A teacher with GRIT EDU students in class" loading="lazy"></div>
+        <div class="photo"><img src="assets/img/t/photo-7.jpg" data-full="assets/img/photo-7.jpg" alt="GRIT team on the road to Ugiinuur" loading="lazy"></div>
+        <div class="photo"><img src="assets/img/t/photo-8.jpg" data-full="assets/img/photo-8.jpg" alt="GRIT teachers in front of Ugiinuur school" loading="lazy"></div>
+        <div class="photo"><img src="assets/img/t/photo-9.jpg" data-full="assets/img/photo-9.jpg" alt="English grammar lesson" loading="lazy"></div>
+        <!-- hidden for now (face on screen): <div class="photo"><img src="assets/img/t/photo-10.jpg" data-full="assets/img/photo-10.jpg" alt="Online speech from a student studying abroad" loading="lazy"></div> -->
+        <!-- hidden for now (face on screen): <div class="photo"><img src="assets/img/t/photo-11.jpg" data-full="assets/img/photo-11.jpg" alt="Students listening to a speaker from abroad" loading="lazy"></div> -->
+        <div class="photo"><img src="assets/img/t/photo-12.jpg" data-full="assets/img/photo-12.jpg" alt="A student taking notes in class" loading="lazy"></div>
+        <div class="photo"><img src="assets/img/t/photo-13.jpg" data-full="assets/img/photo-13.jpg" alt="GRIT team dinner after classes" loading="lazy"></div>
+        <div class="photo"><img src="assets/img/t/photo-1.jpg" data-full="assets/img/photo-1.jpg" alt="GRIT program photo" loading="lazy"></div>
+        <!-- hidden for now (face on screen): <div class="photo"><img src="assets/img/t/photo-2.jpg" data-full="assets/img/photo-2.jpg" alt="GRIT program photo" loading="lazy"></div> -->
+        <div class="photo"><img src="assets/img/t/photo-3.jpg" data-full="assets/img/photo-3.jpg" alt="GRIT program photo" loading="lazy"></div>
+        <div class="photo"><img src="assets/img/t/photo-4.jpg" data-full="assets/img/photo-4.jpg" alt="GRIT program photo" loading="lazy"></div>
       </div>
     </section>
 
@@ -251,7 +255,7 @@
       <div class="container"><h2 class="section-title" data-reveal>Student success</h2></div>
       <div class="marquee" data-reveal>
         <figure class="success">
-          <div class="success__photo"><img src="assets/img/success-1.jpg" alt="T. Khongorzul — 100% scholarship, Tongmyong University" loading="lazy" style="object-position:center 20%"></div>
+          <div class="success__photo"><img src="assets/img/t/success-1.jpg" alt="T. Khongorzul — 100% scholarship, Tongmyong University" loading="lazy" style="object-position:center 20%"></div>
           <figcaption>
             <p class="success__name">T. Khongorzul</p>
             <span class="success__award">100% scholarship</span>
@@ -259,7 +263,7 @@
           </figcaption>
         </figure>
         <figure class="success">
-          <div class="success__photo"><img src="assets/img/success-2.jpg" alt="I. Zultsetseg — 50% scholarship, Tongmyong University" loading="lazy" style="object-position:center 15%"></div>
+          <div class="success__photo"><img src="assets/img/t/success-2.jpg" alt="I. Zultsetseg — 50% scholarship, Tongmyong University" loading="lazy" style="object-position:center 15%"></div>
           <figcaption>
             <p class="success__name">I. Zultsetseg</p>
             <span class="success__award">50% scholarship</span>
@@ -267,7 +271,7 @@
           </figcaption>
         </figure>
         <figure class="success">
-          <div class="success__photo"><img src="assets/img/success-3.jpg" alt="G. Uugantsetseg — 50% scholarship, Tongmyong University" loading="lazy" style="object-position:center 20%"></div>
+          <div class="success__photo"><img src="assets/img/t/success-3.jpg" alt="G. Uugantsetseg — 50% scholarship, Tongmyong University" loading="lazy" style="object-position:center 20%"></div>
           <figcaption>
             <p class="success__name">G. Uugantsetseg</p>
             <span class="success__award">50% scholarship</span>
@@ -275,7 +279,7 @@
           </figcaption>
         </figure>
         <figure class="success">
-          <div class="success__photo"><img src="assets/img/success-4.jpg" alt="N. Purevdulam — Presidential scholarship, “Ilgeelt 2100” program" loading="lazy" style="object-position:center 25%"></div>
+          <div class="success__photo"><img src="assets/img/t/success-4.jpg" alt="N. Purevdulam — Presidential scholarship, “Ilgeelt 2100” program" loading="lazy" style="object-position:center 25%"></div>
           <figcaption>
             <p class="success__name">N. Purevdulam</p>
             <span class="success__award">Presidential scholarship</span>
@@ -313,7 +317,7 @@
       <div class="marquee speakers-row" data-reveal>
         <div class="speaker">
           <div class="speaker__photo">
-            <img src="assets/img/speaker-urangoo.jpg?v=10" alt="Urangoo Shinedelger" loading="lazy">
+            <img src="assets/img/t/speaker-urangoo.jpg?v=10" alt="Urangoo Shinedelger" loading="lazy">
             <span class="speaker__school"><img src="assets/img/schools/stanford.svg" alt="Stanford University"></span>
           </div>
           <p class="speaker__name">Urangoo Shinedelger</p>
@@ -321,7 +325,7 @@
         </div>
         <div class="speaker">
           <div class="speaker__photo">
-            <img src="assets/img/speaker-garid.jpg?v=10" alt="Garid Mendbayar" loading="lazy">
+            <img src="assets/img/t/speaker-garid.jpg?v=10" alt="Garid Mendbayar" loading="lazy">
             <span class="speaker__school"><img src="assets/img/schools/vanderbilt.png?v=3" alt="Vanderbilt University"></span>
           </div>
           <p class="speaker__name">Garid Mendbayar</p>
@@ -329,7 +333,7 @@
         </div>
         <div class="speaker">
           <div class="speaker__photo">
-            <img src="assets/img/speaker-bayarmaa.jpg?v=10" alt="Bayarmaa Altankhishig" loading="lazy">
+            <img src="assets/img/t/speaker-bayarmaa.jpg?v=10" alt="Bayarmaa Altankhishig" loading="lazy">
             <span class="speaker__school"><img src="assets/img/schools/bocconi.png" alt="Bocconi University"></span>
           </div>
           <p class="speaker__name">Bayarmaa Altankhishig</p>
@@ -337,7 +341,7 @@
         </div>
         <div class="speaker">
           <div class="speaker__photo">
-            <img src="assets/img/speaker-anar.jpg?v=10" alt="Anar Battogtokh" loading="lazy">
+            <img src="assets/img/t/speaker-anar.jpg?v=10" alt="Anar Battogtokh" loading="lazy">
             <span class="speaker__school"><img src="assets/img/schools/cornell.svg" alt="Cornell University"></span>
           </div>
           <p class="speaker__name">Anar Battogtokh</p>
@@ -345,7 +349,7 @@
         </div>
         <div class="speaker">
           <div class="speaker__photo">
-            <img src="assets/img/speaker-tsolmon.jpg?v=10" alt="Tsolmon Baasantsogt" loading="lazy">
+            <img src="assets/img/t/speaker-tsolmon.jpg?v=10" alt="Tsolmon Baasantsogt" loading="lazy">
             <span class="speaker__school"><img src="assets/img/schools/yonsei.png?v=2" alt="Yonsei University"></span>
           </div>
           <p class="speaker__name">Tsolmon Baasantsogt</p>
@@ -353,7 +357,7 @@
         </div>
         <div class="speaker">
           <div class="speaker__photo">
-            <img src="assets/img/speaker-tulga.jpg?v=10" alt="Tulga Bayarnyam" loading="lazy">
+            <img src="assets/img/t/speaker-tulga.jpg?v=10" alt="Tulga Bayarnyam" loading="lazy">
             <span class="speaker__school"><img src="assets/img/schools/skku.png?v=2" alt="Sungkyunkwan University"></span>
           </div>
           <p class="speaker__name">Tulga Bayarnyam</p>
@@ -361,7 +365,7 @@
         </div>
         <div class="speaker">
           <div class="speaker__photo">
-            <img src="assets/img/speaker-anu.jpg?v=10" alt="Anu Otgonjargal" loading="lazy">
+            <img src="assets/img/t/speaker-anu.jpg?v=10" alt="Anu Otgonjargal" loading="lazy">
             <span class="speaker__school speaker__school--fill"><img src="assets/img/schools/absolute.png" alt="Absolute School of English"></span>
           </div>
           <p class="speaker__name">Anu Otgonjargal</p>
@@ -377,51 +381,79 @@
       </div>
       <div class="marquee" data-reveal>
         <a class="member" href="member.html?m=bayarmagnai">
-          <div class="member__photo"><img src="assets/img/team-bayarmagnai.jpg?v=10" alt="Bayarmagnai Usukhgerel, Founder of GRIT" loading="lazy"></div>
+          <div class="member__photo"><img src="assets/img/t/team-bayarmagnai.jpg?v=10" alt="Bayarmagnai Usukhgerel, Founder of GRIT" loading="lazy"></div>
           <p class="member__name">Bayarmagnai Usukhgerel</p>
           <p class="member__school">Founder of GRIT</p>
         </a>
         <a class="member" href="member.html?m=namuunbayar">
-          <div class="member__photo"><img src="assets/img/team-1.jpg?v=10" alt="M. Namuunbayar, Graphic Designer, GRIT EDU program" loading="lazy"></div>
+          <div class="member__photo"><img src="assets/img/t/team-1.jpg?v=10" alt="M. Namuunbayar, Graphic Designer, GRIT EDU program" loading="lazy"></div>
           <p class="member__name">M. Namuunbayar</p>
           <p class="member__school">Graphic Designer, GRIT EDU program</p>
         </a>
         <a class="member" href="member.html?m=anar">
-          <div class="member__photo"><img src="assets/img/team-2.jpg?v=10" alt="B. Anar, Teacher, GRIT EDU program" loading="lazy"></div>
+          <div class="member__photo"><img src="assets/img/t/team-2.jpg?v=10" alt="B. Anar, Teacher, GRIT EDU program" loading="lazy"></div>
           <p class="member__name">B. Anar</p>
           <p class="member__school">Teacher, GRIT EDU program</p>
         </a>
         <a class="member" href="member.html?m=munkhdalai">
-          <div class="member__photo"><img src="assets/img/team-3.jpg?v=10" alt="B. Munkhdalai, Teacher, GRIT EDU program" loading="lazy"></div>
+          <div class="member__photo"><img src="assets/img/t/team-3.jpg?v=10" alt="B. Munkhdalai, Teacher, GRIT EDU program" loading="lazy"></div>
           <p class="member__name">B. Munkhdalai</p>
           <p class="member__school">Teacher, GRIT EDU program</p>
         </a>
         <a class="member" href="member.html?m=enkhgerel">
-          <div class="member__photo"><img src="assets/img/team-4.jpg?v=10" alt="O. Enkhgerel, Manager, GRIT EDU program" loading="lazy"></div>
+          <div class="member__photo"><img src="assets/img/t/team-4.jpg?v=10" alt="O. Enkhgerel, Manager, GRIT EDU program" loading="lazy"></div>
           <p class="member__name">O. Enkhgerel</p>
           <p class="member__school">Manager, GRIT EDU program</p>
         </a>
         <a class="member" href="member.html?m=tulga">
-          <div class="member__photo"><img src="assets/img/team-5.jpg?v=10" alt="B. Tulga, Teacher, GRIT EDU program" loading="lazy"></div>
+          <div class="member__photo"><img src="assets/img/t/team-5.jpg?v=10" alt="B. Tulga, Teacher, GRIT EDU program" loading="lazy"></div>
           <p class="member__name">B. Tulga</p>
           <p class="member__school">Teacher, GRIT EDU program</p>
         </a>
         <!-- hidden for now
         <a class="member" href="member.html?m=batzorigt">
-          <div class="member__photo"><img src="assets/img/team-batzorigt.jpg?v=10" alt="G. Batzorigt, Teacher, GRIT EDU program" loading="lazy"></div>
+          <div class="member__photo"><img src="assets/img/t/team-batzorigt.jpg?v=10" alt="G. Batzorigt, Teacher, GRIT EDU program" loading="lazy"></div>
           <p class="member__name">G. Batzorigt</p>
           <p class="member__school">Teacher, GRIT EDU program</p>
         </a>
         -->
         <a class="member" href="member.html?m=nomin">
-          <div class="member__photo"><img src="assets/img/team-nomin.jpg?v=10" alt="B. Nomin, Teacher, GRIT EDU program" loading="lazy"></div>
+          <div class="member__photo"><img src="assets/img/t/team-nomin.jpg?v=10" alt="B. Nomin, Teacher, GRIT EDU program" loading="lazy"></div>
           <p class="member__name">B. Nomin</p>
           <p class="member__school">Teacher, GRIT EDU program</p>
         </a>
         <a class="member" href="member.html?m=namuun">
-          <div class="member__photo"><img src="assets/img/team-namuun.jpg?v=10" alt="J. Namuun, Teacher, GRIT EDU program" loading="lazy"></div>
+          <div class="member__photo"><img src="assets/img/t/team-namuun.jpg?v=10" alt="J. Namuun, Teacher, GRIT EDU program" loading="lazy"></div>
           <p class="member__name">J. Namuun</p>
           <p class="member__school">Teacher, GRIT EDU program</p>
+        </a>
+      </div>
+    </section>
+
+    <section class="section container" id="support">
+      <div class="support-head" data-reveal>
+        <p class="eyebrow">Support GRIT</p>
+        <h2 class="section-title">Help us reach more students</h2>
+        <p class="section-lead">GRIT is run by volunteers. Every bit of help brings a lesson, a book or a new opportunity to a student in a rural soum.</p>
+      </div>
+      <div class="support">
+        <a class="support__card" href="#contact" data-reveal>
+          <span class="support__no">01</span>
+          <h3 class="support__title">Volunteer</h3>
+          <p class="support__text">Teach English, give a talk about studying abroad, or help us with design, video and the website.</p>
+          <span class="support__link">Become a volunteer <span aria-hidden="true">→</span></span>
+        </a>
+        <a class="support__card" href="#contact" data-reveal>
+          <span class="support__no">02</span>
+          <h3 class="support__title">Partner with us</h3>
+          <p class="support__text">Schools, soums and organisations can host a program, sponsor a summer camp or share our materials.</p>
+          <span class="support__link">Become a partner <span aria-hidden="true">→</span></span>
+        </a>
+        <a class="support__card support__card--accent" href="mailto:gritedu22@gmail.com?subject=Donation%20to%20GRIT" data-reveal>
+          <span class="support__no">03</span>
+          <h3 class="support__title">Donate</h3>
+          <p class="support__text">Donations pay for lessons, books, meals and transport for students. Write to us and we will send the details.</p>
+          <span class="support__link">Write to us <span aria-hidden="true">→</span></span>
         </a>
       </div>
     </section>
@@ -462,7 +494,7 @@
     </div>
   </footer>
 
-  <script src="js/i18n.js?v=46"></script>
-  <script src="js/main.js?v=40"></script>
+  <script src="js/i18n.js?v=47"></script>
+  <script src="js/main.js?v=41"></script>
 </body>
 </html>

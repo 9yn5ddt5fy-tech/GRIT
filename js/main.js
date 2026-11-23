@@ -233,14 +233,62 @@ function countUp(el) {
 
 // Contact form: there is no server, so open the visitor's email app with
 // the message filled in.
+// Site API (Supabase): contact messages and anonymous page-view counts.
+const SITE_API = { url: "https://wrjgihdvjwriurdiotih.supabase.co", key: "sb_publishable_4SDR_v8yrRdlm0k97LqwaQ_tugAqXPN" };
+const siteRpc = (fn, args) =>
+  fetch(`${SITE_API.url}/rest/v1/rpc/${fn}`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json", apikey: SITE_API.key },
+    body: JSON.stringify(args),
+  });
+const mnUI = () => document.documentElement.getAttribute("data-lang") === "mn";
+
+// Count the visit: page, referring site, phone or computer, language. No cookies, no personal data.
+if (/(^|\.)grit\.mn$/.test(location.hostname)) {
+  let ref = "";
+  try { const r = new URL(document.referrer); if (r.hostname !== location.hostname) ref = r.hostname; } catch (e) {}
+  siteRpc("site_view", {
+    p_path: location.pathname, p_ref: ref,
+    p_device: matchMedia("(max-width: 800px)").matches ? "mobile" : "desktop",
+    p_lang: mnUI() ? "mn" : "en",
+  }).catch(() => {});
+}
+
+// Contact form: the message is saved for the GRIT team. If that fails, fall back to the mail app.
 document.querySelectorAll("form[data-mailto]").forEach((form) => {
-  form.addEventListener("submit", (event) => {
-    event.preventDefault();
-    const data = new FormData(form);
+  const status = document.createElement("p");
+  status.className = "form__status";
+  status.setAttribute("role", "status");
+  form.appendChild(status);
+  const mailto = (data) => {
     const subject = `GRIT website: ${data.get("name")}`;
     const body = `${data.get("message")}\n\n${data.get("name")}\n${data.get("email")}\n${data.get("phone") || ""}`;
-    window.location.href =
-      `mailto:${form.dataset.mailto}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    window.location.href = `mailto:${form.dataset.mailto}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  };
+  form.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    const data = new FormData(form);
+    const btn = form.querySelector('[type="submit"]');
+    btn.disabled = true;
+    status.className = "form__status";
+    status.textContent = mnUI() ? "Илгээж байна…" : "Sending…";
+    try {
+      const r = await siteRpc("site_message", {
+        p_name: data.get("name"), p_email: data.get("email"), p_phone: data.get("phone") || "",
+        p_message: data.get("message"), p_page: location.pathname,
+      });
+      const j = r.ok ? await r.json() : null;
+      if (!j || !j.ok) throw new Error((j && j.error) || "failed");
+      form.reset();
+      status.className = "form__status is-ok";
+      status.textContent = mnUI() ? "Баярлалаа! Таны зурвас бидэнд ирлээ. Удахгүй хариу өгнө." : "Thank you! Your message has reached us. We will reply soon.";
+    } catch (e) {
+      status.className = "form__status is-err";
+      status.textContent = mnUI() ? "Илгээж чадсангүй. Имэйл апп тань нээгдэнэ." : "Could not send. Opening your mail app instead.";
+      mailto(data);
+    } finally {
+      btn.disabled = false;
+    }
   });
 });
 
@@ -332,7 +380,7 @@ document.querySelectorAll("#scholarships").forEach((sec) => {
 document.querySelectorAll(".marquee").forEach((row) => {
   const photos = [...row.querySelectorAll(".photo:not([aria-hidden]) img")];
   if (!photos.length) return;
-  const list = photos.map((img) => ({ src: img.getAttribute("src"), alt: img.alt }));
+  const list = photos.map((img) => ({ src: img.dataset.full || img.getAttribute("src"), alt: img.alt }));
   row.addEventListener("click", (e) => {
     const img = e.target.closest(".photo")?.querySelector("img");
     if (!img) return;

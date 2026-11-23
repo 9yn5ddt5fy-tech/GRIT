@@ -1,0 +1,15 @@
+{
+  "name": "Таасан уу? · GRIT Culture",
+  "short_name": "Таасан уу?",
+  "description": "Өдөр бүрийн Монголын түүхийн үгийн тоглоом",
+  "start_url": "/culture/taasan-uu/",
+  "scope": "/culture/taasan-uu/",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#000000",
+  "lang": "mn",
+  "icons": [
+    { "src": "/assets/img/grit-icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/assets/img/grit-icon-square.png", "sizes": "512x512", "type": "image/png", "purpose": "any" }
+  ]
+}

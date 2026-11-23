@@ -19,36 +19,38 @@
   <meta name="twitter:card" content="summary_large_image">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:wght@500;600;700&family=PT+Serif:ital@0;1&family=Instrument+Serif&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=91">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:wght@500;600;700&family=PT+Serif:ital@0;1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css?v=92">
   <script>
     (function () {
       var d = document.documentElement, s = null, l = null;
       d.classList.add("js");
       try { s = localStorage.getItem("grit-theme"); l = localStorage.getItem("grit-lang"); } catch (e) {}
       if (s === "dark" || (!s && window.matchMedia && matchMedia("(prefers-color-scheme: dark)").matches)) d.setAttribute("data-theme", "dark");
-      if (l === "mn") d.setAttribute("data-lang", "mn");
+      // Mongolian is the default; English only when the visitor chose it.
+      if (l !== "en") { d.setAttribute("data-lang", "mn"); d.lang = "mn"; d.classList.add("i18n-wait"); setTimeout(function () { d.classList.remove("i18n-wait"); }, 2500); }
     })();
   </script>
 </head>
 <body>
+  <a class="skip-link" href="#main">Skip to main content</a>
   <header class="site-header">
     <div class="site-header__inner">
       <a class="logo" href="/" aria-label="GRIT home"><img src="assets/img/logo-dark.png?v=2" alt="GRIT"></a>
       <nav class="nav" id="site-nav">
-        <a href="/">Home</a>
+        <a href="/culture/">Culture</a>
+        <a href="/#projects" aria-current="page">Projects</a>
         <a href="/#where">Where we work</a>
-        <a href="/#projects" aria-current="page">GRIT</a>
         <a href="/#success">Success</a>
         <a href="/#team">Team</a>
         <a href="research.html">Research</a>
-        <a href="/culture/">Culture</a>
-        <a href="plan.html">Coming soon</a>
+        <a href="plan.html">Plan 2027</a>
+        <a href="#contact">Contact</a>
       </nav>
       <div class="header-actions">
         <button class="pill-btn lang-toggle" type="button" aria-label="Монгол хэл рүү шилжих">МН</button>
         <button class="pill-btn theme-toggle" type="button" aria-label="Night mode"><svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg><svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button>
-        <a class="header-cta" href="#contact">Contact</a>
+        <a class="header-cta" href="/#support">Support us</a>
       </div>
       <button class="nav-toggle" aria-controls="site-nav" aria-expanded="false" aria-label="Open menu">
         <span></span><span></span><span></span>
@@ -56,7 +58,7 @@
     </div>
   </header>
 
-  <main>
+  <main id="main">
     <section class="page-hero container">
       <p class="eyebrow" data-reveal>GRIT project</p>
       <h1 class="page-hero__title" data-reveal>GRIT Environment</h1>
@@ -107,19 +109,19 @@
       <p class="section-lead" data-reveal>How a can left at a tourist camp ends up back in use.</p>
       <div class="flow">
         <figure class="flow__step" data-reveal>
-          <div class="flow__photo"><img src="assets/img/env-cleanup-1.jpg" alt="Collect: Waste is gathered from the lake shore and the tourist camps and loaded for transport." loading="lazy"></div>
+          <div class="flow__photo"><img src="assets/img/t/env-cleanup-1.jpg" alt="Collect: Waste is gathered from the lake shore and the tourist camps and loaded for transport." loading="lazy"></div>
           <figcaption><span class="flow__num">1</span><h3 class="flow__title">Collect</h3><p>Waste is gathered from the lake shore and the tourist camps and loaded for transport.</p></figcaption>
         </figure>
         <figure class="flow__step" data-reveal>
-          <div class="flow__photo"><img src="assets/img/env-bags.jpg" alt="Sort: Aluminium cans and plastic bottles are separated from other waste and bagged." loading="lazy"></div>
+          <div class="flow__photo"><img src="assets/img/t/env-bags.jpg" alt="Sort: Aluminium cans and plastic bottles are separated from other waste and bagged." loading="lazy"></div>
           <figcaption><span class="flow__num">2</span><h3 class="flow__title">Sort</h3><p>Aluminium cans and plastic bottles are separated from other waste and bagged.</p></figcaption>
         </figure>
         <figure class="flow__step" data-reveal>
-          <div class="flow__photo"><img src="assets/img/env-baler.jpg" alt="Bale: Our hydraulic baling machine presses them into compact, transport-ready bales." loading="lazy"></div>
+          <div class="flow__photo"><img src="assets/img/t/env-baler.jpg" alt="Bale: Our hydraulic baling machine presses them into compact, transport-ready bales." loading="lazy"></div>
           <figcaption><span class="flow__num">3</span><h3 class="flow__title">Bale</h3><p>Our hydraulic baling machine presses them into compact, transport-ready bales.</p></figcaption>
         </figure>
         <figure class="flow__step" data-reveal>
-          <div class="flow__photo"><img src="assets/img/env-bales.jpg" alt="Recycle: The bales are delivered to recycling facilities instead of ending up in the steppe." loading="lazy"></div>
+          <div class="flow__photo"><img src="assets/img/t/env-bales.jpg" alt="Recycle: The bales are delivered to recycling facilities instead of ending up in the steppe." loading="lazy"></div>
           <figcaption><span class="flow__num">4</span><h3 class="flow__title">Recycle</h3><p>The bales are delivered to recycling facilities instead of ending up in the steppe.</p></figcaption>
         </figure>
       </div>
@@ -161,16 +163,16 @@
     <section class="section" id="photos">
       <div class="container"><h2 class="section-title" data-reveal>Photos</h2></div>
       <div class="marquee" data-reveal>
-        <div class="photo"><img src="assets/img/env-hero.jpg" alt="The river near Ugii Lake" loading="lazy"></div>
-        <div class="photo"><img src="assets/img/env-truck.jpg" alt="A truck full of waste collected on the shore of Ugii Lake" loading="lazy"></div>
-        <div class="photo"><img src="assets/img/env-cleanup-1.jpg" alt="Volunteers picking up litter along the lake shore" loading="lazy"></div>
-        <div class="photo"><img src="assets/img/env-cleanup-2.jpg" alt="Sorting collected bags before loading the truck" loading="lazy"></div>
-        <div class="photo"><img src="assets/img/env-cleanup-3.jpg" alt="Collecting litter on the steppe by Ugii Lake" loading="lazy"></div>
-        <div class="photo"><img src="assets/img/env-cleanup-4.jpg" alt="Loading waste from a tourist camp area onto the truck" loading="lazy"></div>
-        <div class="photo"><img src="assets/img/env-collection.jpg" alt="Loading collected waste by Ugii Lake" loading="lazy"></div>
-        <div class="photo"><img src="assets/img/env-bags.jpg" alt="Bags of sorted recyclables" loading="lazy"></div>
-        <div class="photo"><img src="assets/img/env-baler.jpg" alt="The project's hydraulic baling machine" loading="lazy"></div>
-        <div class="photo"><img src="assets/img/env-bales.jpg" alt="Baled aluminium cans ready for recycling" loading="lazy"></div>
+        <div class="photo"><img src="assets/img/t/env-hero.jpg" data-full="assets/img/env-hero.jpg" alt="The river near Ugii Lake" loading="lazy"></div>
+        <div class="photo"><img src="assets/img/t/env-truck.jpg" data-full="assets/img/env-truck.jpg" alt="A truck full of waste collected on the shore of Ugii Lake" loading="lazy"></div>
+        <div class="photo"><img src="assets/img/t/env-cleanup-1.jpg" data-full="assets/img/env-cleanup-1.jpg" alt="Volunteers picking up litter along the lake shore" loading="lazy"></div>
+        <div class="photo"><img src="assets/img/t/env-cleanup-2.jpg" data-full="assets/img/env-cleanup-2.jpg" alt="Sorting collected bags before loading the truck" loading="lazy"></div>
+        <div class="photo"><img src="assets/img/t/env-cleanup-3.jpg" data-full="assets/img/env-cleanup-3.jpg" alt="Collecting litter on the steppe by Ugii Lake" loading="lazy"></div>
+        <div class="photo"><img src="assets/img/t/env-cleanup-4.jpg" data-full="assets/img/env-cleanup-4.jpg" alt="Loading waste from a tourist camp area onto the truck" loading="lazy"></div>
+        <div class="photo"><img src="assets/img/t/env-collection.jpg" data-full="assets/img/env-collection.jpg" alt="Loading collected waste by Ugii Lake" loading="lazy"></div>
+        <div class="photo"><img src="assets/img/t/env-bags.jpg" data-full="assets/img/env-bags.jpg" alt="Bags of sorted recyclables" loading="lazy"></div>
+        <div class="photo"><img src="assets/img/t/env-baler.jpg" data-full="assets/img/env-baler.jpg" alt="The project's hydraulic baling machine" loading="lazy"></div>
+        <div class="photo"><img src="assets/img/t/env-bales.jpg" data-full="assets/img/env-bales.jpg" alt="Baled aluminium cans ready for recycling" loading="lazy"></div>
       </div>
     </section>
 
@@ -180,16 +182,16 @@
         <p class="album__count" data-reveal>10 photos</p>
       </div>
       <div class="album" data-reveal>
-        <button class="album__item" type="button" data-full="assets/img/env-hero.jpg" aria-label="Open photo: The river near Ugii Lake"><img src="assets/img/env-hero.jpg" alt="The river near Ugii Lake" loading="lazy"></button>
-        <button class="album__item" type="button" data-full="assets/img/env-truck.jpg" aria-label="Open photo: A truck full of waste collected on the shore of Ugii Lake"><img src="assets/img/env-truck.jpg" alt="A truck full of waste collected on the shore of Ugii Lake" loading="lazy"></button>
-        <button class="album__item" type="button" data-full="assets/img/env-cleanup-1.jpg" aria-label="Open photo: Volunteers picking up litter along the lake shore"><img src="assets/img/env-cleanup-1.jpg" alt="Volunteers picking up litter along the lake shore" loading="lazy"></button>
-        <button class="album__item" type="button" data-full="assets/img/env-cleanup-2.jpg" aria-label="Open photo: Sorting collected bags before loading the truck"><img src="assets/img/env-cleanup-2.jpg" alt="Sorting collected bags before loading the truck" loading="lazy"></button>
-        <button class="album__item" type="button" data-full="assets/img/env-cleanup-3.jpg" aria-label="Open photo: Collecting litter on the steppe by Ugii Lake"><img src="assets/img/env-cleanup-3.jpg" alt="Collecting litter on the steppe by Ugii Lake" loading="lazy"></button>
-        <button class="album__item" type="button" data-full="assets/img/env-cleanup-4.jpg" aria-label="Open photo: Loading waste from a tourist camp area onto the truck"><img src="assets/img/env-cleanup-4.jpg" alt="Loading waste from a tourist camp area onto the truck" loading="lazy"></button>
-        <button class="album__item" type="button" data-full="assets/img/env-collection.jpg" aria-label="Open photo: Loading collected waste by Ugii Lake"><img src="assets/img/env-collection.jpg" alt="Loading collected waste by Ugii Lake" loading="lazy"></button>
-        <button class="album__item" type="button" data-full="assets/img/env-bags.jpg" aria-label="Open photo: Bags of sorted recyclables"><img src="assets/img/env-bags.jpg" alt="Bags of sorted recyclables" loading="lazy"></button>
-        <button class="album__item" type="button" data-full="assets/img/env-baler.jpg" aria-label="Open photo: The project's hydraulic baling machine"><img src="assets/img/env-baler.jpg" alt="The project's hydraulic baling machine" loading="lazy"></button>
-        <button class="album__item" type="button" data-full="assets/img/env-bales.jpg" aria-label="Open photo: Baled aluminium cans ready for recycling"><img src="assets/img/env-bales.jpg" alt="Baled aluminium cans ready for recycling" loading="lazy"></button>
+        <button class="album__item" type="button" data-full="assets/img/env-hero.jpg" aria-label="Open photo: The river near Ugii Lake"><img src="assets/img/t/env-hero.jpg" alt="The river near Ugii Lake" loading="lazy"></button>
+        <button class="album__item" type="button" data-full="assets/img/env-truck.jpg" aria-label="Open photo: A truck full of waste collected on the shore of Ugii Lake"><img src="assets/img/t/env-truck.jpg" alt="A truck full of waste collected on the shore of Ugii Lake" loading="lazy"></button>
+        <button class="album__item" type="button" data-full="assets/img/env-cleanup-1.jpg" aria-label="Open photo: Volunteers picking up litter along the lake shore"><img src="assets/img/t/env-cleanup-1.jpg" alt="Volunteers picking up litter along the lake shore" loading="lazy"></button>
+        <button class="album__item" type="button" data-full="assets/img/env-cleanup-2.jpg" aria-label="Open photo: Sorting collected bags before loading the truck"><img src="assets/img/t/env-cleanup-2.jpg" alt="Sorting collected bags before loading the truck" loading="lazy"></button>
+        <button class="album__item" type="button" data-full="assets/img/env-cleanup-3.jpg" aria-label="Open photo: Collecting litter on the steppe by Ugii Lake"><img src="assets/img/t/env-cleanup-3.jpg" alt="Collecting litter on the steppe by Ugii Lake" loading="lazy"></button>
+        <button class="album__item" type="button" data-full="assets/img/env-cleanup-4.jpg" aria-label="Open photo: Loading waste from a tourist camp area onto the truck"><img src="assets/img/t/env-cleanup-4.jpg" alt="Loading waste from a tourist camp area onto the truck" loading="lazy"></button>
+        <button class="album__item" type="button" data-full="assets/img/env-collection.jpg" aria-label="Open photo: Loading collected waste by Ugii Lake"><img src="assets/img/t/env-collection.jpg" alt="Loading collected waste by Ugii Lake" loading="lazy"></button>
+        <button class="album__item" type="button" data-full="assets/img/env-bags.jpg" aria-label="Open photo: Bags of sorted recyclables"><img src="assets/img/t/env-bags.jpg" alt="Bags of sorted recyclables" loading="lazy"></button>
+        <button class="album__item" type="button" data-full="assets/img/env-baler.jpg" aria-label="Open photo: The project's hydraulic baling machine"><img src="assets/img/t/env-baler.jpg" alt="The project's hydraulic baling machine" loading="lazy"></button>
+        <button class="album__item" type="button" data-full="assets/img/env-bales.jpg" aria-label="Open photo: Baled aluminium cans ready for recycling"><img src="assets/img/t/env-bales.jpg" alt="Baled aluminium cans ready for recycling" loading="lazy"></button>
       </div>
       <div class="album__more">
         <button class="btn btn--outline" type="button" data-album-more>More photos</button>
@@ -238,7 +240,7 @@
     <figure class="lightbox__figure"><img alt=""><figcaption></figcaption></figure>
     <button class="lightbox__nav lightbox__nav--next" type="button" aria-label="Next photo">›</button>
   </div>
-  <script src="js/i18n.js?v=46"></script>
-  <script src="js/main.js?v=40"></script>
+  <script src="js/i18n.js?v=47"></script>
+  <script src="js/main.js?v=41"></script>
 </body>
 </html>

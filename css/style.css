@@ -23,9 +23,9 @@
   --radius-md: 14px;
   --radius-lg: 18px;
 
-  --font-sans: "IBM Plex Sans", system-ui, -apple-system, sans-serif;
-  --font-serif: "Instrument Serif", "Times New Roman", serif;
-  --font-display: "Cinzel", Georgia, serif;
+  --font-sans: Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-serif: "PT Serif", Georgia, serif; /* has Cyrillic */
+  --font-display: "Inter Tight", Inter, system-ui, sans-serif; /* Cinzel was never loaded and has no Cyrillic */
 
   --max: 1352px;
   --gutter: 44px;
@@ -80,7 +80,7 @@ p {
   padding-top: var(--section-gap);
 }
 
-/* Section heading: "Where we work", "Projects" … (Cinzel, like the hero) */
+/* Section heading: "Where we work", "Projects" … */
 .section-title {
   font-family: var(--font-display);
   font-size: clamp(28px, 3.2vw, 40px);
@@ -3471,3 +3471,37 @@ body.hbook-open { overflow: hidden; }
 [data-theme="dark"] .hero__bg--winter::before { background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, var(--bg) 100%); }
 /* Culture: impact report teaser */
 .culture-report { margin-top: 16px; }
+/* No sideways wobble on phones: clip anything that pokes past the viewport
+   (clip, unlike hidden, keeps the sticky header working). */
+html, body { overflow-x: clip; }
+/* Keyboard users can jump past the header */
+.skip-link { position: absolute; left: 12px; top: -60px; z-index: 1000; padding: 10px 16px; border-radius: 8px; background: var(--ink); color: var(--on-ink); font-weight: 600; transition: top .15s; }
+.skip-link:focus { top: 12px; }
+/* Respect "reduce motion" everywhere, not only on the map */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
+  .js [data-reveal] { opacity: 1; transform: none; }
+}
+/* Hide the English source text until the Mongolian translation is in place */
+html.i18n-wait body { visibility: hidden; }
+/* Home: ways to support GRIT */
+.support-head { margin-bottom: 28px; }
+.support-head .section-title { margin-top: 10px; }
+.support { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+.support__card { display: flex; flex-direction: column; padding: 30px 28px; border: 1px solid var(--line); border-radius: var(--radius-lg); background: var(--bg); transition: transform .3s, box-shadow .3s, border-color .3s; }
+.support__card:hover { transform: translateY(-3px); box-shadow: 0 18px 40px -24px rgba(0, 0, 0, .35); border-color: var(--accent-soft); }
+.support__card--accent { background: var(--accent); border-color: var(--accent); color: #fff; }
+.support__card--accent .support__text, .support__card--accent .support__no { color: rgba(255, 255, 255, .82); }
+.support__no { font-family: var(--font-display); font-weight: 600; font-size: 15px; color: var(--muted); letter-spacing: .08em; }
+.support__title { margin-top: 18px; font-family: var(--font-display); font-weight: 700; font-size: 28px; letter-spacing: -.02em; }
+.support__text { margin-top: 10px; color: var(--muted); font-size: 16px; line-height: 1.55; }
+.support__link { margin-top: auto; padding-top: 22px; font-weight: 600; }
+.support__link span { display: inline-block; transition: transform .3s; }
+.support__card:hover .support__link span { transform: translateX(4px); }
+@media (max-width: 900px) { .support { grid-template-columns: minmax(0, 1fr); } }
+.program__link { display: inline-block; margin-top: 8px; font-size: 14px; font-weight: 600; color: var(--accent); }
+.program__link span { display: inline-block; transition: transform .2s; }
+.program__link:hover span { transform: translateX(3px); }
+.form__status { grid-column: 1 / -1; min-height: 1.4em; font-size: 15px; color: var(--muted); }
+.form__status.is-ok { color: var(--accent); font-weight: 600; }
+.form__status.is-err { color: #b8322a; }
