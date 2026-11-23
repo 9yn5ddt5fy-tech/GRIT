@@ -4,6 +4,27 @@
 // To translate new text, add "English text": "Монгол текст" below.
 const MN = {
   // Navigation, buttons, footer
+  "Plan 2027": "2027 төлөвлөгөө",
+  "See the program plan": "Хөтөлбөрийн төлөвлөгөөг үзэх",
+  "Results of the first program": "Анхны хөтөлбөрийн үр дүн",
+  "Support us": "Дэмжих",
+  "Support GRIT": "GRIT-ийг дэмжих",
+  "Help us reach more students": "Илүү олон сурагчид хүрэхэд тусална уу",
+  "GRIT is run by volunteers. Every bit of help brings a lesson, a book or a new opportunity to a student in a rural soum.":
+    "GRIT-ийн үйл ажиллагааг сайн дурынхан хэрэгжүүлдэг. Таны өгсөн дэмжлэг бүр орон нутгийн сумын сурагчид нэг хичээл, нэг ном эсвэл шинэ боломж болж хүрнэ.",
+  "Volunteer": "Сайн дурын ажилтан",
+  "Teach English, give a talk about studying abroad, or help us with design, video and the website.":
+    "Англи хэл заах, гадаадад суралцах туршлагаасаа илтгэл тавих, эсвэл дизайн, бичлэг, вэб сайтын ажилд туслах.",
+  "Become a volunteer": "Сайн дурын ажилтан болох",
+  "Partner with us": "Хамтран ажиллах",
+  "Schools, soums and organisations can host a program, sponsor a summer camp or share our materials.":
+    "Сургууль, сум, байгууллагууд хөтөлбөр зохион байгуулах, зуны лагерийг ивээн тэтгэх эсвэл манай материалыг түгээх боломжтой.",
+  "Become a partner": "Хамтрагч болох",
+  "Donate": "Хандив өгөх",
+  "Donations pay for lessons, books, meals and transport for students. Write to us and we will send the details.":
+    "Хандив сурагчдын хичээл, ном, хоол, унааны зардалд зарцуулагдана. Бидэнд бичвэл дэлгэрэнгүй мэдээллийг илгээнэ.",
+  "Write to us": "Бидэнд бичих",
+  "Skip to main content": "Үндсэн агуулга руу шилжих",
   "Home": "Нүүр",
   "Where we work": "Бидний ажилладаг газар",
   "Success": "Амжилт",
@@ -492,6 +513,29 @@ const MN = {
   "30M ₮": "30 сая ₮",
 };
 
+// Page titles and descriptions.
+const MN_HEAD = {
+  "GRIT EDU — Education for rural students in Mongolia": "GRIT EDU — Орон нутгийн сурагчдад зориулсан боловсрол",
+  "GRIT is a youth-led initiative from Mongolia that opens the world to students from rural soums through the GRIT EDU program, scholarships guidance, English lessons and environmental projects.":
+    "GRIT бол орон нутгийн сумдын сурагчдад GRIT EDU хөтөлбөр, тэтгэлгийн зөвлөгөө, англи хэлний хичээл, байгаль орчны төслөөр дамжуулан дэлхийн боломжийн үүдийг нээдэг залуучуудын санаачилга юм.",
+  "GRIT EDU — English and university preparation for rural Mongolian students": "GRIT EDU — Орон нутгийн сурагчдад англи хэл, их сургуулийн бэлтгэл",
+  "GRIT EDU runs English lessons, university application workshops and scholarship guidance for students in rural Mongolia. Results of the 2025 Ugiinuur program and plans for Kharkhorin 2027.":
+    "GRIT EDU орон нутгийн сурагчдад англи хэлний хичээл, их сургуульд өргөдөл гаргах сургалт, тэтгэлгийн зөвлөгөө өгдөг. 2025 оны Өгийнуурын хөтөлбөрийн үр дүн, 2027 оны Хархорины төлөвлөгөө.",
+  "GRIT Environment — Protecting Ugii Lake and the steppe": "GRIT Environment — Өгийнуур, тал хээрээ хамгаалъя",
+  "GRIT Environment runs a community recycling program on the shore of Ugii Lake, Mongolia: 17 tourist camps, 300+ kg of cans and bottles recycled and 118 students trained.":
+    "GRIT Environment Өгийнуурын эрэг дээр олон нийтийн дахин боловсруулалтын хөтөлбөр хэрэгжүүлдэг: 17 жуулчны бааз, 300 гаруй кг лааз, сав дахин боловсруулж, 118 сурагчийг сургасан.",
+  "Research &amp; articles — GRIT": "Судалгаа, нийтлэл — GRIT",
+  "Research & articles — GRIT": "Судалгаа, нийтлэл — GRIT",
+  "Research, reports and articles from GRIT on education and the environment in rural Mongolia.": "Орон нутгийн боловсрол, байгаль орчны талаарх GRIT-ийн судалгаа, тайлан, нийтлэлүүд.",
+  "GRIT EDU Kharkhorin — Program plan": "GRIT EDU Хархорин — Хөтөлбөрийн төлөвлөгөө",
+  "The full plan for GRIT EDU's next program: a 21-day summer camp for 30 students in Kharkhorin, Uvurkhangai.": "GRIT EDU-гийн дараагийн хөтөлбөрийн бүрэн төлөвлөгөө: Өвөрхангай аймгийн Хархорин суманд 30 сурагчид зориулсан 21 хоногийн зуны лагерь.",
+  "Team member — GRIT": "Багийн гишүүн — GRIT",
+  "Meet the team behind GRIT and the GRIT EDU program.": "GRIT болон GRIT EDU хөтөлбөрийн багтай танилцаарай.",
+  "GRIT Culture — Legends, history and the daily word game": "GRIT Culture — Домог, түүх, өдөр бүрийн үгийн тоглоом",
+  "GRIT Culture tells the legends and history of Mongolia's cultural and natural heritage sites as illustrated picture books, with history games and the daily word game “Таасан уу?”.":
+    "GRIT Culture Монголын түүх, соёл, байгалийн өвийн домог, түүхийг зурагт ном, түүхийн тоглоом болон өдөр бүрийн «Таасан уу?» үгийн тоглоомоор хүргэнэ.",
+};
+
 // Attribute translations (placeholders, button labels).
 const MN_ATTR = {
   "Open menu": "Цэс нээх",
@@ -573,11 +617,22 @@ const MN_ENABLED = true;
     });
   }
 
+  // Page title and description, so search engines and shared links read Mongolian too.
+  const desc = document.querySelector('meta[name="description"]');
+  const headEN = { title: document.title, desc: desc ? desc.content : "" };
+  function translateHead(lang) {
+    const mn = lang === "mn";
+    document.title = mn && MN_HEAD[headEN.title] ? MN_HEAD[headEN.title] : headEN.title;
+    if (desc) desc.content = mn && MN_HEAD[headEN.desc] ? MN_HEAD[headEN.desc] : headEN.desc;
+  }
+
   function setLang(lang, save) {
     if (lang === "mn") root.setAttribute("data-lang", "mn");
     else root.removeAttribute("data-lang");
     root.lang = lang === "mn" ? "mn" : "en";
     translateText(lang);
+    translateHead(lang);
+    root.classList.remove("i18n-wait");
     document.querySelectorAll(".lang-toggle").forEach((btn) => {
       btn.textContent = lang === "mn" ? "EN" : "МН";
       btn.setAttribute("aria-label", lang === "mn" ? "Switch to English" : "Монгол хэл рүү шилжих");
