@@ -23,8 +23,8 @@ html,body{width:1080px;height:1350px;overflow:hidden;background:#000}
 .row:first-child{border-top:0}
 .row p{font-size:30px;line-height:1.4;color:rgba(244,242,237,.88)}
 .row b{color:#f4f2ed}
-.rk{display:flex;align-items:center;gap:24px;padding:11px 0}
-.rk .em{width:86px;height:86px;border-radius:22px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:27px;color:#140f05;flex:none}
+.rk{display:flex;align-items:center;gap:26px;padding:11px 0;border-top:1px solid rgba(244,242,237,.1)}.rk:first-child{border-top:0}
+.rk .em{width:72px;height:72px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:30px;flex:none;border:3px dashed rgba(244,242,237,.4);color:rgba(244,242,237,.5)}.rk.got .em{background:#f4f2ed;border:3px solid #f4f2ed;color:#0b0b0b}.rk.cur .em{outline:3px solid #f4f2ed;outline-offset:5px}.rk:not(.got) .nm,.rk:not(.got) .ds{opacity:.6}
 .rk .nm{font-weight:900;font-size:46px;letter-spacing:-.03em}
 .rk .ds{font-size:24px;color:rgba(244,242,237,.6);margin-top:4px}
 .ln{position:absolute;left:111px;width:3px;background:rgba(244,242,237,.15)}
@@ -40,7 +40,6 @@ html,body{width:1080px;height:1350px;overflow:hidden;background:#000}
     <div class="hd" style="font-size:104px;margin-top:30px">Таасан уу?</div>
     <div style="font-weight:700;font-size:40px;line-height:1.3;margin-top:22px;color:rgba(244,242,237,.9)">Таван үсэгтэй түүхэн үгийг<br>зургаан оролдлогоор таа.</div>
   </div>
-  <div style="position:absolute;left:64px;bottom:64px;font-weight:600;font-size:26px;color:rgba(244,242,237,.6)">Үнэ төлбөргүй · бүртгэлгүй &nbsp;→</div>
 </section>
 <!-- 2 how to play -->
 <section class="s" id="s2"><div class="xs"></div><div class="brand"><img src="icon-horse.svg"><span>GRIT Culture</span></div><div class="pg">2/4</div>
@@ -52,7 +51,7 @@ html,body{width:1080px;height:1350px;overflow:hidden;background:#000}
       <div class="row"><span class="t no sm">А</span><p><b>Бүдэг</b> үсэг үгэнд байхгүй.</p></div>
       <div class="row"><span class="t sm" style="font-size:40px">?</span><p>Гацвал <b>сэжүүр</b> аваад үгийн төрөл, хамаарах үеийг харж болно.</p></div>
     </div>
-    <div style="margin-top:40px;padding:30px 34px;border-radius:22px;background:rgba(244,242,237,.06);border:1px solid rgba(244,242,237,.14);font-size:29px;line-height:1.45;color:rgba(244,242,237,.88)">Таасны дараа тухайн үгийн <b style="color:#e5ad41">түүхэн тайлбар</b> нээгдэнэ. Өдөр бүр бүх хүнд ижил үг гарна.</div>
+    <div style="margin-top:40px;padding:30px 34px;border-radius:22px;background:rgba(244,242,237,.06);border:1px solid rgba(244,242,237,.14);font-size:29px;line-height:1.45;color:rgba(244,242,237,.88)">Үгээ тааснаар тухайн үгтэй холбоотой <b style="color:#e5ad41">түүхэн тайлбартай</b> танилцана. Өдөр бүр бүх тоглогчид ижил үг гарна.</div>
   </div>
 </section>
 <!-- 3 ranks -->
@@ -76,7 +75,7 @@ html,body{width:1080px;height:1350px;overflow:hidden;background:#000}
 </section>
 <script>
 const s=new URLSearchParams(location.search).get('s')||'1';
-const R=[['Цэрэг','·','#bdbdbd','#7d7d7d','Аравтын нэг гишүүн'],['Аравтын ноён','10','#e9946e','#c2643f','Арван цэргийг удирдагч'],['Зуутын ноён','100','#eef0f6','#a9adb9','Зуун цэргийг удирдагч'],['Мянгатын ноён','1000','#ffe08a','#d9a43a','Мянган цэргийг удирдагч'],['Түмэний ноён','10K','#8fe0aa','#2f7a49','Арван мянган цэргийг удирдагч'],['Хаан','♛','#ff9a86','#b8322a','Хамгийн дээд цол']];
-document.getElementById('ladder').innerHTML=R.map(r=>`<div class="rk"><div class="em" style="background:linear-gradient(160deg,${r[2]},${r[3]})">${r[1]}</div><div><div class="nm">${r[0]}</div><div class="ds">${r[4]}</div></div></div>`).join('');
+const R=[['Цэрэг','Эхлэл'],['Аравтын ноён','60 оноо · 15 өдөр'],['Зуутын ноён','250 оноо · 60 өдөр'],['Мянгатын ноён','600 оноо · 140 өдөр'],['Түмэний ноён','1000 оноо · 220 өдөр'],['Хаан','1300 оноо · 300 өдөр']];
+document.getElementById('ladder').innerHTML=R.map((r,k)=>`<div class="rk ${k<=1?'got':''} ${k===1?'cur':''}"><div class="em">${k+1}</div><div><div class="nm">${r[0]}</div><div class="ds">${r[1]}</div></div></div>`).join('');
 document.getElementById('s'+s).classList.add('on');
 </script></body></html>
