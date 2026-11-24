@@ -82,6 +82,18 @@
 .tu-xp{min-width:84px;text-align:right;font-weight:800;font-size:15px;white-space:nowrap}
 @media (max-width:560px){.tu-xp{min-width:72px}}.tu-xp small{font-weight:600;font-size:12px;opacity:.6}
 .tu-empty{padding:18px 4px;opacity:.7}
+.tu-rk h3{margin:0 0 12px;font-size:18px;letter-spacing:-.01em}
+.tu-rk__me{display:flex;align-items:center;gap:12px;padding:12px;border-radius:12px;background:color-mix(in srgb,currentColor 5%,transparent)}
+.tu-rk__me b{display:block;font-size:17px}.tu-rk__me small{display:block;font-size:12.5px;opacity:.65}
+.tu-rk__next{margin-top:12px}.tu-rk__next p{margin:0 0 8px;font-size:13.5px}
+.tu-rk__row{display:grid;grid-template-columns:52px 1fr auto;align-items:center;gap:8px;font-size:12.5px;margin-top:6px}.tu-rk__row span:last-child{opacity:.7;font-variant-numeric:tabular-nums}
+.tu-bar{display:block;height:8px;border-radius:999px;background:color-mix(in srgb,currentColor 10%,transparent);overflow:hidden}.tu-bar i{display:block;height:100%;border-radius:inherit;background:#58a700}
+.tu-rk__hint,.tu-rk__top{margin:0;font-size:13.5px;line-height:1.5;opacity:.8}
+.tu-rk__list{list-style:none;margin:14px 0 0;padding:0}
+.tu-rk__list li{display:flex;align-items:center;gap:12px;padding:8px 4px;border-top:1px solid color-mix(in srgb,currentColor 8%,transparent)}
+.tu-rk__list li .tu-badge{filter:grayscale(1);opacity:.4}.tu-rk__list li.got .tu-badge{filter:none;opacity:1}
+.tu-rk__list li.cur{background:color-mix(in srgb,#58a700 10%,transparent);border-radius:10px}
+.tu-rk__list b{display:block;font-size:14.5px}.tu-rk__list small{display:block;font-size:12px;opacity:.6}
 .tu-more{display:block;width:100%;margin-top:8px;padding:10px;border:0;border-radius:10px;background:color-mix(in srgb,currentColor 6%,transparent);color:inherit;font:600 14px inherit;font-family:inherit;cursor:pointer}
 .tu-more:hover{background:color-mix(in srgb,currentColor 10%,transparent)}
 `;
@@ -379,10 +391,28 @@
     el.querySelector("[data-tu-more]")?.addEventListener("click", () => { el._open = !open; renderBoard(el, data, opts); });
     el.querySelector("[data-tu-signin]")?.addEventListener("click", () => (opts.onSignin ? opts.onSignin() : openAccount()));
   }
+  // Rank ladder beside the board: every rank with its badge and what it takes, and the player's progress.
+  function renderRanks(el, data) {
+    const ranks = data && data.ranks; if (!ranks) return;
+    const st = data.my_stats, cur = st ? st.lvl : -1, nx = st && st.next;
+    const req = (r) => (r.lvl === 0 ? L("Эхлэл", "Start") : L(`${r.min_points} оноо, ${r.min_days} өдөр`, `${r.min_points} pts, ${r.min_days} days`));
+    const bar = (v, max) => `<span class="tu-bar"><i style="width:${Math.round(100 * Math.min(1, max ? v / max : 1))}%"></i></span>`;
+    el.innerHTML = `<div class="tu-rk"><h3>${L("Цолны шат", "Ranks")}</h3>
+      ${st ? `<div class="tu-rk__me">${badge(st.lvl, 44)}<div><small>${L("Таны цол", "Your rank")}</small><b>${esc(rankName(st.lvl, st.rank))}</b><small>${L(`${st.points} оноо, ${st.days} өдөр`, `${st.points} pts, ${st.days} days`)}</small></div></div>
+        ${nx ? `<div class="tu-rk__next"><p>${L("Дараагийн цол", "Next rank")}: <b>${esc(rankName(nx.lvl, nx.name))}</b></p>
+          <div class="tu-rk__row"><span>${L("Оноо", "Points")}</span>${bar(st.points, nx.min_points)}<span>${st.points}/${nx.min_points}</span></div>
+          <div class="tu-rk__row"><span>${L("Өдөр", "Days")}</span>${bar(st.days, nx.min_days)}<span>${st.days}/${nx.min_days}</span></div></div>` : `<p class="tu-rk__top">${L("Та хамгийн дээд цолд хүрсэн!", "You reached the highest rank!")}</p>`}`
+        : `<p class="tu-rk__hint">${L("Тоглож оноо цуглуулах тусам цол тань ахина. Цол ахихад оноо болон тоглосон өдөр хоёулаа хэрэгтэй.", "Collect points to rise through the ranks. Each rank needs both points and days played.")}</p>`}
+      <ol class="tu-rk__list">${ranks.map((r) => `<li class="${r.lvl <= cur ? "got" : ""}${r.lvl === cur ? " cur" : ""}">${badge(r.lvl, 30)}<div><b>${esc(rankName(r.lvl, r.name))}</b><small>${req(r)}</small></div></li>`).join("")}</ol></div>`;
+  }
   async function loadBoard(el, scope = "week", opts = {}) {
     el.dataset.scope = scope;
     token = store.get("tu_token", token); // the word game may have signed in meanwhile
-    try { renderBoard(el, await rpc("tu_leaderboard", { p_token: token, p_scope: scope }), opts); }
+    try {
+      const data = await rpc("tu_leaderboard", { p_token: token, p_scope: scope });
+      renderBoard(el, data, opts);
+      (el.closest("section") || document).querySelectorAll("[data-tu-ranks]").forEach((r) => renderRanks(r, data));
+    }
     catch (e) { el.innerHTML = `<p class="tu-empty">${errMsg(e)}</p>`; }
   }
   function reloadBoards() { document.querySelectorAll("[data-tu-board]").forEach((el) => loadBoard(el, el.dataset.scope || "week")); }
