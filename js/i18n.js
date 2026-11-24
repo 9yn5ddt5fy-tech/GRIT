@@ -538,6 +538,7 @@ const MN_HEAD = {
 
 // Attribute translations (placeholders, button labels).
 const MN_ATTR = {
+  "Illustration: a glowing ger roof crown with the GRIT horse above a camp in the steppe": "Зураг: тал нутгийн гэрүүдийн дээгүүр гэрэлтэх тооно, дотор нь GRIT морь",
   "Open menu": "Цэс нээх",
   "Night mode": "Шөнийн горим",
   "Day mode": "Өдрийн горим",
