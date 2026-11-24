@@ -3600,7 +3600,7 @@ html[data-season="autumn"] .hero__bg--season { background-image: url(../assets/i
 /* GRIT Culture leaderboard */
 .tu-board { max-width: 760px; padding: 18px 18px 14px; border: 1px solid var(--line); border-radius: var(--radius-lg); background: var(--bg); }
 @media (max-width: 640px) { .tu-board { padding: 12px 8px 10px; } }
-.lb-grid { display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: 24px; align-items: start; }
+.lb-grid { display: grid; grid-template-columns: minmax(0, 1fr) 390px; gap: 24px; align-items: stretch; }
 .lb-grid .tu-board { max-width: none; }
 .tu-ranks { padding: 20px; border: 1px solid var(--line); border-radius: var(--radius-lg); background: var(--bg-soft); }
 @media (max-width: 900px) { .lb-grid { grid-template-columns: 1fr; } }
