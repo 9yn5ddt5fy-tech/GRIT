@@ -3572,23 +3572,3 @@ html[data-season="autumn"] .hero__bg--season { background-image: url(../assets/i
 [data-theme="dark"] .speaker:hover .speaker__photo,
 [data-theme="dark"] .member:hover .member__photo { box-shadow: 0 14px 30px -12px rgba(0, 0, 0, 0.35); }
 
-/* Night mode: the cloud motifs become Mongolian star groups */
-[data-theme="dark"] #where::before, [data-theme="dark"] #success::before, [data-theme="dark"] #team::before,
-[data-theme="dark"] #speakers::before, [data-theme="dark"] #podcast::before,
-[data-theme="dark"] .photos-glow::before, [data-theme="dark"] .photos-glow::after {
-  opacity: 1; transform: none; filter: none; -webkit-mask-image: none; mask-image: none;
-}
-[data-theme="dark"] #where::before { background-image: url(../assets/img/stars/doloon-burkhan.svg?v=2); }
-[data-theme="dark"] #team::before { background-image: url(../assets/img/stars/altan-gadas.svg?v=2); }
-[data-theme="dark"] #success::before { background-image: url(../assets/img/stars/tsolmon.svg?v=3); }
-[data-theme="dark"] #speakers::before { background-image: url(../assets/img/stars/tengeriin-zaadas.svg?v=2); }
-[data-theme="dark"] #podcast::before { display: none; }
-[data-theme="dark"] body { background-image: url(../assets/img/stars/sky.svg?v=1); background-size: 640px 640px; }
-[data-theme="dark"] .photos-glow::before { background-image: url(../assets/img/stars/michid.svg?v=2); }
-[data-theme="dark"] .photos-glow::after { background-image: url(../assets/img/stars/gurvan-maral.svg?v=2); }
-html:not([data-lang="mn"])[data-theme="dark"] #where::before { background-image: url(../assets/img/stars/doloon-burkhan-en.svg?v=2); }
-html:not([data-lang="mn"])[data-theme="dark"] #team::before { background-image: url(../assets/img/stars/altan-gadas-en.svg?v=2); }
-html:not([data-lang="mn"])[data-theme="dark"] #success::before { background-image: url(../assets/img/stars/tsolmon-en.svg?v=3); }
-html:not([data-lang="mn"])[data-theme="dark"] #speakers::before { background-image: url(../assets/img/stars/tengeriin-zaadas-en.svg?v=2); }
-html:not([data-lang="mn"])[data-theme="dark"] .photos-glow::before { background-image: url(../assets/img/stars/michid-en.svg?v=2); }
-html:not([data-lang="mn"])[data-theme="dark"] .photos-glow::after { background-image: url(../assets/img/stars/gurvan-maral-en.svg?v=2); }
