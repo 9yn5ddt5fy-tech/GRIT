@@ -384,7 +384,8 @@ document.querySelectorAll(".marquee").forEach((row) => {
   row.addEventListener("click", (e) => {
     const img = e.target.closest(".photo")?.querySelector("img");
     if (!img) return;
-    const i = list.findIndex((p) => p.src === img.getAttribute("src"));
+    const src = img.dataset.full || img.getAttribute("src");
+    const i = list.findIndex((p) => p.src === src);
     openLightbox(list, Math.max(0, i));
   });
 });
