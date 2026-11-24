@@ -18,7 +18,7 @@ const P = {
     clouds: { lt: ['#fffaf7', '#f6e0dc', '#d9bcc6'], mid: ['#fbf0f3', '#e6ccd6', '#bea2b6'], dk: ['#f0e0e8', '#cfb4c6', '#a58aa6'] },
     mtn: '#8d8fb8', hill2: '#a9c98d', ground: ['#b9dc8f', '#8cc06a', '#5f9a48'], hill: '#9fcd7c', hillRim: '#e4f3c9',
     ring: '#ffd9c9', ringDot: '#fff3ea', curl: '#c98a9c', beam: ['#fff6ef', '#ffc9b4'], band: '#ffffff', hub: '#4a5a7a', hubRing: '#ffe1d3', hubDash: '#d99aa8', halo: ['#ffe8dc', '#ffb9a1'], horse: '#fff8f2',
-    gerWall: '#efe8dc', gerRoof: '#f7f1e6', gerRim: '#c9b49c', snowRoof: false,
+    gerWall: '#f3ede2', gerRoof: '#faf6ee', gerShade: '#d9ccbb', gerSkirt: '#c9bba5', snowRoof: false,
     particles: 'petals', grain: .14, vignette: '#3a2a3e',
   },
   summer: {
@@ -27,7 +27,7 @@ const P = {
     clouds: { lt: ['#ffffff', '#e4eef8', '#b7c9dd'], mid: ['#f4f8fc', '#cddbe9', '#9fb2c8'], dk: ['#dfe8f2', '#b3c3d6', '#8a9cb3'] },
     mtn: '#6f8fb8', hill2: '#76b35a', ground: ['#8ccf5c', '#5fae45', '#3f8a37'], hill: '#7cc152', hillRim: '#c9ec9a',
     ring: '#ffe7a3', ringDot: '#fffbe9', curl: '#d79a2b', beam: ['#fffdf2', '#ffd970'], band: '#ffffff', hub: '#2f5a3a', hubRing: '#fff0bd', hubDash: '#e5ad41', halo: ['#fff6cf', '#ffe08a'], horse: '#fffef6',
-    gerWall: '#f5f1e8', gerRoof: '#fbf8f1', gerRim: '#cdb894', snowRoof: false,
+    gerWall: '#f7f3ea', gerRoof: '#fdfaf3', gerShade: '#d6cab5', gerSkirt: '#c7b89c', snowRoof: false,
     particles: 'sparkle', grain: .12, vignette: '#123a2a',
   },
   autumn: {
@@ -36,7 +36,7 @@ const P = {
     clouds: { lt: ['#ffe7cf', '#e9b597', '#b57d76'], mid: ['#d6a091', '#a8736f', '#7a5058'], dk: ['#9c6f74', '#734f5c', '#4f3647'] },
     mtn: '#7a5a78', hill2: '#c79a4e', ground: ['#e0b864', '#c08f45', '#8e6233'], hill: '#d7a95a', hillRim: '#f6dca0',
     ring: '#ffc98a', ringDot: '#fff0d8', curl: '#b9632f', beam: ['#fff3df', '#ffb46a'], band: '#fff6e6', hub: '#5a3326', hubRing: '#ffd9a8', hubDash: '#d9823e', halo: ['#ffe2bf', '#ff9f5a'], horse: '#fff6ea',
-    gerWall: '#ece0cc', gerRoof: '#f3e9d6', gerRim: '#b8936a', snowRoof: false,
+    gerWall: '#efe3cf', gerRoof: '#f6ecda', gerShade: '#c9ae8c', gerSkirt: '#b99c78', snowRoof: false,
     particles: 'leaves', grain: .15, vignette: '#2a1424',
   },
 };
@@ -80,19 +80,11 @@ function toono(cx, cy, R = 430, r0 = 150) {
   return s;
 }
 
-function ger(x, y, k) {
-  return `<g transform="translate(${x} ${y}) scale(${k})" filter="url(#paint)">
-    <ellipse cx="0" cy="8" rx="190" ry="22" fill="${C.vignette}" opacity=".2"/>
-    <path d="M-160 0 V-90 Q-160 -100 -150 -102 H150 Q160 -100 160 -90 V0Z" fill="${C.gerWall}"/>
-    <path d="M-160 -60 H160" stroke="#b8433a" stroke-width="10" opacity=".75"/>
-    <path d="M-176 -96 Q-80 -190 0 -200 Q80 -190 176 -96 Q90 -110 0 -110 Q-90 -110 -176 -96Z" fill="${C.gerRoof}"/>
-    <path d="M-176 -96 Q-80 -190 0 -200 Q80 -190 176 -96" fill="none" stroke="${C.gerRim}" stroke-width="5"/>
-    <path d="M-120 -120 L-60 -170 M-40 -150 L0 -196 M40 -150 L0 -196 M120 -120 L60 -170" stroke="${C.gerRim}" stroke-width="5" opacity=".55"/>
-    <rect x="-28" y="-95" width="56" height="95" rx="4" fill="#e3843a"/>
-    <path d="M-18 -80 h36 M-18 -50 h36 M0 -90 v80" stroke="#ffd27a" stroke-width="4" opacity=".8"/>
-    <path d="M-12 -200 C -40 -260 30 -300 0 -360 C -30 -420 40 -450 10 -520" fill="none" stroke="#ffffff" stroke-width="22" stroke-linecap="round" opacity=".3"/>
-  </g>`;
-}
+const ger = require('./ger.js')({
+  wall: C.gerWall, roof: C.gerRoof, shade: C.gerShade, skirt: C.gerSkirt, rope: '#5b4636',
+  band: '#2c5aa0', band2: '#f4e6b8', door: '#d9572b', frame: '#7a3f1e', ornament: '#f2c14e', ink: C.vignette,
+  glow: SEASON === 'autumn' ? '#ffcf7a' : null,
+});
 
 // animals
 function sheep(x, y, k, f = 1, wool = '#f3eee3') {
