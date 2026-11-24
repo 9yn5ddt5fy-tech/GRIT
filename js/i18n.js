@@ -513,7 +513,12 @@ const MN = {
   "30M ₮": "30 сая ₮",
   // Plan 2027 summary
   "Leaderboard": "Онооны самбар",
-  "Points from Таасан уу?, the history quiz, the timeline game and the picture books. A new week starts every Monday.": "“Таасан уу?”, түүхийн сорил, он дарааллын тоглоом, зурагт номоос авсан оноо. Шинэ долоо хоног Даваа гараг бүр эхэлнэ.",
+  "Points from Таасан уу?, Хэн бэ?, the history quiz, the timeline game and the picture books. A new week starts every Monday.": "“Таасан уу?”, “Хэн бэ?”, түүхийн сорил, он дарааллын тоглоом, зурагт номоос авсан оноо. Шинэ долоо хоног Даваа гараг бүр эхэлнэ.",
+  "Daily history game": "Өдөр тутмын түүхийн тоглоом",
+  "Every day, one person from Mongolian history is hidden behind five clues. Guess who it is with as few clues as you can.": "Өдөр бүр Монголын түүхэн нэгэн хүн таван сэжүүрийн ард нуугдана. Аль болох цөөн сэжүүрээр хэн болохыг нь таагаарай.",
+  "The first clue is the hardest, the last the easiest.": "Эхний сэжүүр хамгийн хэцүү, сүүлийнх нь хамгийн амархан.",
+  "A wrong guess opens the next clue.": "Буруу таавал дараагийн сэжүүр нээгдэнэ.",
+  "Solve it on the first clue for 5 points, on the last for 1.": "Эхний сэжүүрээр таавал 5 оноо, сүүлийнхээр таавал 1 оноо авна.",
   "Winter": "Өвөл",
   "Autumn": "Намар",
   "Summer": "Зун",
