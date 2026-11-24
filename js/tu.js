@@ -45,7 +45,7 @@
 .tu-pick--c button[aria-pressed=true]{border-color:var(--ink,#111);box-shadow:inset 0 0 0 2px var(--bg,#fff)}
 .tu-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:14px 0 6px}
 .tu-stats div{padding:12px 8px;border-radius:12px;background:color-mix(in srgb,currentColor 6%,transparent);text-align:center}
-.tu-stats b{display:block;font-size:18px}.tu-stats span{font-size:12px;opacity:.65}
+.tu-stats b{display:block;font-size:18px}.tu-stats .tu-stat-rank{display:flex;flex-direction:column;align-items:center;gap:3px;font-size:13.5px;line-height:1.2}.tu-stats span{font-size:12px;opacity:.65}
 .tu-g{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;height:48px;margin-top:16px;border:1.5px solid color-mix(in srgb,currentColor 35%,transparent);border-radius:12px;background:none;color:inherit;font:600 15px inherit;font-family:inherit;cursor:pointer}
 .tu-g svg{width:20px;height:20px}
 .tu-or{display:flex;align-items:center;gap:12px;margin:16px 0 4px;font-size:12.5px;opacity:.6}
@@ -72,10 +72,11 @@
 .tu-pos{width:28px;flex:none;text-align:center;font-weight:800;font-size:15px;opacity:.75}
 .tu-pos--1,.tu-pos--2,.tu-pos--3{display:grid;place-items:center;height:28px;border-radius:50%;color:#fff;opacity:1;font-size:13px}
 .tu-pos--1{background:#f4c430}.tu-pos--2{background:#aab4c0}.tu-pos--3{background:#d9915a}
-.tu-n{flex:1;min-width:0;display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}.tu-n b{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:15px;max-width:100%}
+.tu-n{flex:1;min-width:0;display:flex;align-items:center;gap:4px 8px;flex-wrap:wrap}.tu-n b{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:15px;max-width:100%}
 .tu-n small{display:inline-flex;align-items:center;gap:8px;font-size:12px;opacity:.75}
-.tu-rank{display:inline-flex;align-items:center;height:20px;padding:0 8px;border-radius:999px;font-size:11.5px;font-weight:700;white-space:nowrap;color:#fff;background:#8a939e}
-.tu-rank--1{background:#58a700}.tu-rank--2{background:#1899d6}.tu-rank--3{background:#a560e8}.tu-rank--4{background:#e57c00}.tu-rank--5{background:linear-gradient(135deg,#f4c430,#d99a00);color:#3a2600}
+.tu-rank{display:inline-flex;align-items:center;gap:4px;font-size:12.5px;font-weight:700;white-space:nowrap;color:#6b7480}
+.tu-rank--1{color:#4a8f00}.tu-rank--2{color:#1585bb}.tu-rank--3{color:#9050d6}.tu-rank--4{color:#cf6f00}.tu-rank--5{color:#b88700}
+.tu-badge{flex:none;display:block}
 .tu-fire{display:inline-flex;align-items:center;gap:3px;color:#e57c00;font-weight:700}.tu-fire svg{width:14px;height:14px}
 .tu-xp{font-weight:800;font-size:15px;white-space:nowrap}.tu-xp small{font-weight:600;font-size:12px;opacity:.6}
 .tu-empty{padding:18px 4px;opacity:.7}
@@ -207,7 +208,7 @@
   function statsLine() {
     if (!S || !S.stats) return "";
     const st = S.stats;
-    return `<div class="tu-stats"><div><b>${st.points}</b><span>${L("Оноо", "Points")}</span></div><div><b>${esc(st.rank)}</b><span>${L("Цол", "Rank")}</span></div><div><b>${st.streak}</b><span>${L("Дараалсан өдөр", "Day streak")}</span></div></div>`;
+    return `<div class="tu-stats"><div><b>${st.points}</b><span>${L("Оноо", "Points")}</span></div><div><b class="tu-stat-rank">${badge(st.lvl, 22)}${esc(st.rank)}</b><span>${L("Цол", "Rank")}</span></div><div><b>${st.streak}</b><span>${L("Дараалсан өдөр", "Day streak")}</span></div></div>`;
   }
   function accountHTML() {
     const p = S && S.player;
@@ -324,6 +325,20 @@
     return `<span class="tu-av ${cls}" style="background:${color(name)}">${esc((name || "?").trim()[0] || "?").toUpperCase()}</span>`;
   }
   const FLAME = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8.6 1.2c.4 2.1-.6 3.3-1.6 4.3C5.9 6.6 4.6 7.9 4.6 10a3.4 3.4 0 0 0 6.8.1c0-1.5-.7-2.4-1.3-3.2.1 1-.3 1.8-1 2.1.5-2.6-.4-5.6-1.5-7.8z" fill="#ff9600"/><path d="M8 14.2a2 2 0 0 1-2-2c0-1.2.9-1.9 1.6-2.8.3 1 1 1.3 1.5 1.6.5.3.9.7.9 1.3a2 2 0 0 1-2 1.9z" fill="#ffc800"/></svg>';
+  // One badge per rank: a hexagon in the rank's colour with its own sign.
+  const RANK_COL = ["#8a939e", "#58a700", "#1899d6", "#a560e8", "#e57c00", "#e0a800"];
+  const RANK_SIGN = [
+    '<path d="M8 16l8-8M12.2 8H16v3.8" stroke="#fff" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>',
+    '<path d="M8 13.6l4-3.2 4 3.2" stroke="#fff" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>',
+    '<path d="M8 11.4l4-3.2 4 3.2M8 15.6l4-3.2 4 3.2" stroke="#fff" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>',
+    '<path d="M8 9.6l4-3 4 3M8 13l4-3 4 3M8 16.4l4-3 4 3" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>',
+    '<path d="M12 6.6l1.6 3.4 3.7.4-2.8 2.5.8 3.7L12 14.7l-3.3 1.9.8-3.7-2.8-2.5 3.7-.4z" fill="#fff"/>',
+    '<path d="M7 15.5h10l.9-6.3-3.3 2.4L12 7.2l-2.6 4.4-3.3-2.4z" fill="#fff"/><path d="M7.3 17h9.4" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/>',
+  ];
+  function badge(lvl, size = 20) {
+    const l = Math.max(0, Math.min(5, lvl || 0)), c = RANK_COL[l];
+    return `<svg class="tu-badge" width="${size}" height="${size}" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.6l9.2 5.2v10.4L12 22.4l-9.2-5.2V6.8z" fill="${c}"/><path d="M12 3.4l7.6 4.3v8.6L12 20.6l-7.6-4.3V7.7z" fill="none" stroke="#fff" stroke-opacity=".35" stroke-width="1"/>${RANK_SIGN[l]}</svg>`;
+  }
   function endsIn(sec) {
     if (sec == null) return "";
     const d = Math.floor(sec / 86400), h = Math.floor((sec % 86400) / 3600);
@@ -333,7 +348,7 @@
     const medal = r.pos <= 3 ? `<span class="tu-pos tu-pos--${r.pos}">${r.pos}</span>` : `<span class="tu-pos">${r.pos}</span>`;
     const sub = [r.class ? esc(r.class) + " " + L("анги", "class") : "", r.streak >= 2 ? `<span class="tu-fire">${FLAME}${L(`${r.streak} өдөр`, `${r.streak} days`)}</span>` : ""].filter(Boolean).join(" ");
     return `<li class="tu-r${r.me ? " is-me" : ""}">${medal}${av(r.name, r.avatar)}
-      <span class="tu-n"><b>${esc(r.name)}</b>${r.rank ? `<span class="tu-rank tu-rank--${Math.min(5, r.lvl || 0)}">${esc(r.rank)}</span>` : ""}${sub ? `<small>${sub}</small>` : ""}</span><span class="tu-xp">${r.xp} <small>${L("оноо", "pts")}</small></span></li>`;
+      <span class="tu-n"><b>${esc(r.name)}</b>${r.rank ? `<span class="tu-rank tu-rank--${Math.min(5, r.lvl || 0)}">${badge(r.lvl, 18)}${esc(r.rank)}</span>` : ""}${sub ? `<small>${sub}</small>` : ""}</span><span class="tu-xp">${r.xp} <small>${L("оноо", "pts")}</small></span></li>`;
   }
   function renderBoard(el, data, opts = {}) {
     if (!data) { el.innerHTML = `<p class="tu-empty">${L("Ачаалж байна…", "Loading…")}</p>`; return; }
@@ -365,7 +380,7 @@
   }
   function reloadBoards() { document.querySelectorAll("[data-tu-board]").forEach((el) => loadBoard(el, el.dataset.scope || "week")); }
 
-  window.GRIT_TU = { award, openAccount, renderBoard, loadBoard, rpc, call, refresh, toast, get token() { return token; }, set token(t) { setToken(t); }, get state() { return S; } };
+  window.GRIT_TU = { badge, award, openAccount, renderBoard, loadBoard, rpc, call, refresh, toast, get token() { return token; }, set token(t) { setToken(t); }, get state() { return S; } };
 
   if (window.TU_NO_AUTO) return;
   // ------------------------------------------------------------ page wiring
