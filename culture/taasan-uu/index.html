@@ -429,7 +429,7 @@ const HORSE='M13.1 2.2L85.9 2.2L86.6 2.8L87.8 2.8L89.7 3.8L90 4.4L90.9 4.4L91.3 
 /* ---------- server (Supabase) ----------
    The words, scores, classes and leaderboards live on the server
    (supabase/001_taasan_uu.sql). This page only keeps a session token. */
-const TU_API = window.TU_API || { url: 'https://wrjgihdvjwriurdiotih.supabase.co', key: 'sb_publishable_4SDR_v8yrRdlm0k97LqwaQ_tugAqXPN' };
+const TU_API = window.TU_API || { url: 'https://wrjgihdvjwriurdiotih.supabase.co', key: 'sb_publishable_4SDR_v8yrRdlm0k97LqwaQ_tugAqXPN', google: true };
 const ERR = {
   session: 'Нэвтрэлт дууссан, дахин оролдоно уу', word: '5 үсэг оруулна уу', over: 'Өнөөдрийн тоглоом дууссан',
   reveal: 'Үсэг нээх боломжгүй байна', pos: 'Хоосон нүд сонгоно уу', code: 'Ангийн код буруу байна',
@@ -708,7 +708,7 @@ document.getElementById('boardBtn').addEventListener('click',openBoard);
 /* ---------- account: nickname + PIN, or Google (Supabase Auth) ---------- */
 // Google sign-in is switched on once the Google provider is set up in Supabase Auth.
 const GOOGLE_ON = !!TU_API.google;
-const SB_JS = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js';
+const SB_JS = '/js/vendor/supabase-2.45.4.js';
 let sbClient = null;
 function supa(){
   if(sbClient)return Promise.resolve(sbClient);
