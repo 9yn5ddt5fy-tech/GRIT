@@ -249,6 +249,16 @@
   table.lb td:first-child{width:24px;color:rgba(0,0,0,.45)}
   .muted{color:rgba(0,0,0,.55)!important}.small{font-size:12.5px!important;margin-top:8px}
   .linkbtn{background:none;border:none;padding:0;font:inherit;text-decoration:underline;cursor:pointer;color:#000}
+  .acc p{font-size:14.5px;line-height:1.5}
+  .acc .who{margin:4px 0 14px;padding:14px 16px;border-radius:8px;background:#fff;border:1px solid rgba(0,0,0,.12);font-size:15px}
+  .acc .gbtn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;height:50px;margin-top:14px;border:1.5px solid #000;border-radius:6px;background:#fff;color:#000;font:700 15px 'Onest',Arial,sans-serif;cursor:pointer}
+  .acc .gbtn svg{width:20px;height:20px}
+  .acc .or{display:flex;align-items:center;gap:12px;margin:18px 0 6px;font-size:12.5px;color:rgba(0,0,0,.5)}
+  .acc .or::before,.acc .or::after{content:"";flex:1;height:1px;background:rgba(0,0,0,.15)}
+  .acc form{display:grid;gap:10px;margin-top:8px}
+  .acc label{display:grid;gap:4px;font-size:12px;font-weight:600;color:rgba(0,0,0,.6)}
+  .acc input{height:44px;border:1.5px solid rgba(0,0,0,.2);border-radius:6px;padding:0 12px;font:600 16px 'Onest',Arial,sans-serif;background:#fff;color:#000}
+  .acc .row{display:flex;gap:10px}
   .joinwrap{margin-top:18px;border:1px solid rgba(0,0,0,.15);border-radius:8px;background:#fff}
   .joinwrap summary{list-style:none;cursor:pointer;padding:13px 16px;font-weight:700;font-size:15px;display:flex;justify-content:space-between;align-items:center}
   .joinwrap summary::-webkit-details-marker{display:none}
@@ -281,6 +291,7 @@
       <button id="helpBtn" aria-label="Заавар"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.6 9.3a2.5 2.5 0 1 1 3.4 2.3c-.7.3-1 .8-1 1.5v.6"/><circle cx="12" cy="16.9" r=".6" fill="currentColor"/></svg></button>
       <button id="rankBtn" aria-label="Цол"><svg viewBox="0 0 24 24"><path d="M6 14l6-5 6 5M6 19l6-5 6 5M6 9l6-5 6 5"/></svg></button>
       <button id="boardBtn" aria-label="Онооны самбар"><svg viewBox="0 0 24 24"><path d="M4 20h16M6 20v-6h4v6M10 20V9h4v11M14 20v-8h4v8"/></svg></button>
+      <button id="accBtn" aria-label="Бүртгэл"><svg viewBox="0 0 24 24"><circle cx="12" cy="8.5" r="3.5"/><path d="M5 20c.8-3.6 3.6-5.5 7-5.5s6.2 1.9 7 5.5"/></svg></button>
       <button id="statsBtn" aria-label="Үр дүн"><svg viewBox="0 0 24 24"><path d="M6 19v-6M12 19V7M18 19v-9"/></svg></button>
     </nav>
   </div>
@@ -368,6 +379,13 @@
   <div id="boardBody"></div>
 </div></div>
 
+<div class="overlay" id="accOv"><div class="sheet">
+  <button class="close" data-close>✕</button>
+  <div class="eyebrow">Аль ч утаснаас</div>
+  <h2>Бүртгэл</h2>
+  <div id="accBody"></div>
+</div></div>
+
 <div class="overlay" id="storyOv"><div class="sheet story">
   <button class="close" data-close>✕</button>
   <div class="eyebrow">Story зураг</div>
@@ -417,7 +435,10 @@ const ERR = {
   reveal: 'Үсэг нээх боломжгүй байна', pos: 'Хоосон нүд сонгоно уу', code: 'Ангийн код буруу байна',
   nickname: 'Нэр 2–20 үсэг эсвэл тооноос бүрдэнэ', pin_format: 'PIN нь 4 оронтой тоо байх ёстой', pin: 'PIN буруу байна',
   locked: 'Олон удаа буруу оруулсан тул 15 минут хүлээнэ үү', already: 'Та аль хэдийн ангид бүртгэлтэй байна',
-  network: 'Сүлжээний алдаа, дахин оролдоно уу'
+  network: 'Сүлжээний алдаа, дахин оролдоно уу',
+  handle: 'Нэр 3–20 үсэг эсвэл тооноос бүрдэнэ', taken: 'Энэ нэр бүртгэлтэй байна, өөр нэр сонгоно уу',
+  login: 'Нэр эсвэл PIN буруу байна', class: 'Ангийн гишүүд ангийн код, нэр, PIN-ээрээ нэвтэрнэ',
+  auth: 'Google-ээр нэвтэрч чадсангүй', linked: 'Энэ бүртгэл өөр Google бүртгэлтэй холбогдсон байна'
 };
 const errMsg = e => ERR[e && e.message] || ERR.network;
 const ROWS = [
@@ -431,11 +452,11 @@ const store={
   set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}},
   del(k){try{localStorage.removeItem(k)}catch(e){}}
 };
-async function rpc(fn,args={}){
+async function rpc(fn,args={},jwt){
   let r,j;
   try{
     const h={'Content-Type':'application/json',apikey:TU_API.key};
-    if(/^eyJ/.test(TU_API.key))h.Authorization='Bearer '+TU_API.key;
+    if(jwt)h.Authorization='Bearer '+jwt;else if(/^eyJ/.test(TU_API.key))h.Authorization='Bearer '+TU_API.key;
     r=await fetch(TU_API.url.replace(/\/$/,'')+'/rest/v1/rpc/'+fn,{method:'POST',headers:h,body:JSON.stringify(args)});
     j=await r.json().catch(()=>null);
   }catch(e){throw new Error('network')}
@@ -684,6 +705,67 @@ async function openBoard(){
 }
 document.getElementById('boardBtn').addEventListener('click',openBoard);
 
+/* ---------- account: nickname + PIN, or Google (Supabase Auth) ---------- */
+// Google sign-in is switched on once the Google provider is set up in Supabase Auth.
+const GOOGLE_ON = !!TU_API.google;
+const SB_JS = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js';
+let sbClient = null;
+function supa(){
+  if(sbClient)return Promise.resolve(sbClient);
+  return new Promise((ok,no)=>{const sc=document.createElement('script');sc.src=SB_JS;
+    sc.onload=()=>{sbClient=window.supabase.createClient(TU_API.url,TU_API.key,{auth:{flowType:'pkce',detectSessionInUrl:true,persistSession:true,storageKey:'tu_sb'}});ok(sbClient)};
+    sc.onerror=()=>no(new Error('network'));document.head.appendChild(sc)})}
+const G_ICON='<svg viewBox="0 0 24 24"><path fill="#4285F4" d="M23.5 12.3c0-.8-.1-1.6-.2-2.3H12v4.4h6.5a5.6 5.6 0 0 1-2.4 3.6v3h3.9c2.2-2.1 3.5-5.1 3.5-8.7z"/><path fill="#34A853" d="M12 24c3.2 0 6-1.1 7.9-2.9l-3.9-3c-1.1.7-2.4 1.2-4 1.2-3.1 0-5.7-2.1-6.6-4.9h-4v3.1A12 12 0 0 0 12 24z"/><path fill="#FBBC05" d="M5.4 14.4a7.2 7.2 0 0 1 0-4.7V6.6h-4a12 12 0 0 0 0 10.8l4-3z"/><path fill="#EA4335" d="M12 4.8c1.7 0 3.3.6 4.5 1.8l3.4-3.4A12 12 0 0 0 1.4 6.6l4 3.1C6.3 6.9 8.9 4.8 12 4.8z"/></svg>';
+function signedIn(s){const p=s.player;return p.class||p.handle||p.google}
+function accHTML(){
+  const p=S.player;
+  if(signedIn(S)){
+    const who=p.class?`<b>${esc(p.nickname)}</b>, ${esc(p.school||'')} ${esc(p.class)} анги`:p.handle?`<b>${esc(p.handle)}</b>${p.google?', Google-тэй холбосон':''}`:'<b>Google бүртгэл</b>';
+    return `<div class="acc"><p>Та нэвтэрсэн байна. Оноо, цол тань аль ч утсан дээр хадгалагдана.</p><div class="who">${who}</div>
+      ${GOOGLE_ON&&!p.google?`<button class="gbtn" id="gBtn">${G_ICON}Google бүртгэлээ холбох</button>`:''}
+      <button class="btn ghost" id="outBtn" style="width:100%;margin-top:12px">Энэ утаснаас гарах</button></div>`}
+  return `<div class="acc"><p>Одоо та зочноор тоглож байна. Оноо, цол тань зөвхөн энэ утсанд хадгалагдаж байгаа. Нэвтэрвэл өөр утаснаас ч үргэлжлүүлж, утсаа солиход оноогоо алдахгүй. Энэ утсан дээр цуглуулсан оноо тань бүртгэлд шилжинэ.</p>
+    ${GOOGLE_ON?`<button class="gbtn" id="gBtn">${G_ICON}Google-ээр нэвтрэх</button><div class="or">эсвэл нэр, PIN-ээр</div>`:''}
+    <form id="accForm" autocomplete="off">
+      <label>Нэр (хоч)<input name="handle" maxlength="20" required placeholder="ж: Болд2010"></label>
+      <label>PIN (4 тоо)<input name="pin" inputmode="numeric" pattern="[0-9]{4}" maxlength="4" required placeholder="••••"></label>
+      <div class="row"><button class="btn" type="submit" data-act="login">Нэвтрэх</button><button class="btn ghost" type="submit" data-act="register">Бүртгүүлэх</button></div>
+    </form>
+    <p class="muted small">Нэр, PIN-ээр бүртгүүлэхэд бид таны имэйл, утасны дугаарыг авдаггүй.${GOOGLE_ON?' Google-ээр нэвтрэхэд таны имэйл хаяг зөвхөн нэвтрэлтэд ашиглагдах бөгөөд самбарт харагдахгүй.':''} Ангийн гишүүд ангийн код, нэр, PIN-ээрээ нэвтэрнэ.</p></div>`}
+function openAcc(){
+  if(!S)return;const box=document.getElementById('accBody');box.innerHTML=accHTML();
+  document.getElementById('accOv').classList.add('open');
+  const f=document.getElementById('accForm');let act='login';
+  if(f){f.querySelectorAll('[data-act]').forEach(b=>b.addEventListener('click',()=>act=b.dataset.act));
+    f.addEventListener('submit',async e=>{e.preventDefault();const d=new FormData(f);
+      try{const s=await call(act==='register'?'tu_register':'tu_login',{p_handle:d.get('handle'),p_pin:d.get('pin')});
+        if(s.token){token=s.token;store.set('tu_token',token)}S=s;loadedAt=Date.now();render();
+        document.getElementById('resOv').classList.remove('open');
+        toast(act==='register'?'Бүртгэл үүслээ':'Нэвтэрлээ',2000);openAcc()}
+      catch(err){toast(errMsg(err),2600)}})}
+  const g=document.getElementById('gBtn');
+  if(g)g.addEventListener('click',async()=>{try{const sb=await supa();
+    store.set('tu_google_pending',true);
+    await sb.auth.signInWithOAuth({provider:'google',options:{redirectTo:location.origin+location.pathname}})}catch(e){toast(errMsg(e),2600)}});
+  const o=document.getElementById('outBtn');
+  if(o)o.addEventListener('click',async()=>{if(!confirm('Энэ утаснаас гарах уу? Дахин нэвтэрч оноогоо үргэлжлүүлж болно.'))return;
+    try{await rpc('tu_logout',{p_token:token})}catch(e){}
+    token=null;store.del('tu_token');document.getElementById('accOv').classList.remove('open');await load()});
+}
+document.getElementById('accBtn').addEventListener('click',openAcc);
+// Back from Google: exchange the code for a session, then link or sign in to the game account.
+async function finishGoogle(){
+  if(!/[?&]code=/.test(location.search)||!store.get('tu_google_pending',false))return false;
+  store.del('tu_google_pending');
+  try{const sb=await supa();const {data}=await sb.auth.getSession();const jwt=data&&data.session&&data.session.access_token;
+    if(!jwt)throw new Error('auth');
+    if(!token)await startGuest();
+    const s=await rpc('tu_google',{p_token:token},jwt);
+    if(s.token){token=s.token;store.set('tu_token',token)}
+    try{await sb.auth.signOut({scope:'local'})}catch(e){}
+    history.replaceState(null,'',location.pathname);S=s;loadedAt=Date.now();render();toast('Google-ээр нэвтэрлээ',2200);return true}
+  catch(e){history.replaceState(null,'',location.pathname);toast(errMsg(e),3000);return false}}
+
 /* ---------- share text ---------- */
 const numLabel=()=>S?`№${S.no}`:'';
 function shareText(){
@@ -774,7 +856,7 @@ document.addEventListener('keydown',e=>{if(e.metaKey||e.ctrlKey||e.altKey)return
   if(e.key==='Enter'){e.preventDefault();press('ENTER')}else if(e.key==='Backspace')press('DEL');
   else{const k=e.key.toUpperCase();if(LETTERS.has(k))press(k)}});
 
-buildBoard();buildKb();load();
+buildBoard();buildKb();finishGoogle().then(done=>{if(!done)load()});
 if(!store.get('tu_seen5',false)){document.getElementById('helpOv').classList.add('open');store.set('tu_seen5',true)}
 </script>
 </body>
