@@ -26,7 +26,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:wght@500;600;700&family=PT+Serif:ital@0;1&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=94">
+  <link rel="stylesheet" href="css/style.css?v=95">
   <script>
     (function () {
       var d = document.documentElement, s = null, l = null;
@@ -38,7 +38,7 @@
       var se = q || (m >= 3 && m <= 5 ? "spring" : m >= 6 && m <= 8 ? "summer" : m >= 9 && m <= 10 ? "autumn" : "winter");
       d.setAttribute("data-season", se);
       var pl = document.createElement("link"); pl.rel = "preload"; pl.as = "image"; pl.fetchPriority = "high";
-      pl.setAttribute("imagesrcset", "assets/img/hero-" + se + "-m.jpg?v=6 1080w, assets/img/hero-" + se + ".jpg?v=6 2560w");
+      pl.setAttribute("imagesrcset", "assets/img/hero-" + se + "-m.jpg?v=7 1080w, assets/img/hero-" + se + ".jpg?v=7 2560w");
       pl.setAttribute("imagesizes", "100vw"); document.head.appendChild(pl);
       // Mongolian is the default; English only when the visitor chose it.
       if (l !== "en") { d.setAttribute("data-lang", "mn"); d.lang = "mn"; d.classList.add("i18n-wait"); setTimeout(function () { d.classList.remove("i18n-wait"); }, 2500); }
