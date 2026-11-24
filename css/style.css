@@ -3585,3 +3585,4 @@ html[data-season="autumn"] .hero__bg--season { background-image: url(../assets/i
 }
 .page-plan .table tbody th { white-space: normal; }
 @media (max-width: 640px) { .page-plan .table th, .page-plan .table td { padding: 12px 10px; font-size: 14px; } }
+.plan-note { margin-top: 22px; padding: 16px 18px; border: 1px solid var(--accent-soft); border-radius: 12px; background: var(--tint); color: var(--ink); line-height: 1.55; }
