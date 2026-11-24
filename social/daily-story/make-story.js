@@ -1,4 +1,5 @@
 // Make the "word of the day" story for a date, using the game's word from Supabase.
+// The design matches the word posts in ../word-post (green, alkhan pattern, gold tiles).
 // Usage: node make-story.js 2026-11-17 [label]
 //   label defaults to "Өнөөдрийн үг"; use "Өчигдрийн үг" when posting the next morning.
 const fs = require('fs'), path = require('path'), { execFileSync } = require('child_process');
@@ -20,5 +21,6 @@ const title = word[0] + word.slice(1).toLowerCase();
 const cfg = { no, date: day.replace(/-/g, '.'), label, word, cat, era, title, info, cta: 'Маргаашийн үгээ таахад бэлэн үү?', logo: process.env.LOGO };
 const cfgPath = path.join(__dirname, `story-${no}.json`);
 fs.writeFileSync(cfgPath, JSON.stringify(cfg, null, 2));
-execFileSync('node', [path.join(__dirname, 'buildstory.js'), cfgPath], { stdio: 'inherit' });
-console.log(`№${no} ${word} → story-${no}.html (open it and screenshot at 1080×1920, or run render-story.js)`);
+execFileSync('node', [path.join(__dirname, 'buildpost.js'), cfgPath], { stdio: 'inherit' });
+execFileSync('node', [path.join(__dirname, 'render-story.js'), String(no)], { stdio: 'inherit' });
+console.log(`№${no} → story-${no}.jpg`);

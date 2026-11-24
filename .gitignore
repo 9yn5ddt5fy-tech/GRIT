@@ -1,0 +1,5 @@
+
+# daily word stories hold the day's answer: keep them out of the public repo
+social/daily-story/story-*.json
+social/daily-story/story-*.html
+social/daily-story/story-*.jpg
