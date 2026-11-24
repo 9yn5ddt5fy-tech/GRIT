@@ -441,7 +441,9 @@ async function rpc(fn,args={}){
   }catch(e){throw new Error('network')}
   if(!r.ok)throw new Error((j&&j.message)||'network');
   if(j&&j.error)throw new Error(j.error);
-  return j}
+  return quotes(j)}
+// the word texts use «» quotes; show them as “ ” like the rest of the site
+const quotes=v=>typeof v==='string'?v.replace(/«/g,'“').replace(/»/g,'”'):Array.isArray(v)?v.map(quotes):v&&typeof v==='object'?Object.fromEntries(Object.entries(v).map(([k,x])=>[k,quotes(x)])):v;
 let token=store.get('tu_token',null);
 async function startGuest(){const s=await rpc('tu_start');token=s.token;store.set('tu_token',token);return s}
 async function call(fn,args={}){
