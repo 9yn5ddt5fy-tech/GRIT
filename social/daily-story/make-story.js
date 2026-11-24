@@ -16,7 +16,8 @@ const args = ['-sS', '--max-time', '30', '-X', 'POST', 'https://api.supabase.com
 if (process.env.SUPABASE_TOKEN) args.push('-H', 'Authorization: Bearer ' + process.env.SUPABASE_TOKEN);
 const res = JSON.parse(execFileSync('curl', args, { encoding: 'utf8' }));
 if (!Array.isArray(res) || !res[0]) throw new Error('Could not read the word: ' + JSON.stringify(res));
-const { word, cat, info, era } = res[0].row_to_json;
+const q2 = (t) => (t || '').replace(/«/g, '“').replace(/»/g, '”'); // no «» quotes in our designs
+const { word, cat, era } = res[0].row_to_json, info = q2(res[0].row_to_json.info);
 const title = word[0] + word.slice(1).toLowerCase();
 const cfg = { no, date: day.replace(/-/g, '.'), label, word, cat, era, title, info, cta: 'Маргаашийн үгээ таахад бэлэн үү?', logo: process.env.LOGO };
 const cfgPath = path.join(__dirname, `story-${no}.json`);
