@@ -175,14 +175,20 @@ for (let i = 0; i < NP; i++) {
 }
 
 // the left hill and what stands on it
-const hill = (dy = 0) => `<path d="M-20 ${hz + 40 + dy} Q150 ${hz - 120 + dy} 420 ${hz - 200 + dy} Q640 ${hz - 250 + dy} 900 ${hz - 175 + dy} Q1120 ${hz - 110 + dy} 1320 ${hz + 30 + dy} V${hz + 190 + dy} H-20Z" fill="${C.hill}" filter="url(#paint)"/><path d="M40 ${hz - 40 + dy} Q240 ${hz - 175 + dy} 470 ${hz - 215 + dy} Q660 ${hz - 248 + dy} 880 ${hz - 182 + dy}" fill="none" stroke="${C.hillRim}" stroke-width="10" opacity=".6" filter="url(#paint)"/>`;
+const hill = (dy = 0) => `<path d="M-20 ${hz + 40 + dy} Q150 ${hz - 120 + dy} 420 ${hz - 200 + dy} Q640 ${hz - 250 + dy} 900 ${hz - 175 + dy} Q1160 ${hz - 100 + dy} 1480 ${hz + 120 + dy} V${hz + 190 + dy} H-20Z" fill="url(#hillG)" filter="url(#paint)"/><path d="M40 ${hz - 40 + dy} Q240 ${hz - 175 + dy} 470 ${hz - 215 + dy} Q660 ${hz - 248 + dy} 880 ${hz - 182 + dy}" fill="none" stroke="${C.hillRim}" stroke-width="10" opacity=".6" filter="url(#paint)"/>`;
 let herd = '';
 if (DESK) {
   const yh = (x) => hz - 70 - (x < 470 ? 40 + (x - 40) / 430 * 175 : 215 - (x - 470) / 410 * 30);
   if (SEASON === 'spring') herd = pen(560, hz - 275, .8) + sheep(250, hz - 220, 1) + lamb(300, hz - 222, 1, -1) + goat(360, hz - 240, .95) + sheep(450, hz - 258, 1.05, -1) + lamb(500, hz - 262, 1) + sheep(735, hz - 266, 1) + lamb(790, hz - 262, 1, -1) + goat(870, hz - 244, .95, -1, '#3e3540') + flowers(80, 1200, yh, 46, ['#8f6bd6', '#b28be8', '#ffffff'], 1.3);
   if (SEASON === 'summer') herd = horse(330, hz - 230, 1.15) + horse(470, hz - 262, 1, -1, '#e9dcc0', '#6b5a44') + horse(640, hz - 276, 1.1, 1, '#3a2a20', '#1d140f') + sheep(800, hz - 262, 1) + sheep(860, hz - 250, .95, -1) + goat(930, hz - 236, .9) + flowers(80, 1200, yh, 54, ['#ffe25a', '#ffffff', '#ff8a5a', '#8fb0ff'], 1.2);
   if (SEASON === 'autumn') herd = haystack(560, hz - 262, 1.05) + haystack(700, hz - 262, .8) + sheep(250, hz - 220, 1) + goat(330, hz - 238, .95, 1, '#6e5a52') + sheep(410, hz - 252, 1.05, -1) + sheep(830, hz - 254, 1, -1) + goat(905, hz - 236, .95, -1, '#3e3540') + larch(140, hz - 175, 170, '#e7a43a') + larch(1060, hz - 200, 150, '#d9822e') + larch(1150, hz - 160, 120, '#f0b84a');
-  herd = `<g transform="translate(0 -70)">${hill()}</g>` + herd;
+  // grass texture and flowers clipped to the hill, so it reads as a real slope
+  let hs = '';
+  for (let i = 0; i < 700; i++) {
+    const x = rnd() * 1480, y = hz - 260 + rnd() * 460, sc = .7 + rnd() * .8, c = [C.hillRim, C.ground[1], C.ground[2]][i % 3];
+    hs += `<path d="M${x.toFixed(1)} ${y.toFixed(1)} q${(-3 * sc).toFixed(1)} ${(-9 * sc).toFixed(1)} ${(-1 * sc).toFixed(1)} ${(-18 * sc).toFixed(1)} M${(x + 4 * sc).toFixed(1)} ${y.toFixed(1)} q${(2 * sc).toFixed(1)} ${(-8 * sc).toFixed(1)} ${(6 * sc).toFixed(1)} ${(-14 * sc).toFixed(1)}" stroke="${c}" stroke-width="${(2 * sc).toFixed(1)}" fill="none" stroke-linecap="round" opacity=".55"/>`;
+  }
+  herd = `<g transform="translate(0 -70)">${hill()}<g clip-path="url(#hillClip)">${hs}<ellipse cx="380" cy="${hz - 150}" rx="420" ry="90" fill="#ffffff" opacity=".14" filter="url(#blur30)"/></g></g>` + herd;
 } else {
   // phone: a few animals on the near ground
   const gy = hz + 250;
@@ -200,9 +206,12 @@ const DEFS = fs.readFileSync(__dirname + '/parts_defs.txt', 'utf8').replace(/\$\
   .replace(/<linearGradient id="beam"[^]*?<\/linearGradient>/, `<linearGradient id="beam" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="${C.beam[0]}"/><stop offset="1" stop-color="${C.beam[1]}"/></linearGradient>`)
   .replace(/<radialGradient id="moon"[^]*?<\/radialGradient>/, `<radialGradient id="moon" cx=".45" cy=".4" r=".6"><stop offset="0" stop-color="${C.sun[0]}"/><stop offset="1" stop-color="${C.sun[1]}"/></radialGradient>`);
 
+const LF = require('./life.js')({ C, SEASON, W, H, hz, DESK, rnd, horse });
 const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">
 <defs>${DEFS}
   <linearGradient id="groundS" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${C.ground[0]}"/><stop offset=".4" stop-color="${C.ground[1]}"/><stop offset="1" stop-color="${C.ground[2]}"/></linearGradient>
+  <linearGradient id="hillG" x1="0" y1="0" x2=".35" y2="1"><stop offset="0" stop-color="${C.hillRim}"/><stop offset=".35" stop-color="${C.hill}"/><stop offset="1" stop-color="${C.ground[1]}"/></linearGradient>
+  <clipPath id="hillClip"><path d="M-20 ${hz + 40} Q150 ${hz - 120} 420 ${hz - 200} Q640 ${hz - 250} 900 ${hz - 175} Q1160 ${hz - 100} 1480 ${hz + 120} V${hz + 190} H-20Z"/></clipPath>
   <radialGradient id="vigS" cx=".5" cy=".45" r=".8"><stop offset=".62" stop-color="${C.vignette}" stop-opacity="0"/><stop offset="1" stop-color="${C.vignette}" stop-opacity=".38"/></radialGradient>
   ${L.clouds.map((c) => c.defs).join('')}
 </defs>
@@ -212,14 +221,20 @@ const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" 
 <g filter="url(#paint)"><circle cx="${L.sun[0]}" cy="${L.sun[1]}" r="${L.sun[2] * C.sunR}" fill="url(#moon)"/></g>
 ${L.clouds[2].body}${L.clouds[0].body}${L.clouds[1].body}
 ${flock}
+${LF.sky}
 ${toono(...L.toono)}
 <path d="${mtn}" fill="${C.mtn}" opacity=".9" filter="url(#paint)"/>
+${LF.ridge}
 <path d="M0 ${hz + 40} Q${W * .25} ${hz} ${W * .5} ${hz + 30} T${W} ${hz + 20} V${H} H0Z" fill="${C.hill2}" filter="url(#paint)"/>
 <path d="M0 ${hz + 90} Q${W * .3} ${hz + 50} ${W * .6} ${hz + 80} T${W} ${hz + 70} V${H} H0Z" fill="url(#groundS)" filter="url(#paint)"/>
+${LF.ground}
 ${L.clouds.slice(3).map((c) => c.body).join('')}
 ${herd}
+${LF.hill}
 ${L.gers.map(([x, y, k]) => ger(x, y, k)).join('')}
+${LF.mid}
 ${parts}
+${LF.front}
 <rect width="${W}" height="${H}" fill="url(#vigS)"/>
 <rect width="${W}" height="${H}" filter="url(#grain)" opacity="${C.grain}" style="mix-blend-mode:overlay"/>
 </svg>`;
