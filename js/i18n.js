@@ -512,6 +512,8 @@ const MN = {
   "380 km": "380 км",
   "30M ₮": "30 сая ₮",
   // Plan 2027 summary
+  "Leaderboard": "Онооны самбар",
+  "Points from Таасан уу?, the history quiz, the timeline game and the picture books. A new week starts every Monday.": "“Таасан уу?”, түүхийн сорил, он дарааллын тоглоом, зурагт номоос авсан оноо. Шинэ долоо хоног Даваа гараг бүр эхэлнэ.",
   "Winter": "Өвөл",
   "Autumn": "Намар",
   "Summer": "Зун",

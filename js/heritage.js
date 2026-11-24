@@ -933,6 +933,8 @@ const UI = {
       const p = e.target.closest("[data-pick]");
       if (p && picked == null) {
         picked = +p.dataset.pick;
+        // points for a right answer to a book's question (counted once per book)
+        if (picked === story.check.ok) window.GRIT_TU?.award("book", 1, 1, story.id);
         renderBook();
         dlg.querySelector("[data-book-next]")?.focus();
       }
@@ -1018,7 +1020,10 @@ const UI = {
       if (a && a.dataset.quiz === "next") {
         quiz.i++;
         quiz.picked = null;
-        if (quiz.i >= quiz.list.length) quiz.over = true;
+        if (quiz.i >= quiz.list.length) {
+          quiz.over = true;
+          window.GRIT_TU?.award("quiz", quiz.score, quiz.list.length);
+        }
         renderQuiz();
         (quizEl.querySelector(".opt") || quizEl.querySelector("button"))?.focus();
         return;
@@ -1085,7 +1090,11 @@ const UI = {
       const p = e.target.closest("[data-tlpick]");
       if (p && tl && !tl.over) {
         tl.placed.push(EVENTS[+p.dataset.tlpick]);
-        if (tl.placed.length === TN) tl.over = true;
+        if (tl.placed.length === TN) {
+          tl.over = true;
+          const sorted = tl.pool.slice().sort((a, b) => a.y - b.y);
+          window.GRIT_TU?.award("timeline", tl.placed.filter((x, i) => x === sorted[i]).length, TN);
+        }
         renderTimeline();
         (tlEl.querySelector(".tl__pool .opt") || tlEl.querySelector("button"))?.focus();
       }
