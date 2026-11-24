@@ -61,9 +61,13 @@ let mtnH = `M0 ${hz}`, mx = 0, mk = 0;
 while (mx < W2) { const w = 140 + ((mk * 97) % 5) * 40, h = 60 + ((mk * 61) % 4) * 42; mtnH += ` L${mx + w / 2} ${hz - h} L${mx + w} ${hz - ((mk * 37) % 3) * 12}`; mx += w; mk++; }
 mtnH += ` L${W2} ${hz + 200} L0 ${hz + 200}Z`;
 
+let hillTex = '';
+for (let i = 0; i < 260; i++) { const x = rnd() * 1480, y = hz - 240 + rnd() * 440, sc = .7 + rnd() * .8; hillTex += `<path d="M${(x - 16 * sc).toFixed(1)} ${y.toFixed(1)} q${(16 * sc).toFixed(1)} ${(-6 * sc).toFixed(1)} ${(32 * sc).toFixed(1)} 0" stroke="${['#eef2fa', '#c9d4e8', '#ffffff'][i % 3]}" stroke-width="${(2.2 * sc).toFixed(1)}" fill="none" stroke-linecap="round" opacity=".45"/>`; }
+const LF = require(__dirname + '/../life.js')({ C: { vignette: '#1a1d36' }, SEASON: 'winter', W: W2, H: H2, hz, DESK, rnd });
 const svgH = `<svg xmlns="http://www.w3.org/2000/svg" width="${W2}" height="${H2}" viewBox="0 0 ${W2} ${H2}">
 <defs>${DEFS}
   <linearGradient id="groundN" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#a3a4c8"/><stop offset=".35" stop-color="#7f80aa"/><stop offset="1" stop-color="#4d4d7a"/></linearGradient>
+  <clipPath id="hillClipW"><path d="M-20 ${hz + 40} Q150 ${hz - 120} 420 ${hz - 200} Q640 ${hz - 250} 900 ${hz - 175} Q1160 ${hz - 100} 1480 ${hz + 120} V${hz + 190} H-20Z"/></clipPath>
   <radialGradient id="vigH" cx=".5" cy=".45" r=".8"><stop offset=".6" stop-color="#0b0c1c" stop-opacity="0"/><stop offset="1" stop-color="#0b0c1c" stop-opacity=".45"/></radialGradient>
   ${L.clouds.map((c) => c.defs).join('')}
 </defs>
@@ -73,13 +77,19 @@ const svgH = `<svg xmlns="http://www.w3.org/2000/svg" width="${W2}" height="${H2
 <circle cx="${L.moon[0]}" cy="${L.moon[1]}" r="${L.moon[2] * 1.9}" fill="#f6e08a" opacity=".12" filter="url(#blur30)"/>
 ${L.clouds[2].body}${L.clouds[0].body}${L.clouds[1].body}
 ${toono(...L.toono)}
+${LF.sky}
 <path d="${mtnH}" fill="#6a6894" opacity=".9" filter="url(#paint)"/>
+${LF.ridge}
 <path d="M0 ${hz + 40} Q${W2 * .25} ${hz} ${W2 * .5} ${hz + 30} T${W2} ${hz + 20} V${H2} H0Z" fill="#8c8cb4" filter="url(#paint)"/>
 <path d="M0 ${hz + 90} Q${W2 * .3} ${hz + 50} ${W2 * .6} ${hz + 80} T${W2} ${hz + 70} V${H2} H0Z" fill="url(#groundN)" filter="url(#paint)"/>
+${LF.ground}
 ${L.clouds.slice(3).map((c) => c.body).join('')}
-${DESK ? `<g transform="translate(0 -70)"><path d="M-20 ${hz + 40} Q150 ${hz - 120} 420 ${hz - 200} Q640 ${hz - 250} 900 ${hz - 175} Q1120 ${hz - 110} 1320 ${hz + 30} V${hz + 190} H-20Z" fill="#9c9dc4" filter="url(#paint)"/><path d="M40 ${hz - 40} Q240 ${hz - 175} 470 ${hz - 215} Q660 ${hz - 248} 880 ${hz - 182}" fill="none" stroke="#e7ebf6" stroke-width="10" opacity=".55" filter="url(#paint)"/>` + shelter(560, hz - 205, .85) + sheepW(250, hz - 150, 1, 1) + goat(330, hz - 168, .95, 1, '#6e5a52') + sheepW(410, hz - 182, 1.05, -1) + sheepW(735, hz - 196, 1, 1) + goat(805, hz - 186, .95, -1, '#3e3540') + sheepW(880, hz - 170, 1, -1) + goat(955, hz - 150, .9, 1, '#8a7a6c') + `</g>` : ''}
+${DESK ? `<g transform="translate(0 -70)"><path d="M-20 ${hz + 40} Q150 ${hz - 120} 420 ${hz - 200} Q640 ${hz - 250} 900 ${hz - 175} Q1160 ${hz - 100} 1480 ${hz + 120} V${hz + 190} H-20Z" fill="#9c9dc4" filter="url(#paint)"/><g clip-path="url(#hillClipW)">${hillTex}<ellipse cx="380" cy="${hz - 150}" rx="420" ry="90" fill="#ffffff" opacity=".18" filter="url(#blur30)"/></g><path d="M40 ${hz - 40} Q240 ${hz - 175} 470 ${hz - 215} Q660 ${hz - 248} 880 ${hz - 182}" fill="none" stroke="#e7ebf6" stroke-width="10" opacity=".55" filter="url(#paint)"/>` + shelter(560, hz - 205, .85) + sheepW(250, hz - 150, 1, 1) + goat(330, hz - 168, .95, 1, '#6e5a52') + sheepW(410, hz - 182, 1.05, -1) + sheepW(735, hz - 196, 1, 1) + goat(805, hz - 186, .95, -1, '#3e3540') + sheepW(880, hz - 170, 1, -1) + goat(955, hz - 150, .9, 1, '#8a7a6c') + `</g>` : ''}
+${LF.hill}
 ${L.gers.map(([x, y, k]) => ger(x, y, k)).join('')}
+${LF.mid}
 ${snowH}
+${LF.front}
 <rect width="${W2}" height="${H2}" fill="url(#vigH)"/>
 <rect width="${W2}" height="${H2}" filter="url(#grain)" opacity=".16" style="mix-blend-mode:overlay"/>
 </svg>`;
