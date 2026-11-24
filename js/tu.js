@@ -32,6 +32,16 @@
 .tu-lead{font-size:15px;line-height:1.55;opacity:.85;margin:0}
 .tu-who{margin:14px 0 4px;padding:14px 16px;border-radius:12px;background:color-mix(in srgb,currentColor 6%,transparent);font-size:15px}
 .tu-who small{display:block;opacity:.6;margin-top:2px}
+.tu-who--row{display:flex;align-items:center;gap:14px}.tu-who--row>div{flex:1;min-width:0}
+.tu-edit{height:34px;padding:0 14px;border:1.5px solid color-mix(in srgb,currentColor 25%,transparent);border-radius:999px;background:none;color:inherit;font:600 13px inherit;font-family:inherit;cursor:pointer}
+.tu-av--pic{font-size:19px}.tu-av--lg{width:48px;height:48px;font-size:22px}.tu-av--xl{width:84px;height:84px;font-size:42px}
+.tu-preview{display:flex;justify-content:center;margin:4px 0 6px}
+.tu-pick-l{margin:6px 0 0;font-size:12.5px;font-weight:600;opacity:.85}
+.tu-pick{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}
+.tu-pick button{aspect-ratio:1;border:2px solid transparent;border-radius:12px;background:color-mix(in srgb,currentColor 6%,transparent);font-size:24px;cursor:pointer}
+.tu-pick button[aria-pressed=true]{border-color:#1cb0f6;background:color-mix(in srgb,#1cb0f6 14%,transparent)}
+.tu-pick--c{grid-template-columns:repeat(8,1fr)}.tu-pick--c button{border-radius:50%;border:3px solid transparent}
+.tu-pick--c button[aria-pressed=true]{border-color:var(--ink,#111);box-shadow:inset 0 0 0 2px var(--bg,#fff)}
 .tu-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:14px 0 6px}
 .tu-stats div{padding:12px 8px;border-radius:12px;background:color-mix(in srgb,currentColor 6%,transparent);text-align:center}
 .tu-stats b{display:block;font-size:18px}.tu-stats span{font-size:12px;opacity:.65}
@@ -88,6 +98,8 @@
     auth: ["Google-ээр нэвтэрч чадсангүй", "Google sign-in did not work"],
     linked: ["Энэ бүртгэл өөр Google бүртгэлтэй холбогдсон байна", "This account is linked to another Google account"],
     network: ["Сүлжээний алдаа, дахин оролдоно уу", "Network error, please try again"],
+    guest: ["Эхлээд нэвтэрнэ үү", "Please sign in first"],
+    avatar: ["Энэ дүрсийг сонгох боломжгүй", "That picture is not available"],
   };
   const errMsg = (e) => { const m = ERR[e && e.message] || ERR.network; return L(m[0], m[1]); };
 
@@ -176,7 +188,7 @@
       try { await c.auth.signOut({ scope: "local" }); } catch (e) {}
       history.replaceState(null, "", location.pathname + location.hash);
       toast(L("Google-ээр нэвтэрлээ", "Signed in with Google"));
-      if (!S.player.handle && !S.player.class) setTimeout(openAccount, 600); // ask for a leaderboard name
+      if (!S.player.handle && !S.player.class) setTimeout(() => openAccount({ edit: true }), 600); // ask for a leaderboard name
       return true;
     } catch (e) { history.replaceState(null, "", location.pathname + location.hash); toast(errMsg(e), 3000); return false; }
   }
@@ -201,7 +213,7 @@
       const needName = p.google && !p.handle && !p.class;
       const who = p.class ? `<b>${esc(p.nickname)}</b>, ${esc(p.school || "")} ${esc(p.class)} ${L("анги", "class")}` : `<b>${esc(myName())}</b>${p.google ? `<small>${L("Google-ээр нэвтэрсэн", "Signed in with Google")}</small>` : ""}`;
       return head + `<p class="tu-lead">${L("Та нэвтэрсэн байна. Оноо тань аль ч төхөөрөмж дээр хадгалагдана.", "You are signed in. Your points are saved on every device.")}</p>
-        <div class="tu-who">${who}</div>${statsLine()}
+        <div class="tu-who tu-who--row">${av(myName(), p.avatar, "tu-av--lg")}<div>${who}</div><button type="button" class="tu-edit" data-tu-edit>${L("Засах", "Edit")}</button></div>${statsLine()}
         ${needName ? `<form class="tu-form" id="tu-name"><label>${L("Самбарт харагдах нэр (хоч)", "Name shown on the leaderboard")}<input name="handle" maxlength="20" required placeholder="${L("ж: Болд2010", "e.g. Bold2010")}"></label><button class="tu-btn" type="submit">${L("Хадгалах", "Save")}</button></form>` : ""}
         ${API.google && !p.google ? `<button type="button" class="tu-g" data-tu-google>${G_ICON}${L("Google бүртгэлээ холбох", "Link my Google account")}</button>` : ""}
         <button type="button" class="tu-btn tu-btn--ghost" data-tu-out>${L("Энэ төхөөрөмжөөс гарах", "Sign out on this device")}</button>`;
@@ -216,12 +228,50 @@
       </form>
       <p class="tu-note">${L("Нэр, PIN-ээр бүртгүүлэхэд имэйл, утасны дугаар авахгүй.", "A name and PIN account needs no email or phone number.")} <a href="/privacy/">${L("Нууцлалын бодлого", "Privacy policy")}</a></p>`;
   }
-  async function openAccount() {
+  function editHTML() {
+    const p = S.player, cur = /^([a-z]+)-([0-7])$/.exec(p.avatar || "") || [null, "horse", "0"];
+    return `<button type="button" class="tu-x" data-tu-close aria-label="${L("Хаах", "Close")}">✕</button><h2>${L("Нэр, зураг", "Name and picture")}</h2>
+      <form class="tu-form" id="tu-prof" autocomplete="off">
+        <div class="tu-preview">${av(myName(), cur[1] + "-" + cur[2], "tu-av--xl")}</div>
+        ${p.class ? `<p class="tu-note">${L("Ангийн гишүүдийн нэрийг ангийн кодоор нэвтрэхэд ашигладаг тул солих боломжгүй.", "Class members sign in with this name, so it cannot be changed here.")}</p>`
+          : `<label>${L("Самбарт харагдах нэр", "Name on the leaderboard")}<input name="handle" maxlength="20" value="${esc(p.handle || "")}" required placeholder="${L("ж: Болд2010", "e.g. Bold2010")}"></label>`}
+        <p class="tu-pick-l">${L("Амьтан", "Animal")}</p>
+        <div class="tu-pick">${Object.entries(ANIMALS).map(([k, e]) => `<button type="button" data-animal="${k}" aria-pressed="${k === cur[1]}" aria-label="${k}">${e}</button>`).join("")}</div>
+        <p class="tu-pick-l">${L("Өнгө", "Colour")}</p>
+        <div class="tu-pick tu-pick--c">${PALETTE.map((c, i) => `<button type="button" data-color="${i}" aria-pressed="${String(i) === cur[2]}" style="background:${c}" aria-label="${i + 1}"></button>`).join("")}</div>
+        <div class="tu-row"><button class="tu-btn tu-btn--ghost" type="button" data-tu-back>${L("Буцах", "Back")}</button><button class="tu-btn" type="submit">${L("Хадгалах", "Save")}</button></div>
+      </form>`;
+  }
+  function openEdit(box) {
+    box.innerHTML = editHTML();
+    const f = box.querySelector("#tu-prof"); let a = (/^([a-z]+)-([0-7])$/.exec(S.player.avatar || "") || [null, "horse", "0"]).slice(1);
+    const paint = () => {
+      f.querySelectorAll("[data-animal]").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.animal === a[0])));
+      f.querySelectorAll("[data-color]").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.color === a[1])));
+      f.querySelector(".tu-preview").innerHTML = av(myName(), a[0] + "-" + a[1], "tu-av--xl");
+    };
+    f.querySelectorAll("[data-animal]").forEach((b) => b.addEventListener("click", () => { a[0] = b.dataset.animal; paint(); }));
+    f.querySelectorAll("[data-color]").forEach((b) => b.addEventListener("click", () => { a[1] = b.dataset.color; paint(); }));
+    box.querySelector("[data-tu-back]").addEventListener("click", () => openAccount());
+    f.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const h = f.querySelector("[name=handle]");
+      try {
+        const s = await call("tu_profile", { p_handle: h ? h.value : null, p_avatar: a[0] + "-" + a[1] });
+        S = s; toast(L("Хадгалагдлаа", "Saved")); paintButton(); reloadBoards();
+        window.dispatchEvent(new CustomEvent("tu-profile")); openAccount();
+      } catch (err) { toast(errMsg(err), 2600); }
+    });
+  }
+  async function openAccount(o = {}) {
     const d = sheet(); const box = d.querySelector(".tu-sheet__in");
-    if (token && !S) await refresh();
+    token = store.get("tu_token", token);
+    if (token && (!S || o.fresh)) await refresh();
+    if (o.edit && signedIn()) { openEdit(box); if (!d.open) d.showModal ? d.showModal() : d.setAttribute("open", ""); return; }
     box.innerHTML = accountHTML();
     if (!d.open) d.showModal ? d.showModal() : d.setAttribute("open", "");
     box.querySelector("[data-tu-google]")?.addEventListener("click", google);
+    box.querySelector("[data-tu-edit]")?.addEventListener("click", () => openEdit(box));
     box.querySelector("[data-tu-out]")?.addEventListener("click", async () => {
       if (!confirm(L("Энэ төхөөрөмжөөс гарах уу? Дахин нэвтэрч оноогоо үргэлжлүүлж болно.", "Sign out on this device? You can sign in again later."))) return;
       try { await rpc("tu_logout", { p_token: token }); } catch (e) {}
@@ -254,7 +304,7 @@
     document.querySelectorAll("[data-tu-account]").forEach((b) => {
       if (signedIn()) {
         const n = myName() || "?";
-        b.innerHTML = `<span class="tu-av" style="background:${color(n)}">${esc(n.trim()[0] || "?").toUpperCase()}</span>`;
+        b.innerHTML = av(n, S.player.avatar);
         b.setAttribute("aria-label", L("Бүртгэл", "Account")); b.classList.add("is-in");
       } else { b.textContent = L("Нэвтрэх", "Sign in"); b.setAttribute("aria-label", L("Нэвтрэх", "Sign in")); b.classList.remove("is-in"); }
     });
@@ -263,6 +313,13 @@
   // ------------------------------------------------------------ leaderboard
   const PALETTE = ["#ff9600", "#1cb0f6", "#ce82ff", "#ff86d0", "#58cc02", "#ff4b4b", "#2b70c9", "#e5ad41"];
   function color(name) { let h = 0; for (const ch of String(name)) h = (h * 31 + ch.codePointAt(0)) >>> 0; return PALETTE[h % PALETTE.length]; }
+  // Animals of the Mongolian steppe; an avatar is "<animal>-<colour index>", e.g. "horse-3".
+  const ANIMALS = { horse: "🐎", camel: "🐫", eagle: "🦅", sheep: "🐑", goat: "🐐", ox: "🐂", deer: "🦌", wolf: "🐺", fox: "🦊", leopard: "🐆", bear: "🐻", owl: "🦉" };
+  function av(name, avatar, cls = "") {
+    const m = /^([a-z]+)-([0-7])$/.exec(avatar || "");
+    if (m && ANIMALS[m[1]]) return `<span class="tu-av tu-av--pic ${cls}" style="background:${PALETTE[+m[2]]}">${ANIMALS[m[1]]}</span>`;
+    return `<span class="tu-av ${cls}" style="background:${color(name)}">${esc((name || "?").trim()[0] || "?").toUpperCase()}</span>`;
+  }
   const FLAME = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8.6 1.2c.4 2.1-.6 3.3-1.6 4.3C5.9 6.6 4.6 7.9 4.6 10a3.4 3.4 0 0 0 6.8.1c0-1.5-.7-2.4-1.3-3.2.1 1-.3 1.8-1 2.1.5-2.6-.4-5.6-1.5-7.8z" fill="#ff9600"/><path d="M8 14.2a2 2 0 0 1-2-2c0-1.2.9-1.9 1.6-2.8.3 1 1 1.3 1.5 1.6.5.3.9.7.9 1.3a2 2 0 0 1-2 1.9z" fill="#ffc800"/></svg>';
   function endsIn(sec) {
     if (sec == null) return "";
@@ -272,7 +329,7 @@
   function rowHTML(r) {
     const medal = r.pos <= 3 ? `<span class="tu-pos tu-pos--${r.pos}">${r.pos}</span>` : `<span class="tu-pos">${r.pos}</span>`;
     const sub = [r.class ? esc(r.class) + " " + L("анги", "class") : "", r.streak >= 2 ? `<span class="tu-fire">${FLAME}${L(`${r.streak} өдөр`, `${r.streak} days`)}</span>` : ""].filter(Boolean).join(" ");
-    return `<li class="tu-r${r.me ? " is-me" : ""}">${medal}<span class="tu-av" style="background:${color(r.name)}">${esc((r.name || "?").trim()[0] || "?").toUpperCase()}</span>
+    return `<li class="tu-r${r.me ? " is-me" : ""}">${medal}${av(r.name, r.avatar)}
       <span class="tu-n"><b>${esc(r.name)}</b>${sub ? `<small>${sub}</small>` : ""}</span><span class="tu-xp">${r.xp} <small>${L("оноо", "pts")}</small></span></li>`;
   }
   function renderBoard(el, data, opts = {}) {
