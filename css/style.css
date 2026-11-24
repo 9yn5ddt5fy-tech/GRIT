@@ -3518,3 +3518,50 @@ html[data-season="autumn"] .hero__bg--season { background-image: url(../assets/i
   html[data-season="summer"] .hero__bg--season { background-image: url(../assets/img/hero-summer-m.jpg?v=9); }
   html[data-season="autumn"] .hero__bg--season { background-image: url(../assets/img/hero-autumn-m.jpg?v=9); }
 }
+
+/* Plainer, calmer look: no grid paper, dashed frames, pulsing dots or
+   letter-spaced capitals. */
+.statement { background-image: none; }
+.statement::after, .famous::before, .famous::after, .where::before { display: none; }
+.where > .map { grid-area: 1 / 1; }
+.map__pin--main { animation: none; box-shadow: 0 0 0 4px rgba(31, 77, 46, 0.18); }
+.hero__quote { padding: 4px 0 4px 20px; border: 0; border-left: 2px solid rgba(255,255,255,0.55); }
+.hero__quote::before, .hero__quote::after { display: none; }
+.hero__quote figcaption { justify-content: flex-start; }
+.hero__quote figcaption::before { display: none; }
+.hero__news > span[aria-hidden] { display: none; }
+.eyebrow, .famous__eyebrow, .stat__label, .famous figcaption {
+  font-size: 14px;
+  letter-spacing: 0;
+  text-transform: none;
+}
+.eyebrow, .famous__eyebrow { font-weight: 600; color: var(--accent); }
+.famous figcaption { font-size: 15px; }
+.famous figcaption::before { display: none; }
+.stat__label { margin-top: 10px; font-weight: 400; line-height: 1.4; }
+@media (max-width: 640px) { .stat__label { letter-spacing: 0; } }
+.project__bg--art, .project:hover .project__bg--art { filter: none; }
+.support__no, .program__num, .statement__index, .stat__index { display: none; }
+.table thead th, .step__when, .sponsor__kind, .contact__list dt, .form label, .podcast__soon span,
+.pub__soon, .page-edu .kpi__label, .page-edu .facts dt, .hbook__fact, .tl__label, .wordgame__eyebrow,
+.pub__kicker, .paper__h, .cite__label {
+  text-transform: none;
+  letter-spacing: 0;
+}
+.contact__list dt, .form label, .wordgame__eyebrow, .pub__kicker, .step__when { font-size: 13px; }
+/* Mission: plain editorial text, no box */
+.statement { display: block; padding: 0; border: 0; border-radius: 0; background: none; overflow: visible; }
+.statement__head { margin-bottom: 14px; }
+.statement__text { max-width: 980px; font-size: clamp(24px, 2.6vw, 34px); line-height: 1.35; letter-spacing: -0.01em; }
+@media (max-width: 900px) { .statement { padding: 0; } }
+/* Project cards: titles stay readable on the photo collages */
+.project::after { background: linear-gradient(180deg, rgba(0,0,0,0) 30%, rgba(8,16,10,0.55) 58%, rgba(8,16,10,0.88) 100%); }
+.project__text { min-height: 3.2em; }
+/* Hero without the side quote */
+.hero__content { grid-template-columns: minmax(0, 1fr); }
+.hero__news b { white-space: nowrap; }
+.hero__title, .hero__subtitle { text-shadow: 0 1px 14px rgba(18, 20, 48, 0.45); }
+@media (max-width: 640px) {
+  .hero__news { flex-wrap: wrap; row-gap: 2px; }
+  .hero__subtitle { opacity: 0.92; }
+}
