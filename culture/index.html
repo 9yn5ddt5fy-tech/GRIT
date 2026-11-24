@@ -20,7 +20,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:wght@500;600;700&family=PT+Serif:ital@0;1&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../css/style.css?v=115">
+  <link rel="stylesheet" href="../css/style.css?v=116">
   <script>
     (function () {
       var d = document.documentElement, s = null, l = null;
@@ -86,10 +86,26 @@
 
     <section class="section container" id="leaderboard">
       <h2 class="section-title" data-reveal>Leaderboard</h2>
-      <p class="section-lead" data-reveal>Points from Таасан уу?, the history quiz, the timeline game and the picture books. A new week starts every Monday.</p>
+      <p class="section-lead" data-reveal>Points from Таасан уу?, Хэн бэ?, the history quiz, the timeline game and the picture books. A new week starts every Monday.</p>
       <div class="lb-grid">
         <div class="tu-board" data-tu-board></div>
         <aside class="tu-ranks" data-tu-ranks></aside>
+      </div>
+    </section>
+
+    <section class="section container" id="hen-be">
+      <div class="hb-wrap card" data-reveal>
+        <div>
+          <p class="eyebrow">Daily history game</p>
+          <h2 class="hb-wrap__title" translate="no">Хэн бэ?</h2>
+          <p class="hb-wrap__lead">Every day, one person from Mongolian history is hidden behind five clues. Guess who it is with as few clues as you can.</p>
+          <ul class="hb-wrap__rules">
+            <li>The first clue is the hardest, the last the easiest.</li>
+            <li>A wrong guess opens the next clue.</li>
+            <li>Solve it on the first clue for 5 points, on the last for 1.</li>
+          </ul>
+        </div>
+        <div class="hb" id="henbe" translate="no" aria-live="polite"></div>
       </div>
     </section>
 
@@ -207,10 +223,11 @@
   </footer>
 
   <dialog class="hbook" id="hbook" aria-label="Picture book"></dialog>
-  <script src="../js/i18n.js?v=57"></script>
+  <script src="../js/i18n.js?v=58"></script>
   <script src="../js/main.js?v=44"></script>
   <script src="../js/heritage-art.js?v=8"></script>
   <script src="../js/heritage.js?v=13"></script>
-  <script src="../js/tu.js?v=10"></script>
+  <script src="../js/tu.js?v=11"></script>
+  <script src="../js/henbe.js?v=1"></script>
 </body>
 </html>

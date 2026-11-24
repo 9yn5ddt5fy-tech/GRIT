@@ -3,3 +3,6 @@
 social/daily-story/story-*.json
 social/daily-story/story-*.html
 social/daily-story/story-*.jpg
+
+# Хэн бэ? people and clues: only in the database, never in the public repo
+supabase/private/

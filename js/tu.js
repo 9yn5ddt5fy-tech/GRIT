@@ -415,9 +415,12 @@
     }
     catch (e) { el.innerHTML = `<p class="tu-empty">${errMsg(e)}</p>`; }
   }
-  function reloadBoards() { document.querySelectorAll("[data-tu-board]").forEach((el) => loadBoard(el, el.dataset.scope || "week")); }
+  function reloadBoards() {
+    document.querySelectorAll("[data-tu-board]").forEach((el) => loadBoard(el, el.dataset.scope || "week"));
+    window.dispatchEvent(new CustomEvent("tu-change"));  // other games on the page (Хэн бэ?) reload their state
+  }
 
-  window.GRIT_TU = { badge, award, openAccount, renderBoard, loadBoard, rpc, call, refresh, toast, get token() { return token; }, set token(t) { setToken(t); }, get state() { return S; } };
+  window.GRIT_TU = { badge, award, reload() { paintButton(); reloadBoards(); }, signedIn, openAccount, renderBoard, loadBoard, rpc, call, refresh, toast, get token() { return token; }, set token(t) { setToken(t); }, get state() { return S; } };
 
   if (window.TU_NO_AUTO) return;
   // ------------------------------------------------------------ page wiring
