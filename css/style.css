@@ -3596,3 +3596,7 @@ html[data-season="autumn"] .hero__bg--season { background-image: url(../assets/i
 .season-pick svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round; }
 .season-pick button:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
 @media (max-width: 640px) { .season-pick { top: 78px; right: 12px; flex-direction: column; } }
+
+/* GRIT Culture leaderboard */
+.tu-board { max-width: 760px; padding: 18px 18px 14px; border: 1px solid var(--line); border-radius: var(--radius-lg); background: var(--bg); }
+@media (max-width: 640px) { .tu-board { padding: 12px 8px 10px; } }

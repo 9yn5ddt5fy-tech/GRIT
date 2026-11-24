@@ -259,6 +259,9 @@
   .acc label{display:grid;gap:4px;font-size:12px;font-weight:600;color:rgba(0,0,0,.6)}
   .acc input{height:44px;border:1.5px solid rgba(0,0,0,.2);border-radius:6px;padding:0 12px;font:600 16px 'Onest',Arial,sans-serif;background:#fff;color:#000}
   .acc .row{display:flex;gap:10px}
+  .acc #nameForm{display:grid;gap:10px;margin:6px 0 4px}
+  .glb{margin-bottom:22px}
+  .glb .tu-tabs button[aria-selected=true]{background:#fff}
   .joinwrap{margin-top:18px;border:1px solid rgba(0,0,0,.15);border-radius:8px;background:#fff}
   .joinwrap summary{list-style:none;cursor:pointer;padding:13px 16px;font-weight:700;font-size:15px;display:flex;justify-content:space-between;align-items:center}
   .joinwrap summary::-webkit-details-marker{display:none}
@@ -374,7 +377,7 @@
 
 <div class="overlay" id="boardOv"><div class="sheet">
   <button class="close" data-close>✕</button>
-  <div class="eyebrow">Анги, сургууль</div>
+  <div class="eyebrow">Бүх тоглогч, анги</div>
   <h2>Онооны самбар</h2>
   <div id="boardBody"></div>
 </div></div>
@@ -693,7 +696,8 @@ async function openBoard(){
       <p class="muted small">Бид таны имэйл, утасны дугаарыг цуглуулдаггүй. Ангийн самбарт зөвхөн хоч нэр харагдана.</p></div></details>`;
   }
   if(b.top&&b.top.length)h+=`<h3>Шилдэг ангиуд</h3><table class="lb"><tr><th>#</th><th>Анги</th><th>Цол</th><th>Дундаж</th><th>7 хоног</th></tr>${b.top.slice(0,10).map(classRow).join('')}</table>`;
-  box.innerHTML=h+joinHTML;
+  box.innerHTML='<div id="glb" class="glb"></div>'+h+joinHTML;
+  if(window.GRIT_TU)GRIT_TU.loadBoard(document.getElementById('glb'),'week',{cta:!signedIn(S),onSignin:()=>{document.getElementById('boardOv').classList.remove('open');openAcc()}});
   const f=document.getElementById('joinForm');
   if(f)f.addEventListener('submit',async e=>{e.preventDefault();const d=new FormData(f);
     try{const s=await call('tu_join',{p_code:d.get('code'),p_nickname:d.get('nick'),p_pin:d.get('pin')});
@@ -722,6 +726,7 @@ function accHTML(){
   if(signedIn(S)){
     const who=p.class?`<b>${esc(p.nickname)}</b>, ${esc(p.school||'')} ${esc(p.class)} анги`:p.handle?`<b>${esc(p.handle)}</b>${p.google?', Google-тэй холбосон':''}`:'<b>Google бүртгэл</b>';
     return `<div class="acc"><p>Та нэвтэрсэн байна. Оноо, цол тань аль ч утсан дээр хадгалагдана.</p><div class="who">${who}</div>
+      ${p.google&&!p.handle&&!p.class?`<form id="nameForm" autocomplete="off"><label>Самбарт харагдах нэр (хоч)<input name="handle" maxlength="20" required placeholder="ж: Болд2010"></label><button class="btn" type="submit">Хадгалах</button></form>`:''}
       ${GOOGLE_ON&&!p.google?`<button class="gbtn" id="gBtn">${G_ICON}Google бүртгэлээ холбох</button>`:''}
       <button class="btn ghost" id="outBtn" style="width:100%;margin-top:12px">Энэ утаснаас гарах</button></div>`}
   return `<div class="acc"><p>Одоо та зочноор тоглож байна. Оноо, цол тань зөвхөн энэ утсанд хадгалагдаж байгаа. Нэвтэрвэл өөр утаснаас ч үргэлжлүүлж, утсаа солиход оноогоо алдахгүй. Энэ утсан дээр цуглуулсан оноо тань бүртгэлд шилжинэ.</p>
@@ -747,6 +752,8 @@ function openAcc(){
   if(g)g.addEventListener('click',async()=>{try{const sb=await supa();
     store.set('tu_google_pending',true);
     await sb.auth.signInWithOAuth({provider:'google',options:{redirectTo:location.origin+location.pathname}})}catch(e){toast(errMsg(e),2600)}});
+  const nf=document.getElementById('nameForm');
+  if(nf)nf.addEventListener('submit',async e=>{e.preventDefault();try{const s=await call('tu_set_name',{p_handle:new FormData(nf).get('handle')});S=s;render();toast('Нэр хадгалагдлаа',2000);openAcc()}catch(err){toast(errMsg(err),2600)}});
   const o=document.getElementById('outBtn');
   if(o)o.addEventListener('click',async()=>{if(!confirm('Энэ утаснаас гарах уу? Дахин нэвтэрч оноогоо үргэлжлүүлж болно.'))return;
     try{await rpc('tu_logout',{p_token:token})}catch(e){}
@@ -763,7 +770,7 @@ async function finishGoogle(){
     const s=await rpc('tu_google',{p_token:token},jwt);
     if(s.token){token=s.token;store.set('tu_token',token)}
     try{await sb.auth.signOut({scope:'local'})}catch(e){}
-    history.replaceState(null,'',location.pathname);S=s;loadedAt=Date.now();render();toast('Google-ээр нэвтэрлээ',2200);return true}
+    history.replaceState(null,'',location.pathname);S=s;loadedAt=Date.now();render();toast('Google-ээр нэвтэрлээ',2200);if(!S.player.handle&&!S.player.class)setTimeout(openAcc,700);return true}
   catch(e){history.replaceState(null,'',location.pathname);toast(errMsg(e),3000);return false}}
 
 /* ---------- share text ---------- */
@@ -859,5 +866,7 @@ document.addEventListener('keydown',e=>{if(e.metaKey||e.ctrlKey||e.altKey)return
 buildBoard();buildKb();finishGoogle().then(done=>{if(!done)load()});
 if(!store.get('tu_seen5',false)){document.getElementById('helpOv').classList.add('open');store.set('tu_seen5',true)}
 </script>
+<script>window.TU_NO_AUTO=true</script>
+<script src="/js/tu.js?v=1"></script>
 </body>
 </html>
