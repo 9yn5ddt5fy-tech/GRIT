@@ -459,6 +459,8 @@ const store={
   set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}},
   del(k){try{localStorage.removeItem(k)}catch(e){}}
 };
+// hint words always start with a capital letter
+const capF=t=>t?t.charAt(0).toUpperCase()+t.slice(1):'';
 async function rpc(fn,args={},jwt){
   let r,j;
   try{
@@ -641,7 +643,7 @@ function openResult(win){
   [...S.answer.w].forEach((ch,i)=>{const t=document.createElement('div');t.className='tile correct';t.style.animationDelay=(i*90)+'ms';t.textContent=ch;rw.appendChild(t)});
   document.querySelectorAll('#resOv .corner').forEach(s=>stitchSVG(s,CORNER,2));
   document.getElementById('resInfo').textContent=S.answer.info;
-  document.getElementById('resEra').textContent=S.answer.era;
+  document.getElementById('resEra').textContent=capF(S.answer.era);
   renderStats();renderRank(document.getElementById('rankBox'),rankUp);rankUp=false;document.getElementById('copyBox').style.display='none';
   document.getElementById('resOv').classList.add('open');showInstall();tick()}
 function renderStats(){
@@ -855,7 +857,7 @@ function tick(){clearInterval(timer);const upd=()=>{
 
 /* ---------- hint ---------- */
 function showHint(animate){
-  document.getElementById('hintTxt').textContent=`${S.hint.cat}, ${S.hint.era}`;
+  document.getElementById('hintTxt').textContent=`${capF(S.hint.cat)}, ${capF(S.hint.era)}`;
   const h=document.getElementById('hint');if(!animate)h.style.transition='none';h.classList.add('open');
   document.getElementById('hintBtn').classList.add('used');if(!animate)requestAnimationFrame(()=>h.style.transition='');updateRevealUI()}
 document.getElementById('hintBtn').addEventListener('click',async()=>{
@@ -875,6 +877,6 @@ buildBoard();buildKb();finishGoogle().then(done=>{if(!done)load()});
 if(!store.get('tu_seen5',false)){document.getElementById('helpOv').classList.add('open');store.set('tu_seen5',true)}
 </script>
 <script>window.TU_NO_AUTO=true</script>
-<script src="/js/tu.js?v=6"></script>
+<script src="/js/tu.js?v=7"></script>
 </body>
 </html>
