@@ -554,6 +554,7 @@ const MN = {
   "A passion project of their own": "Сонирхлынхоо дагуу хийсэн өөрийн төсөл",
   "A GRIT EDU certificate of completion": "GRIT EDU-гийн төгсөлтийн гэрчилгээ",
   "A place in the GRIT EDU alumni network, with monthly online mentoring": "Сар бүр цахимаар зөвлөгөө авах GRIT EDU-гийн төгсөгчдийн сүлжээ",
+  "In addition, 3–5 students will receive a 100% scholarship to study English for free at our partner, Absolute School of English.": "Үүнээс гадна 3–5 сурагч манай хамтрагч Absolute School of English сургалтын төвд 100% тэтгэлгээр үнэ төлбөргүй суралцах эрх авна.",
   "How we will measure it": "Үр дүнг хэрхэн хэмжих вэ",
   "Measure": "Үзүүлэлт",
   "Target": "Зорилт",
