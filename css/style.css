@@ -3582,6 +3582,6 @@ html[data-season="autumn"] .hero__bg--season { background-image: url(../assets/i
 [data-theme="dark"] #team::before { background-image: url(../assets/img/stars/altan-gadas.svg); }
 [data-theme="dark"] #success::before { background-image: url(../assets/img/stars/tsolmon.svg); }
 [data-theme="dark"] #speakers::before { background-image: url(../assets/img/stars/tengeriin-zaadas.svg); }
-[data-theme="dark"] #podcast::before { background-image: url(../assets/img/stars/tengeriin-zaadas-2.svg); }
+[data-theme="dark"] #podcast::before { display: none; }
 [data-theme="dark"] .photos-glow::before { background-image: url(../assets/img/stars/michid.svg); }
 [data-theme="dark"] .photos-glow::after { background-image: url(../assets/img/stars/gurvan-maral.svg); }
