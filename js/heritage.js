@@ -10,7 +10,7 @@ const STORIES = [
   {
     id: "es",
     kind: "tradition",
-    place: { en: "All of Mongolia · 22 Dec – 12 Mar", mn: "Монгол даяар · 12.22 – 3.12" },
+    place: { en: "All of Mongolia, 22 Dec–12 Mar", mn: "Монгол даяар, 12.22–3.12" },
     title: { en: "The Nine Nines of Winter", mn: "Өвлийн есөн ес" },
     blurb: {
       en: "Why do herders say that vodka freezes, ox horns crack and hilltops turn brown? The 81 days of winter, counted in nines.",
@@ -21,38 +21,38 @@ const STORIES = [
       {
         scene: "es-solstice",
         en: "The longest night of the year is the winter solstice, on 22 December. From that day, Mongolians count the coldest part of winter in nine blocks of nine days — the “nine nines”. The count lasts 81 days and ends in mid-March, and each nine has its own saying.",
-        mn: "Жилийн хамгийн урт шөнө бол 12-р сарын 22-нд тохиодог өвлийн туйл юм. Энэ өдрөөс эхлэн монголчууд өвлийн хамгийн хүйтэн үеийг есөн хоногоор есөн удаа тоолдог. Үүнийг «есөн ес» гэнэ. Нийт 81 хоног үргэлжилж, 3-р сарын дундуур дуусна. Ес бүр өөрийн гэсэн хэллэгтэй.",
+        mn: "Жилийн хамгийн урт шөнө бол 12 дугаар сарын 22-нд тохиодог өвлийн туйл юм. Энэ өдрөөс эхлэн монголчууд өвлийн хамгийн хүйтэн үеийг есөн хоногоор есөн удаа тоолдог. Үүнийг «есөн ес» гэнэ. Нийт 81 хоног үргэлжилж, 3 дугаар сарын дундуур дуусна. Ес бүр өөрийн гэсэн хэллэгтэй.",
       },
       {
         scene: "es-vodka",
         en: "First nine: “milk vodka freezes.” Second nine: “twice-distilled vodka freezes.” The cold grows stronger, until even vodka distilled from milk, and then the stronger twice-distilled kind, freeze outdoors. Herders insulate their gers and keep the animals in their pens at night.",
-        mn: "Нэг ес — нэрмэл архи хөлдөнө. Хоёр ес — хорз архи хөлдөнө. Хүйтэн улам чангарч, сүүнээс нэрсэн архи ч, түүнийг дахин нэрсэн хүчтэй хорз ч гадаа хөлдөнө. Малчид гэрээ дулаалж, малаа хашаандаа хоноглуулна.",
+        mn: "Нэг ес: нэрмэл архи хөлдөнө. Хоёр ес: хорз архи хөлдөнө. Хүйтэн улам чангарч, сүүнээс нэрсэн архи ч, түүнийг дахин нэрсэн хүчтэй хорз ч гадаа хөлдөнө. Малчид гэрээ дулаалж, малаа хашаандаа хоноглуулна.",
       },
       {
         scene: "es-horns",
         en: "Third nine: “a three-year-old ox's horns freeze and crack.” Fourth nine: “a four-year-old ox's horns freeze and crack.” This is the coldest time of the year — it is said that even the hard horns of young cattle crack in the frost. In some places it drops below minus 40 degrees.",
-        mn: "Гурван ес — гунан үхрийн эвэр хуга хөлдөнө. Дөрвөн ес — дөнөн үхрийн эвэр хуга хөлдөнө. Энэ бол жилийн хамгийн хүйтэн үе. Гурав, дөрвөн настай үхрийн хатуу эвэр ч хүйтэнд хагарна гэдэг. Зарим нутагт хасах 40 хэмээс ч доош хүйтэрдэг.",
+        mn: "Гурван ес: гунан үхрийн эвэр хуга хөлдөнө. Дөрвөн ес: дөнөн үхрийн эвэр хуга хөлдөнө. Энэ бол жилийн хамгийн хүйтэн үе. Гурав, дөрвөн настай үхрийн хатуу эвэр ч хүйтэнд хагарна гэдэг. Зарим нутагт хасах 40 хэмээс ч доош хүйтэрдэг.",
       },
       {
         scene: "es-tracks",
         en: "Fifth nine: “porridge set outside no longer freezes.” Sixth nine: “tracks show through the snow.” The cold begins to ease, and food left outdoors stops freezing. The sun grows warmer, and paths appear as lines across the snow.",
-        mn: "Таван ес — тавьсан будаа хөлдөхгүй. Зургаан ес — зурайсан зам гарна. Хүйтэн сулрах нь мэдэгдэж, гадаа тавьсан будаа хөлдөхөө больно. Нар илчтэй болж, цасан дундуур явсан замууд зурайн харагдана.",
+        mn: "Таван ес: тавьсан будаа хөлдөхгүй. Зургаан ес: зурайсан зам гарна. Хүйтэн сулрах нь мэдэгдэж, гадаа тавьсан будаа хөлдөхөө больно. Нар илчтэй болж, цасан дундуур явсан замууд зурайн харагдана.",
       },
       {
         scene: "es-thaw",
         en: "Seventh nine: “hilltops turn brown.” Eighth nine: “everything turns to slush.” Snow melts off the tops of the hillocks and the brown earth shows through. Then the snow keeps melting, and the ground is wet and muddy everywhere.",
-        mn: "Долоон ес — довын толгой борлоно. Найман ес — нал шал болно. Довын оройн цас хайлж, бор шороо ил гарна. Дараа нь цас хайлсаар, хаа сайгүй нойтон шавар болно.",
+        mn: "Долоон ес: довын толгой борлоно. Найман ес: нал шал болно. Довын оройн цас хайлж, бор шороо ил гарна. Дараа нь цас хайлсаар, хаа сайгүй нойтон шавар болно.",
       },
       {
         scene: "es-spring",
         en: "Ninth nine: “ordinary warmth returns.” The 81 cold days are behind us and warm days arrive. Spring is near, and soon it will be time to welcome the newborn lambs and kids.",
-        mn: "Есөн ес — ердийн дулаан болно. Хүйтний 81 хоног ард хоцорч, дулаан цаг ирнэ. Удахгүй хавар болж, мал төллөх цаг ойртоно.",
+        mn: "Есөн ес: ердийн дулаан болно. Хүйтний 81 хоног ард хоцорч, дулаан цаг ирнэ. Удахгүй хавар болж, мал төллөх цаг ойртоно.",
       },
       {
         scene: "es-count",
         fact: true,
         en: "Why count this way? The nine nines are a folk calendar built on herders' observations over many generations. Knowing when the cold will peak and when it will ease helps herders prepare hay, fuel and shelters in time. Some regions start the count on 21 December, and the sayings differ a little from place to place.",
-        mn: "Яагаад ингэж тоолдог вэ? Есөн ес бол олон үеийн малчдын ажиглалтаас үүссэн ардын тоолол. Хүйтэн хэзээ оргилдоо хүрч, хэзээ сулрахыг мэдсэнээр малчид өвс тэжээл, түлээ, хашаа хороогоо цагт нь бэлддэг. Зарим нутагт 12-р сарын 21-нээс тоолж эхэлдэг, хэллэг нь ч нутаг нутагт бага зэрэг өөр байдаг.",
+        mn: "Яагаад ингэж тоолдог вэ? Есөн ес бол олон үеийн малчдын ажиглалтаас үүссэн ардын тоолол. Хүйтэн хэзээ оргилдоо хүрч, хэзээ сулрахыг мэдсэнээр малчид өвс тэжээл, түлээ, хашаа хороогоо цагт нь бэлддэг. Зарим нутагт 12 дугаар сарын 21-нээс тоолж эхэлдэг, хэллэг нь ч нутаг нутагт бага зэрэг өөр байдаг.",
       },
     ],
     check: {
@@ -68,7 +68,7 @@ const STORIES = [
   {
     id: "terkh",
     kind: "legend",
-    place: { en: "Arkhangai · Tariat soum", mn: "Архангай · Тариат сум" },
+    place: { en: "Arkhangai, Tariat soum", mn: "Архангай, Тариат сум" },
     title: { en: "The White Lake and the Mountain Without a Top", mn: "Тэрхийн Цагаан нуур ба оройгүй уул" },
     blurb: {
       en: "Why is there an island in Terkhiin Tsagaan Lake, and a crater on top of Mount Khorgo?",
@@ -116,7 +116,7 @@ const STORIES = [
   {
     id: "taikhar",
     kind: "legend",
-    place: { en: "Arkhangai · Ikh Tamir soum", mn: "Архангай · Их Тамир сум" },
+    place: { en: "Arkhangai, Ikh Tamir soum", mn: "Архангай, Их Тамир сум" },
     title: { en: "Taikhar Rock", mn: "Тайхар чулуу" },
     blurb: {
       en: "A huge granite rock stands alone on the steppe. The legend tells how it got there.",
@@ -148,7 +148,7 @@ const STORIES = [
         scene: "rock-writing",
         fact: true,
         en: "Did you know? Over many centuries, people left inscriptions on Taikhar Rock in several languages and scripts — a valuable source for historians. Sadly, some visitors now paint their names on the rock and damage the old writing. When you visit a monument, don't write on it or break anything: take photos and memories only.",
-        mn: "Мэдэх үү? Олон зууны турш хүмүүс Тайхар чулуун дээр янз бүрийн хэл, бичгээр бичээс үлдээсэн нь түүхчдийн хувьд үнэт эх сурвалж юм. Харамсалтай нь зарим жуулчид чулуун дээр нэрээ будгаар бичиж, эртний бичээсийг гэмтээж байна. Дурсгалт газар очвол юу ч бүү бич, бүү эвд — зөвхөн зураг, дурсамж аваад буцаарай.",
+        mn: "Мэдэх үү? Олон зууны турш хүмүүс Тайхар чулуун дээр янз бүрийн хэл, бичгээр бичээс үлдээсэн нь түүхчдийн хувьд үнэт эх сурвалж юм. Харамсалтай нь зарим жуулчид чулуун дээр нэрээ будгаар бичиж, эртний бичээсийг гэмтээж байна. Дурсгалт газар очвол юу ч бүү бич, бүү эвд. Зөвхөн зураг, дурсамж аваад буцаарай.",
       },
     ],
     check: {
@@ -164,7 +164,7 @@ const STORIES = [
   {
     id: "karakorum",
     kind: "history",
-    place: { en: "Uvurkhangai · Kharkhorin soum", mn: "Өвөрхангай · Хархорин сум" },
+    place: { en: "Uvurkhangai, Kharkhorin soum", mn: "Өвөрхангай, Хархорин сум" },
     title: { en: "Karakorum and the Silver Tree", mn: "Хархорум ба Мөнгөн мод" },
     blurb: {
       en: "The capital of the Mongol Empire, where people from all over the world met — and a fountain unlike any other.",
@@ -212,7 +212,7 @@ const STORIES = [
   {
     id: "erdenezuu",
     kind: "history",
-    place: { en: "Uvurkhangai · Kharkhorin soum", mn: "Өвөрхангай · Хархорин сум" },
+    place: { en: "Uvurkhangai, Kharkhorin soum", mn: "Өвөрхангай, Хархорин сум" },
     title: { en: "Erdene Zuu: 108 Stupas", mn: "Эрдэнэ Зуу: 108 суварга" },
     blurb: {
       en: "Mongolia's oldest surviving Buddhist monastery, built from the stones of an old capital.",
@@ -260,7 +260,7 @@ const STORIES = [
   {
     id: "orkhon",
     kind: "nature",
-    place: { en: "Arkhangai · Uvurkhangai", mn: "Архангай · Өвөрхангай" },
+    place: { en: "Arkhangai, Uvurkhangai", mn: "Архангай, Өвөрхангай" },
     title: { en: "The Orkhon Valley: Cradle of History", mn: "Орхоны хөндий: түүхийн өлгий" },
     blurb: {
       en: "A river valley where nomadic empires rose one after another — and a waterfall born of a volcano.",
@@ -281,7 +281,7 @@ const STORIES = [
       {
         scene: "steles",
         en: "At Khöshöö Tsaidam stand 8th-century stone steles raised for the Turkic ruler Bilge Khagan and his brother Kül Tegin. Their history is carved in Old Turkic runic script — among the oldest known texts in any Turkic language.",
-        mn: "Хөшөө Цайдамд 8-р зуунд Түрэгийн Билгэ хаан болон түүний дүү Күлтегинд зориулан босгосон гэрэлт хөшөөнүүд бий. Тэдгээрт эртний түрэг (руни) бичгээр түүхээ сийлсэн нь түрэг хэлний хамгийн эртний бичгийн дурсгалуудын нэг юм.",
+        mn: "Хөшөө Цайдамд VIII зуунд Түрэгийн Билгэ хаан болон түүний дүү Күлтегинд зориулан босгосон гэрэлт хөшөөнүүд бий. Тэдгээрт эртний түрэг (руни) бичгээр түүхээ сийлсэн нь түрэг хэлний хамгийн эртний бичгийн дурсгалуудын нэг юм.",
       },
       {
         scene: "valley-layers",
@@ -292,7 +292,7 @@ const STORIES = [
         scene: "world-heritage",
         fact: true,
         en: "Because nature and history meet here in such a rare way, the Orkhon Valley Cultural Landscape was added to the UNESCO World Heritage List in 2004. It belongs to all of humanity — and it is our job to protect it.",
-        mn: "Байгаль, түүхийн ийм ховор хослолын ачаар 2004 онд «Орхоны хөндийн соёлын дурсгалт газар нутаг» ЮНЕСКО-гийн Дэлхийн өвийн жагсаалтад бүртгэгдсэн. Энэ бол хүн төрөлхтний өв — үүнийг хамгаалах нь бидний үүрэг.",
+        mn: "Байгаль, түүхийн ийм ховор хослолын ачаар 2004 онд «Орхоны хөндийн соёлын дурсгалт газар нутаг» ЮНЕСКО-гийн Дэлхийн өвийн жагсаалтад бүртгэгдсэн. Энэ бол хүн төрөлхтний өв бөгөөд үүнийг хамгаалах нь бидний үүрэг.",
       },
     ],
     check: {
@@ -308,8 +308,8 @@ const STORIES = [
   {
     id: "ugii",
     kind: "legend",
-    place: { en: "Arkhangai · Ugiinuur soum", mn: "Архангай · Өгийнуур сум" },
-    title: { en: "The Legend of Ugii Lake", mn: "Өгийнуурын домог" },
+    place: { en: "Arkhangai, Ugiinuur soum", mn: "Архангай, Өгийнуур сум" },
+    title: { en: "The Legend of Ugii Lake", mn: "Өгий нуурын домог" },
     blurb: {
       en: "A lake born of a girl's tears — and the birds that come to it every year.",
       mn: "Нэгэн бүсгүйн нулимсаар бүрэлдсэн нуур, түүнд жил бүр ирдэг шувуудын тухай.",
@@ -329,17 +329,17 @@ const STORIES = [
       {
         scene: "ugii-tears",
         en: "Ögii wept and wept, and her tears gathered into a lake. People named it after her: Ugii Lake. They say the lake is guarded by a female spirit, so people treat it with respect and never pollute its water. The legend is told a little differently in different places.",
-        mn: "Өгий уйлж гашуудан, нулимс нь хуралдсаар нуур болжээ. Хүмүүс түүнийг охины нэрээр Өгийнуур гэж нэрлэсэн гэдэг. Нуурыг эм савдаг сахидаг гэж хүмүүс хүндэтгэн, усыг нь бузарлахаас цээрлэдэг. Домгийг нутаг бүрт арай өөрөөр ярьдаг.",
+        mn: "Өгий уйлж гашуудан, нулимс нь хуралдсаар нуур болжээ. Хүмүүс түүнийг охины нэрээр Өгий нуур гэж нэрлэсэн гэдэг. Нуурыг эм савдаг сахидаг гэж хүмүүс хүндэтгэн, усыг нь бузарлахаас цээрлэдэг. Домгийг нутаг бүрт арай өөрөөр ярьдаг.",
       },
       {
         scene: "ugii-lake",
         en: "In Ugiinuur soum of Arkhangai lies Ugii Lake, a freshwater lake fed by the Khögshin Orkhon River. It is near here that GRIT ran its very first program.",
-        mn: "Архангай аймгийн Өгийнуур суманд Хөгшин Орхон гол цутгадаг цэнгэг устай Өгийнуур оршдог. Яг энэ нуурын ойролцоо GRIT анхны хөтөлбөрөө хэрэгжүүлсэн юм.",
+        mn: "Архангай аймгийн Өгийнуур суманд Хөгшин Орхон гол цутгадаг цэнгэг устай Өгий нуур оршдог. Яг энэ нуурын ойролцоо GRIT анхны хөтөлбөрөө хэрэгжүүлсэн юм.",
       },
       {
         scene: "birds-migrate",
         en: "Every spring and autumn, thousands of migrating birds stop at the lake to rest and feed on their long journey. That is why, in 1998, Ugii Lake was listed as a wetland of international importance under the Ramsar Convention.",
-        mn: "Хавар, намар бүр олон мянган нүүдлийн шувуу урт аяллынхаа замд энд амарч, хооллодог. Тиймээс 1998 онд Өгийнуурыг Рамсарын конвенцоор олон улсын ач холбогдол бүхий намгархаг газрын жагсаалтад оруулсан.",
+        mn: "Хавар, намар бүр олон мянган нүүдлийн шувуу урт аяллынхаа замд энд амарч, хооллодог. Тиймээс 1998 онд Өгий нуурыг Рамсарын конвенцоор олон улсын ач холбогдол бүхий намгархаг газрын жагсаалтад оруулсан.",
       },
       {
         scene: "litter",
@@ -354,7 +354,7 @@ const STORIES = [
       },
     ],
     check: {
-      q: { en: "In 1998, Ugii Lake was added to which list?", mn: "1998 онд Өгийнуурыг ямар жагсаалтад оруулсан бэ?" },
+      q: { en: "In 1998, Ugii Lake was added to which list?", mn: "1998 онд Өгий нуурыг ямар жагсаалтад оруулсан бэ?" },
       a: [
         { en: "The Ramsar list of important wetlands", mn: "Олон улсын ач холбогдол бүхий намгархаг газрын (Рамсарын) жагсаалт" },
         { en: "The Red Book of endangered species", mn: "Ховордсон амьтдын Улаан ном" },
@@ -366,7 +366,7 @@ const STORIES = [
   {
     id: "khoshoo",
     kind: "history",
-    place: { en: "Arkhangai · Khashaat soum", mn: "Архангай · Хашаат сум" },
+    place: { en: "Arkhangai, Khashaat soum", mn: "Архангай, Хашаат сум" },
     title: { en: "The Steles of Khöshöö Tsaidam", mn: "Хөшөө Цайдамын гэрэлт хөшөөд" },
     blurb: {
       en: "What does writing carved into stone 1,300 years ago tell us?",
@@ -414,8 +414,8 @@ const STORIES = [
   {
     id: "kharbalgas",
     kind: "history",
-    place: { en: "Arkhangai · Khotont soum", mn: "Архангай · Хотонт сум" },
-    title: { en: "Khar Balgas: the Uighur Capital", mn: "Хар Балгас: Уйгурын нийслэл" },
+    place: { en: "Arkhangai, Khotont soum", mn: "Архангай, Хотонт сум" },
+    title: { en: "Khar Balgas: the Uighur Capital", mn: "Хар балгас: Уйгурын нийслэл" },
     blurb: {
       en: "A great steppe city said to have had twelve iron gates.",
       mn: "Арван хоёр төмөр хаалгатай байсан гэх тал нутгийн том хот.",
@@ -440,7 +440,7 @@ const STORIES = [
       {
         scene: "city-falls",
         en: "In 840 the Kyrgyz attacked from the north. The city burned, and the Uighurs left the steppe for the south-west — the oases of today's Xinjiang and Gansu.",
-        mn: "840 онд хойд зүгээс киргизүүд довтолжээ. Хот шатаж, уйгурууд тал нутгаа орхин баруун урагш — одоогийн Шинжаан, Ганьсугийн баян бүрд рүү нүүсэн байна.",
+        mn: "840 онд хойд зүгээс киргизүүд довтолжээ. Хот шатаж, уйгурууд тал нутгаа орхин баруун урагш, одоогийн Шинжаан, Ганьсугийн баян бүрд рүү нүүсэн байна.",
       },
       {
         scene: "khar-balgas-today",
@@ -462,7 +462,7 @@ const STORIES = [
   {
     id: "burkhan",
     kind: "history",
-    place: { en: "Khentii · Khan Khentii range", mn: "Хэнтий · Хан Хэнтийн нуруу" },
+    place: { en: "Khentii, Khan Khentii range", mn: "Хэнтий, Хан Хэнтийн нуруу" },
     title: { en: "Burkhan Khaldun, the Sacred Mountain", mn: "Бурхан Халдун: тахилгат уул" },
     blurb: {
       en: "How did the mountain that saved young Temüjin become the most revered mountain of the Mongols?",
@@ -510,8 +510,8 @@ const STORIES = [
   {
     id: "deluun",
     kind: "history",
-    place: { en: "Khentii · Dadal soum", mn: "Хэнтий · Дадал сум" },
-    title: { en: "Delüün Boldog: Where Temüjin Was Born", mn: "Дэлүүн Болдог: Тэмүжиний төрсөн нутаг" },
+    place: { en: "Khentii, Dadal soum", mn: "Хэнтий, Дадал сум" },
+    title: { en: "Delüün Boldog: Where Temüjin Was Born", mn: "Дэлүүн болдог: Тэмүжиний төрсөн нутаг" },
     blurb: {
       en: "The boy who was born clutching a blood clot the size of a knucklebone.",
       mn: "Баруун гартаа шагай чинээ нөж атгаж төрсөн хүүгийн тухай.",
@@ -553,7 +553,7 @@ const STORIES = [
   {
     id: "khudoo",
     kind: "history",
-    place: { en: "Khentii · Delgerkhaan soum", mn: "Хэнтий · Дэлгэрхаан сум" },
+    place: { en: "Khentii, Delgerkhaan soum", mn: "Хэнтий, Дэлгэрхаан сум" },
     title: { en: "Khödöö Aral and the Secret History", mn: "Хөдөө арал ба «Монголын нууц товчоо»" },
     blurb: {
       en: "Where was the oldest Mongolian history book written?",
@@ -602,7 +602,7 @@ const STORIES = [
 
 // ---------------------------------------------------------------- quiz
 const QUIZ = [
-  { q: { en: "Which mountain hid young Temüjin from the Merkits?", mn: "Залуу Тэмүжинийг мэргидээс нуун аварсан уул аль нь вэ?" }, a: [{ en: "Burkhan Khaldun", mn: "Бурхан Халдун" }, { en: "Otgontenger", mn: "Отгонтэнгэр" }, { en: "Khorgo", mn: "Хорго" }], ok: 0, why: { en: "Temüjin vowed that he and his descendants would always honour Burkhan Khaldun.", mn: "Тэмүжин Бурхан Халдуныг үргэлж тахин дээдлэхээ амласан." } },
+  { q: { en: "Which mountain hid young Temüjin from the Merkits?", mn: "Залуу Тэмүжинийг мэргидээс нуун аварсан уул аль нь вэ?" }, a: [{ en: "Burkhan Khaldun", mn: "Бурхан Халдун" }, { en: "Otgontenger", mn: "Отгонтэнгэр" }, { en: "Khorgo", mn: "Хорго" }], ok: 0, why: { en: "Temüjin vowed that he and his descendants would always honour Burkhan Khaldun.", mn: "Тэмүжин өөрөө болон үр удам нь Бурхан Халдуныг үргэлж тахин дээдлэхээ амласан." } },
   { q: { en: "Where, according to its last lines, was the Secret History of the Mongols written?", mn: "Төгсгөлийн үгэнд нь бичсэнээр «Монголын нууц товчоо» хаана бичигдсэн бэ?" }, a: [{ en: "At Khödöö Aral on the Kherlen", mn: "Хэрлэний Хөдөө аралд" }, { en: "In Karakorum", mn: "Хархорумд" }, { en: "At Erdene Zuu", mn: "Эрдэнэ Зуу хийдэд" }], ok: 0, why: { en: "It was finished during a great assembly at Khödöö Aral, where the Tsenkher meets the Kherlen.", mn: "Цэнхэр гол Хэрлэнд цутгадаг Хөдөө аралд их хуралдайн үеэр бичиж дуусгажээ." } },
   { q: { en: "Who deciphered the Old Turkic runic script in 1893?", mn: "1893 онд эртний түрэг бичгийг хэн тайлсан бэ?" }, a: [{ en: "Vilhelm Thomsen", mn: "Вильгельм Томсен" }, { en: "Nikolai Przhevalsky", mn: "Николай Пржевальский" }, { en: "William of Rubruck", mn: "Гийом де Рубрук" }], ok: 0, why: { en: "The Danish scholar Vilhelm Thomsen read the Orkhon inscriptions in 1893.", mn: "Данийн эрдэмтэн Вильгельм Томсен 1893 онд Орхоны бичээсийг тайлжээ." } },
   { q: { en: "Who destroyed the Uighur capital Ordu-Baliq in 840?", mn: "840 онд Уйгурын нийслэл Ордубалыкийг хэн сүйтгэсэн бэ?" }, a: [{ en: "The Kyrgyz", mn: "Киргизүүд" }, { en: "The Khitans", mn: "Киданчууд" }, { en: "The Tatars", mn: "Татарууд" }], ok: 0, why: { en: "After the Kyrgyz attack, the Uighurs moved south-west to the oases of Xinjiang and Gansu.", mn: "Киргизийн довтолгооны дараа уйгурууд баруун урагш Шинжаан, Ганьсу руу нүүжээ." } },
@@ -612,10 +612,10 @@ const QUIZ = [
   { q: { en: "Who founded Erdene Zuu Monastery in 1585?", mn: "1585 онд Эрдэнэ Зуу хийдийг хэн байгуулсан бэ?" }, a: [{ en: "Abtai Sain Khan", mn: "Абтай сайн хан" }, { en: "Ögedei Khaan", mn: "Өгөдэй хаан" }, { en: "Zanabazar", mn: "Занабазар" }], ok: 0, why: { en: "Abtai Sain Khan of the Khalkha built it beside the ruins of Karakorum.", mn: "Халхын Абтай сайн хан эртний Хархорумын туурийн дэргэд барьсан." } },
   { q: { en: "How many stupas stand on the wall of Erdene Zuu?", mn: "Эрдэнэ Зуугийн хэрэм дээр хэдэн суварга бий вэ?" }, a: ["64", "108", "300"], ok: 1, why: { en: "108 is a sacred number in Buddhism.", mn: "Буддын шашинд 108 бол ариун тоо." } },
   { q: { en: "Who created the Soyombo script in 1686?", mn: "1686 онд Соёмбо үсгийг хэн зохиосон бэ?" }, a: [{ en: "Zanabazar", mn: "Өндөр гэгээн Занабазар" }, { en: "Chinggis Khaan", mn: "Чингис хаан" }, { en: "Abtai Sain Khan", mn: "Абтай сайн хан" }], ok: 0, why: { en: "Zanabazar, the first Jebtsundamba Khutagt, was also a great sculptor. The Soyombo symbol on our flag comes from this script.", mn: "Анхдугаар Богд Өндөр гэгээн Занабазар мөн агуу уран бүтээлч байсан. Төрийн далбаан дээрх Соёмбо тэмдэг энэ бичгээс гаралтай." } },
-  { q: { en: "Which script is carved on the Kül Tegin and Bilge Khagan steles?", mn: "Күлтегин, Билгэ хааны гэрэлт хөшөөнд ямар бичгээр бичсэн бэ?" }, a: [{ en: "Old Turkic runic script", mn: "Эртний түрэг (руни) бичиг" }, { en: "Mongol script", mn: "Монгол бичиг" }, { en: "Latin script", mn: "Латин бичиг" }], ok: 0, why: { en: "These 8th-century steles in the Orkhon Valley are among the oldest Turkic texts.", mn: "Орхоны хөндийд буй 8-р зууны эдгээр хөшөө түрэг хэлний хамгийн эртний бичгийн дурсгалуудын нэг." } },
+  { q: { en: "Which script is carved on the Kül Tegin and Bilge Khagan steles?", mn: "Күлтегин, Билгэ хааны гэрэлт хөшөөнд ямар бичгээр бичсэн бэ?" }, a: [{ en: "Old Turkic runic script", mn: "Эртний түрэг (руни) бичиг" }, { en: "Mongol script", mn: "Монгол бичиг" }, { en: "Latin script", mn: "Латин бичиг" }], ok: 0, why: { en: "These 8th-century steles in the Orkhon Valley are among the oldest Turkic texts.", mn: "Орхоны хөндийд буй VIII зууны эдгээр хөшөө түрэг хэлний хамгийн эртний бичгийн дурсгалуудын нэг." } },
   { q: { en: "Which extinct volcano stands next to Terkhiin Tsagaan Lake?", mn: "Тэрхийн Цагаан нуурын дэргэд орших унтарсан галт уул аль нь вэ?" }, a: [{ en: "Khorgo", mn: "Хорго" }, { en: "Otgontenger", mn: "Отгонтэнгэр" }, { en: "Bogd Khan", mn: "Богд хан" }], ok: 0, why: { en: "Lava from Khorgo blocked the Terkh River and formed the lake.", mn: "Хорго уулаас урссан лаав Тэрх голыг хааж, нуур үүссэн." } },
   { q: { en: "Where did Guillaume Boucher, the maker of Karakorum's Silver Tree, come from?", mn: "Хархорумын Мөнгөн модыг бүтээсэн Гийом Бушье хаанаас гаралтай вэ?" }, a: [{ en: "Paris", mn: "Парис" }, { en: "Baghdad", mn: "Багдад" }, { en: "Beijing", mn: "Бээжин" }], ok: 0, why: { en: "He was a Parisian goldsmith brought to Mongolia as a captive.", mn: "Тэрээр олзлогдон Монголд ирсэн Парисын алт мөнгөний дархан байв." } },
-  { q: { en: "In which year did Mongolia declare its independence from the Qing dynasty?", mn: "Монгол Улс Чин улсаас тусгаар тогтнолоо хэдэн онд тунхагласан бэ?" }, a: ["1911", "1921", "1945"], ok: 0, why: { en: "On 29 December 1911 the Bogd Khaan was enthroned as head of an independent Mongolia.", mn: "1911 оны 12-р сарын 29-нд Богд Жавзандамба хутагтыг тусгаар тогтносон Монгол Улсын хаанаар өргөмжилсөн." } },
+  { q: { en: "In which year did Mongolia declare its independence from the Qing dynasty?", mn: "Монгол Улс Чин улсаас тусгаар тогтнолоо хэдэн онд тунхагласан бэ?" }, a: ["1911", "1921", "1945"], ok: 0, why: { en: "On 29 December 1911 the Bogd Khaan was enthroned as head of an independent Mongolia.", mn: "1911 оны 12 дугаар сарын 29-нд Богд Жавзандамба хутагтыг тусгаар тогтносон Монгол Улсын хаанаар өргөмжилсөн." } },
   { q: { en: "When was Mongolia's first constitution adopted?", mn: "Монгол Улсын анхны Үндсэн хуулийг хэдэн онд баталсан бэ?" }, a: ["1924", "1960", "1992"], ok: 0, why: { en: "The first constitution was adopted in 1924; the current one dates from 1992.", mn: "Анхны Үндсэн хуулийг 1924 онд, одоогийн Үндсэн хуулийг 1992 онд баталсан." } },
   { q: { en: "In which year did Mongolia's peaceful democratic revolution take place?", mn: "Монголын тайван замын ардчилсан хувьсгал хэдэн онд болсон бэ?" }, a: ["1980", "1990", "2000"], ok: 1, why: { en: "In 1990 young people gathered peacefully on the square and Mongolia moved to democracy and a multi-party system.", mn: "1990 онд залуучуудын тайван жагсаал, цуглааны үр дүнд Монгол Улс ардчилсан, олон намын тогтолцоонд шилжсэн." } },
   { q: { en: "Which is the longest river that flows entirely within Mongolia?", mn: "Монгол Улсын нутаг дэвсгэрт бүхэлдээ урсдаг хамгийн урт гол аль нь вэ?" }, a: [{ en: "The Orkhon", mn: "Орхон" }, { en: "The Tuul", mn: "Туул" }, { en: "The Kherlen", mn: "Хэрлэн" }], ok: 0, why: { en: "The Orkhon flows for more than 1,100 km before joining the Selenge.", mn: "Орхон гол 1100 гаруй км урсаж Сэлэнгэ мөрөнд цутгадаг." } },
@@ -641,12 +641,12 @@ const QUIZ = [
   { q: {"en": "Which leader is linked with the 1921 revolution?", "mn": "1921 оны хувьсгалын удирдагчдын нэг хэн бэ?"}, a: [{"en": "D. Sükhbaatar", "mn": "Д. Сүхбаатар"}, {"en": "Zanabazar", "mn": "Занабазар"}, {"en": "Abtai Sain Khan", "mn": "Абтай сайн хан"}], ok: 0, why: {"en": "The central square of Ulaanbaatar was named after him.", "mn": "Улаанбаатарын төв талбайг түүний нэрээр нэрлэжээ."} },
   { q: {"en": "In which year was Niislel Khüree renamed Ulaanbaatar?", "mn": "Нийслэл Хүрээг хэдэн онд Улаанбаатар гэж нэрлэсэн бэ?"}, a: ["1911", "1924", "1990"], ok: 1, why: {"en": "The name means “Red Hero”.", "mn": "Нэр нь «улаан баатар» гэсэн утгатай."} },
   { q: {"en": "In which year was the Battle of Khalkhin Gol?", "mn": "Халхын голын байлдаан хэдэн онд болсон бэ?"}, a: ["1921", "1939", "1945"], ok: 1, why: {"en": "Mongolian and Soviet troops defeated the Japanese army in 1939.", "mn": "1939 онд Монгол, Зөвлөлтийн цэрэг Японы армийг ялсан."} },
-  { q: {"en": "In which year did Mongolia join the United Nations?", "mn": "Монгол Улс НҮБ-д хэдэн онд элссэн бэ?"}, a: ["1945", "1961", "1990"], ok: 1, why: {"en": "Mongolia became a UN member on 27 October 1961.", "mn": "Монгол Улс 1961 оны 10-р сарын 27-нд НҮБ-ын гишүүн болсон."} },
+  { q: {"en": "In which year did Mongolia join the United Nations?", "mn": "Монгол Улс НҮБ-д хэдэн онд элссэн бэ?"}, a: ["1945", "1961", "1990"], ok: 1, why: {"en": "Mongolia became a UN member on 27 October 1961.", "mn": "Монгол Улс 1961 оны 10 дугаар сарын 27-нд НҮБ-ын гишүүн болсон."} },
   { q: {"en": "In which year was Mongolia's current Constitution adopted?", "mn": "Монгол Улсын одоогийн Үндсэн хуулийг хэдэн онд баталсан бэ?"}, a: ["1924", "1960", "1992"], ok: 2, why: {"en": "It was adopted after the democratic revolution, in 1992.", "mn": "Ардчилсан хувьсгалын дараа 1992 онд баталсан."} },
   { q: {"en": "When was the tögrög introduced as Mongolia's currency?", "mn": "Төгрөгийг Монгол Улсын мөнгөн тэмдэгт болгон хэдэн онд гаргасан бэ?"}, a: ["1911", "1925", "1990"], ok: 1, why: {"en": "The tögrög has been Mongolia's currency since 1925.", "mn": "Төгрөг 1925 оноос хойш Монгол Улсын мөнгөн тэмдэгт юм."} },
   { q: {"en": "How many aimags (provinces) does Mongolia have today?", "mn": "Монгол Улс өнөөдөр хэдэн аймагтай вэ?"}, a: ["18", "21", "24"], ok: 1, why: {"en": "Each aimag is divided into soums.", "mn": "Аймаг бүр сумдад хуваагддаг."} },
   { q: {"en": "Which of these is not one of the “three manly games” of Naadam?", "mn": "Аль нь «эрийн гурван наадам»-д ордоггүй вэ?"}, a: [{"en": "Chess", "mn": "Шатар"}, {"en": "Wrestling", "mn": "Бөх"}, {"en": "Archery", "mn": "Сур харваа"}], ok: 0, why: {"en": "The three manly games are wrestling, horse racing and archery.", "mn": "Эрийн гурван наадам нь бөх, морин уралдаан, сур харваа."} },
-  { q: {"en": "On which day does the National Naadam begin?", "mn": "Үндэсний их баяр наадам хэдний өдөр эхэлдэг вэ?"}, a: [{"en": "11 July", "mn": "7-р сарын 11"}, {"en": "29 December", "mn": "12-р сарын 29"}, {"en": "1 June", "mn": "6-р сарын 1"}], ok: 0, why: {"en": "Naadam marks the anniversary of the 1921 revolution.", "mn": "Үндэсний их баяр наадмыг 1921 оны Ардын хувьсгалын ойгоор тэмдэглэдэг."} },
+  { q: {"en": "On which day does the National Naadam begin?", "mn": "Үндэсний их баяр наадам хэдний өдөр эхэлдэг вэ?"}, a: [{"en": "11 July", "mn": "7 дугаар сарын 11"}, {"en": "29 December", "mn": "12 дугаар сарын 29"}, {"en": "1 June", "mn": "6 дугаар сарын 1"}], ok: 0, why: {"en": "Naadam marks the anniversary of the 1921 revolution.", "mn": "Үндэсний их баяр наадмыг 1921 оны Ардын хувьсгалын ойгоор тэмдэглэдэг."} },
   { q: {"en": "What is the highest peak in Mongolia?", "mn": "Монголын хамгийн өндөр оргил аль нь вэ?"}, a: [{"en": "Khüiten Peak", "mn": "Хүйтэн оргил"}, {"en": "Otgontenger", "mn": "Отгонтэнгэр"}, {"en": "Bogd Khan", "mn": "Богд хан"}], ok: 0, why: {"en": "Khüiten Peak in the Altai Tavan Bogd is 4,374 m high.", "mn": "Алтай Таван Богдын Хүйтэн оргил 4374 метр өндөр."} },
   { q: {"en": "Which lake holds most of Mongolia's fresh water?", "mn": "Монголын цэнгэг усны ихэнх нь аль нууранд байдаг вэ?"}, a: [{"en": "Khövsgöl", "mn": "Хөвсгөл"}, {"en": "Uvs", "mn": "Увс"}, {"en": "Ugii", "mn": "Өгий"}], ok: 0, why: {"en": "Uvs is the largest by area, but it is salty.", "mn": "Талбайгаараа хамгийн том нь Увс нуур боловч ус нь давстай."} },
   { q: {"en": "Which is Mongolia's largest lake by area?", "mn": "Талбайгаараа Монголын хамгийн том нуур аль нь вэ?"}, a: [{"en": "Uvs", "mn": "Увс"}, {"en": "Khövsgöl", "mn": "Хөвсгөл"}, {"en": "Terkhiin Tsagaan", "mn": "Тэрхийн Цагаан"}], ok: 0, why: {"en": "Uvs Lake is salty and lies in the far west.", "mn": "Увс нуур давстай бөгөөд баруун хязгаарт оршдог."} },
@@ -735,7 +735,7 @@ const UI = {
   again: { en: "Play again", mn: "Дахин тоглох" },
   start: { en: "Start", mn: "Эхлэх" },
   quizEnd: { en: "You answered {n} of {t} correctly.", mn: "Зөв хариулт: {n} / {t}." },
-  great: { en: "Excellent — a true history expert!", mn: "Гайхалтай! Та жинхэнэ түүхч юм." },
+  great: { en: "Excellent, a true history expert!", mn: "Гайхалтай! Та жинхэнэ түүхч юм." },
   good: { en: "Well done! Read a story or two and try again.", mn: "Сайн байна! Хэдэн ном уншаад дахин оролдоорой." },
   keep: { en: "A good start. The picture books above hold many of the answers.", mn: "Сайн эхлэл байна. Олон асуултын хариултыг дээрх зурагт номнуудаас олж болно." },
   tlHint: { en: "Tap the events from the oldest to the newest.", mn: "Үйл явдлуудыг хамгийн эртнээс нь эхлэн он дарааллаар нь дарж байрлуулаарай." },
@@ -815,7 +815,7 @@ const UI = {
             <p class="story__meta"><span class="story__kind story__kind--${s.kind}">${t(UI[s.kind])}</span><span>${t(s.place)}</span></p>
             <h3 class="story__title">${t(s.title)}</h3>
             <p class="story__text">${t(s.blurb)}</p>
-            <button type="button" class="story__link" data-open="${s.id}">${t(read ? UI.readAgain : UI.read)} <span aria-hidden="true">→</span></button>
+            <button type="button" class="story__link" data-open="${s.id}">${t(read ? UI.readAgain : UI.read)}</button>
           </div>
         </article>`;
       })
@@ -903,9 +903,9 @@ const UI = {
         <div class="hbook__body" aria-live="polite">${body}</div>
       </div>
       <footer class="hbook__foot">
-        <button type="button" class="btn btn--outline btn--small" data-book-prev${page === 0 ? " disabled" : ""}>← ${t(UI.prev)}</button>
+        <button type="button" class="btn btn--outline btn--small" data-book-prev${page === 0 ? " disabled" : ""}>${t(UI.prev)}</button>
         <div class="hbook__dots" aria-label="${fmt("page", { n: page + 1, t: total })}">${Array.from({ length: total }, (_, i) => `<span class="${i === page ? "is-on" : ""}"></span>`).join("")}</div>
-        <button type="button" class="btn btn--dark btn--small" data-book-next${last && picked == null ? " disabled" : ""}>${last ? t(UI.finish) : t(UI.next) + " →"}</button>
+        <button type="button" class="btn btn--dark btn--small" data-book-next${last && picked == null ? " disabled" : ""}>${last ? t(UI.finish) : t(UI.next)}</button>
       </footer>
     </div>`;
   }
@@ -1001,7 +1001,7 @@ const UI = {
       ${
         quiz.picked != null
           ? `<div class="game__why" aria-live="polite"><strong>${quiz.picked === q.ok ? t(UI.right) : t(UI.wrong) + t(q.a[q.ok])}</strong> ${t(q.why)}</div>
-             <button type="button" class="btn btn--dark btn--small" data-quiz="next">${quiz.i === n - 1 ? t(UI.results) : t(UI.nextQ) + " →"}</button>`
+             <button type="button" class="btn btn--dark btn--small" data-quiz="next">${quiz.i === n - 1 ? t(UI.results) : t(UI.nextQ)}</button>`
           : ""
       }`;
   }
@@ -1095,17 +1095,17 @@ const UI = {
   const MAP_LABELS = {
     terkh: { en: "Terkhiin Tsagaan Lake", mn: "Тэрхийн Цагаан нуур" },
     taikhar: { en: "Taikhar Rock", mn: "Тайхар чулуу" },
-    ugii: { en: "Ugii Lake", mn: "Өгийнуур" },
+    ugii: { en: "Ugii Lake", mn: "Өгий нуур" },
     orkhon: { en: "Orkhon Waterfall", mn: "Орхоны хүрхрээ" },
     karakorum: { en: "Karakorum", mn: "Хархорум" },
     erdenezuu: { en: "Erdene Zuu", mn: "Эрдэнэ Зуу" },
     khoshoo: { en: "Khöshöö Tsaidam", mn: "Хөшөө Цайдам" },
-    kharbalgas: { en: "Khar Balgas", mn: "Хар Балгас" },
+    kharbalgas: { en: "Khar Balgas", mn: "Хар балгас" },
     burkhan: { en: "Burkhan Khaldun", mn: "Бурхан Халдун" },
-    deluun: { en: "Delüün Boldog", mn: "Дэлүүн Болдог" },
+    deluun: { en: "Delüün Boldog", mn: "Дэлүүн болдог" },
     khudoo: { en: "Khödöö Aral", mn: "Хөдөө арал" },
   };
-  const MAP_REGIONS = [{ en: "Arkhangai · Uvurkhangai", mn: "Архангай · Өвөрхангай" }, { en: "Khentii", mn: "Хэнтий" }];
+  const MAP_REGIONS = [{ en: "Arkhangai, Uvurkhangai", mn: "Архангай, Өвөрхангай" }, { en: "Khentii", mn: "Хэнтий" }];
   const mapEl = document.getElementById("hmap");
   const legendEl = document.getElementById("hmap-legend");
   function renderMap() {

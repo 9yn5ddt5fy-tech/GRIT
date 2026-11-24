@@ -41,7 +41,7 @@
 </head>
 <body>
 <main>
-  <div class="top"><h1>Багшийн самбар</h1><a class="muted" href="/culture/taasan-uu/">Таасан уу? тоглоом →</a></div>
+  <div class="top"><h1>Багшийн самбар</h1><a class="muted" href="/culture/taasan-uu/">Таасан уу? тоглоом</a></div>
   <form id="login">
     <label>Ангийн код<input name="code" maxlength="6" required placeholder="K7QX2M"></label>
     <label>Багшийн код<input name="teacher" maxlength="8" required placeholder="••••••••" type="password"></label>
@@ -64,8 +64,8 @@ let cred=null,data=null;
 try{cred=JSON.parse(sessionStorage.getItem('tu_teacher')||'null')}catch(e){}
 function draw(){
   const c=data.class,today=data.today;
-  const ms=(c.milestones||[]).map(m=>`<li>${esc(['','Аравт','Зуут','Мянгат','Түмэн','Хаан'][m.lvl]||m.lvl)} · ${esc(m.reached_on)}</li>`).join('');
-  let h=`<h2>${esc(c.school)} · ${esc(c.name)} анги <span class="muted">(сурагчийн код: ${esc(c.code)})</span></h2>
+  const ms=(c.milestones||[]).map(m=>`<li>${esc(['','Аравт','Зуут','Мянгат','Түмэн','Хаан'][m.lvl]||m.lvl)}: ${esc(m.reached_on)}</li>`).join('');
+  let h=`<h2>${esc(c.school)}, ${esc(c.name)} анги <span class="muted">(сурагчийн код: ${esc(c.code)})</span></h2>
   <div class="cards">
     <div class="card"><b>${esc(c.rank)}</b><span>Ангийн цол (80% дүрэм)</span></div>
     <div class="card"><b>${c.avg_points}</b><span>Нэг сурагчид ногдох дундаж оноо</span></div>

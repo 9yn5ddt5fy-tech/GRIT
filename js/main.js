@@ -281,10 +281,10 @@ document.querySelectorAll("form[data-mailto]").forEach((form) => {
       if (!j || !j.ok) throw new Error((j && j.error) || "failed");
       form.reset();
       status.className = "form__status is-ok";
-      status.textContent = mnUI() ? "Баярлалаа! Таны зурвас бидэнд ирлээ. Удахгүй хариу өгнө." : "Thank you! Your message has reached us. We will reply soon.";
+      status.textContent = mnUI() ? "Баярлалаа! Таны зурвасыг хүлээн авлаа. Удахгүй хариу өгөх болно." : "Thank you! Your message has reached us. We will reply soon.";
     } catch (e) {
       status.className = "form__status is-err";
-      status.textContent = mnUI() ? "Илгээж чадсангүй. Имэйл апп тань нээгдэнэ." : "Could not send. Opening your mail app instead.";
+      status.textContent = mnUI() ? "Илгээж чадсангүй. Таны имэйл програм нээгдэнэ." : "Could not send. Opening your mail app instead.";
       mailto(data);
     } finally {
       btn.disabled = false;
@@ -317,7 +317,7 @@ const openLightbox = (() => {
     img.classList.remove("img-missing");
     img.src = list[index].src;
     img.alt = list[index].alt;
-    caption.textContent = `${list[index].alt ? list[index].alt + " · " : ""}${index + 1} / ${list.length} · © GRIT, all rights reserved`;
+    caption.textContent = `${list[index].alt ? list[index].alt + ". " : ""}${index + 1} / ${list.length}. ${mnUI() ? "Зургийн эрх GRIT-д хамаарна." : "© GRIT, all rights reserved."}`;
   };
   const close = () => {
     box.hidden = true;
