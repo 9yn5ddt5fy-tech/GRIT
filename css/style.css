@@ -3508,9 +3508,9 @@ html.i18n-wait body { visibility: hidden; }
 /* Home hero changes with the season (html[data-season] is set in the page head) */
 .hero__bg--season { background: #1a1d36 center 40% / cover no-repeat; }
 html[data-season="winter"] .hero__bg--season { background-image: url(../assets/img/hero-winter.jpg?v=7); }
-html[data-season="spring"] .hero__bg--season { background-image: url(../assets/img/hero-spring.jpg?v=7); background-color: #7c9cc7; }
-html[data-season="summer"] .hero__bg--season { background-image: url(../assets/img/hero-summer.jpg?v=7); background-color: #3f86cf; }
-html[data-season="autumn"] .hero__bg--season { background-image: url(../assets/img/hero-autumn.jpg?v=7); background-color: #a65a5c; }
+html[data-season="spring"] .hero__bg--season { background-image: url(../assets/img/hero-spring.jpg?v=8); background-color: #7c9cc7; }
+html[data-season="summer"] .hero__bg--season { background-image: url(../assets/img/hero-summer.jpg?v=8); background-color: #3f86cf; }
+html[data-season="autumn"] .hero__bg--season { background-image: url(../assets/img/hero-autumn.jpg?v=8); background-color: #a65a5c; }
 @media (max-width: 700px) {
   .hero__bg--season { background-position: center top; }
   html[data-season="winter"] .hero__bg--season { background-image: url(../assets/img/hero-winter-m.jpg?v=7); }
