@@ -10,7 +10,7 @@ const L = DESK
       gers: [[1660, 1235, .95], [1420, 1268, .62]], title: [130, 400, 124] }
   : { moon: [905, 245, 46], toono: [540, 360, 158, 56], horizon: 1060,
       clouds: [cloud(60, 470, .9, 'mid'), cloud(1040, 520, .9, 'mid'), cloud(300, 210, .6, 'dk'), cloud(980, 1050, 1.1, 'lt'), cloud(60, 1080, 1, 'mid')],
-      gers: [[760, 1330, .8]], title: null };
+      gers: [[720, 1330, .8]], title: null };
 
 let snowH = '';
 for (let i = 0; i < (DESK ? 420 : 230); i++) { const x = rnd() * W2, y = rnd() * H2, r = rnd() < .86 ? 1.2 + rnd() * 2.4 : 4 + rnd() * 3.5; snowH += `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${r.toFixed(1)}" fill="#ffffff" opacity="${(.3 + rnd() * .55).toFixed(2)}"${r > 4 ? ' filter="url(#blur2)"' : ''}/>`; }

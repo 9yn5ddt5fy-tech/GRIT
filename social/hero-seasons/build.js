@@ -158,7 +158,7 @@ const L = DESK
       gers: [[1660, 1235, .95], [1420, 1268, .62]], title: [130, 400, 124] }
   : { sun: [905, 245, 46], toono: [540, 360, 158, 56], horizon: 1060,
       clouds: [cloud(60, 470, .9, 'mid'), cloud(1040, 520, .9, 'mid'), cloud(300, 210, .6, 'dk'), cloud(980, 1050, 1.1, 'lt'), cloud(60, 1080, 1, 'mid')],
-      gers: [[760, 1330, .8]], title: null };
+      gers: [[720, 1330, .8]], title: null };
 const hz = L.horizon;
 let mtn = `M0 ${hz}`, mx = 0, mk = 0;
 while (mx < W) { const w = 140 + ((mk * 97) % 5) * 40, h = 60 + ((mk * 61) % 4) * 42; mtn += ` L${mx + w / 2} ${hz - h} L${mx + w} ${hz - ((mk * 37) % 3) * 12}`; mx += w; mk++; }
@@ -192,9 +192,9 @@ if (DESK) {
 } else {
   // phone: a few animals on the near ground
   const gy = hz + 250;
-  if (SEASON === 'spring') herd = sheep(170, gy, 1.1) + lamb(230, gy + 4, 1.1, -1) + goat(320, gy - 6, 1) + flowers(40, 1040, () => gy + 40, 26, ['#8f6bd6', '#b28be8', '#ffffff'], 1.4);
-  if (SEASON === 'summer') herd = horse(210, gy, 1.2) + horse(360, gy - 10, 1, -1, '#e9dcc0', '#6b5a44') + flowers(40, 1040, () => gy + 40, 30, ['#ffe25a', '#ffffff', '#ff8a5a'], 1.3);
-  if (SEASON === 'autumn') herd = haystack(230, gy, 1) + sheep(380, gy + 4, 1.1, -1) + larch(80, gy - 30, 200, '#e7a43a') + larch(980, gy - 60, 160, '#d9822e');
+  if (SEASON === 'spring') herd = sheep(90, gy, 1.1) + lamb(150, gy + 4, 1.1, -1) + goat(240, gy - 6, 1) + flowers(40, 1040, () => gy + 40, 26, ['#8f6bd6', '#b28be8', '#ffffff'], 1.4);
+  if (SEASON === 'summer') herd = horse(95, gy, 1.1) + horse(275, gy - 10, 1, -1, '#e9dcc0', '#6b5a44') + flowers(40, 1040, () => gy + 40, 30, ['#ffe25a', '#ffffff', '#ff8a5a'], 1.3);
+  if (SEASON === 'autumn') herd = haystack(150, gy, 1) + sheep(285, gy + 4, 1.1, -1) + larch(80, gy - 30, 200, '#e7a43a') + larch(980, gy - 60, 160, '#d9822e');
 }
 const flock = SEASON === 'autumn' ? birds(DESK ? [[1080, 520, 1.4], [1140, 560, 1.2], [1200, 600, 1.1], [1020, 560, 1.2], [960, 600, 1.1], [1260, 640, 1]] : [[640, 760, 1], [690, 790, .9], [590, 790, .9]], '#3b2a3a')
   : SEASON === 'spring' ? birds(DESK ? [[2150, 620, 1.3], [2210, 650, 1.1], [2090, 660, 1.1]] : [[860, 760, 1], [910, 790, .9]], '#4a4060')

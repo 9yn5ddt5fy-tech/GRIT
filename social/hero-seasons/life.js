@@ -51,7 +51,7 @@ module.exports = function life({ C, SEASON, W, H, hz, DESK, rnd, horse }) {
 
   // a river winding from the foothills to the front right
   {
-    const pts = DESK ? [[2080, hz + 30], [1960, hz + 70], [2150, hz + 120], [2020, hz + 190], [2300, hz + 280], [2200, hz + 360], [2560, H]] : [[760, hz + 40], [700, hz + 90], [860, hz + 160], [780, hz + 240], [1080, H - 60]];
+    const pts = DESK ? [[2080, hz + 30], [1960, hz + 70], [2150, hz + 120], [2020, hz + 190], [2300, hz + 280], [2200, hz + 360], [2560, H]] : [[1010, hz + 40], [975, hz + 90], [1040, hz + 160], [1000, hz + 240], [1110, H - 60]];
     const wd = (t) => (DESK ? 10 + t * 150 : 8 + t * 90);
     const L = [], R = [];
     for (let i = 0; i < pts.length; i++) {
@@ -96,10 +96,10 @@ module.exports = function life({ C, SEASON, W, H, hz, DESK, rnd, horse }) {
   </g>`;
   if (DESK) {
     out.mid += rider(1990, 1048, 1) + rider(2210, 1032, .72, 1);
-    out.mid += `<g filter="url(#paint)"><path d="M1840 1262 V1200 M2010 1262 V1200" stroke="#6b4a36" stroke-width="8" stroke-linecap="round"/><path d="M1840 1206 Q1925 1222 2010 1206" stroke="#5b4636" stroke-width="4" fill="none"/></g>`;
-    out.mid += horse(1880, 1268, 1.05, -1, '#e9dcc0', '#6b5a44') + horse(1965, 1272, 1.1, 1, '#4a3222', '#1d140f');
+    out.mid += `<g filter="url(#paint)"><path d="M1770 1262 V1200 M2070 1262 V1200" stroke="#6b4a36" stroke-width="8" stroke-linecap="round"/><path d="M1770 1206 Q1920 1226 2070 1206" stroke="#5b4636" stroke-width="4" fill="none"/></g>`;
+    out.mid += horse(1835, 1268, 1.0, -1, '#e9dcc0', '#6b5a44') + horse(2000, 1274, 1.05, 1, '#4a3222', '#1d140f');
   } else {
-    out.mid += rider(300, hz + 230, 1, 1);
+    out.mid += rider(465, hz + 215, 1, 1);
   }
 
   // an eagle overhead, butterflies in summer
