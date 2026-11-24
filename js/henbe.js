@@ -206,45 +206,93 @@
     ctx.stroke(); ctx.restore();
   }
   function rr(ctx, x, y, w, h, r) { ctx.beginPath(); ctx.moveTo(x + r, y); ctx.arcTo(x + w, y, x + w, y + h, r); ctx.arcTo(x + w, y + h, x, y + h, r); ctx.arcTo(x, y + h, x, y, r); ctx.arcTo(x, y, x + w, y, r); ctx.closePath(); }
+  function wrap(ctx, text, maxW) {
+    const out = []; let line = "";
+    String(text).split(/\s+/).forEach((w) => { const t = line ? line + " " + w : w; if (ctx.measureText(t).width > maxW && line) { out.push(line); line = w; } else line = t; });
+    if (line) out.push(line); return out;
+  }
+  const loadImg = (src) => new Promise((res) => { const im = new Image(); im.onload = () => res(im); im.onerror = () => res(null); im.src = src; });
   async function makeStory() {
-    try { await Promise.all([document.fonts.load("800 120px Onest"), document.fonts.load("500 40px Onest")]); } catch (e) {}
+    try { await Promise.all([document.fonts.load("800 120px Onest"), document.fonts.load("600 40px Onest"), document.fonts.load("500 40px Onest")]); } catch (e) {}
     const W = 1080, H = 1920, c = document.createElement("canvas"); c.width = W; c.height = H;
     const ctx = c.getContext("2d"), ink = "#f4f2ed", dim = "rgba(244,242,237,.55)", F = (w, px) => `${w} ${px}px Onest, Arial, sans-serif`;
+    const k = S.guesses.length, won = S.solved;
     ctx.fillStyle = "#000"; ctx.fillRect(0, 0, W, H);
     stitches(ctx, CORNER, 70, 70, 22, ink, 4); stitches(ctx, rot(CORNER), W - 70 - 7 * 22, H - 70 - 7 * 22, 22, ink, 4);
+    // the GRIT horse and GRIT × Culture
     const horse = document.querySelector("#logo path, .logo path");
-    if (horse) { ctx.save(); ctx.translate(W / 2 - 75, 200); ctx.scale(1.5, 1.5); ctx.fillStyle = ink; ctx.fill(new Path2D(horse.getAttribute("d")), "evenodd"); ctx.restore(); }
-    // GRIT × Culture
-    ctx.font = F(700, 38); ctx.fillStyle = ink; ctx.textAlign = "left";
-    const wa = ctx.measureText("GRIT").width, wb = ctx.measureText("Culture").width, gap = 56, sx = W / 2 - (wa + gap + wb) / 2, ty = 430;
+    if (horse) { ctx.save(); ctx.translate(W / 2 - 50, 118); ctx.scale(1, 1); ctx.fillStyle = ink; ctx.fill(new Path2D(horse.getAttribute("d")), "evenodd"); ctx.restore(); }
+    ctx.font = F(700, 34); ctx.fillStyle = ink; ctx.textAlign = "left";
+    const wa = ctx.measureText("GRIT").width, wb = ctx.measureText("Culture").width, gap = 50, sx = W / 2 - (wa + gap + wb) / 2, ty = 282;
     ctx.fillText("GRIT", sx, ty); ctx.fillText("Culture", sx + wa + gap, ty);
-    ctx.strokeStyle = ink; ctx.lineWidth = 5; ctx.lineCap = "round";
-    const cx = sx + wa + gap / 2, cy = ty - 13; ctx.beginPath(); ctx.moveTo(cx - 11, cy - 11); ctx.lineTo(cx + 11, cy + 11); ctx.moveTo(cx + 11, cy - 11); ctx.lineTo(cx - 11, cy + 11); ctx.stroke();
+    ctx.strokeStyle = ink; ctx.lineWidth = 4.5; ctx.lineCap = "round";
+    { const cx = sx + wa + gap / 2, cy = ty - 12; ctx.beginPath(); ctx.moveTo(cx - 10, cy - 10); ctx.lineTo(cx + 10, cy + 10); ctx.moveTo(cx + 10, cy - 10); ctx.lineTo(cx - 10, cy + 10); ctx.stroke(); }
     ctx.textAlign = "center";
-    ctx.font = F(800, 132); ctx.save(); ctx.translate(W / 2, 580); if ("letterSpacing" in ctx) ctx.letterSpacing = "-6px"; ctx.fillText("Хэн бэ?", 0, 0); ctx.restore();
-    const k = S.guesses.length;
-    ctx.font = F(500, 40); ctx.fillStyle = dim;
-    ctx.fillText(`№${S.no},  ${S.solved ? k : "X"}/5 ${S.solved ? "сэжүүрээр" : ""}`.trim(), W / 2, 655);
-    // five clue cards: dark with a stitch = wrong or skipped, cream = the clue it was solved on, dashed = never needed
-    const rw = 760, rh = 104, rg = 22, x0 = (W - rw) / 2, y0 = 740;
+    ctx.font = F(800, 116); ctx.save(); ctx.translate(W / 2, 408); if ("letterSpacing" in ctx) ctx.letterSpacing = "-5px"; ctx.fillText("Хэн бэ?", 0, 0); ctx.restore();
+    ctx.font = F(500, 36); ctx.fillStyle = dim; ctx.fillText(`№${S.no}, өдрийн түүхэн хүн`, W / 2, 466);
+
+    // result card: the score, what it means, points and rank
+    const cardY = 512, cardH = 210;
+    ctx.fillStyle = won ? ink : "#161616"; rr(ctx, 110, cardY, W - 220, cardH, 22); ctx.fill();
+    const fg = won ? "#000" : ink, fgDim = won ? "rgba(0,0,0,.55)" : dim;
+    ctx.textAlign = "left"; ctx.fillStyle = fg; ctx.font = F(800, 150);
+    if ("letterSpacing" in ctx) ctx.letterSpacing = "-6px";
+    const score = `${won ? k : "X"}/5`; ctx.fillText(score, 160, cardY + 152);
+    const sw = ctx.measureText(score).width; if ("letterSpacing" in ctx) ctx.letterSpacing = "0px";
+    const tx = 160 + sw + 40;
+    ctx.font = F(800, 46); ctx.fillText(won ? (k === 1 ? "Эхний сэжүүрээр!" : "Таалаа!") : "Таасангүй", tx, cardY + 92);
+    ctx.font = F(500, 32); ctx.fillStyle = fgDim;
+    wrap(ctx, won ? `${k} сэжүүр хэрэгтэй байлаа` : "Маргааш дахин оролдоно", W - 160 - tx).slice(0, 2).forEach((l, i) => ctx.fillText(l, tx, cardY + 138 + i * 40));
+    // chips: points and rank
+    const st = TU.state && TU.state.stats;
+    let cx2 = 160; const chipY = cardY + cardH + 28;
+    const chip = async (label, icon) => {
+      ctx.font = F(700, 30); const w = ctx.measureText(label).width + 48 + (icon ? 44 : 0);
+      ctx.save(); ctx.strokeStyle = "rgba(244,242,237,.5)"; ctx.lineWidth = 2.5; ctx.setLineDash([10, 8]); rr(ctx, cx2, chipY, w, 64, 10); ctx.stroke(); ctx.restore();
+      if (icon) ctx.drawImage(icon, cx2 + 20, chipY + 14, 36, 36);
+      ctx.fillStyle = ink; ctx.textAlign = "left"; ctx.fillText(label, cx2 + 24 + (icon ? 44 : 0), chipY + 43); cx2 += w + 16;
+    };
+    if (won) await chip(`+${S.points} оноо`);
+    if (st && st.rank) {
+      const svg = TU.badge(st.lvl || 0, 64).replace("<svg", '<svg xmlns="http://www.w3.org/2000/svg"');
+      await chip(st.rank, await loadImg("data:image/svg+xml;charset=utf-8," + encodeURIComponent(svg)));
+    }
+    // total width of the chips, then centre them
+    const chipsW = cx2 - 16 - 160;
+    if (chipsW > 0) { const img = ctx.getImageData(150, chipY - 4, chipsW + 20, 72); ctx.fillStyle = "#000"; ctx.fillRect(150, chipY - 4, chipsW + 20, 72); ctx.putImageData(img, (W - chipsW) / 2 - 10, chipY - 4); }
+
+    // the five clues: how each was used (no names, no clue text except the first)
+    const rx = 110, rw = W - 220, rh = 64, rg = 12, ry = chipY + 98;
     for (let i = 0; i < 5; i++) {
-      const y = y0 + i * (rh + rg), used = i < k, win = S.solved && i === k - 1;
-      if (win) { ctx.fillStyle = ink; rr(ctx, x0, y, rw, rh, 12); ctx.fill(); }
-      else if (used) { ctx.fillStyle = "#161616"; rr(ctx, x0, y, rw, rh, 12); ctx.fill(); stitches(ctx, ["X"], x0 + rw - 74, y + 30, 44, ink, 5); }
-      else { ctx.save(); ctx.strokeStyle = "rgba(244,242,237,.3)"; ctx.lineWidth = 3; ctx.setLineDash([14, 10]); rr(ctx, x0 + 2, y + 2, rw - 4, rh - 4, 12); ctx.stroke(); ctx.restore(); }
-      ctx.beginPath(); ctx.arc(x0 + 58, y + rh / 2, 24, 0, Math.PI * 2); ctx.fillStyle = win ? "#000" : used ? ink : "rgba(244,242,237,.18)"; ctx.fill();
-      ctx.font = F(800, 26); ctx.fillStyle = win ? ink : used ? "#000" : dim; ctx.fillText(String(i + 1), x0 + 58, y + rh / 2 + 9);
-      ctx.fillStyle = win ? "rgba(0,0,0,.22)" : used ? "rgba(244,242,237,.16)" : "rgba(244,242,237,.1)";
-      rr(ctx, x0 + 104, y + rh / 2 - 6, [430, 360, 470, 320, 400][i], 12, 6); ctx.fill();
+      const y = ry + i * (rh + rg), used = i < k, win = won && i === k - 1, g = S.guesses[i];
+      if (win) { ctx.fillStyle = ink; rr(ctx, rx, y, rw, rh, 12); ctx.fill(); }
+      else if (used) { ctx.fillStyle = "#161616"; rr(ctx, rx, y, rw, rh, 12); ctx.fill(); }
+      else { ctx.save(); ctx.strokeStyle = "rgba(244,242,237,.22)"; ctx.lineWidth = 2.5; ctx.setLineDash([12, 9]); rr(ctx, rx + 1, y + 1, rw - 2, rh - 2, 12); ctx.stroke(); ctx.restore(); }
+      ctx.textAlign = "left"; ctx.font = F(600, 30); ctx.fillStyle = win ? "#000" : used ? ink : "rgba(244,242,237,.4)";
+      ctx.fillText(`${ORD[i + 1]} сэжүүр`, rx + 34, y + rh / 2 + 10);
+      ctx.textAlign = "right";
+      if (win) { ctx.font = F(800, 30); ctx.fillStyle = "#000"; ctx.fillText("Таалаа", rx + rw - 30, y + rh / 2 + 10); }
+      else if (used) { ctx.font = F(600, 28); ctx.fillStyle = dim; ctx.fillText(g && g.id ? "Буруу" : "Мэдэхгүй", rx + rw - 84, y + rh / 2 + 10); stitches(ctx, ["X"], rx + rw - 66, y + rh / 2 - 18, 36, ink, 4); }
+      else { ctx.font = F(500, 26); ctx.fillStyle = "rgba(244,242,237,.35)"; ctx.fillText(won ? "Хэрэггүй" : "", rx + rw - 30, y + rh / 2 + 9); }
     }
-    const rank = TU.state && TU.state.stats && TU.state.stats.rank;
-    if (rank) {
-      const cls = TU.state.player && TU.state.player.class;
-      ctx.fillStyle = dim; ctx.font = F(500, 34); ctx.fillText(cls ? `Цол (${cls} анги)` : "Цол", W / 2, H - 470);
-      ctx.fillStyle = ink; ctx.font = F(800, 56); ctx.fillText(rank, W / 2, H - 410);
+    ctx.textAlign = "center";
+
+    // a teaser: today's first clue (everyone sees it when they open the game, so it gives nothing away)
+    const qy = ry + 5 * (rh + rg) + 14, first = S.clues && S.clues[0] ? S.clues[0].mn : "";
+    if (first) {
+      ctx.font = F(500, 32); const lines = wrap(ctx, `“${first}”`, rw - 100).slice(0, 3);
+      const qh = 86 + lines.length * 44;
+      ctx.fillStyle = "#121212"; rr(ctx, rx, qy, rw, qh, 16); ctx.fill();
+      ctx.textAlign = "left"; stitches(ctx, ["X"], rx + 42, qy + 30, 26, ink, 4);
+      ctx.font = F(800, 28); ctx.fillStyle = ink; ctx.fillText("Өнөөдрийн эхний сэжүүр", rx + 82, qy + 52);
+      ctx.font = F(500, 32); ctx.fillStyle = "rgba(244,242,237,.86)"; lines.forEach((l, i) => ctx.fillText(l, rx + 46, qy + 104 + i * 44));
+      ctx.textAlign = "center";
     }
-    ctx.fillStyle = ink; ctx.font = F(600, 44); ctx.fillText("Чи хэдэн сэжүүрээр таах вэ?", W / 2, H - 300);
-    ctx.font = F(800, 46); ctx.fillText("grit.mn/culture/hen-be", W / 2, H - 230);
+    // call to action
+    ctx.fillStyle = ink; ctx.font = F(600, 42); ctx.fillText("Чи хэдэн сэжүүрээр таах вэ?", W / 2, H - 330);
+    ctx.font = F(800, 40); const url = "grit.mn/culture/hen-be", uw = ctx.measureText(url).width + 92;
+    ctx.fillStyle = ink; rr(ctx, (W - uw) / 2, H - 296, uw, 88, 12); ctx.fill();
+    ctx.fillStyle = "#000"; ctx.fillText(url, W / 2, H - 238);
     return c;
   }
   async function story() {
