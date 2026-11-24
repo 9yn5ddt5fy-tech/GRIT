@@ -728,6 +728,7 @@ function accHTML(){
     return `<div class="acc"><p>Та нэвтэрсэн байна. Оноо, цол тань аль ч утсан дээр хадгалагдана.</p><div class="who">${who}</div>
       ${p.google&&!p.handle&&!p.class?`<form id="nameForm" autocomplete="off"><label>Самбарт харагдах нэр (хоч)<input name="handle" maxlength="20" required placeholder="ж: Болд2010"></label><button class="btn" type="submit">Хадгалах</button></form>`:''}
       ${GOOGLE_ON&&!p.google?`<button class="gbtn" id="gBtn">${G_ICON}Google бүртгэлээ холбох</button>`:''}
+      <button class="btn" id="editBtn" style="width:100%;margin-top:12px">Нэр, зураг солих</button>
       <button class="btn ghost" id="outBtn" style="width:100%;margin-top:12px">Энэ утаснаас гарах</button></div>`}
   return `<div class="acc"><p>Одоо та зочноор тоглож байна. Оноо, цол тань зөвхөн энэ утсанд хадгалагдаж байгаа. Нэвтэрвэл өөр утаснаас ч үргэлжлүүлж, утсаа солиход оноогоо алдахгүй. Энэ утсан дээр цуглуулсан оноо тань бүртгэлд шилжинэ.</p>
     ${GOOGLE_ON?`<button class="gbtn" id="gBtn">${G_ICON}Google-ээр нэвтрэх</button><div class="or">эсвэл нэр, PIN-ээр</div>`:''}
@@ -754,12 +755,15 @@ function openAcc(){
     await sb.auth.signInWithOAuth({provider:'google',options:{redirectTo:location.origin+location.pathname}})}catch(e){toast(errMsg(e),2600)}});
   const nf=document.getElementById('nameForm');
   if(nf)nf.addEventListener('submit',async e=>{e.preventDefault();try{const s=await call('tu_set_name',{p_handle:new FormData(nf).get('handle')});S=s;render();toast('Нэр хадгалагдлаа',2000);openAcc()}catch(err){toast(errMsg(err),2600)}});
+  const eb=document.getElementById('editBtn');
+  if(eb)eb.addEventListener('click',()=>{document.getElementById('accOv').classList.remove('open');if(window.GRIT_TU)GRIT_TU.openAccount({edit:true,fresh:true})});
   const o=document.getElementById('outBtn');
   if(o)o.addEventListener('click',async()=>{if(!confirm('Энэ утаснаас гарах уу? Дахин нэвтэрч оноогоо үргэлжлүүлж болно.'))return;
     try{await rpc('tu_logout',{p_token:token})}catch(e){}
     token=null;store.del('tu_token');document.getElementById('accOv').classList.remove('open');await load()});
 }
 document.getElementById('accBtn').addEventListener('click',openAcc);
+window.addEventListener('tu-profile',()=>load());
 // Back from Google: exchange the code for a session, then link or sign in to the game account.
 async function finishGoogle(){
   if(!/[?&]code=/.test(location.search)||!store.get('tu_google_pending',false))return false;
@@ -867,6 +871,6 @@ buildBoard();buildKb();finishGoogle().then(done=>{if(!done)load()});
 if(!store.get('tu_seen5',false)){document.getElementById('helpOv').classList.add('open');store.set('tu_seen5',true)}
 </script>
 <script>window.TU_NO_AUTO=true</script>
-<script src="/js/tu.js?v=2"></script>
+<script src="/js/tu.js?v=3"></script>
 </body>
 </html>
