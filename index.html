@@ -26,13 +26,20 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:wght@500;600;700&family=PT+Serif:ital@0;1&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=92">
+  <link rel="stylesheet" href="css/style.css?v=93">
   <script>
     (function () {
       var d = document.documentElement, s = null, l = null;
       d.classList.add("js");
       try { s = localStorage.getItem("grit-theme"); l = localStorage.getItem("grit-lang"); } catch (e) {}
       if (s === "dark" || (!s && window.matchMedia && matchMedia("(prefers-color-scheme: dark)").matches)) d.setAttribute("data-theme", "dark");
+      // Season of the hero picture: spring Mar–May, summer Jun–Aug, autumn Sep–Oct, winter Nov–Feb (?season= to preview).
+      var m = new Date().getMonth() + 1, q = (location.search.match(/[?&]season=(spring|summer|autumn|winter)/) || [])[1];
+      var se = q || (m >= 3 && m <= 5 ? "spring" : m >= 6 && m <= 8 ? "summer" : m >= 9 && m <= 10 ? "autumn" : "winter");
+      d.setAttribute("data-season", se);
+      var pl = document.createElement("link"); pl.rel = "preload"; pl.as = "image"; pl.fetchPriority = "high";
+      pl.setAttribute("imagesrcset", "assets/img/hero-" + se + "-m.jpg?v=5 1080w, assets/img/hero-" + se + ".jpg?v=5 2560w");
+      pl.setAttribute("imagesizes", "100vw"); document.head.appendChild(pl);
       // Mongolian is the default; English only when the visitor chose it.
       if (l !== "en") { d.setAttribute("data-lang", "mn"); d.lang = "mn"; d.classList.add("i18n-wait"); setTimeout(function () { d.classList.remove("i18n-wait"); }, 2500); }
     })();
@@ -66,7 +73,7 @@
 
   <main id="main">
     <section class="hero">
-      <div class="hero__bg hero__bg--winter"><picture><source media="(max-width: 700px)" srcset="assets/img/hero-winter-m.jpg?v=4"><img src="assets/img/hero-winter.jpg?v=4" alt="Winter night illustration: a glowing ger roof crown with the GRIT horse above a snowy camp" fetchpriority="high"></picture></div>
+      <div class="hero__bg hero__bg--winter hero__bg--season" role="img" aria-label="Illustration: a glowing ger roof crown with the GRIT horse above a camp in the steppe"></div>
       <div class="container hero__content">
         <div class="hero__main">
           <a class="hero__news" href="/culture/taasan-uu/" data-reveal><span class="hero__news-tag">New</span><b translate="no">Таасан уу?</b><span>a daily history word game</span><span aria-hidden="true">→</span></a>
@@ -494,7 +501,7 @@
     </div>
   </footer>
 
-  <script src="js/i18n.js?v=47"></script>
+  <script src="js/i18n.js?v=48"></script>
   <script src="js/main.js?v=41"></script>
 </body>
 </html>
