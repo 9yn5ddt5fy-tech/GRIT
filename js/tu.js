@@ -210,7 +210,7 @@
   function statsLine() {
     if (!S || !S.stats) return "";
     const st = S.stats;
-    return `<div class="tu-stats"><div><b>${st.points}</b><span>${L("Оноо", "Points")}</span></div><div><b class="tu-stat-rank">${badge(st.lvl, 22)}${esc(st.rank)}</b><span>${L("Цол", "Rank")}</span></div><div><b>${st.streak}</b><span>${L("Дараалсан өдөр", "Day streak")}</span></div></div>`;
+    return `<div class="tu-stats"><div><b>${st.points}</b><span>${L("Оноо", "Points")}</span></div><div><b class="tu-stat-rank">${badge(st.lvl, 22)}${esc(rankName(st.lvl, st.rank))}</b><span>${L("Цол", "Rank")}</span></div><div><b>${st.streak}</b><span>${L("Дараалсан өдөр", "Day streak")}</span></div></div>`;
   }
   function accountHTML() {
     const p = S && S.player;
@@ -324,7 +324,7 @@
   function av(name, avatar, cls = "") {
     const m = /^([a-z]+)-([0-7])$/.exec(avatar || "");
     if (m && ANIMALS[m[1]]) return `<span class="tu-av tu-av--pic ${cls}" style="background:${PALETTE[+m[2]]}">${ANIMALS[m[1]]}</span>`;
-    return `<span class="tu-av ${cls}" style="background:${color(name)}">${esc((name || "?").trim()[0] || "?").toUpperCase()}</span>`;
+    return `<span class="tu-av ${cls}" style="background:${color(name)}">${esc((shownName(name) || "?").trim()[0] || "?").toUpperCase()}</span>`;
   }
   const FLAME = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8.6 1.2c.4 2.1-.6 3.3-1.6 4.3C5.9 6.6 4.6 7.9 4.6 10a3.4 3.4 0 0 0 6.8.1c0-1.5-.7-2.4-1.3-3.2.1 1-.3 1.8-1 2.1.5-2.6-.4-5.6-1.5-7.8z" fill="#ff9600"/><path d="M8 14.2a2 2 0 0 1-2-2c0-1.2.9-1.9 1.6-2.8.3 1 1 1.3 1.5 1.6.5.3.9.7.9 1.3a2 2 0 0 1-2 1.9z" fill="#ffc800"/></svg>';
   // One badge per rank: a hexagon in the rank's colour with its own sign.
@@ -337,6 +337,10 @@
     '<path d="M12 6.6l1.6 3.4 3.7.4-2.8 2.5.8 3.7L12 14.7l-3.3 1.9.8-3.7-2.8-2.5 3.7-.4z" fill="#fff"/>',
     '<path d="M7 15.5h10l.9-6.3-3.3 2.4L12 7.2l-2.6 4.4-3.3-2.4z" fill="#fff"/><path d="M7.3 17h9.4" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/>',
   ];
+  // Rank and guest names come from the database in Mongolian; show them in the page language.
+  const RANK_EN = ["Soldier", "Leader of Ten", "Leader of a Hundred", "Leader of a Thousand", "Leader of Ten Thousand", "Khan"];
+  const rankName = (lvl, name) => (mn() ? name : RANK_EN[Math.max(0, Math.min(5, lvl || 0))] || name);
+  const shownName = (n) => (mn() ? n : String(n || "").replace(/^Зочин /, "Guest ").replace(/^Тоглогч /, "Player "));
   function badge(lvl, size = 20) {
     const l = Math.max(0, Math.min(5, lvl || 0)), c = RANK_COL[l];
     return `<svg class="tu-badge" width="${size}" height="${size}" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.6l9.2 5.2v10.4L12 22.4l-9.2-5.2V6.8z" fill="${c}"/><path d="M12 3.4l7.6 4.3v8.6L12 20.6l-7.6-4.3V7.7z" fill="none" stroke="#fff" stroke-opacity=".35" stroke-width="1"/>${RANK_SIGN[l]}</svg>`;
@@ -350,8 +354,8 @@
     const medal = r.pos <= 3 ? `<span class="tu-pos tu-pos--${r.pos}">${r.pos}</span>` : `<span class="tu-pos">${r.pos}</span>`;
     const sub = [r.class ? esc(r.class) + " " + L("анги", "class") : "", r.streak >= 2 ? `<span class="tu-fire">${FLAME}${L(`${r.streak} өдөр`, `${r.streak} days`)}</span>` : ""].filter(Boolean).join(" ");
     return `<li class="tu-r${r.me ? " is-me" : ""}">${medal}${av(r.name, r.avatar)}
-      <span class="tu-n"><b>${esc(r.name)}</b>${sub ? `<small>${sub}</small>` : ""}</span>
-      <span class="tu-rank tu-rank--${Math.min(5, r.lvl || 0)}" title="${esc(r.rank || "")}">${badge(r.lvl, 20)}<span class="tu-rank-t">${esc(r.rank || "")}</span></span><span class="tu-xp">${r.xp} <small>${L("оноо", "pts")}</small></span></li>`;
+      <span class="tu-n"><b>${esc(shownName(r.name))}</b>${sub ? `<small>${sub}</small>` : ""}</span>
+      <span class="tu-rank tu-rank--${Math.min(5, r.lvl || 0)}" title="${esc(rankName(r.lvl, r.rank))}">${badge(r.lvl, 20)}<span class="tu-rank-t">${esc(rankName(r.lvl, r.rank))}</span></span><span class="tu-xp">${r.xp} <small>${L("оноо", "pts")}</small></span></li>`;
   }
   function renderBoard(el, data, opts = {}) {
     if (!data) { el.innerHTML = `<p class="tu-empty">${L("Ачаалж байна…", "Loading…")}</p>`; return; }
