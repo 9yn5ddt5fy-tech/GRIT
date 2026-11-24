@@ -44,7 +44,7 @@ const MN = {
   // Home: hero, statement, numbers
   "Opening the world to students from rural Mongolia.": "Орон нутгийн сурагчдад дэлхийн боломжийн үүдийг нээнэ.",
   "Why we exist": "Бидний зорилго",
-  "We work in the soums of central Mongolia, where the nearest university is": "Бид Хангайн бүсийн сумдад ажилладаг. Эдгээр сумаас хамгийн ойр их сургууль хүртэл",
+  "We work in rural soums of Mongolia, where the nearest university is": "Бид орон нутгийн сумдад ажилладаг. Эдгээр сумаас хамгийн ойр их сургууль хүртэл",
   "a day's drive away": "бүтэн өдөр явдаг",
   "and scholarship information rarely reaches students.": "бөгөөд тэтгэлгийн мэдээлэл сурагчдад төдийлөн хүрдэггүй.",
   "Students": "Сурагч",

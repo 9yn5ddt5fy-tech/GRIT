@@ -3549,11 +3549,6 @@ html[data-season="autumn"] .hero__bg--season { background-image: url(../assets/i
   letter-spacing: 0;
 }
 .contact__list dt, .form label, .wordgame__eyebrow, .pub__kicker, .step__when { font-size: 13px; }
-/* Mission: plain editorial text, no box */
-.statement { display: block; padding: 0; border: 0; border-radius: 0; background: none; overflow: visible; }
-.statement__head { margin-bottom: 14px; }
-.statement__text { max-width: 980px; font-size: clamp(24px, 2.6vw, 34px); line-height: 1.35; letter-spacing: -0.01em; }
-@media (max-width: 900px) { .statement { padding: 0; } }
 /* Project cards: titles stay readable on the photo collages */
 .project::after { background: linear-gradient(180deg, rgba(0,0,0,0) 30%, rgba(8,16,10,0.55) 58%, rgba(8,16,10,0.88) 100%); }
 .project__text { min-height: 3.2em; }
@@ -3565,3 +3560,14 @@ html[data-season="autumn"] .hero__bg--season { background-image: url(../assets/i
   .hero__news { flex-wrap: wrap; row-gap: 2px; }
   .hero__subtitle { opacity: 0.92; }
 }
+
+/* No small green dots or green glows */
+.page-hero .eyebrow::before, .hero__dot { display: none; }
+.page-hero .eyebrow { gap: 0; }
+.map__pin--main { box-shadow: none; }
+.photos-glow .photo:hover,
+.success:hover .success__photo, .speaker:hover .speaker__photo, .member:hover .member__photo,
+[data-theme="dark"] .photos-glow .photo:hover,
+[data-theme="dark"] .success:hover .success__photo,
+[data-theme="dark"] .speaker:hover .speaker__photo,
+[data-theme="dark"] .member:hover .member__photo { box-shadow: 0 14px 30px -12px rgba(0, 0, 0, 0.35); }
