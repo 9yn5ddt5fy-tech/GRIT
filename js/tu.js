@@ -89,11 +89,11 @@
 .tu-rk__row{display:grid;grid-template-columns:52px 1fr auto;align-items:center;gap:8px;font-size:12.5px;margin-top:6px}.tu-rk__row span:last-child{opacity:.7;font-variant-numeric:tabular-nums}
 .tu-bar{display:block;height:8px;border-radius:999px;background:color-mix(in srgb,currentColor 10%,transparent);overflow:hidden}.tu-bar i{display:block;height:100%;border-radius:inherit;background:#58a700}
 .tu-rk__hint,.tu-rk__top{margin:0;font-size:13.5px;line-height:1.5;opacity:.8}
-.tu-rk__list{list-style:none;margin:14px 0 0;padding:0}
-.tu-rk__list li{display:flex;align-items:center;gap:12px;padding:8px 4px;border-top:1px solid color-mix(in srgb,currentColor 8%,transparent)}
+.tu-rk__list{list-style:none;margin:12px 0 0;padding:0}
+.tu-rk__list li{display:flex;align-items:center;gap:10px;padding:6px 6px;border-top:1px solid color-mix(in srgb,currentColor 8%,transparent)}
 .tu-rk__list li .tu-badge{filter:grayscale(1);opacity:.4}.tu-rk__list li.got .tu-badge{filter:none;opacity:1}
 .tu-rk__list li.cur{background:color-mix(in srgb,#58a700 10%,transparent);border-radius:10px}
-.tu-rk__list b{display:block;font-size:14.5px}.tu-rk__list small{display:block;font-size:12px;opacity:.6}
+.tu-rk__list li>div{flex:1;display:flex;align-items:baseline;justify-content:space-between;gap:8px;min-width:0}.tu-rk__list b{font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.tu-rk__list small{font-size:12px;opacity:.6;white-space:nowrap;font-variant-numeric:tabular-nums}
 .tu-more{display:block;width:100%;margin-top:8px;padding:10px;border:0;border-radius:10px;background:color-mix(in srgb,currentColor 6%,transparent);color:inherit;font:600 14px inherit;font-family:inherit;cursor:pointer}
 .tu-more:hover{background:color-mix(in srgb,currentColor 10%,transparent)}
 `;
@@ -403,7 +403,7 @@
           <div class="tu-rk__row"><span>${L("Оноо", "Points")}</span>${bar(st.points, nx.min_points)}<span>${st.points}/${nx.min_points}</span></div>
           <div class="tu-rk__row"><span>${L("Өдөр", "Days")}</span>${bar(st.days, nx.min_days)}<span>${st.days}/${nx.min_days}</span></div></div>` : `<p class="tu-rk__top">${L("Та хамгийн дээд цолд хүрсэн!", "You reached the highest rank!")}</p>`}`
         : `<p class="tu-rk__hint">${L("Тоглож оноо цуглуулах тусам цол тань ахина. Цол ахихад оноо болон тоглосон өдөр хоёулаа хэрэгтэй.", "Collect points to rise through the ranks. Each rank needs both points and days played.")}</p>`}
-      <ol class="tu-rk__list">${ranks.map((r) => `<li class="${r.lvl <= cur ? "got" : ""}${r.lvl === cur ? " cur" : ""}">${badge(r.lvl, 30)}<div><b>${esc(rankName(r.lvl, r.name))}</b><small>${req(r)}</small></div></li>`).join("")}</ol></div>`;
+      <ol class="tu-rk__list">${ranks.map((r) => `<li class="${r.lvl <= cur ? "got" : ""}${r.lvl === cur ? " cur" : ""}">${badge(r.lvl, 24)}<div><b>${esc(rankName(r.lvl, r.name))}</b><small>${req(r)}</small></div></li>`).join("")}</ol></div>`;
   }
   async function loadBoard(el, scope = "week", opts = {}) {
     el.dataset.scope = scope;
