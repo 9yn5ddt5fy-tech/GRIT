@@ -731,7 +731,7 @@ function accHTML(){
       <label>PIN (4 тоо)<input name="pin" inputmode="numeric" pattern="[0-9]{4}" maxlength="4" required placeholder="••••"></label>
       <div class="row"><button class="btn" type="submit" data-act="login">Нэвтрэх</button><button class="btn ghost" type="submit" data-act="register">Бүртгүүлэх</button></div>
     </form>
-    <p class="muted small">Нэр, PIN-ээр бүртгүүлэхэд бид таны имэйл, утасны дугаарыг авдаггүй.${GOOGLE_ON?' Google-ээр нэвтрэхэд таны имэйл хаяг зөвхөн нэвтрэлтэд ашиглагдах бөгөөд самбарт харагдахгүй.':''} Ангийн гишүүд ангийн код, нэр, PIN-ээрээ нэвтэрнэ.</p></div>`}
+    <p class="muted small">Нэр, PIN-ээр бүртгүүлэхэд бид таны имэйл, утасны дугаарыг авдаггүй.${GOOGLE_ON?' Google-ээр нэвтрэхэд таны имэйл хаяг зөвхөн нэвтрэлтэд ашиглагдах бөгөөд самбарт харагдахгүй.':''} Ангийн гишүүд ангийн код, нэр, PIN-ээрээ нэвтэрнэ. <a href="/privacy/" style="color:inherit">Нууцлалын бодлого</a></p></div>`}
 function openAcc(){
   if(!S)return;const box=document.getElementById('accBody');box.innerHTML=accHTML();
   document.getElementById('accOv').classList.add('open');
