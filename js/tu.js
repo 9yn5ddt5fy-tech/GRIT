@@ -19,9 +19,10 @@
     const st = document.createElement("style"); st.id = "tu-css";
     st.textContent = `
 .tu-acc{min-width:0;padding:0 14px;font-weight:600}
-.tu-acc.is-in{padding:0;width:38px;justify-content:center}
+.tu-acc.is-in{padding:0;width:38px;height:38px;border:0;background:none;border-radius:50%;justify-content:center;overflow:hidden}
+.tu-acc.is-in .tu-av{width:38px;height:38px;font-size:16px}.tu-acc.is-in .tu-av--pic{font-size:21px}
+.tu-acc.is-in:hover{transform:scale(1.05)}.tu-acc.is-in:focus-visible{outline:2px solid currentColor;outline-offset:2px}
 .tu-av{display:inline-grid;place-items:center;width:32px;height:32px;flex:none;border-radius:50%;color:#fff;font-weight:800;font-size:16px;line-height:1}
-.tu-acc .tu-av{width:30px;height:30px;font-size:14px}
 .tu-toast{position:fixed;left:50%;bottom:28px;z-index:1000;transform:translate(-50%,20px);opacity:0;pointer-events:none;padding:12px 20px;border-radius:999px;background:#111;color:#fff;font-weight:700;font-size:15px;box-shadow:0 10px 30px rgba(0,0,0,.25);transition:opacity .25s,transform .25s}
 .tu-toast.is-on{opacity:1;transform:translate(-50%,0)}
 .tu-sheet{width:min(460px,calc(100% - 24px));max-height:90vh;margin:auto;padding:0;border:0;border-radius:18px;background:var(--bg,#fff);color:var(--ink,#111);box-shadow:0 30px 80px rgba(0,0,0,.35)}
