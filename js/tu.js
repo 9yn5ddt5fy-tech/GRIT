@@ -74,6 +74,8 @@
 .tu-pos--1{background:#f4c430}.tu-pos--2{background:#aab4c0}.tu-pos--3{background:#d9915a}
 .tu-n{flex:1;min-width:0;display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}.tu-n b{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:15px;max-width:100%}
 .tu-n small{display:inline-flex;align-items:center;gap:8px;font-size:12px;opacity:.75}
+.tu-rank{display:inline-flex;align-items:center;height:20px;padding:0 8px;border-radius:999px;font-size:11.5px;font-weight:700;white-space:nowrap;color:#fff;background:#8a939e}
+.tu-rank--1{background:#58a700}.tu-rank--2{background:#1899d6}.tu-rank--3{background:#a560e8}.tu-rank--4{background:#e57c00}.tu-rank--5{background:linear-gradient(135deg,#f4c430,#d99a00);color:#3a2600}
 .tu-fire{display:inline-flex;align-items:center;gap:3px;color:#e57c00;font-weight:700}.tu-fire svg{width:14px;height:14px}
 .tu-xp{font-weight:800;font-size:15px;white-space:nowrap}.tu-xp small{font-weight:600;font-size:12px;opacity:.6}
 .tu-empty{padding:18px 4px;opacity:.7}
@@ -331,7 +333,7 @@
     const medal = r.pos <= 3 ? `<span class="tu-pos tu-pos--${r.pos}">${r.pos}</span>` : `<span class="tu-pos">${r.pos}</span>`;
     const sub = [r.class ? esc(r.class) + " " + L("анги", "class") : "", r.streak >= 2 ? `<span class="tu-fire">${FLAME}${L(`${r.streak} өдөр`, `${r.streak} days`)}</span>` : ""].filter(Boolean).join(" ");
     return `<li class="tu-r${r.me ? " is-me" : ""}">${medal}${av(r.name, r.avatar)}
-      <span class="tu-n"><b>${esc(r.name)}</b>${sub ? `<small>${sub}</small>` : ""}</span><span class="tu-xp">${r.xp} <small>${L("оноо", "pts")}</small></span></li>`;
+      <span class="tu-n"><b>${esc(r.name)}</b>${r.rank ? `<span class="tu-rank tu-rank--${Math.min(5, r.lvl || 0)}">${esc(r.rank)}</span>` : ""}${sub ? `<small>${sub}</small>` : ""}</span><span class="tu-xp">${r.xp} <small>${L("оноо", "pts")}</small></span></li>`;
   }
   function renderBoard(el, data, opts = {}) {
     if (!data) { el.innerHTML = `<p class="tu-empty">${L("Ачаалж байна…", "Loading…")}</p>`; return; }
