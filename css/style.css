@@ -3595,4 +3595,4 @@ html[data-season="autumn"] .hero__bg--season { background-image: url(../assets/i
 .season-pick button[aria-pressed="true"] { background: #fff; color: #111; }
 .season-pick svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round; }
 .season-pick button:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
-@media (max-width: 640px) { .season-pick { top: auto; bottom: 26px; right: 16px; background: rgba(20, 22, 44, .62); border-color: rgba(255,255,255,.28); } }
+@media (max-width: 640px) { .season-pick { top: 78px; right: 12px; flex-direction: column; } }
