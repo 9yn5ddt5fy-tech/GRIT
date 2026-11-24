@@ -20,7 +20,7 @@
     st.textContent = `
 .tu-acc{min-width:0;padding:0 14px;font-weight:600}
 .tu-acc.is-in{padding:0;width:38px;justify-content:center}
-.tu-av{display:inline-grid;place-items:center;width:36px;height:36px;flex:none;border-radius:50%;color:#fff;font-weight:800;font-size:16px;line-height:1}
+.tu-av{display:inline-grid;place-items:center;width:32px;height:32px;flex:none;border-radius:50%;color:#fff;font-weight:800;font-size:16px;line-height:1}
 .tu-acc .tu-av{width:30px;height:30px;font-size:14px}
 .tu-toast{position:fixed;left:50%;bottom:28px;z-index:1000;transform:translate(-50%,20px);opacity:0;pointer-events:none;padding:12px 20px;border-radius:999px;background:#111;color:#fff;font-weight:700;font-size:15px;box-shadow:0 10px 30px rgba(0,0,0,.25);transition:opacity .25s,transform .25s}
 .tu-toast.is-on{opacity:1;transform:translate(-50%,0)}
@@ -55,17 +55,19 @@
 .tu-ends{margin:0;font-weight:700;font-size:14px;color:#e5a000}
 .tu-list{list-style:none;margin:0;padding:0}
 .tu-list--me{margin-top:8px;padding-top:8px;border-top:1px dashed color-mix(in srgb,currentColor 25%,transparent)}
-.tu-r{display:flex;align-items:center;gap:12px;padding:10px 10px;border-radius:12px}
+.tu-r{display:flex;align-items:center;gap:10px;padding:6px 10px;border-radius:10px}
 .tu-r + .tu-r{border-top:1px solid color-mix(in srgb,currentColor 8%,transparent)}
 .tu-r.is-me{background:color-mix(in srgb,#1cb0f6 14%,transparent);border-top-color:transparent}
 .tu-pos{width:28px;flex:none;text-align:center;font-weight:800;font-size:15px;opacity:.75}
 .tu-pos--1,.tu-pos--2,.tu-pos--3{display:grid;place-items:center;height:28px;border-radius:50%;color:#fff;opacity:1;font-size:13px}
 .tu-pos--1{background:#f4c430}.tu-pos--2{background:#aab4c0}.tu-pos--3{background:#d9915a}
-.tu-n{flex:1;min-width:0}.tu-n b{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:16px}
-.tu-n small{display:flex;align-items:center;gap:8px;font-size:12.5px;opacity:.7;margin-top:1px}
+.tu-n{flex:1;min-width:0;display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}.tu-n b{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:15px;max-width:100%}
+.tu-n small{display:inline-flex;align-items:center;gap:8px;font-size:12px;opacity:.75}
 .tu-fire{display:inline-flex;align-items:center;gap:3px;color:#e57c00;font-weight:700}.tu-fire svg{width:14px;height:14px}
-.tu-xp{font-weight:800;font-size:16px;white-space:nowrap}.tu-xp small{font-weight:600;font-size:12px;opacity:.6}
+.tu-xp{font-weight:800;font-size:15px;white-space:nowrap}.tu-xp small{font-weight:600;font-size:12px;opacity:.6}
 .tu-empty{padding:18px 4px;opacity:.7}
+.tu-more{display:block;width:100%;margin-top:8px;padding:10px;border:0;border-radius:10px;background:color-mix(in srgb,currentColor 6%,transparent);color:inherit;font:600 14px inherit;font-family:inherit;cursor:pointer}
+.tu-more:hover{background:color-mix(in srgb,currentColor 10%,transparent)}
 `;
     document.head.append(st);
   }
@@ -275,8 +277,11 @@
   }
   function renderBoard(el, data, opts = {}) {
     if (!data) { el.innerHTML = `<p class="tu-empty">${L("Ачаалж байна…", "Loading…")}</p>`; return; }
-    const rows = data.rows || [];
+    const all = data.rows || [];
+    const limit = opts.limit || 5, open = !!el._open;
+    const rows = open ? all : all.slice(0, limit);
     const inTop = rows.some((r) => r.me);
+    const meRow = !inTop ? all.find((r) => r.me) || data.me : null;
     const scope = data.scope;
     el.innerHTML = `<div class="tu-lb">
       <div class="tu-lb__head"><div class="tu-tabs" role="tablist">
@@ -284,10 +289,12 @@
         <button type="button" role="tab" data-scope="season" aria-selected="${scope === "season"}">${L("Улирал", "Season")}</button></div>
         ${scope === "week" ? `<p class="tu-ends">${L("Дуусахад", "Ends in")} ${endsIn(data.ends_in)}</p>` : `<p class="tu-ends">${esc(data.season || "")}</p>`}</div>
       ${rows.length ? `<ol class="tu-list">${rows.map(rowHTML).join("")}</ol>` : `<p class="tu-empty">${L("Энэ долоо хоногт одоохондоо оноо авсан хүн алга. Анхных нь болоорой!", "Nobody has scored this week yet. Be the first!")}</p>`}
-      ${data.me && !inTop ? `<ol class="tu-list tu-list--me">${rowHTML(data.me)}</ol>` : ""}
+      ${meRow ? `<ol class="tu-list tu-list--me">${rowHTML(meRow)}</ol>` : ""}
+      ${all.length > limit ? `<button type="button" class="tu-more" data-tu-more>${open ? L("Хураах", "Show less") : L(`Бүгдийг харах (${all.length})`, `Show all (${all.length})`)}</button>` : ""}
       ${opts.cta !== false && !signedIn() ? `<button type="button" class="tu-btn tu-btn--wide" data-tu-signin>${L("Нэвтэрч самбарт гарах", "Sign in to join the leaderboard")}</button>` : ""}
     </div>`;
-    el.querySelectorAll("[data-scope]").forEach((b) => b.addEventListener("click", () => loadBoard(el, b.dataset.scope, opts)));
+    el.querySelectorAll("[data-scope]").forEach((b) => b.addEventListener("click", () => { el._open = false; loadBoard(el, b.dataset.scope, opts); }));
+    el.querySelector("[data-tu-more]")?.addEventListener("click", () => { el._open = !open; renderBoard(el, data, opts); });
     el.querySelector("[data-tu-signin]")?.addEventListener("click", () => (opts.onSignin ? opts.onSignin() : openAccount()));
   }
   async function loadBoard(el, scope = "week", opts = {}) {
