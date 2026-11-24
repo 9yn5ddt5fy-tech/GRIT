@@ -3587,12 +3587,12 @@ html[data-season="autumn"] .hero__bg--season { background-image: url(../assets/i
 @media (max-width: 640px) { .page-plan .table th, .page-plan .table td { padding: 12px 10px; font-size: 14px; } }
 .plan-note { margin-top: 22px; padding: 16px 18px; border: 1px solid var(--accent-soft); border-radius: 12px; background: var(--tint); color: var(--ink); line-height: 1.55; }
 
-/* Hero season picker */
+/* Hero season picker: four small icons in the corner of the picture */
 .hero__bg--season { transition: opacity .3s ease; }
-.season-pick { display: inline-flex; flex-wrap: wrap; gap: 6px; margin-top: 28px; padding: 4px; border: 1px solid rgba(255,255,255,.22); border-radius: 999px; background: rgba(10,12,30,.32); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
-.season-pick button { display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 12px; border: 0; border-radius: 999px; background: none; color: rgba(255,255,255,.88); font: 500 13px/1 var(--font-sans); cursor: pointer; transition: background .2s, color .2s; }
-.season-pick button:hover { background: rgba(255,255,255,.14); color: #fff; }
+.season-pick { position: absolute; z-index: 2; top: 96px; right: max(16px, calc(50% - 680px)); display: flex; gap: 2px; padding: 3px; border: 1px solid rgba(255,255,255,.2); border-radius: 999px; background: rgba(10,12,30,.28); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
+.season-pick button { display: grid; place-items: center; width: 30px; height: 30px; padding: 0; border: 0; border-radius: 50%; background: none; color: rgba(255,255,255,.85); cursor: pointer; transition: background .2s, color .2s; }
+.season-pick button:hover { background: rgba(255,255,255,.16); color: #fff; }
 .season-pick button[aria-pressed="true"] { background: #fff; color: #111; }
 .season-pick svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round; }
 .season-pick button:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
-@media (max-width: 640px) { .season-pick { margin-top: 22px; } .season-pick button { padding: 0 10px; } }
+@media (max-width: 640px) { .season-pick { top: auto; bottom: 26px; right: 16px; background: rgba(20, 22, 44, .62); border-color: rgba(255,255,255,.28); } }
