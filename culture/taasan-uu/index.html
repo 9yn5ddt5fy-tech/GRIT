@@ -231,9 +231,9 @@
   .rank .nextr{font-size:12.5px;color:rgba(0,0,0,.6)}
   .ladder{list-style:none;margin:14px 0 0}
   .ladder li{display:flex;gap:12px;align-items:flex-start;padding:12px 0;border-top:1px solid rgba(0,0,0,.1)}
-  .ladder .ic{width:30px;height:30px;flex:none;border-radius:4px;border:1.5px dashed rgba(0,0,0,.3);display:grid;place-items:center;font-size:12px;font-weight:800;color:rgba(0,0,0,.35)}
-  .ladder li.got .ic{background:#000;border:1.5px solid #000;color:var(--ink)}
-  .ladder li.cur .ic{outline:2px solid #000;outline-offset:2px}
+  .ladder .ic{width:30px;height:30px;flex:none;display:grid;place-items:center;font-size:12px;font-weight:800;color:rgba(0,0,0,.35);filter:grayscale(1);opacity:.35}
+  .ladder li.got .ic{filter:none;opacity:1}
+  .ladder li.cur .ic{transform:scale(1.15)}
   .ladder b{display:block;font-size:16px;font-weight:800;letter-spacing:-.03em}
   .ladder small{display:block;font-size:12px;color:rgba(0,0,0,.5);margin:1px 0 3px}
   .ladder p{font-size:13.5px!important;line-height:1.45!important}
@@ -371,6 +371,7 @@
     <li><b>Сэжүүр</b> авбал −1, <b>үсэг</b> нээвэл −1 оноо. Гэхдээ таасан бол дор хаяж 1 оноо авна.</li>
     <li><b>Таагаагүй өдөр:</b> 0 оноо, гэхдээ тоглосон өдөрт тооцогдоно</li>
     <li><b>Долоо хоногт 5-аас доошгүй өдөр</b> тоглосон бол +3 оноо</li>
+    <li>Таасан уу?, түүхийн сорил, он дараалал, зурагт номын аль нэгнээс оноо авсан өдөр <b>тоглосон өдөрт</b> тооцогдоно.</li>
     <li>Цол ахихад <b>оноо ба өдөр</b> хоёулаа хүрэх ёстой. Тиймээс хамгийн дээд цол бараг жилийн турш тоглосон хүнд л ногдоно.</li>
     <li><b>Ангийн цол:</b> ангийн сурагчдын 80% нь хүрсэн цол.</li>
   </ul>
@@ -666,7 +667,7 @@ function openRanks(){
   if(!S)return;
   renderRank(document.getElementById('rankBox2'),false);
   const ci=S.stats.lvl;
-  document.getElementById('ladder').innerHTML=S.ranks.map((r,k)=>`<li class="${k<=ci?'got':''} ${k===ci?'cur':''}"><div class="ic">${k+1}</div><div><b>${r.name}</b><small>${r.lvl===0?'Эхлэл':`${r.min_points} оноо, ${r.min_days} өдөр`}</small><p>${r.descr}</p></div></li>`).join('');
+  document.getElementById('ladder').innerHTML=S.ranks.map((r,k)=>`<li class="${k<=ci?'got':''} ${k===ci?'cur':''}"><div class="ic">${window.GRIT_TU?GRIT_TU.badge(r.lvl,30):k+1}</div><div><b>${r.name}</b><small>${r.lvl===0?'Эхлэл':`${r.min_points} оноо, ${r.min_days} өдөр`}</small><p>${r.descr}</p></div></li>`).join('');
   document.getElementById('rankOv').classList.add('open')}
 document.getElementById('rankBtn').addEventListener('click',openRanks);
 
@@ -874,6 +875,6 @@ buildBoard();buildKb();finishGoogle().then(done=>{if(!done)load()});
 if(!store.get('tu_seen5',false)){document.getElementById('helpOv').classList.add('open');store.set('tu_seen5',true)}
 </script>
 <script>window.TU_NO_AUTO=true</script>
-<script src="/js/tu.js?v=5"></script>
+<script src="/js/tu.js?v=6"></script>
 </body>
 </html>
