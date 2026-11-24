@@ -77,7 +77,7 @@ module.exports = function life({ C, SEASON, W, H, hz, DESK, rnd, horse }) {
     <path d="M-4 -56 L-14 -30" stroke="${X.deel}" stroke-width="7" stroke-linecap="round"/>
   </g>`;
   if (DESK) {
-    out.mid += rider(2150, 1150, 1.25) + rider(2330, 1095, .8, 1);
+    out.mid += rider(1990, 1048, 1) + rider(2210, 1032, .72, 1);
     out.mid += `<g filter="url(#paint)"><path d="M1840 1262 V1200 M2010 1262 V1200" stroke="#6b4a36" stroke-width="8" stroke-linecap="round"/><path d="M1840 1206 Q1925 1222 2010 1206" stroke="#5b4636" stroke-width="4" fill="none"/></g>`;
     out.mid += horse(1880, 1268, 1.05, -1, '#e9dcc0', '#6b5a44') + horse(1965, 1272, 1.1, 1, '#4a3222', '#1d140f');
   } else {
