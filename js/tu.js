@@ -72,13 +72,15 @@
 .tu-pos{width:28px;flex:none;text-align:center;font-weight:800;font-size:15px;opacity:.75}
 .tu-pos--1,.tu-pos--2,.tu-pos--3{display:grid;place-items:center;height:28px;border-radius:50%;color:#fff;opacity:1;font-size:13px}
 .tu-pos--1{background:#f4c430}.tu-pos--2{background:#aab4c0}.tu-pos--3{background:#d9915a}
-.tu-n{flex:1;min-width:0;display:flex;align-items:center;gap:4px 8px;flex-wrap:wrap}.tu-n b{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:15px;max-width:100%}
-.tu-n small{display:inline-flex;align-items:center;gap:8px;font-size:12px;opacity:.75}
-.tu-rank{display:inline-flex;align-items:center;gap:4px;font-size:12.5px;font-weight:700;white-space:nowrap;color:#6b7480}
+.tu-n{flex:1;min-width:0;display:block}.tu-n b{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:15px;max-width:100%}
+.tu-n small{display:flex;align-items:center;gap:8px;font-size:12px;opacity:.75;margin-top:1px}
+.tu-rank{display:flex;align-items:center;gap:6px;width:150px;flex:none;font-size:12.5px;font-weight:700;white-space:nowrap;color:#6b7480}
+@media (max-width:560px){.tu-rank{width:auto}.tu-rank-t{display:none}}
 .tu-rank--1{color:#4a8f00}.tu-rank--2{color:#1585bb}.tu-rank--3{color:#9050d6}.tu-rank--4{color:#cf6f00}.tu-rank--5{color:#b88700}
 .tu-badge{flex:none;display:block}
 .tu-fire{display:inline-flex;align-items:center;gap:3px;color:#e57c00;font-weight:700}.tu-fire svg{width:14px;height:14px}
-.tu-xp{font-weight:800;font-size:15px;white-space:nowrap}.tu-xp small{font-weight:600;font-size:12px;opacity:.6}
+.tu-xp{min-width:84px;text-align:right;font-weight:800;font-size:15px;white-space:nowrap}
+@media (max-width:560px){.tu-xp{min-width:72px}}.tu-xp small{font-weight:600;font-size:12px;opacity:.6}
 .tu-empty{padding:18px 4px;opacity:.7}
 .tu-more{display:block;width:100%;margin-top:8px;padding:10px;border:0;border-radius:10px;background:color-mix(in srgb,currentColor 6%,transparent);color:inherit;font:600 14px inherit;font-family:inherit;cursor:pointer}
 .tu-more:hover{background:color-mix(in srgb,currentColor 10%,transparent)}
@@ -348,7 +350,8 @@
     const medal = r.pos <= 3 ? `<span class="tu-pos tu-pos--${r.pos}">${r.pos}</span>` : `<span class="tu-pos">${r.pos}</span>`;
     const sub = [r.class ? esc(r.class) + " " + L("анги", "class") : "", r.streak >= 2 ? `<span class="tu-fire">${FLAME}${L(`${r.streak} өдөр`, `${r.streak} days`)}</span>` : ""].filter(Boolean).join(" ");
     return `<li class="tu-r${r.me ? " is-me" : ""}">${medal}${av(r.name, r.avatar)}
-      <span class="tu-n"><b>${esc(r.name)}</b>${r.rank ? `<span class="tu-rank tu-rank--${Math.min(5, r.lvl || 0)}">${badge(r.lvl, 18)}${esc(r.rank)}</span>` : ""}${sub ? `<small>${sub}</small>` : ""}</span><span class="tu-xp">${r.xp} <small>${L("оноо", "pts")}</small></span></li>`;
+      <span class="tu-n"><b>${esc(r.name)}</b>${sub ? `<small>${sub}</small>` : ""}</span>
+      <span class="tu-rank tu-rank--${Math.min(5, r.lvl || 0)}" title="${esc(r.rank || "")}">${badge(r.lvl, 20)}<span class="tu-rank-t">${esc(r.rank || "")}</span></span><span class="tu-xp">${r.xp} <small>${L("оноо", "pts")}</small></span></li>`;
   }
   function renderBoard(el, data, opts = {}) {
     if (!data) { el.innerHTML = `<p class="tu-empty">${L("Ачаалж байна…", "Loading…")}</p>`; return; }
