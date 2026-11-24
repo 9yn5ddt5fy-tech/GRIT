@@ -481,3 +481,34 @@ document.querySelectorAll(".famous").forEach((box) => {
   });
   restart();
 });
+
+// Season picker on the home hero: the visitor can show any season's picture.
+// The choice is remembered and applied by the inline script in <head>.
+document.querySelectorAll(".season-pick").forEach((group) => {
+  const root = document.documentElement;
+  const bg = document.querySelector(".hero__bg--season");
+  const mobile = () => window.matchMedia("(max-width: 640px)").matches;
+  const url = (se) => `assets/img/hero-${se}${mobile() ? "-m" : ""}.jpg?v=10`;
+  const buttons = [...group.querySelectorAll("button[data-season]")];
+  const mark = () => buttons.forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.season === root.dataset.season)));
+  mark();
+  buttons.forEach((b) =>
+    b.addEventListener("click", () => {
+      const se = b.dataset.season;
+      if (se === root.dataset.season) return;
+      try {
+        localStorage.setItem("grit-season", se);
+      } catch (e) {}
+      const img = new Image();
+      const swap = () => {
+        root.dataset.season = se;
+        mark();
+        if (bg) bg.style.opacity = "";
+      };
+      if (bg) bg.style.opacity = "0.35";
+      img.onload = swap;
+      img.onerror = swap;
+      img.src = url(se);
+    })
+  );
+});

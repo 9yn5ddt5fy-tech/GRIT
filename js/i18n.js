@@ -512,6 +512,10 @@ const MN = {
   "380 km": "380 км",
   "30M ₮": "30 сая ₮",
   // Plan 2027 summary
+  "Winter": "Өвөл",
+  "Autumn": "Намар",
+  "Summer": "Зун",
+  "Spring": "Хавар",
   "Summer 2027": "2027 оны зун",
   "Full plan (in Mongolian)": "Төлөвлөгөөний бүрэн эх",
   "The plan in brief": "Төлөвлөгөө товчоор",
@@ -616,6 +620,7 @@ const MN_HEAD = {
 
 // Attribute translations (placeholders, button labels).
 const MN_ATTR = {
+  "Season of the picture": "Зургийн улирал",
   "Illustration: a glowing ger roof crown with the GRIT horse above a camp in the steppe": "Зураг: тал нутгийн гэрүүдийн дээгүүр гэрэлтэх тооно, дотор нь GRIT морь",
   "Open menu": "Цэс нээх",
   "Night mode": "Шөнийн горим",
