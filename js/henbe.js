@@ -85,7 +85,8 @@
           <p class="hb__era">${esc(mn() ? a.era_mn : a.era_en)}</p>
           <p class="hb__info">${esc(mn() ? a.info_mn : a.info_en)}</p>
           <div class="hb__actions">
-            <button class="btn btn--dark hb__share" type="button">${L("Хуваалцах", "Share")}</button>
+            <button class="btn btn--dark hb__story" type="button">${L("Story зураг", "Story image")}</button>
+            <button class="btn btn--outline hb__share" type="button">${L("Текст хуулах", "Copy text")}</button>
             ${TU.signedIn() ? "" : `<button class="btn btn--outline hb__login" type="button">${L("Нэвтэрч оноогоо хадгалах", "Sign in to keep your points")}</button>`}
           </div>
           <p class="hb__next">${L("Дараагийн хүн", "Next person")} ${nextIn()}</p>
@@ -137,6 +138,7 @@
     root.querySelector(".hb__skip")?.addEventListener("click", () => guess(0));
     root.querySelector(".hb__login")?.addEventListener("click", () => TU.openAccount());
     root.querySelector(".hb__share")?.addEventListener("click", share);
+    root.querySelector(".hb__story")?.addEventListener("click", story);
   }
 
   async function guess(id) {
@@ -165,16 +167,109 @@
     }
   }
 
-  async function share() {
+  // ------------------------------------------------------------ sharing (no spoilers: only how many clues it took)
+  function shareText() {
     const k = S.guesses.length;
-    const line = S.solved ? L(`${ORD[k]} сэжүүрээр таалаа`, `solved on the ${ORD_EN[k]} clue`) : L("энэ удаад таасангүй", "not this time");
-    const text = `${L("Хэн бэ?", "Who am I?")} №${S.no}: ${line}. ${L("Та хэд дэх сэжүүрээр таах вэ?", "How many clues will you need?")}`;
-    const url = "https://grit.mn/culture/hen-be/";
+    const row = S.guesses.map((g, i) => (S.solved && i === k - 1 ? "⬜" : "⬛")).join("");
+    const rank = TU.state && TU.state.stats && TU.state.stats.rank;
+    // all caps like Таасан уу?: Instagram's font draws small ү, ө oddly
+    return [
+      `${L("ХЭН БЭ?", "WHO AM I?")} №${S.no}`,
+      `${S.solved ? k : "X"}/5`,
+      "",
+      row,
+      "",
+      rank ? `${L("ЦОЛ", "RANK")}: ${String(rank).toUpperCase()}` : "",
+      "GRIT.MN/CULTURE/HEN-BE",
+    ].filter((x, i) => x || i === 2 || i === 4).join("\n");
+  }
+  async function share() {
+    const text = shareText();
     try {
-      if (navigator.share) { await navigator.share({ text, url }); return; }
-      await navigator.clipboard.writeText(text + " " + url);
+      await navigator.clipboard.writeText(text);
       TU.toast(L("Хуулагдлаа", "Copied"));
-    } catch (e) {}
+    } catch (e) {
+      if (navigator.share) { try { await navigator.share({ text }); } catch (er) {} }
+    }
+  }
+
+  // 1080×1920 story image in the style of Таасан уу?'s: black, cross-stitch corners, the GRIT horse
+  const CORNER = ["XXXXXXX", "X.X....", "XXX....", "X......", "X......", "X......", "X......"];
+  const rot = (p) => p.map((_, y) => [...p[0]].map((_, x) => p[p.length - 1 - y][p[0].length - 1 - x]).join(""));
+  function stitches(ctx, pat, x0, y0, cell, color, lw) {
+    ctx.save(); ctx.strokeStyle = color; ctx.lineWidth = lw; ctx.lineCap = "round"; ctx.beginPath();
+    pat.forEach((r, y) => [...r].forEach((ch, x) => {
+      if (ch !== "X") return;
+      const a = x0 + x * cell + cell * 0.2, b = y0 + y * cell + cell * 0.2, e = x0 + x * cell + cell * 0.8, f = y0 + y * cell + cell * 0.8;
+      ctx.moveTo(a, b); ctx.lineTo(e, f); ctx.moveTo(e, b); ctx.lineTo(a, f);
+    }));
+    ctx.stroke(); ctx.restore();
+  }
+  function rr(ctx, x, y, w, h, r) { ctx.beginPath(); ctx.moveTo(x + r, y); ctx.arcTo(x + w, y, x + w, y + h, r); ctx.arcTo(x + w, y + h, x, y + h, r); ctx.arcTo(x, y + h, x, y, r); ctx.arcTo(x, y, x + w, y, r); ctx.closePath(); }
+  async function makeStory() {
+    try { await Promise.all([document.fonts.load("800 120px Onest"), document.fonts.load("500 40px Onest")]); } catch (e) {}
+    const W = 1080, H = 1920, c = document.createElement("canvas"); c.width = W; c.height = H;
+    const ctx = c.getContext("2d"), ink = "#f4f2ed", dim = "rgba(244,242,237,.55)", F = (w, px) => `${w} ${px}px Onest, Arial, sans-serif`;
+    ctx.fillStyle = "#000"; ctx.fillRect(0, 0, W, H);
+    stitches(ctx, CORNER, 70, 70, 22, ink, 4); stitches(ctx, rot(CORNER), W - 70 - 7 * 22, H - 70 - 7 * 22, 22, ink, 4);
+    const horse = document.querySelector("#logo path, .logo path");
+    if (horse) { ctx.save(); ctx.translate(W / 2 - 75, 200); ctx.scale(1.5, 1.5); ctx.fillStyle = ink; ctx.fill(new Path2D(horse.getAttribute("d")), "evenodd"); ctx.restore(); }
+    // GRIT × Culture
+    ctx.font = F(700, 38); ctx.fillStyle = ink; ctx.textAlign = "left";
+    const wa = ctx.measureText("GRIT").width, wb = ctx.measureText("Culture").width, gap = 56, sx = W / 2 - (wa + gap + wb) / 2, ty = 430;
+    ctx.fillText("GRIT", sx, ty); ctx.fillText("Culture", sx + wa + gap, ty);
+    ctx.strokeStyle = ink; ctx.lineWidth = 5; ctx.lineCap = "round";
+    const cx = sx + wa + gap / 2, cy = ty - 13; ctx.beginPath(); ctx.moveTo(cx - 11, cy - 11); ctx.lineTo(cx + 11, cy + 11); ctx.moveTo(cx + 11, cy - 11); ctx.lineTo(cx - 11, cy + 11); ctx.stroke();
+    ctx.textAlign = "center";
+    ctx.font = F(800, 132); ctx.save(); ctx.translate(W / 2, 580); if ("letterSpacing" in ctx) ctx.letterSpacing = "-6px"; ctx.fillText("Хэн бэ?", 0, 0); ctx.restore();
+    const k = S.guesses.length;
+    ctx.font = F(500, 40); ctx.fillStyle = dim;
+    ctx.fillText(`№${S.no},  ${S.solved ? k : "X"}/5 ${S.solved ? "сэжүүрээр" : ""}`.trim(), W / 2, 655);
+    // five clue cards: dark with a stitch = wrong or skipped, cream = the clue it was solved on, dashed = never needed
+    const rw = 760, rh = 104, rg = 22, x0 = (W - rw) / 2, y0 = 740;
+    for (let i = 0; i < 5; i++) {
+      const y = y0 + i * (rh + rg), used = i < k, win = S.solved && i === k - 1;
+      if (win) { ctx.fillStyle = ink; rr(ctx, x0, y, rw, rh, 12); ctx.fill(); }
+      else if (used) { ctx.fillStyle = "#161616"; rr(ctx, x0, y, rw, rh, 12); ctx.fill(); stitches(ctx, ["X"], x0 + rw - 74, y + 30, 44, ink, 5); }
+      else { ctx.save(); ctx.strokeStyle = "rgba(244,242,237,.3)"; ctx.lineWidth = 3; ctx.setLineDash([14, 10]); rr(ctx, x0 + 2, y + 2, rw - 4, rh - 4, 12); ctx.stroke(); ctx.restore(); }
+      ctx.beginPath(); ctx.arc(x0 + 58, y + rh / 2, 24, 0, Math.PI * 2); ctx.fillStyle = win ? "#000" : used ? ink : "rgba(244,242,237,.18)"; ctx.fill();
+      ctx.font = F(800, 26); ctx.fillStyle = win ? ink : used ? "#000" : dim; ctx.fillText(String(i + 1), x0 + 58, y + rh / 2 + 9);
+      ctx.fillStyle = win ? "rgba(0,0,0,.22)" : used ? "rgba(244,242,237,.16)" : "rgba(244,242,237,.1)";
+      rr(ctx, x0 + 104, y + rh / 2 - 6, [430, 360, 470, 320, 400][i], 12, 6); ctx.fill();
+    }
+    const rank = TU.state && TU.state.stats && TU.state.stats.rank;
+    if (rank) {
+      const cls = TU.state.player && TU.state.player.class;
+      ctx.fillStyle = dim; ctx.font = F(500, 34); ctx.fillText(cls ? `Цол (${cls} анги)` : "Цол", W / 2, H - 470);
+      ctx.fillStyle = ink; ctx.font = F(800, 56); ctx.fillText(rank, W / 2, H - 410);
+    }
+    ctx.fillStyle = ink; ctx.font = F(600, 44); ctx.fillText("Чи хэдэн сэжүүрээр таах вэ?", W / 2, H - 300);
+    ctx.font = F(800, 46); ctx.fillText("grit.mn/culture/hen-be", W / 2, H - 230);
+    return c;
+  }
+  async function story() {
+    const c = await makeStory();
+    const blob = await new Promise((r) => c.toBlob(r, "image/png"));
+    try {
+      const file = new File([blob], `hen-be-${S.no}.png`, { type: "image/png" });
+      if (navigator.canShare && navigator.canShare({ files: [file] })) { await navigator.share({ files: [file] }); return; }
+    } catch (e) { if (e && e.name === "AbortError") return; }
+    // no file sharing (most computers): show the picture to save
+    let ov = document.getElementById("hbStoryOv");
+    if (!ov) {
+      ov = document.createElement("div"); ov.className = "overlay"; ov.id = "hbStoryOv";
+      ov.innerHTML = `<div class="sheet hb-storysheet"><button class="close" data-close aria-label="${L("Хаах", "Close")}">✕</button>
+        <div class="eyebrow">Story</div><h2>${L("Зургаа хадгалаарай", "Save your picture")}</h2>
+        <img alt="" style="display:block;width:100%;max-width:300px;margin:0 auto;border-radius:10px">
+        <p style="margin-top:12px;text-align:center">${L("Утсан дээр зураг дээр удаан дарж хадгална.", "On a phone, press and hold the picture to save it.")}</p>
+        <a class="btn btn--dark" style="margin-top:12px;width:100%;background:#000;color:#f4f2ed;text-decoration:none" download>${L("Татаж авах", "Download")}</a></div>`;
+      ov.addEventListener("click", (e) => { if (e.target === ov || e.target.closest("[data-close]")) ov.classList.remove("open"); });
+      document.body.append(ov);
+    }
+    const src = URL.createObjectURL(blob);
+    ov.querySelector("img").src = src;
+    const a = ov.querySelector("a[download]"); a.href = src; a.download = `hen-be-${S.no}.png`;
+    ov.classList.add("open");
   }
 
   // reload after signing in or out (tu.js), but not right after our own finished game
