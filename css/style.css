@@ -3571,3 +3571,17 @@ html[data-season="autumn"] .hero__bg--season { background-image: url(../assets/i
 [data-theme="dark"] .success:hover .success__photo,
 [data-theme="dark"] .speaker:hover .speaker__photo,
 [data-theme="dark"] .member:hover .member__photo { box-shadow: 0 14px 30px -12px rgba(0, 0, 0, 0.35); }
+
+/* Night mode: the cloud motifs become Mongolian star groups */
+[data-theme="dark"] #where::before, [data-theme="dark"] #success::before, [data-theme="dark"] #team::before,
+[data-theme="dark"] #speakers::before, [data-theme="dark"] #podcast::before,
+[data-theme="dark"] .photos-glow::before, [data-theme="dark"] .photos-glow::after {
+  opacity: .85; transform: none; filter: none; -webkit-mask-image: none; mask-image: none;
+}
+[data-theme="dark"] #where::before { background-image: url(../assets/img/stars/doloon-burkhan.svg); }
+[data-theme="dark"] #team::before { background-image: url(../assets/img/stars/altan-gadas.svg); }
+[data-theme="dark"] #success::before { background-image: url(../assets/img/stars/tsolmon.svg); }
+[data-theme="dark"] #speakers::before { background-image: url(../assets/img/stars/tengeriin-zaadas.svg); }
+[data-theme="dark"] #podcast::before { background-image: url(../assets/img/stars/tengeriin-zaadas-2.svg); }
+[data-theme="dark"] .photos-glow::before { background-image: url(../assets/img/stars/michid.svg); }
+[data-theme="dark"] .photos-glow::after { background-image: url(../assets/img/stars/gurvan-maral.svg); }
