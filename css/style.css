@@ -3605,48 +3605,16 @@ html[data-season="autumn"] .hero__bg--season { background-image: url(../assets/i
 .tu-ranks { padding: 20px; border: 1px solid var(--line); border-radius: var(--radius-lg); background: var(--bg-soft); }
 @media (max-width: 900px) { .lb-grid { grid-template-columns: 1fr; } }
 
-/* Хэн бэ? (Who am I?) daily game on /culture/ */
-.hb-wrap { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr); gap: 32px; align-items: start; padding: 32px; }
-.hb-wrap__title { font-family: var(--font-display); font-size: clamp(34px, 4vw, 48px); font-weight: 700; letter-spacing: -.035em; line-height: 1; }
-.hb-wrap__lead { margin-top: 14px; color: var(--muted); max-width: 420px; }
-.hb-wrap__rules { margin-top: 18px; padding-left: 18px; color: var(--muted); font-size: 15px; display: grid; gap: 6px; }
-.hb { min-height: 420px; transition: opacity .2s; }
-.hb.is-busy { opacity: .6; pointer-events: none; }
-.hb__top { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 12px; font-size: 14px; }
-.hb__no { font-weight: 700; color: var(--muted); }
-.hb__worth { font-weight: 700; color: #e57c00; }
-.hb__clues { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
-.hb__clue { display: flex; gap: 12px; align-items: flex-start; padding: 12px 14px; border-radius: 10px; background: var(--bg-soft); border: 1px solid var(--line); }
-.hb__clue p { margin: 0; font-size: 15.5px; line-height: 1.45; }
-.hb__clue.is-new { border-color: #58a700; background: color-mix(in srgb, #58a700 8%, var(--bg)); animation: hbIn .35s ease-out; }
-.hb__clue.is-locked { background: transparent; border-style: dashed; }
-.hb__clue.is-locked p { color: var(--muted); font-size: 14px; }
-.hb__n { flex: none; display: grid; place-items: center; width: 24px; height: 24px; border-radius: 50%; background: var(--ink); color: var(--on-ink); font-size: 13px; font-weight: 700; }
-.hb__clue.is-locked .hb__n { background: var(--line); color: var(--muted); }
-@keyframes hbIn { from { opacity: 0; transform: translateY(6px); } }
-.hb__guesses { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
-.hb__chip { padding: 5px 10px; border-radius: 999px; font-size: 13.5px; font-weight: 600; background: var(--bg-soft); border: 1px solid var(--line); color: var(--muted); }
-.hb__chip.is-no { text-decoration: line-through; color: #d23f3f; border-color: color-mix(in srgb, #d23f3f 35%, transparent); background: color-mix(in srgb, #d23f3f 6%, transparent); }
-.hb__chip.is-ok { color: #3f7d00; border-color: color-mix(in srgb, #58a700 45%, transparent); background: color-mix(in srgb, #58a700 10%, transparent); }
-.hb__form { display: flex; gap: 8px; margin-top: 14px; }
-.hb__field { position: relative; flex: 1; min-width: 0; }
-.hb__input { width: 100%; height: 44px; padding: 0 14px; border: 1px solid var(--line); border-radius: var(--radius-sm); background: var(--bg); color: var(--ink); font: 500 16px var(--font-sans); }
-.hb__input:focus { outline: 2px solid #58a700; outline-offset: -1px; border-color: transparent; }
-.hb__go { min-width: 0; }
-.hb__sug { position: absolute; z-index: 20; left: 0; right: 0; top: calc(100% + 4px); margin: 0; padding: 4px; list-style: none; border: 1px solid var(--line); border-radius: 10px; background: var(--bg); box-shadow: 0 14px 34px -16px rgba(0, 0, 0, .35); }
-.hb__sug li { padding: 9px 10px; border-radius: 7px; cursor: pointer; font-size: 15px; }
-.hb__sug li[aria-selected="true"], .hb__sug li[data-i]:hover { background: var(--bg-soft); }
-.hb__sug li.is-empty { color: var(--muted); cursor: default; font-size: 14px; }
-.hb__skip { margin-top: 10px; padding: 6px 0; border: 0; background: none; color: var(--muted); font: 500 14px var(--font-sans); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
-.hb__result { margin-top: 16px; padding: 20px; border-radius: 12px; background: var(--bg-soft); border: 1px solid var(--line); }
-.hb__verdict { margin: 0; font-weight: 700; color: var(--muted); }
-.hb__verdict.is-ok { color: #3f7d00; }
-.hb__name { margin-top: 6px; font-family: var(--font-display); font-size: 28px; font-weight: 700; letter-spacing: -.02em; }
-.hb__era { margin: 2px 0 0; color: var(--muted); font-size: 14px; }
-.hb__info { margin: 10px 0 0; line-height: 1.55; }
-.hb__actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
-.hb__actions .btn { min-width: 0; }
-.hb__next { margin: 12px 0 0; font-size: 13.5px; color: var(--muted); }
-.hb__msg { color: var(--muted); }
-[data-theme="dark"] .hb__chip.is-ok, [data-theme="dark"] .hb__verdict.is-ok { color: #8fd14f; }
-@media (max-width: 860px) { .hb-wrap { grid-template-columns: minmax(0, 1fr); gap: 20px; padding: 22px 18px; } .hb { min-height: 0; } }
+/* /culture/: the two daily games side by side */
+.games-duo { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 24px; }
+.wordgame--duo { grid-template-columns: minmax(0, 1fr); align-content: space-between; padding: 36px; gap: 28px; }
+.wordgame--duo .wordgame__title { font-size: clamp(36px, 4vw, 54px); }
+.wordgame--duo .wordgame__tiles { justify-self: start; max-width: 300px; }
+.hbdeco { display: grid; gap: 7px; max-width: 300px; width: 100%; }
+.hbdeco span { display: flex; align-items: center; gap: 10px; height: 30px; padding: 0 10px; border: 1px dashed rgba(244, 242, 237, .3); border-radius: 6px; }
+.hbdeco span.on { background: #f4f2ed; border: 1px solid #f4f2ed; }
+.hbdeco i { flex: none; display: grid; place-items: center; width: 16px; height: 16px; border-radius: 50%; background: rgba(244, 242, 237, .2); color: rgba(244, 242, 237, .6); font: 800 10px/1 "Inter Tight", Inter, sans-serif; font-style: normal; }
+.hbdeco b { height: 5px; border-radius: 3px; background: rgba(244, 242, 237, .14); }
+.hbdeco .on i { background: #000; color: #f4f2ed; }
+.hbdeco .on b { background: rgba(0, 0, 0, .25); }
+@media (max-width: 900px) { .games-duo { grid-template-columns: minmax(0, 1fr); } .wordgame--duo { padding: 28px 22px; } }

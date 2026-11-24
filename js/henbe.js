@@ -2,9 +2,11 @@
 // behind five clues, from hard to easy. A wrong guess (or "I don't know") opens the next clue;
 // solving on clue k gives 6 - k points. The people, clues and checking live in the database
 // (supabase/010_hen_be.sql), so the answer is never in this file. Needs js/tu.js.
+// On /culture/ only the card's status line (#henbe-status) is filled in.
 (function () {
   const root = document.getElementById("henbe");
-  if (!root || !window.GRIT_TU) return;
+  const statusEl = document.getElementById("henbe-status");
+  if (!window.GRIT_TU || (!root && !statusEl)) return;
   const TU = window.GRIT_TU;
   const mn = () => { const d = document.documentElement; return d.hasAttribute("data-lang") ? d.getAttribute("data-lang") === "mn" : !/^en/.test(d.lang || ""); };
   const L = (m, e) => (mn() ? m : e);
@@ -17,6 +19,24 @@
     .replace(/ө/g, "о").replace(/ү/g, "у").replace(/ё/g, "е").replace(/[.\-()]/g, " ").replace(/\s+/g, " ").trim();
 
   let S = null, names = [], busy = false, quiet = false, sel = -1, list = [];
+
+  // ------------------------------------------------------------ status line on the /culture/ card
+  if (!root) {
+    let st = null;
+    const paint = () => {
+      if (!st) { statusEl.textContent = ""; return; }
+      const n = st.no, k = st.guesses.length;
+      statusEl.textContent = !k ? L(`Өнөөдрийн №${n} хүн таныг хүлээж байна.`, `Today's person №${n} is waiting for you.`)
+        : !st.finished ? L(`Өнөөдрийн №${n} хүн: ${k + 1}/5 сэжүүр нээгдсэн. Үргэлжлүүлээрэй!`, `Today's person №${n}: ${k + 1}/5 clues open. Keep going!`)
+        : st.solved ? L(`Та өнөөдрийн №${n} хүнийг ${k}/5 сэжүүрээр таалаа. Маргааш дахин ирээрэй!`, `You found today's person №${n} with ${k}/5 clues. Come back tomorrow!`)
+        : L(`Өнөөдрийн №${n} хүнийг таасангүй. Маргааш шинэ хүн гарна.`, `Today's person №${n} got away. A new one comes tomorrow.`);
+    };
+    const get = async () => { try { st = await TU.rpc("hb_state", TU.token ? { p_token: TU.token } : {}); } catch (e) { st = null; } paint(); };
+    window.addEventListener("tu-change", get);
+    new MutationObserver(paint).observe(document.documentElement, { attributes: true, attributeFilter: ["data-lang"] });
+    get();
+    return;
+  }
 
   async function load() {
     try {
@@ -149,7 +169,7 @@
     const k = S.guesses.length;
     const line = S.solved ? L(`${ORD[k]} сэжүүрээр таалаа`, `solved on the ${ORD_EN[k]} clue`) : L("энэ удаад таасангүй", "not this time");
     const text = `${L("Хэн бэ?", "Who am I?")} №${S.no}: ${line}. ${L("Та хэд дэх сэжүүрээр таах вэ?", "How many clues will you need?")}`;
-    const url = "https://grit.mn/culture/#hen-be";
+    const url = "https://grit.mn/culture/hen-be/";
     try {
       if (navigator.share) { await navigator.share({ text, url }); return; }
       await navigator.clipboard.writeText(text + " " + url);
