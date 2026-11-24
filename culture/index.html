@@ -20,7 +20,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:wght@500;600;700&family=PT+Serif:ital@0;1&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../css/style.css?v=116">
+  <link rel="stylesheet" href="../css/style.css?v=117">
   <script>
     (function () {
       var d = document.documentElement, s = null, l = null;
@@ -68,8 +68,8 @@
       <div class="chips map-legend" id="hmap-legend"></div>
     </section>
 
-    <section class="section container" id="taasan-uu">
-      <a class="wordgame" href="taasan-uu/" data-reveal>
+    <section class="section container games-duo" id="taasan-uu">
+      <a class="wordgame wordgame--duo" href="taasan-uu/" data-reveal>
         <div class="wordgame__text">
           <p class="wordgame__eyebrow">Daily word game</p>
           <h2 class="wordgame__title" translate="no">Таасан уу?</h2>
@@ -82,6 +82,18 @@
           <span class="wt wt--ok">Т</span><span class="wt wt--ok">У</span><span class="wt wt--ok">У</span><span class="wt wt--ok">Л</span><span class="wt wt--ok">Ь</span>
         </div>
       </a>
+      <a class="wordgame wordgame--duo" href="hen-be/" id="hen-be" data-reveal>
+        <div class="wordgame__text">
+          <p class="wordgame__eyebrow">Daily history game</p>
+          <h2 class="wordgame__title" translate="no">Хэн бэ?</h2>
+          <p class="wordgame__lead">Guess a person from Mongolian history from five clues. The fewer clues you need, the more points you get.</p>
+          <p class="wordgame__status" id="henbe-status"></p>
+          <span class="wordgame__btn">Play</span>
+        </div>
+        <div class="hbdeco" aria-hidden="true">
+          <span class="on"><i>1</i><b style="width:78%"></b></span><span><i>2</i><b style="width:64%"></b></span><span><i>3</i><b style="width:84%"></b></span><span><i>4</i><b style="width:56%"></b></span><span><i>5</i><b style="width:70%"></b></span>
+        </div>
+      </a>
     </section>
 
     <section class="section container" id="leaderboard">
@@ -90,22 +102,6 @@
       <div class="lb-grid">
         <div class="tu-board" data-tu-board></div>
         <aside class="tu-ranks" data-tu-ranks></aside>
-      </div>
-    </section>
-
-    <section class="section container" id="hen-be">
-      <div class="hb-wrap card" data-reveal>
-        <div>
-          <p class="eyebrow">Daily history game</p>
-          <h2 class="hb-wrap__title" translate="no">Хэн бэ?</h2>
-          <p class="hb-wrap__lead">Every day, one person from Mongolian history is hidden behind five clues. Guess who it is with as few clues as you can.</p>
-          <ul class="hb-wrap__rules">
-            <li>The first clue is the hardest, the last the easiest.</li>
-            <li>A wrong guess opens the next clue.</li>
-            <li>Solve it on the first clue for 5 points, on the last for 1.</li>
-          </ul>
-        </div>
-        <div class="hb" id="henbe" translate="no" aria-live="polite"></div>
       </div>
     </section>
 
@@ -223,11 +219,11 @@
   </footer>
 
   <dialog class="hbook" id="hbook" aria-label="Picture book"></dialog>
-  <script src="../js/i18n.js?v=58"></script>
+  <script src="../js/i18n.js?v=59"></script>
   <script src="../js/main.js?v=44"></script>
   <script src="../js/heritage-art.js?v=8"></script>
   <script src="../js/heritage.js?v=13"></script>
-  <script src="../js/tu.js?v=11"></script>
-  <script src="../js/henbe.js?v=1"></script>
+  <script src="../js/tu.js?v=12"></script>
+  <script src="../js/henbe.js?v=2"></script>
 </body>
 </html>
