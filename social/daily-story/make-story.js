@@ -1,5 +1,5 @@
 // Make the "word of the day" story for a date, using the game's word from Supabase.
-// The design matches the word posts in ../word-post (green, alkhan pattern, gold tiles).
+// The design matches the game's own share card (black, cross-stitch corners, cream tiles).
 // Usage: node make-story.js 2026-11-17 [label]
 //   label defaults to "Өнөөдрийн үг"; use "Өчигдрийн үг" when posting the next morning.
 const fs = require('fs'), path = require('path'), { execFileSync } = require('child_process');
