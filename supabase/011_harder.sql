@@ -35,9 +35,9 @@ begin
         raise exception 'hard_pos:%:%', i, substr(prev, i, 1);
       end if;
     end loop;
-    for ch in select distinct substr(prev, i, 1) from generate_series(1, 5) i where sc[i] = 'present' loop
-      if (select count(*) from generate_series(1, 5) i where substr(g, i, 1) = ch)
-         < (select count(*) from generate_series(1, 5) i where substr(prev, i, 1) = ch and sc[i] in ('correct', 'present')) then
+    for ch in select distinct substr(prev, j, 1) from generate_series(1, 5) gs(j) where sc[j] = 'present' loop
+      if (select count(*) from generate_series(1, 5) gs(j) where substr(g, j, 1) = ch)
+         < (select count(*) from generate_series(1, 5) gs(j) where substr(prev, j, 1) = ch and sc[j] in ('correct', 'present')) then
         raise exception 'hard_has:%', ch;
       end if;
     end loop;
