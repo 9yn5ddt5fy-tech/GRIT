@@ -61,6 +61,7 @@
   .hintbtn:hover{border-color:var(--dim)}
   .hintbtn svg{width:11px;height:11px;stroke:currentColor;stroke-width:2;stroke-linecap:round}
   .hintbtn.used{opacity:0;pointer-events:none}
+  .hintbtn.locked{opacity:.4}
   .hint{width:100%;max-width:340px;max-height:0;overflow:hidden;transition:max-height .45s ease,margin .45s ease}
   .hint.open{max-height:90px;margin-bottom:14px}
   .hint-in{border:1.5px dashed var(--dim);border-radius:6px;padding:10px 12px;display:flex;gap:10px;align-items:flex-start}
@@ -319,7 +320,7 @@
   <button class="close" data-close>✕</button>
   <div class="eyebrow">Хэрхэн тоглох вэ</div>
   <h2>Өдөрт нэг үг</h2>
-  <p>Таван үсэгтэй түүхэн үгийг зургаан оролдлогоор таана. Таасны дараа тухайн үгийн түүх нээгдэнэ.</p>
+  <p>Таван үсэгтэй түүхэн үгийг зургаан оролдлогоор таана. Таасны дараа тухайн үгийн түүх нээгдэнэ. Таагаагүй бол хариу <b>маргааш</b> нээгдэнэ.</p>
   <div class="divider"><svg class="stitchline"></svg></div>
   <div class="ex"><div class="tile correct">Т</div><div class="tile">А</div><div class="tile">М</div><div class="tile">Г</div><div class="tile">А</div></div>
   <div class="rule"><b>Бүтэн будагдсан</b> үсэг зөв байрандаа байна.</div>
@@ -330,8 +331,9 @@
   <div class="divider"><svg class="stitchline"></svg></div>
   <p>Таасан өдөр бүр <b>оноо</b> авна. Эхний оролдлогоор таавал 6 оноо, зургаа дахь оролдлогоор таавал 1 оноо. Цол ахихад <b>оноо болон тоглосон өдрийн тоо</b> хоёулаа хэрэгтэй. Цол <b>цэргээс эхлээд хаан</b> хүртэл ахина.</p>
   <p>Ангийн кодоор <b>ангидаа нэгдвэл</b> ангиараа өрсөлдөнө.</p>
-  <p>Гацвал <b>сэжүүр</b> товчийг дарж үгийн төрөл, хамаарах үеийг харж болно. Сэжүүр нэг удаа л нээгдэнэ.</p>
-  <p>Сэжүүр авсан ч олохгүй байвал <b>хоосон нүднээс нэгийг дарж</b> тэр байрны үсгийг нээж болно. Үсэг нээх боломж <b>2 хоногт нэг удаа</b> гарна.</p>
+  <p><b>Хатуу дүрэм:</b> зөв байранд олдсон үсгийг дараагийн оролдлогодоо тэр байранд нь үлдээнэ. Үгэнд байгаа гэж олдсон үсгийг заавал дахин ашиглана. Оролдлого бүрт дор хаяж нэг эгшиг байх ёстой.</p>
+  <p>Гацвал <b>сэжүүр</b> товчийг дарж үгийн төрөл, хамаарах үеийг харж болно. Сэжүүр <b>2 дахь оролдлогын дараа</b> нээгдэнэ.</p>
+  <p>Сэжүүр авсан ч олохгүй байвал <b>3 дахь оролдлогын дараа</b> хоосон нүднээс нэгийг дарж тэр байрны үсгийг нээж болно. Үсэг нээх боломж <b>2 хоногт нэг удаа</b> гарна.</p>
   <p>Өдөр бүр бүх хүнд ижил үг гарна. Үр дүнгээ Instagram story-доо хуваалцаарай.</p>
 </div></div>
 
@@ -445,9 +447,19 @@ const ERR = {
   network: 'Сүлжээний алдаа, дахин оролдоно уу',
   handle: 'Нэр 3–20 үсэг эсвэл тооноос бүрдэнэ', taken: 'Энэ нэр бүртгэлтэй байна, өөр нэр сонгоно уу',
   login: 'Нэр эсвэл PIN буруу байна', class: 'Ангийн гишүүд ангийн код, нэр, PIN-ээрээ нэвтэрнэ',
-  auth: 'Google-ээр нэвтэрч чадсангүй', linked: 'Энэ бүртгэл өөр Google бүртгэлтэй холбогдсон байна'
+  auth: 'Google-ээр нэвтэрч чадсангүй', linked: 'Энэ бүртгэл өөр Google бүртгэлтэй холбогдсон байна',
+  novowel: 'Үгэнд дор хаяж нэг эгшиг байх ёстой', junk: 'Нэг үсгийг ингэж олон давтаж болохгүй',
+  hint_early: 'Сэжүүр 2 дахь оролдлогын дараа нээгдэнэ'
 };
-const errMsg = e => ERR[e && e.message] || ERR.network;
+// hard mode: the server says which letter must stay or be used again
+const errMsg = e => {
+  const m = (e && e.message) || '';
+  let x = m.match(/^hard_pos:(\d):(.)$/);
+  if (x) return `${x[1]}-р байранд “${x[2].toLowerCase()}” үсгийг үлдээнэ үү`;
+  x = m.match(/^hard_has:(.)$/);
+  if (x) return `Олдсон “${x[1].toLowerCase()}” үсгийг заавал ашиглана уу`;
+  return ERR[m] || ERR.network};
+const isRule = e => /^(word|novowel|junk|hard_pos|hard_has)/.test((e && e.message) || '');
 const ROWS = [
   ["Ф","Ц","У","Ж","Э","Н","Г","Ш","Ү","З","К","Ъ"],
   ["Й","Ы","Б","Ө","А","Х","Р","О","Л","Д","П","Е"],
@@ -544,9 +556,12 @@ function updateRevealUI(){
   boardEl.classList.toggle('can-reveal',can);
   [...boardEl.children].forEach((row,r)=>row.classList.toggle('active',r===S.guesses.length&&!S.finished));
   const note=document.getElementById('revealNote'),h=document.getElementById('hint');
+  document.getElementById('hintBtn').classList.toggle('locked',!S.hint&&S.guesses.length<(S.hint_after||0));
+  const early=S.guesses.length<(S.reveal_after||0);
   let txt='';
   if(S.hint&&!S.finished){
     if(S.reveal)txt=`<b>${S.reveal.pos+1}-р үсэг</b> нээгдсэн.`;
+    else if(early&&!S.reveal_next)txt=`<b>${S.reveal_after} дахь оролдлогын дараа</b> нэг үсэг нээх боломж гарна.`;
     else if(can)txt='Мэдэхгүй байна уу? Доорх <b>хоосон нүднүүдийн аль нэгийг</b> дарж тэр үсгийг нээгээрэй. 2 хоногт нэг удаа.';
     else if(S.reveal_next)txt=`Үсэг нээх боломж <b>${shortDate(S.reveal_next)}</b>-нд дахин гарна.`}
   note.innerHTML=txt;h.classList.toggle('has-note',!!txt)}
@@ -572,7 +587,7 @@ boardEl.addEventListener('click',async e=>{
   const row=t.parentElement,r=[...boardEl.children].indexOf(row),i=[...row.children].indexOf(t);
   if(r!==S.guesses.length||i<0||i>4)return;
   if(S.reveal)return toast('Энэ тоглолтод үсэг нээсэн');
-  if(!S.reveal_available)return toast(S.reveal_next?`Үсэг нээх боломж ${shortDate(S.reveal_next)}-нд гарна`:ERR.reveal);
+  if(!S.reveal_available)return toast(S.reveal_next?`Үсэг нээх боломж ${shortDate(S.reveal_next)}-нд гарна`:S.guesses.length<(S.reveal_after||0)?`Үсэг ${S.reveal_after} дахь оролдлогын дараа нээгдэнэ`:ERR.reveal);
   if(i<cur.length)return toast('Хоосон нүд сонгоно уу');
   doReveal(i)});
 
@@ -589,7 +604,7 @@ async function submit(){
   if(cur.length<5){shake();return toast('5 үсэг оруулна уу')}
   busy=true;const r=S.guesses.length,word=cur,rowEl=boardEl.children[r];let s;
   rowEl.classList.add('pending');
-  try{s=await call('tu_guess',{p_word:word})}catch(e){busy=false;rowEl.classList.remove('pending');if(e.message==='word')shake();return toast(errMsg(e))}
+  try{s=await call('tu_guess',{p_word:word})}catch(e){busy=false;rowEl.classList.remove('pending');if(isRule(e))shake();return toast(errMsg(e),2600)}
   rowEl.classList.remove('pending');
   S=s;rankUp=!!s.rank_up;cur='';busy=false;
   const g=S.guesses[r];paintRow(r,g.w,g.r,true);
@@ -600,7 +615,7 @@ async function submit(){
   updateRevealUI()}
 const PRAISE=['Гайхамшигтай','Мундаг','Гоё','Сайн байна','Арай гэж','Фүү, амжлаа'];
 function finish(win){
-  setTimeout(()=>toast(win?PRAISE[S.guesses.length-1]+(S.points?`, +${S.points} оноо`:''):'Хариулт: '+S.answer.w.toLowerCase(),1600),1500);
+  setTimeout(()=>toast(win?PRAISE[S.guesses.length-1]+(S.points?`, +${S.points} оноо`:''):'Энэ удаа таасангүй. Хариу маргааш нээгдэнэ',2200),1500);
   if(win){setTimeout(gallop,1700);setTimeout(()=>openResult(true),4300)}
   else setTimeout(()=>openResult(false),2800)}
 
@@ -636,14 +651,18 @@ function showInstall(){
   box.hidden=false;document.getElementById('installBtn').hidden=!installEvt;document.getElementById('installIos').hidden=!ios||!!installEvt}
 document.getElementById('installBtn').addEventListener('click',async()=>{if(!installEvt)return;installEvt.prompt();await installEvt.userChoice.catch(()=>{});installEvt=null;document.getElementById('installBox').hidden=true});
 function openResult(win){
-  if(!S||!S.answer)return;
+  if(!S||!S.finished)return;
+  const a=S.answer,y=S.yesterday;
   document.getElementById('resEyebrow').textContent=win?`${S.guesses.length}/6 оролдлогоор таалаа, +${S.points} оноо`:'Энэ удаа таасангүй';
-  document.getElementById('resTitle').textContent='Өнөөдрийн үг';
+  document.getElementById('resTitle').textContent=a?'Өнөөдрийн үг':'Хариу маргааш';
   const rw=document.getElementById('resWord');rw.innerHTML='';
-  [...S.answer.w].forEach((ch,i)=>{const t=document.createElement('div');t.className='tile correct';t.style.animationDelay=(i*90)+'ms';t.textContent=ch;rw.appendChild(t)});
+  // a lost game keeps today's word hidden until tomorrow
+  [...(a?a.w:'?????')].forEach((ch,i)=>{const t=document.createElement('div');t.className='tile '+(a?'correct':'absent');t.style.animationDelay=(i*90)+'ms';t.textContent=ch;rw.appendChild(t)});
   document.querySelectorAll('#resOv .corner').forEach(s=>stitchSVG(s,CORNER,2));
-  document.getElementById('resInfo').textContent=S.answer.info;
-  document.getElementById('resEra').textContent=capF(S.answer.era);
+  const card=document.querySelector('#resOv .story-card'),lbl=card.querySelector('.label');
+  card.style.display=a||y?'':'none';
+  if(a){lbl.textContent='Түүхэн тайлбар';document.getElementById('resInfo').textContent=a.info;document.getElementById('resEra').textContent=capF(a.era)}
+  else if(y){lbl.textContent=`Өчигдрийн үг: ${capF(y.w.toLowerCase())}`;document.getElementById('resInfo').textContent=y.info;document.getElementById('resEra').textContent=capF(y.era)}
   renderStats();renderRank(document.getElementById('rankBox'),rankUp);rankUp=false;document.getElementById('copyBox').style.display='none';
   document.getElementById('resOv').classList.add('open');showInstall();tick()}
 function renderStats(){
@@ -861,7 +880,9 @@ function showHint(animate){
   const h=document.getElementById('hint');if(!animate)h.style.transition='none';h.classList.add('open');
   document.getElementById('hintBtn').classList.add('used');if(!animate)requestAnimationFrame(()=>h.style.transition='');updateRevealUI()}
 document.getElementById('hintBtn').addEventListener('click',async()=>{
-  await idle();if(!S||S.hint||S.finished)return;busy=true;
+  await idle();if(!S||S.hint||S.finished)return;
+  if(S.guesses.length<(S.hint_after||0))return toast(ERR.hint_early);
+  busy=true;
   try{S=await call('tu_hint')}catch(e){busy=false;return toast(errMsg(e))}
   busy=false;showHint(true);buzz(20)});
 
