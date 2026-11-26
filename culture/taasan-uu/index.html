@@ -754,6 +754,7 @@ function accHTML(){
       ${p.google&&!p.handle&&!p.class?`<form id="nameForm" autocomplete="off"><label>Самбарт харагдах нэр (хоч)<input name="handle" maxlength="20" required placeholder="ж: Болд2010"></label><button class="btn" type="submit">Хадгалах</button></form>`:''}
       ${GOOGLE_ON&&!p.google?`<button class="gbtn" id="gBtn">${G_ICON}Google бүртгэлээ холбох</button>`:''}
       <button class="btn" id="editBtn" style="width:100%;margin-top:12px">Нэр, зураг солих</button>
+      ${p.admin?`<a class="btn" href="/culture/admin/players/" style="display:flex;align-items:center;justify-content:center;width:100%;margin-top:12px;text-decoration:none">Админ: тоглогчид</a>`:''}
       <button class="btn ghost" id="outBtn" style="width:100%;margin-top:12px">Энэ утаснаас гарах</button></div>`}
   return `<div class="acc"><p>Одоо та зочноор тоглож байна. Оноо, цол тань зөвхөн энэ утсанд хадгалагдаж байгаа. Нэвтэрвэл өөр утаснаас ч үргэлжлүүлж, утсаа солиход оноогоо алдахгүй. Энэ утсан дээр цуглуулсан оноо тань бүртгэлд шилжинэ.</p>
     ${GOOGLE_ON?`<button class="gbtn" id="gBtn">${G_ICON}Google-ээр нэвтрэх</button><div class="or">эсвэл нэр, PIN-ээр</div>`:''}
@@ -898,6 +899,6 @@ buildBoard();buildKb();finishGoogle().then(done=>{if(!done)load()});
 if(!store.get('tu_seen5',false)){document.getElementById('helpOv').classList.add('open');store.set('tu_seen5',true)}
 </script>
 <script>window.TU_NO_AUTO=true</script>
-<script src="/js/tu.js?v=12"></script>
+<script src="/js/tu.js?v=13"></script>
 </body>
 </html>

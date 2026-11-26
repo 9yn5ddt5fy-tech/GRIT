@@ -234,6 +234,7 @@
         <div class="tu-who tu-who--row">${av(myName(), p.avatar, "tu-av--lg")}<div>${who}</div><button type="button" class="tu-edit" data-tu-edit>${L("Засах", "Edit")}</button></div>${statsLine()}
         ${needName ? `<form class="tu-form" id="tu-name"><label>${L("Самбарт харагдах нэр (хоч)", "Name shown on the leaderboard")}<input name="handle" maxlength="20" required placeholder="${L("ж: Болд2010", "e.g. Bold2010")}"></label><button class="tu-btn" type="submit">${L("Хадгалах", "Save")}</button></form>` : ""}
         ${API.google && !p.google ? `<button type="button" class="tu-g" data-tu-google>${G_ICON}${L("Google бүртгэлээ холбох", "Link my Google account")}</button>` : ""}
+        ${p.admin ? `<a class="tu-btn" href="/culture/admin/players/" style="display:flex;align-items:center;justify-content:center;text-decoration:none">${L("Админ: тоглогчид", "Admin: players")}</a>` : ""}
         <button type="button" class="tu-btn tu-btn--ghost" data-tu-out>${L("Энэ төхөөрөмжөөс гарах", "Sign out on this device")}</button>`;
     }
     return head + `<p class="tu-lead">${L("Нэвтэрвэл “Таасан уу?”, түүхийн сорил, он дарааллын тоглоом, зурагт номоос цуглуулсан оноо тань нэг бүртгэлд хадгалагдаж, долоо хоног бүрийн онооны самбарт нэр тань гарна.", "Sign in to keep the points from “Таасан уу?”, the history quiz, the timeline game and the picture books in one account, and to appear on the weekly leaderboard.")}</p>
