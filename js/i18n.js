@@ -172,7 +172,7 @@ const MN = {
     "Монголын түүхтэй холбоотой таван үсэгтэй үгийг зургаан оролдлогоор таагаарай. Өдөр бүр шинэ үг гарна. Таасны дараа тэр үгийн түүхийг уншаарай.",
   "Play": "Тоглох",
   "Learn with GRIT EDU": "GRIT EDU-тэй суралцаарай",
-  "Free tools for every student, wherever you live. Tick off your steps and practise English every day.": "Хаана ч амьдарч буй сурагч бүрт зориулсан үнэгүй хэрэгслүүд. Алхам бүрээ тэмдэглэж, англи хэлээ өдөр бүр дадлагажуулаарай.",
+  "A free daily English game for every student, wherever you live.": "Хаана ч амьдарч буй сурагч бүрт зориулсан өдөр тутмын үнэгүй англи хэлний тоглоом.",
   "Step by step": "Алхам алхмаар",
   "Study abroad roadmap": "Гадаадад суралцах зам",
   "What to do in grades 9 to 12 to study abroad on a scholarship. Tick off each step and your progress is saved.": "Тэтгэлгээр гадаадад суралцахын тулд 9–12-р ангидаа юу хийх вэ? Алхам бүрийг тэмдэглэвэл ахиц тань хадгалагдана.",
