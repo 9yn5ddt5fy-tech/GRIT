@@ -171,6 +171,15 @@ const MN = {
   "Guess a five-letter word from Mongolian history in six tries. A new word every day, and its story when you solve it.":
     "Монголын түүхтэй холбоотой таван үсэгтэй үгийг зургаан оролдлогоор таагаарай. Өдөр бүр шинэ үг гарна. Таасны дараа тэр үгийн түүхийг уншаарай.",
   "Play": "Тоглох",
+  "Learn with GRIT EDU": "GRIT EDU-тэй суралцаарай",
+  "Free tools for every student, wherever you live. Tick off your steps and practise English every day.": "Хаана ч амьдарч буй сурагч бүрт зориулсан үнэгүй хэрэгслүүд. Алхам бүрээ тэмдэглэж, англи хэлээ өдөр бүр дадлагажуулаарай.",
+  "Step by step": "Алхам алхмаар",
+  "Study abroad roadmap": "Гадаадад суралцах зам",
+  "What to do in grades 9 to 12 to study abroad on a scholarship. Tick off each step and your progress is saved.": "Тэтгэлгээр гадаадад суралцахын тулд 9–12-р ангидаа юу хийх вэ? Алхам бүрийг тэмдэглэвэл ахиц тань хадгалагдана.",
+  "Open": "Нээх",
+  "Daily game": "Өдөр тутмын тоглоом",
+  "English word of the day": "Өдрийн англи үг",
+  "See the Mongolian meaning and type the English word in six tries. A new word every day, with an example sentence.": "Монгол утгыг нь хараад англи үгийг зургаан оролдлогоор бичиж таана. Өдөр бүр шинэ үг, жишээ өгүүлбэртэй.",
   "Legends, history and a daily word game.": "Домог, түүх, өдөр бүрийн үгийн тоглоом.",
   "Tap a place on the map to open its picture book.": "Газрын зураг дээрээс газар сонгоход түүний зурагт ном нээгдэнэ.",
 
