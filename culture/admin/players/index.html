@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>GRIT админ · Тоглогчид</title>
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{--paper:#f4f2ed;--line:rgba(0,0,0,.12);--muted:rgba(0,0,0,.55);--ok:#3f7d00;--no:#c8352b;--warn:#b86e00}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--paper);color:#000;font:15px/1.5 'Onest',Arial,sans-serif;padding:24px 16px 60px}
+  main{max-width:1100px;margin:0 auto}
+  .head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:16px}
+  h1{font-size:30px;font-weight:800;letter-spacing:-.04em}
+  .muted{color:var(--muted)}
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:18px}
+  .card{background:#fff;border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+  .card b{display:block;font-size:26px;font-weight:800;letter-spacing:-.03em}
+  .card span{font-size:12.5px;color:var(--muted)}
+  .tools{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:10px}
+  .chip{height:34px;padding:0 14px;border-radius:999px;border:1.5px solid #000;background:transparent;font:600 13px 'Onest',Arial,sans-serif;cursor:pointer}
+  .chip[aria-pressed=true]{background:#000;color:var(--paper)}
+  input,select{height:34px;border:1.5px solid rgba(0,0,0,.2);border-radius:8px;padding:0 10px;font:500 14px 'Onest',Arial,sans-serif;background:#fff}
+  input{min-width:200px}
+  .wrap{overflow-x:auto;background:#fff;border:1px solid var(--line);border-radius:10px}
+  table{width:100%;border-collapse:collapse;font-size:14px;white-space:nowrap}
+  th{text-align:left;font-size:11.5px;font-weight:600;color:var(--muted);padding:9px 10px;border-bottom:1px solid var(--line);background:#faf9f6;position:sticky;top:0}
+  td{padding:9px 10px;border-bottom:1px solid rgba(0,0,0,.06);vertical-align:top}
+  td small{display:block;font-size:11.5px;color:var(--muted)}
+  .tag{display:inline-block;margin-left:6px;padding:1px 7px;border-radius:999px;border:1px solid var(--line);font-size:11px;font-weight:600;color:var(--muted)}
+  .ok{color:var(--ok);font-weight:700}.no{color:var(--no);font-weight:700}.mid{color:var(--warn);font-weight:700}
+  .streak b{font-size:16px}
+  .msg{background:#fff;border:1px solid var(--line);border-radius:10px;padding:18px}
+  .msg a{color:#000;font-weight:700}
+  .num{text-align:right}
+</style>
+</head>
+<body>
+<main>
+  <div class="head"><h1>Тоглогчид</h1><span class="muted" id="when"></span></div>
+  <div id="app"><p class="muted">Ачаалж байна…</p></div>
+</main>
+<script>window.TU_NO_AUTO = true;</script>
+<script src="/js/tu.js?v=13"></script>
+<script>
+(function () {
+  const TU = window.GRIT_TU, app = document.getElementById("app");
+  const esc = (s) => String(s == null ? "" : s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  const TYPE = { google: "Google", name: "Нэр, PIN", class: "Анги", guest: "Зочин" };
+  let D = null, filter = "today", sort = "default", q = "";
+
+  function ago(t) {
+    if (!t) return "";
+    const m = Math.round((Date.now() - new Date(t).getTime()) / 60000);
+    if (m < 1) return "дөнгөж сая"; if (m < 60) return `${m} мин өмнө`;
+    const h = Math.round(m / 60); if (h < 24) return `${h} цагийн өмнө`;
+    return `${Math.round(h / 24)} өдрийн өмнө`;
+  }
+  function tuCell(t) {
+    if (!t || !t.g) return `<span class="muted">Тоглоогүй</span>`;
+    const flags = [t.hint ? "сэжүүр" : "", t.rev ? "үсэг нээсэн" : ""].filter(Boolean).join(", ");
+    const main = t.ok ? `<span class="ok">Таасан ${t.g}/6</span> +${t.pts}` : t.fin ? `<span class="no">Таасангүй</span>` : `<span class="mid">Тоглож байна</span> ${t.g}/6`;
+    return main + (flags ? `<small>${flags}</small>` : "");
+  }
+  function hbCell(h) {
+    if (!h || !h.g) return `<span class="muted">Тоглоогүй</span>`;
+    return h.ok ? `<span class="ok">Таасан ${h.g}/5</span> +${h.pts}` : h.fin ? `<span class="no">Таасангүй</span>` : `<span class="mid">Тоглож байна</span> ${h.g}/5`;
+  }
+  function render() {
+    const s = D.summary;
+    const rows = D.rows
+      .filter((r) => filter === "all" || (filter === "today" ? (r.tu && r.tu.g) || (r.hb && r.hb.g) : filter === "streak" ? r.streak >= 3 : r.type !== "guest"))
+      .filter((r) => !q || r.name.toLowerCase().includes(q) || (r.class || "").toLowerCase().includes(q))
+      .sort((a, b) => sort === "streak" ? b.streak - a.streak : sort === "week" ? b.week - a.week : sort === "season" ? b.season - a.season : 0);
+    app.innerHTML = `
+      <div class="cards">
+        <div class="card"><b>${s.today}</b><span>Өнөөдөр тоглосон</span></div>
+        <div class="card"><b>${s.tu_solved}/${s.tu_played}</b><span>Таасан уу? таасан / тоглосон</span></div>
+        <div class="card"><b>${s.hb_solved}/${s.hb_played}</b><span>Хэн бэ? таасан / тоглосон</span></div>
+        <div class="card"><b>${s.players_14d}</b><span>Сүүлийн 14 хоногт идэвхтэй</span></div>
+        <div class="card"><b>${s.new_today}</b><span>Өнөөдөр шинээр нэгдсэн</span></div>
+      </div>
+      <div class="tools">
+        ${[["today", "Өнөөдөр тоглосон"], ["streak", "3+ өдөр дараалсан"], ["accounts", "Бүртгэлтэй"], ["all", "Бүгд (14 хоног)"]].map(([k, t]) => `<button class="chip" data-f="${k}" aria-pressed="${filter === k}">${t}</button>`).join("")}
+        <select id="sort"><option value="default">Эрэмбэ: сүүлд идэвхтэй</option><option value="streak">Дараалсан өдрөөр</option><option value="week">Долоо хоногийн оноогоор</option><option value="season">Улирлын оноогоор</option></select>
+        <input id="q" placeholder="Нэр, ангиар хайх" value="${esc(q)}">
+        <span class="muted">${rows.length} тоглогч</span>
+      </div>
+      <div class="wrap"><table>
+        <thead><tr><th>Нэр</th><th>Таасан уу? (өнөөдөр)</th><th>Хэн бэ? (өнөөдөр)</th><th>Дараалсан</th><th class="num">Тоглосон өдөр</th><th class="num">Энэ долоо хоног</th><th class="num">Улирал</th><th>Цол</th><th>Сүүлд</th></tr></thead>
+        <tbody>${rows.map((r) => `<tr>
+          <td><b>${esc(r.name)}</b><span class="tag">${r.class ? esc(r.class) + " анги" : TYPE[r.type]}</span>${r.admin ? '<span class="tag">админ</span>' : ""}</td>
+          <td>${tuCell(r.tu)}</td><td>${hbCell(r.hb)}</td>
+          <td class="streak">${r.streak ? `<b>${r.streak}</b> өдөр` : '<span class="muted">0</span>'}<small>Дээд: ${r.best}</small></td>
+          <td class="num">${r.days}</td><td class="num">${r.week}</td><td class="num">${r.season}</td>
+          <td>${TU.badge(r.lvl, 16)} ${esc(r.rank || "")}</td>
+          <td><span class="muted">${ago(r.last_seen)}</span></td></tr>`).join("") || `<tr><td colspan="9" class="muted">Тоглогч алга</td></tr>`}</tbody>
+      </table></div>
+      <p class="muted" style="margin-top:10px;font-size:13px">“Дараалсан” нь өнөөдөр эсвэл өчигдөр хүртэл ямар нэг тоглоом (Таасан уу?, Хэн бэ?, сорил, он дараалал, зурагт ном) тоглосон өдрийн тоо.</p>`;
+    document.getElementById("sort").value = sort;
+    app.querySelectorAll("[data-f]").forEach((b) => b.addEventListener("click", () => { filter = b.dataset.f; render(); }));
+    document.getElementById("sort").addEventListener("change", (e) => { sort = e.target.value; render(); });
+    const qi = document.getElementById("q");
+    qi.addEventListener("input", () => { q = qi.value.trim().toLowerCase(); const pos = qi.selectionStart; render(); const n = document.getElementById("q"); n.focus(); n.setSelectionRange(pos, pos); });
+  }
+  async function load() {
+    if (!TU.token) { app.innerHTML = `<div class="msg">Админ бүртгэлээрээ <a href="/culture/">GRIT Culture</a> хуудсанд нэвтэрсний дараа энэ хуудсыг нээнэ үү.</div>`; return; }
+    try { D = await TU.rpc("tu_admin_overview", { p_token: TU.token }); }
+    catch (e) {
+      app.innerHTML = `<div class="msg">${e.message === "forbidden" ? "Энэ хуудсыг зөвхөн админ эрхтэй бүртгэл харна." : e.message === "session" ? 'Нэвтрэлт дууссан байна. <a href="/culture/">GRIT Culture</a> хуудсанд дахин нэвтэрнэ үү.' : "Ачаалж чадсангүй. Дахин оролдоно уу."}</div>`;
+      return;
+    }
+    document.getElementById("when").textContent = `${D.date.replace(/-/g, ".")} · №${D.no} · ${new Date().toTimeString().slice(0, 5)}-д шинэчилсэн`;
+    render();
+  }
+  load();
+  setInterval(load, 60000);
+})();
+</script>
+</body>
+</html>
