@@ -804,13 +804,15 @@ const UI = {
       .join("");
   }
 
+  // painted covers (Higgsfield, in the style of Mongol zurag); books without one keep their drawn scene
+  const COVER_IMG = new Set(["es", "terkh", "taikhar", "karakorum", "erdenezuu", "orkhon", "ugii", "khoshoo", "kharbalgas", "burkhan", "deluun", "khudoo"]);
   function renderCards() {
     if (!grid) return;
     grid.innerHTML = STORIES.filter((s) => filter === "all" || s.kind === filter)
       .map((s) => {
         const read = done.includes(s.id);
         return `<article class="story">
-          <button type="button" class="story__art" data-open="${s.id}" aria-label="${t(UI.read)}: ${t(s.title)}">${scene(s.cover)}${read ? `<span class="story__done">✓ ${t(UI.done)}</span>` : ""}</button>
+          <button type="button" class="story__art" data-open="${s.id}" aria-label="${t(UI.read)}: ${t(s.title)}">${COVER_IMG.has(s.id) ? `<img src="/assets/img/books/${s.id}.webp?v=1" alt="" loading="lazy" decoding="async" width="800" height="500">` : scene(s.cover)}${read ? `<span class="story__done">✓ ${t(UI.done)}</span>` : ""}</button>
           <div class="story__body">
             <p class="story__meta"><span class="story__kind story__kind--${s.kind}">${t(UI[s.kind])}</span><span>${t(s.place)}</span></p>
             <h3 class="story__title">${t(s.title)}</h3>
