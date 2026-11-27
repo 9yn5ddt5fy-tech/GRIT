@@ -162,7 +162,7 @@
 
 <main>
   <section class="hero">
-    <div class="hero__art"><img src="/assets/img/nuuts/chono-2.webp?v=2" data-t-alt="heroAlt" width="1080" height="720" onerror="this.parentNode.innerHTML='<div class=noimg>§</div>'"></div>
+    <div class="hero__art"><img src="/assets/img/nuuts/chono-2.webp?v=3" data-t-alt="heroAlt" width="1080" height="720" onerror="this.parentNode.innerHTML='<div class=noimg>§</div>'"></div>
     <div>
       <p class="kicker" data-t="kicker"></p>
       <h1 class="title" data-t="title"></h1>
@@ -267,7 +267,7 @@
   let done = store.get("nt_done", {});      // chapter id -> true once its question is answered
   let pos = store.get("nt_pos", null);      // { c, p } last place read
   const imgOf = (c, i) => c.pages[i].img || `${c.id}-${i + 1}`;
-  const img = (name, extra) => `<img src="/assets/img/nuuts/${name}.webp?v=2" alt="" ${extra || ""} width="1080" height="720" decoding="async" onerror="this.outerHTML='<div class=noimg>§</div>'">`;
+  const img = (name, extra) => `<img src="/assets/img/nuuts/${name}.webp?v=3" alt="" ${extra || ""} width="1080" height="720" decoding="async" onerror="this.outerHTML='<div class=noimg>§</div>'">`;
 
   // ------------------------------------------------------------ text with names and hard words
   const CY = "А-Яа-яӨөҮүЁё";
@@ -383,7 +383,7 @@
     hideTip();
     if (!end) { pos = { c: ci, p: pi }; store.set("nt_pos", pos); }
     const np = c.pages[pi + 1];
-    if (np && !np.fact) { const im = new Image(); im.src = `/assets/img/nuuts/${imgOf(c, pi + 1)}.webp?v=2`; }
+    if (np && !np.fact) { const im = new Image(); im.src = `/assets/img/nuuts/${imgOf(c, pi + 1)}.webp?v=3`; }
   }
   function go(d) {
     dir = d;
