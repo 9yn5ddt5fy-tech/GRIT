@@ -104,7 +104,7 @@ window.NT_BOOK = [
         en: "Then Alan Gua tied five arrows together and said, “Now break these.” The five boys took turns, but none of them could break the bundle. Their mother said, “If you go your own ways, anyone can break you, like a single arrow. If you stay together like these five arrows, no one can defeat you.” From her youngest son, [[Бодончар|Bodonchar]], came the clan of Chinggis Khaan.",
       },
       {
-        fact: true,
+        fact: true, img: "chono-f",
         mn: "Бөртэ чоно, Гуа марал хоёрыг зарим хүн амьтан гэж ойлгодог. Гэвч Нууц товчоонд тэд хүмүүс бөгөөд эхнэр нөхөр хоёр, үр удамтай. Эртний нүүдэлчид хүүхдээ хүчирхэг, сэргэлэн амьтдын нэрээр нэрлэх дуртай байжээ. Бурхан халдун уул Хэнтий аймагт өнөөдөр ч бий. Таван сумны сургаалыг монголчууд одоо ч эв нэгдлийн тухай ярихдаа дурсдаг.",
         en: "Some people imagine Börte Chino and Gua Maral as animals. But in the Secret History they are people: a husband and wife with children and grandchildren. Ancient nomads liked to name their children after strong, quick animals. Burkhan Khaldun still stands in Khentii province today, and Mongols still recall the five arrows whenever they speak about unity.",
       },
@@ -142,14 +142,14 @@ window.NT_BOOK = [
         en: "The two fathers agreed, and Temüjin stayed with Dei Sechen's family as his future {{хүргэн|son-in-law}}. By the custom of the time, a promised boy lived for a while in his bride's home. As he left, Yesügei said, “My son is afraid of dogs. Don't let the dogs frighten him.” Even a boy who would become a great khan had things he was afraid of.",
       },
       {
-        fact: true,
+        fact: true, img: "nuj-f",
         mn: "Тэмүжин хэдэн онд төрсөн бэ? Нууц товчоонд он дурдаагүй тул эрдэмтэд өөр өөр тоо гаргадаг. Монголд уламжлал ёсоор 1162 он гэж тооцдог. Түүний төрсөн Дэлүүн болдог хаана байсан талаар ч судлаачид маргадаг. Хэнтий аймгийн Дадал сумд түүний төрсөн газрын дурсгал бий.",
         en: "In what year was Temüjin born? The Secret History gives no year, so scholars suggest different dates. In Mongolia it is traditionally counted as 1162. Researchers also disagree about where Delüün Boldog was. There is a monument to his birthplace in Dadal soum, Khentii province.",
       },
     ],
     check: {
       q: { mn: "Дэй сэцэн ямар зүүд зүүдэлсэн бэ?", en: "What did Dei Sechen dream about?" },
-      a: [{ mn: "Бөртэ чоно, Гуа марал хоёр", en: "Börte Chino and Gua Maral" }, { mn: "Есөн хөлт цагаан туг", en: "The nine-tailed white banner" }, { mn: "Нар, сар атгасан цагаан шонхор", en: "A white gyrfalcon holding the sun and the moon" }],
+      a: [{ mn: "Бөртэ чоно, Гуа марал хоёр", en: "Börte Chino and Gua Maral" }, { mn: "Есөн хөлт цагаан туг", en: "The Nine White Banners" }, { mn: "Нар, сар атгасан цагаан шонхор", en: "A white gyrfalcon holding the sun and the moon" }],
       ok: 2,
     },
   },
@@ -180,7 +180,7 @@ window.NT_BOOK = [
         en: "As the children grew, quarrels began. When their half-brother [[Бэгтэр|Begter]] took the fish and the bird they had caught, Temüjin and [[Хасар|Qasar]] became so angry that they went too far, and Begter lost his life. Hö'elün was furious: “We have no friends but our shadows, no whips but our horses' tails. What have you done?” At that time the only people they could rely on were each other.",
       },
       {
-        fact: true,
+        fact: true, img: "uelun-f",
         mn: "Нууц товчоо зөвхөн баатарлаг үйлсийг магтаад зогсдоггүй. Ах дүүгийн хэрүүл, алдаа, гашуун явдлыг ч нуулгүй бичсэн байдаг. Тиймээс түүхчид үүнийг их үнэ цэнтэй эх сурвалж гэж үздэг. Өэлүн эх хүнд үед гэр бүлээ авч үлдсэн тул монголчууд түүнийг эх хүний бат зоригийн бэлгэдэл болгон хүндэтгэдэг.",
         en: "The Secret History does not only praise heroic deeds. It also tells openly about quarrels between brothers, mistakes and sad events. That is why historians value it so highly. Because Hö'elün kept her family alive in the hardest times, Mongols honour her as a symbol of a mother's courage.",
       },
@@ -218,7 +218,7 @@ window.NT_BOOK = [
         en: "Sorqan Shira's sons, [[Чимбай|Chimbai]] and [[Чилавун|Chila'un]], took off the cangue and burned it in the fire. They hid Temüjin in a cart piled with wool, and their sister [[Хадаан|Qada'an]] looked after him. When the searchers came and started poking into the wool, Sorqan Shira said, “Who could bear to sit in wool in this heat?” The searchers left. Sorqan Shira gave Temüjin a horse, food, a bow and two arrows, and sent him home.",
       },
       {
-        fact: true,
+        fact: true, img: "dongo-f",
         mn: "Хүнд үед тусалсан хүмүүсээ Тэмүжин хэзээ ч мартсангүй. Сорхон шарын хүү Чилавун хожим Чингис хааны хамгийн итгэлтэй дөрвөн жанжны нэг болжээ. Тэднийг “дөрвөн хүлэг” гэдэг: [[Боорчу]], [[Мухулай]], [[Борохул]], Чилавун.",
         en: "Temüjin never forgot the people who helped him in hard times. Sorqan Shira's son Chila'un later became one of Chinggis Khaan's four most trusted generals, known as the “four steeds”: [[Боорчу|Bo'orchu]], [[Мухулай|Muqali]], [[Борохул|Boroqul]] and Chila'un.",
       },
@@ -256,7 +256,7 @@ window.NT_BOOK = [
         en: "When Temüjin offered to share the horses with him, Bo'orchu refused: “I came because you were in trouble, not for a reward.” Naqu Bayan, who had been weeping because his son had disappeared, heard the whole story and told them, “From now on, you two young men must never abandon each other.”",
       },
       {
-        fact: true,
+        fact: true, img: "boorchu-f",
         mn: "Боорчу Чингис хааны хамгийн анхны нөхөр, хожим нэрт жанжин нь болжээ. Танихгүй залууд туслахаар шийдсэн тэр өдрөөс насан туршийн нөхөрлөл эхэлсэн юм. Нууц товчоо үнэнч нөхрийн ач тусыг олон удаа онцолдог.",
         en: "Bo'orchu became Chinggis Khaan's very first companion and later one of his great generals. A lifelong friendship began on the day he decided to help a stranger. The Secret History often stresses how much a loyal friend is worth.",
       },
@@ -294,9 +294,9 @@ window.NT_BOOK = [
         en: "To'oril Khan and [[Жамуха|Jamuqa]] brought their armies to help Temüjin. During the night attack, as the Merkits fled in panic, Temüjin rode among them calling, “Börte! Börte!” Börte knew his voice. She jumped down from a cart, ran to him and caught hold of his horse's {{цулбуур|reins}}. In the moonlight they recognised each other and embraced.",
       },
       {
-        fact: true,
-        mn: "Жамуха бол Тэмүжиний бага насны анд байсан. Тэд хүүхэд байхдаа шагай, сум солилцож анд болжээ. Мэргидийг ялсны дараа тэд хэсэг хугацаанд хамт нутаглав. Хожим хэн нь тал нутгийг удирдах вэ гэдгээр өрсөлдөгч болсон юм.",
-        en: "Jamuqa had been Temüjin's sworn brother since childhood. As boys they swapped knucklebones and arrows and swore to be brothers. After defeating the Merkits they camped together for a while. Later they became rivals over who would lead the steppe.",
+        fact: true, img: "borte-f",
+        mn: "Жамуха бол Тэмүжиний бага насны {{анд}} байсан. Тэд хүүхэд байхдаа шагай, сум солилцож анд болжээ. Мэргидийг ялсны дараа тэд хэсэг хугацаанд хамт нутаглав. Хожим хэн нь тал нутгийг удирдах вэ гэдгээр өрсөлдөгч болсон юм.",
+        en: "Jamuqa had been Temüjin's {{анд|sworn brother}} since childhood. As boys they swapped knucklebones and arrows and swore to be brothers. After defeating the Merkits they camped together for a while. Later they became rivals over who would lead the steppe.",
       },
     ],
     check: {
@@ -307,7 +307,7 @@ window.NT_BOOK = [
   },
   {
     id: "tug",
-    title: { mn: "Есөн хөлт цагаан туг", en: "The Nine-Tailed White Banner" },
+    title: { mn: "Есөн хөлт цагаан туг", en: "The Nine White Banners" },
     sub: { mn: "Их Монгол Улс байгуулагдсан нь, ном хэрхэн бичигдсэн бэ", en: "The Great Mongol State is founded, and how the book was written" },
     ref: "§123, §202–206, §282",
     pages: [
@@ -318,8 +318,8 @@ window.NT_BOOK = [
       },
       {
         sec: { mn: "§202", en: "§202" },
-        mn: "1206 онд, барс жил, Онон мөрний эхэнд их {{хуралдай}} болов. Есөн хөлт цагаан тугаа мандуулж, Тэмүжинг Чингис хаан хэмээн {{өргөмжлөх|өргөмжлөв}}. Тал нутгийн олон аймаг нэг улс болж, Их Монгол Улс байгуулагджээ.",
-        en: "In 1206, the Year of the Tiger, a great {{хуралдай|khuraldai}} gathered at the source of the Onon river. The nine-tailed white banner was raised, and Temüjin was {{өргөмжлөх|proclaimed}} Chinggis Khaan. The many tribes of the steppe became one state: the Great Mongol State.",
+        mn: "1206 онд, барс жил, Онон мөрний эхэнд их {{хуралдай}} болов. Есөн хөлт цагаан тугаа мандуулж (нэг том, найман жижиг туг), Тэмүжинг Чингис хаан хэмээн {{өргөмжлөх|өргөмжлөв}}. Тал нутгийн олон аймаг нэг улс болж, Их Монгол Улс байгуулагджээ.",
+        en: "In 1206, the Year of the Tiger, a great {{хуралдай|khuraldai}} gathered at the source of the Onon river. The Nine White Banners were raised, and Temüjin was {{өргөмжлөх|proclaimed}} Chinggis Khaan. The many tribes of the steppe became one state: the Great Mongol State.",
       },
       {
         sec: { mn: "§202–206", en: "§202–206" },
@@ -332,7 +332,7 @@ window.NT_BOOK = [
         en: "Who wrote this book? Its last lines say: “It was finished in the seventh month of the Year of the Rat, while the great assembly was gathered at Khödöö Aral on the Kherlen river.” But the author's name is not written anywhere, so it remains a secret to this day.",
       },
       {
-        fact: true,
+        fact: true, img: "tug-f",
         mn: "Нууц товчооны монгол бичгээр бичсэн эх нь алдагдсан. Харин монгол үгийн дуудлагыг хятад үсгээр тэмдэглэсэн хувилбар нь хадгалагдан үлдсэнээр өнөөдөр бид уншиж чадаж байна. Монголд үүнийг уламжлал ёсоор 1240 онд бичсэн гэж үздэг бол зарим эрдэмтэд 1228 он гэдэг. Академич [[Ц. Дамдинсүрэн]] 1947 онд өнөөгийн монгол хэлээр орчуулж, олон түмэнд хүргэсэн.",
         en: "The original text in Mongol script has been lost. We can read the book today because a version that wrote down the sound of the Mongolian words in Chinese characters survived. In Mongolia it is traditionally dated to 1240, while some scholars prefer 1228. In 1947 Academician [[Ц. Дамдинсүрэн|Ts. Damdinsüren]] rendered it into modern Mongolian and brought it to everyone.",
       },
