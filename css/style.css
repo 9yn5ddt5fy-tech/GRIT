@@ -3618,3 +3618,15 @@ html[data-season="autumn"] .hero__bg--season { background-image: url(../assets/i
 .hbdeco .on i { background: #000; color: #f4f2ed; }
 .hbdeco .on b { background: rgba(0, 0, 0, .25); }
 @media (max-width: 900px) { .games-duo { grid-template-columns: minmax(0, 1fr); } .wordgame--duo { padding: 28px 22px; } }
+
+/* GRIT Culture: “Монголын нууц товчоо” picture book card */
+.ntcard { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); align-items: stretch; border-radius: var(--radius-lg); background: #17130e; color: #f4efe4; overflow: hidden; transition: transform .3s, box-shadow .3s; }
+.ntcard:hover { transform: translateY(-3px); box-shadow: 0 24px 50px -24px rgba(0, 0, 0, .6); }
+.ntcard__art { min-height: 280px; }
+.ntcard__art img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.ntcard__text { padding: 40px 36px; display: flex; flex-direction: column; justify-content: center; }
+.ntcard__title { margin-top: 10px; font-family: "PT Serif", Georgia, serif; font-size: clamp(32px, 4vw, 48px); font-weight: 700; line-height: 1.05; letter-spacing: -.01em; }
+.ntcard__lead { margin-top: 14px; font-size: 17px; color: rgba(244, 239, 228, .78); }
+.ntcard .wordgame__btn { align-self: flex-start; background: #f4efe4; }
+.ntcard:hover .wordgame__btn span { transform: translateX(4px); }
+@media (max-width: 900px) { .ntcard { grid-template-columns: minmax(0, 1fr); } .ntcard__art { min-height: 0; aspect-ratio: 16 / 10; } .ntcard__text { padding: 26px 22px 30px; } }

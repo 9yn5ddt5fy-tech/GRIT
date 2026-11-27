@@ -524,6 +524,8 @@ const MN = {
   "Leaderboard": "Онооны самбар",
   "Points from Таасан уу?, Хэн бэ?, the history quiz, the timeline game and the picture books. A new week starts every Monday.": "“Таасан уу?”, “Хэн бэ?”, түүхийн сорил, он дарааллын тоглоом, зурагт номоос авсан оноо. Шинэ долоо хоног Даваа гараг бүр эхэлнэ.",
   "Daily history game": "Өдөр тутмын түүхийн тоглоом",
+  "Picture book · 7 chapters": "Зурагт ном · 7 бүлэг",
+  "How did the boy Temüjin become Chinggis Khaan? The oldest Mongolian history book, retold in plain words with pictures for children and young readers.": "Тэмүжин хэмээх хүү хэрхэн Чингис хаан болсон бэ? Монголын хамгийн эртний түүхэн номыг хүүхэд, залууст зориулан энгийн үгээр, зурагтайгаар хүүрнэв.",
   "Guess a person from Mongolian history from five clues. The fewer clues you need, the more points you get.": "Монголын түүхэн нэгэн хүнийг таван сэжүүрээр таагаарай. Цөөн сэжүүрээр таах тусам их оноо авна.",
   "Winter": "Өвөл",
   "Autumn": "Намар",
