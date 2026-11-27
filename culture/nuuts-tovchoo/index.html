@@ -114,6 +114,7 @@
   .rd.big .rd__text{--fs:22px}
   .gl{font:inherit;background:none;border:0;border-bottom:2px dotted var(--red);cursor:pointer;padding:0;color:inherit}
   .gl:hover,.gl.on{background:rgba(168,68,47,.1)}
+  .rd__art+.fact{margin-top:16px}
   .fact{margin-top:4px;padding:20px;border-radius:14px;background:var(--paper);border:1px solid var(--faint)}
   .fact__h{display:flex;align-items:center;gap:8px;font-weight:800;font-size:15px;color:var(--red);margin-bottom:10px}
   .quiz__q{font-family:'PT Serif',Georgia,serif;font-size:22px;line-height:1.3;margin:6px 0 16px}
@@ -162,7 +163,7 @@
 
 <main>
   <section class="hero">
-    <div class="hero__art"><img src="/assets/img/nuuts/chono-2.webp?v=3" data-t-alt="heroAlt" width="1080" height="720" onerror="this.parentNode.innerHTML='<div class=noimg>§</div>'"></div>
+    <div class="hero__art"><img src="/assets/img/nuuts/chono-2.webp?v=4" data-t-alt="heroAlt" width="1080" height="720" onerror="this.parentNode.innerHTML='<div class=noimg>§</div>'"></div>
     <div>
       <p class="kicker" data-t="kicker"></p>
       <h1 class="title" data-t="title"></h1>
@@ -208,7 +209,7 @@
 <div class="tip" id="tip" role="tooltip"><small></small><b></b><span></span></div>
 
 <script src="/js/tu.js?v=13"></script>
-<script src="/js/nuuts-data.js?v=2"></script>
+<script src="/js/nuuts-data.js?v=3"></script>
 <script>
 (function () {
   const BOOK = window.NT_BOOK, GLOSS = window.NT_GLOSS, PEOPLE = window.NT_PEOPLE;
@@ -267,7 +268,7 @@
   let done = store.get("nt_done", {});      // chapter id -> true once its question is answered
   let pos = store.get("nt_pos", null);      // { c, p } last place read
   const imgOf = (c, i) => c.pages[i].img || `${c.id}-${i + 1}`;
-  const img = (name, extra) => `<img src="/assets/img/nuuts/${name}.webp?v=3" alt="" ${extra || ""} width="1080" height="720" decoding="async" onerror="this.outerHTML='<div class=noimg>§</div>'">`;
+  const img = (name, extra) => `<img src="/assets/img/nuuts/${name}.webp?v=4" alt="" ${extra || ""} width="1080" height="720" decoding="async" onerror="this.outerHTML='<div class=noimg>§</div>'">`;
 
   // ------------------------------------------------------------ text with names and hard words
   const CY = "А-Яа-яӨөҮүЁё";
@@ -368,7 +369,7 @@
     } else {
       const p = c.pages[pi];
       h = p.fact
-        ? `<div class="fact"><div class="fact__h"><svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.01"/></svg>${T("fact")}</div><p class="rd__text">${words(tx(p))}</p></div>`
+        ? `${p.img ? `<div class="rd__art">${img(p.img)}</div>` : ""}<div class="fact"><div class="fact__h"><svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.01"/></svg>${T("fact")}</div><p class="rd__text">${words(tx(p))}</p></div>`
         : `<div class="rd__art">${img(imgOf(c, pi))}</div><span class="rd__sec">${T("src")}, ${esc(tx(p.sec))}</span><p class="rd__text">${words(tx(p))}</p>`;
     }
     const pg = $("rdPage");
@@ -383,7 +384,7 @@
     hideTip();
     if (!end) { pos = { c: ci, p: pi }; store.set("nt_pos", pos); }
     const np = c.pages[pi + 1];
-    if (np && !np.fact) { const im = new Image(); im.src = `/assets/img/nuuts/${imgOf(c, pi + 1)}.webp?v=3`; }
+    if (np && (np.img || !np.fact)) { const im = new Image(); im.src = `/assets/img/nuuts/${imgOf(c, pi + 1)}.webp?v=4`; }
   }
   function go(d) {
     dir = d;
