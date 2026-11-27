@@ -30,7 +30,7 @@
   a{color:inherit}
 
   header{position:sticky;top:0;z-index:5;background:rgba(244,239,228,.9);backdrop-filter:blur(10px);border-bottom:1px solid var(--faint)}
-  .bar{max-width:760px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 16px}
+  .bar{max-width:1240px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 16px}
   .lead{display:flex;align-items:center;gap:10px;min-width:0}
   .back{flex:none;display:grid;place-items:center;width:38px;height:38px;border-radius:50%;border:1px solid var(--faint)}
   .back:hover{border-color:var(--dim)}
@@ -49,14 +49,37 @@
   .nav [data-tu-account] .tu-av{width:38px;height:38px}
   @media(max-width:420px){.bar{padding:10px 12px}.brand{gap:8px}.logo{width:30px;height:30px}.wm b{font-size:16px}.back{width:34px;height:34px}.lead{gap:6px}}
 
-  main{max-width:760px;margin:0 auto;padding:22px 16px 40px}
-  .hero{display:grid;gap:18px}
-  .hero__art{position:relative;border-radius:16px;overflow:hidden;aspect-ratio:16/10;background:#e7dcc6}
-  .hero__art img{width:100%;height:100%;object-fit:cover;display:block}
+  main{max-width:1240px;margin:0 auto;padding:8px 24px 48px}
+  @media(max-width:520px){main{padding:4px 16px 40px}}
   .kicker{font-size:12.5px;font-weight:700;color:var(--red);letter-spacing:.02em}
   h1.title{font-family:'PT Serif',Georgia,serif;font-weight:700;font-size:clamp(30px,7vw,46px);line-height:1.05;letter-spacing:-.02em;margin-top:6px}
-  .hero p.intro{font-size:16.5px;line-height:1.6;color:rgba(23,19,14,.8);margin-top:10px;max-width:60ch}
+  p.intro{font-size:16.5px;line-height:1.6;color:rgba(23,19,14,.8);margin-top:10px;max-width:60ch}
   .hero__row{display:flex;flex-wrap:wrap;align-items:center;gap:12px 16px;margin-top:16px}
+  /* full-width picture with the title laid over it; stacked under the picture on phones */
+  .hero{position:relative}
+  .hero__art{position:relative;height:clamp(460px,74vh,760px);overflow:hidden;background:#e7dcc6}
+  .hero__art img{width:100%;height:100%;object-fit:cover;object-position:50% 38%;display:block}
+  .hero__art::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(23,19,14,.55),rgba(23,19,14,0) 65%),linear-gradient(180deg,rgba(23,19,14,0) 35%,rgba(23,19,14,.5) 62%,rgba(23,19,14,.88))}
+  .hero__in{position:absolute;left:0;right:0;bottom:0}
+  .hero__txt{max-width:1240px;margin:0 auto;padding:0 24px 44px;color:#fbf8f1}
+  .hero .kicker{color:#f2b393}
+  .hero h1.title{font-size:clamp(36px,5.6vw,72px);text-shadow:0 2px 18px rgba(0,0,0,.35)}
+  .hero p.intro{color:rgba(251,248,241,.92);font-size:17.5px;max-width:62ch;text-shadow:0 1px 10px rgba(0,0,0,.4)}
+  .hero .btn--dark{background:#fbf8f1;color:var(--ink);border-color:#fbf8f1}
+  .hero .meter{color:rgba(251,248,241,.8)}
+  .hero .meter i{background:rgba(251,248,241,.25)}
+  @media(max-width:700px){
+    .hero__art{height:auto;aspect-ratio:3/2}
+    .hero__art::after{display:none}
+    .hero__in{position:static}
+    .hero__txt{color:var(--ink);padding:18px 16px 6px}
+    .hero .kicker{color:var(--red)}
+    .hero h1.title{text-shadow:none}
+    .hero p.intro{color:rgba(23,19,14,.8);font-size:16.5px}
+    .hero .btn--dark{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+    .hero .meter{color:var(--dim)}
+    .hero .meter i{background:var(--faint)}
+  }
   .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:48px;padding:0 22px;border-radius:999px;border:1px solid var(--ink);font-size:15px;font-weight:700;cursor:pointer;text-decoration:none;background:none}
   .btn--dark{background:var(--ink);color:var(--paper)}
   .btn[disabled]{opacity:.35;cursor:default}
@@ -64,9 +87,18 @@
   .meter i{display:block;width:110px;height:6px;border-radius:6px;background:var(--faint);overflow:hidden}
   .meter i b{display:block;height:100%;background:var(--red);border-radius:6px;transition:width .4s}
 
-  h2.sec{font-family:'PT Serif',Georgia,serif;font-size:24px;margin:38px 0 14px;letter-spacing:-.01em}
+  h2.sec{font-family:'PT Serif',Georgia,serif;font-size:clamp(24px,2.6vw,32px);margin:40px 0 18px;letter-spacing:-.01em}
   .chapters{list-style:none;display:grid;gap:12px}
-  @media(min-width:620px){.chapters{grid-template-columns:1fr 1fr}}
+  @media(min-width:620px){.chapters{grid-template-columns:1fr 1fr;gap:16px}}
+  @media(min-width:980px){.chapters{grid-template-columns:repeat(3,1fr);gap:20px}}
+  @media(min-width:620px){
+    .chapters li:last-child:nth-child(odd){grid-column:1/-1}
+    .chapters li:last-child:nth-child(odd) .ch{flex-direction:row}
+    .chapters li:last-child:nth-child(odd) .ch__art{flex:0 0 50%;aspect-ratio:auto;min-height:260px}
+    .chapters li:last-child:nth-child(odd) .ch__body{align-self:center;padding:28px 32px}
+    .chapters li:last-child:nth-child(odd) .ch__t{font-size:clamp(22px,2.4vw,30px)}
+    .chapters li:last-child:nth-child(odd) .ch__s{font-size:16px}
+  }
   .ch{display:flex;flex-direction:column;width:100%;text-align:left;border:1px solid var(--faint);border-radius:14px;background:var(--paper);overflow:hidden;cursor:pointer;transition:transform .15s,border-color .15s}
   .ch:hover{border-color:rgba(23,19,14,.35);transform:translateY(-2px)}
   .ch__art{position:relative;aspect-ratio:16/9;background:#e7dcc6;overflow:hidden}
@@ -79,6 +111,7 @@
   .ch__ref{font-size:12px;font-weight:600;color:var(--gold);margin-top:8px}
 
   .about{margin-top:38px;padding:20px;border-radius:14px;background:var(--paper);border:1px solid var(--faint)}
+  @media(min-width:900px){.about{display:grid;grid-template-columns:1.1fr 1fr;gap:0 44px;padding:30px 34px;margin-top:48px}.about h2{grid-column:1/-1}.about p{grid-column:1}.about .glossary{grid-column:2;grid-row:2/span 2;margin-top:0}}
   .about h2{font-family:'PT Serif',Georgia,serif;font-size:20px;margin-bottom:8px}
   .about p{font-size:15px;line-height:1.6;color:rgba(23,19,14,.8)}
   .about p+p{margin-top:8px}
@@ -161,20 +194,20 @@
   </div>
 </header>
 
-<main>
-  <section class="hero">
-    <div class="hero__art"><img src="/assets/img/nuuts/chono-2.webp?v=4" data-t-alt="heroAlt" width="1080" height="720" onerror="this.parentNode.innerHTML='<div class=noimg>§</div>'"></div>
-    <div>
-      <p class="kicker" data-t="kicker"></p>
-      <h1 class="title" data-t="title"></h1>
-      <p class="intro" data-t="intro"></p>
-      <div class="hero__row">
-        <button class="btn btn--dark" id="startBtn"></button>
-        <span class="meter"><i><b id="meterBar" style="width:0"></b></i><span id="meterTxt"></span></span>
-      </div>
+<section class="hero">
+  <div class="hero__art"><img src="/assets/img/nuuts/chono-2.webp?v=4" data-t-alt="heroAlt" width="1080" height="720" fetchpriority="high" onerror="this.parentNode.innerHTML='<div class=noimg>§</div>'"></div>
+  <div class="hero__in"><div class="hero__txt">
+    <p class="kicker" data-t="kicker"></p>
+    <h1 class="title" data-t="title"></h1>
+    <p class="intro" data-t="intro"></p>
+    <div class="hero__row">
+      <button class="btn btn--dark" id="startBtn"></button>
+      <span class="meter"><i><b id="meterBar" style="width:0"></b></i><span id="meterTxt"></span></span>
     </div>
-  </section>
+  </div></div>
+</section>
 
+<main>
   <h2 class="sec" data-t="chapters"></h2>
   <ol class="chapters" id="chapters"></ol>
 
