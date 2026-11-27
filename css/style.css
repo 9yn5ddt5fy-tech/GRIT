@@ -3630,3 +3630,13 @@ html[data-season="autumn"] .hero__bg--season { background-image: url(../assets/i
 .ntcard .wordgame__btn { align-self: flex-start; background: #f4efe4; }
 .ntcard:hover .wordgame__btn span { transform: translateX(4px); }
 @media (max-width: 900px) { .ntcard { grid-template-columns: minmax(0, 1fr); } .ntcard__art { min-height: 0; aspect-ratio: 16 / 10; } .ntcard__text { padding: 26px 22px 30px; } }
+/* Wide screens: keep the menu in the flow (not centred over the header) so it can never run
+   under the language, theme, sign-in and support buttons on the right. */
+@media (min-width: 1361px) {
+  .nav { position: static; transform: none; margin: 0 auto; padding: 0 24px; gap: 28px; }
+  [data-lang="mn"] .nav { gap: 20px; }
+}
+@media (min-width: 1361px) and (max-width: 1560px) {
+  [data-lang="mn"] .nav { gap: 16px; }
+  [data-lang="mn"] .nav a { font-size: 14px; white-space: nowrap; }
+}
