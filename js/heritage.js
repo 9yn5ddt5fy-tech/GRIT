@@ -1103,20 +1103,21 @@ const UI = {
     });
 
   // ------------------------------------------------------------ hero map
+  // Numbered by province (Arkhangai, Övörkhangai, Khentii), in the order the horse visits them.
   const MAP_LABELS = {
     terkh: { en: "Terkhiin Tsagaan Lake", mn: "Тэрхийн Цагаан нуур" },
     taikhar: { en: "Taikhar Rock", mn: "Тайхар чулуу" },
+    kharbalgas: { en: "Khar Balgas", mn: "Хар балгас" },
+    khoshoo: { en: "Khöshöö Tsaidam", mn: "Хөшөө Цайдам" },
     ugii: { en: "Ugii Lake", mn: "Өгий нуур" },
-    orkhon: { en: "Orkhon Waterfall", mn: "Орхоны хүрхрээ" },
     karakorum: { en: "Karakorum", mn: "Хархорум" },
     erdenezuu: { en: "Erdene Zuu", mn: "Эрдэнэ Зуу" },
-    khoshoo: { en: "Khöshöö Tsaidam", mn: "Хөшөө Цайдам" },
-    kharbalgas: { en: "Khar Balgas", mn: "Хар балгас" },
+    orkhon: { en: "Orkhon Waterfall", mn: "Орхоны хүрхрээ" },
     burkhan: { en: "Burkhan Khaldun", mn: "Бурхан Халдун" },
     deluun: { en: "Delüün Boldog", mn: "Дэлүүн болдог" },
     khudoo: { en: "Khödöö Aral", mn: "Хөдөө арал" },
   };
-  const MAP_REGIONS = [{ en: "Arkhangai, Uvurkhangai", mn: "Архангай, Өвөрхангай" }, { en: "Khentii", mn: "Хэнтий" }];
+  const MAP_REGIONS = [{ en: "Arkhangai", mn: "Архангай" }, { en: "Övörkhangai", mn: "Өвөрхангай" }, { en: "Khentii", mn: "Хэнтий" }];
   const mapEl = document.getElementById("hmap");
   const legendEl = document.getElementById("hmap-legend");
   function renderMap() {
@@ -1141,21 +1142,21 @@ const UI = {
   // The GRIT horse tours the map along the roads, resting at each site and
   // lighting up its pin. Clicking the horse opens the site it stands at.
   // Each leg: world-coordinate waypoints ending at the site, then its id.
-  // Khentii is the small island on the right (x 108..152); the bridge is at y 40.
+  // Bridges: Arkhangai–Övörkhangai at x 64 (y 52..60), Arkhangai–Khentii at y 32 (x 100..110).
   const TOUR = [
-    [[[22, 36], [28, 46], [33, 56]], "taikhar"],
-    [[[34, 64], [34, 80], [42, 92]], "orkhon"],
-    [[[48, 90], [56, 86], [58, 82]], "karakorum"],
-    [[[56, 66], [62, 58], [80, 58], [84, 60]], "erdenezuu"],
-    [[[90, 50], [96, 43], [100, 40], [108, 40], [116, 44], [126, 50], [131, 53.5]], "khudoo"],
-    [[[126, 50], [132, 42], [137, 34.5]], "deluun"],
-    [[[132, 31], [124, 33], [117, 31.5]], "burkhan"],
-    [[[115, 38], [108, 40], [100, 40], [92, 35], [82, 31]], "khoshoo"],
-    [[[72, 30], [66, 26], [64, 24]], "ugii"],
-    [[[60, 30], [57, 38], [55.5, 41.5]], "kharbalgas"],
-    [[[46, 33], [32, 31], [26, 34]], "terkh"],
+    [[[32, 28], [40, 29.5]], "taikhar"],
+    [[[48, 31], [52, 34], [56, 39]], "kharbalgas"],
+    [[[60, 44], [70, 44], [78, 40], [80, 34]], "khoshoo"],
+    [[[78, 30], [76, 28], [72, 26]], "ugii"],
+    [[[76, 28], [80, 34], [78, 40], [70, 44], [60, 44], [64, 51.5], [64, 60.5], [65, 65]], "karakorum"],
+    [[[66, 70], [66, 90], [78, 90]], "erdenezuu"],
+    [[[66, 90], [54, 92], [42, 95]], "orkhon"],
+    [[[54, 92], [66, 90], [66, 70], [64, 60.5], [64, 51.5], [60, 44], [70, 44], [78, 40], [90, 34], [99.5, 32], [110.5, 32], [116, 36.5]], "burkhan"],
+    [[[118, 38], [124, 40], [134, 34], [142, 28]], "deluun"],
+    [[[134, 34], [124, 40], [128, 46], [133, 50]], "khudoo"],
+    [[[128, 46], [124, 40], [118, 38], [110.5, 32], [99.5, 32], [90, 34], [78, 40], [70, 44], [60, 44], [52, 34], [44, 30], [32, 28], [22, 27]], "terkh"],
   ];
-  const START = [26, 34];
+  const START = [22, 27];
   const SPEED = 7; // world units per second
   const REST = 2200; // ms at each site
   const reduceMotion = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;

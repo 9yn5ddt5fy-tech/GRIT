@@ -630,8 +630,9 @@
   // left face and a dark right face; no outlines; soft shadows; a calm palette.
   // World units 0..100 on both axes; the back corner (0,0) is at the top.
   // opts.pins: [{ id, x, y, label, side }] become clickable markers (data-open=id).
-  // Two islands share one world grid: Arkhangai/Uvurkhangai on 0..100, and
-  // Khentii on x 108..152, y 20..64 (front right), joined by a wooden bridge.
+  // Three islands share one world grid (north is to the top right): Arkhangai on
+  // x 0..100, y 0..52; Övörkhangai south of it on y 60..100; Khentii on x 110..152,
+  // y 16..64 (front right). Wooden bridges join them.
   const MAP_W = 1380,
     MAP_H = 730,
     MS = 6.1,
@@ -831,7 +832,7 @@
     const id = 'm' + ++uid;
     const items = []; // [depth, svg]
     const put = (d, svg) => items.push([d, svg]);
-    const E0 = 62, E1 = 82, wh = 1.2, wt = 0.7; // Erdene Zuu's square
+    const E0 = 68, E1 = 88, wh = 1.2, wt = 0.7; // Erdene Zuu's square
     let s = `<defs><linearGradient id="${id}s" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${Q.bg1}"/><stop offset="1" stop-color="${Q.bg2}"/></linearGradient>` +
       `<radialGradient id="${id}h" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#fff7d9" stop-opacity=".95"/><stop offset="1" stop-color="#fff7d9" stop-opacity="0"/></radialGradient>` +
       `<linearGradient id="${id}f" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f3efdc" stop-opacity="0"/><stop offset="1" stop-color="#f3efdc" stop-opacity=".55"/></linearGradient>` +
@@ -873,24 +874,31 @@
       }
       return o;
     };
-    const R1 = (opts.regions || [])[0], R2 = (opts.regions || [])[1];
-    s += plate(0, 0, 100, 100, R1, 70);
+    // Three islands, one per province, placed roughly as on a real map (north is to the top
+    // right): Arkhangai at the back, Övörkhangai in front of it to the south, Khentii far to
+    // the east. Wooden bridges join them. Keep MAP_PINS and the horse's TOUR in
+    // js/heritage.js in step with the roads below.
+    const [RA, RO, RK] = opts.regions || [];
+    const AR = [0, 0, 100, 52], OV = [0, 60, 100, 100], KH = [110, 16, 152, 64];
+    const onLand = (x, y) => [AR, OV, KH].some(([a, b, c, d]) => x > a + 0.6 && x < c - 0.6 && y > b + 0.6 && y < d - 0.6);
+    s += plate(AR[0], AR[1], AR[2], AR[3], RA, 26) + plate(OV[0], OV[1], OV[2], OV[3], RO, 60) + plate(KH[0], KH[1], KH[2], KH[3], RK);
 
     // Field parcels.
     const r = rnd(31);
-    for (let i = 0; i < 46; i++) {
+    for (let i = 0; i < 52; i++) {
       const x = r() * 92, y = r() * 92, w = 4 + r() * 9, d = 4 + r() * 9;
-      s += poly([[x, y, 0], [Math.min(100, x + w), y, 0], [Math.min(100, x + w), Math.min(100, y + d), 0], [x, Math.min(100, y + d), 0]], [Q.grassA, Q.grassB, Q.grassC][i % 3], 'opacity=".55"');
+      const P = y < 52 ? AR : y >= 60 ? OV : null;
+      if (!P) continue;
+      s += poly([[x, y, 0], [Math.min(P[2], x + w), y, 0], [Math.min(P[2], x + w), Math.min(P[3], y + d), 0], [x, Math.min(P[3], y + d), 0]], [Q.grassA, Q.grassB, Q.grassC][i % 3], 'opacity=".55"');
     }
-
-    // Soft rolling hills.
-    [[38, 30, 7], [12, 70, 6], [88, 56, 6], [70, 14, 6], [30, 88, 5], [92, 30, 5]].forEach(([x, y, rr], i) => {
+    const hill = (x, y, rr, i) => {
       const [hx, hy] = iso(x, y), gid = id + 'm' + i;
-      s += `<defs><radialGradient id="${gid}" cx=".4" cy=".35" r=".7"><stop offset="0" stop-color="${shade(Q.grass, 0.18)}"/><stop offset=".7" stop-color="${Q.grass}"/><stop offset="1" stop-color="${shade(Q.grass, -0.08)}"/></radialGradient></defs>`;
-      s += `<ellipse cx="${f1(hx)}" cy="${f1(hy)}" rx="${f1(1.2247 * rr * MS)}" ry="${f1(0.7071 * rr * MS)}" fill="url(#${gid})"/>`;
-    });
+      return `<defs><radialGradient id="${gid}" cx=".4" cy=".35" r=".7"><stop offset="0" stop-color="${shade(Q.grass, 0.18)}"/><stop offset=".7" stop-color="${Q.grass}"/><stop offset="1" stop-color="${shade(Q.grass, -0.08)}"/></radialGradient></defs>` +
+        `<ellipse cx="${f1(hx)}" cy="${f1(hy)}" rx="${f1(1.2247 * rr * MS)}" ry="${f1(0.7071 * rr * MS)}" fill="url(#${gid})"/>`;
+    };
+    [[52, 18, 5], [24, 34, 4], [92, 46, 4], [16, 80, 6], [46, 66, 4], [124, 30, 5], [146, 44, 5], [118, 58, 4]].forEach(([x, y, rr], i) => { s += hill(x, y, rr, i); });
     // Kharkhorin's farm fields: striped plots.
-    [[40, 78, 7, 5, '#cfd08a'], [41, 84.5, 6, 4, '#c3cd85'], [30, 80, 7, 4.5, '#d6d496'], [64, 88, 6, 5, '#c9d08e'], [84, 64, 5, 4, '#d2d293']].map(([x, y, w, d, c]) => [x, y, w, d, WINTER ? '#f4f6fa' : c]).forEach(([x, y, w, d, c]) => {
+    [[28, 66, 7, 5, '#cfd08a'], [29, 72.5, 6, 4, '#c3cd85'], [18, 68, 7, 4.5, '#d6d496'], [90, 62, 6, 4, '#c9d08e']].map(([x, y, w, d, c]) => [x, y, w, d, WINTER ? '#f4f6fa' : c]).forEach(([x, y, w, d, c]) => {
       s += poly([[x, y, 0], [x + w, y, 0], [x + w, y + d, 0], [x, y + d, 0]], c);
       for (let k = 0.6; k < d; k += 0.8) { const [a1, a2] = iso(x + 0.2, y + k), [b1, b2] = iso(x + w - 0.2, y + k); s += `<path d="M${f1(a1)} ${f1(a2)} L${f1(b1)} ${f1(b2)}" stroke="${shade(c, -0.12)}" stroke-width="1" opacity=".8"/>`; }
     });
@@ -903,91 +911,87 @@
       const l = p[p.length - 1];
       return d + ` L${f1(l[0])} ${f1(l[1])}`;
     };
-    const roads = [[[56, 88], [46, 72], [36, 62], [28, 46], [22, 36]], [[72, 82], [76, 62], [70, 44], [64, 28], [60, 24]], [[64, 72], [56, 66], [44, 66], [30, 70], [18, 80]], [[82, 72], [92, 74], [100, 76]]];
+    const roads = [
+      [[22, 27], [32, 28], [44, 30], [52, 34], [60, 44], [64, 51.5]],          // Terkh – Taikhar – bridge south
+      [[60, 44], [70, 44], [78, 40], [80, 34], [76, 28], [72, 26]],            // Khar Balgas – Khöshöö Tsaidam – Ugii
+      [[78, 40], [90, 34], [99.5, 32]],                                        // east to the Khentii bridge
+      [[64, 60.5], [66, 70], [66, 90], [78, 90]],                              // bridge – Erdene Zuu's gate
+      [[66, 90], [54, 92], [42, 95]],                                          // west to the Orkhon Waterfall
+      [[110.5, 32], [118, 38], [124, 40], [128, 46], [133, 50]],              // Khentii: bridge – Khödöö Aral
+      [[124, 40], [134, 34], [142, 28]],                                       // Khentii: to Delüün Boldog
+    ];
     for (const rd of roads) { const d = pathD(rd); s += `<path d="${d}" stroke="${Q.pathEdge}" stroke-width="6.5" fill="none" stroke-linecap="round"/><path d="${d}" stroke="${Q.path}" stroke-width="4.5" fill="none" stroke-linecap="round"/>`; }
-    const orkhon = [[38, 100], [42, 88], [52, 82], [58, 70], [56, 56], [62, 44], [58, 32], [56, 24]];
-    const tamir = [[0, 46], [12, 50], [24, 56], [36, 60], [48, 62], [56, 60]];
-    for (const rv of [orkhon, tamir]) {
+    const river = (rv, wd, banks) => {
       const d = pathD(rv);
-      s += `<path d="${d}" stroke="${Q.shore}" stroke-width="16" fill="none" stroke-linecap="round"/><path d="${d}" stroke="${Q.water}" stroke-width="11" fill="none" stroke-linecap="round"/>` +
-        `<path d="${d}" stroke="${Q.waterDk}" stroke-width="4" fill="none" stroke-linecap="round" opacity=".55"/>` +
+      let o = `<path d="${d}" stroke="${Q.shore}" stroke-width="${f1(16 * wd)}" fill="none" stroke-linecap="round"/><path d="${d}" stroke="${Q.water}" stroke-width="${f1(11 * wd)}" fill="none" stroke-linecap="round"/>` +
+        `<path d="${d}" stroke="${Q.waterDk}" stroke-width="${f1(4 * wd)}" fill="none" stroke-linecap="round" opacity=".55"/>` +
         `<path d="${d}" stroke="#ffffff" stroke-width="1.3" fill="none" stroke-dasharray="1.5 6 4 17 2 9" stroke-linecap="round" opacity=".7" class="map-flow"/>` +
-        `<path d="${d}" stroke="${Q.waterLt}" stroke-width="5" fill="none" stroke-dasharray="14 26 6 30" stroke-dashoffset="11" stroke-linecap="round" opacity=".45" class="map-flow"/>`;
-      // rocks on the banks
-      const q = rnd(rv.length * 7);
-      for (let i = 0; i < rv.length - 1; i++) for (let t = 0.15; t < 1; t += 0.28) {
-        const [x0, y0] = rv[i], [x1, y1] = rv[i + 1], len = Math.hypot(x1 - x0, y1 - y0) || 1, nx = -(y1 - y0) / len, ny = (x1 - x0) / len;
-        const sd = q() < 0.5 ? 1 : -1, x = x0 + (x1 - x0) * t + nx * sd * 1.7, y = y0 + (y1 - y0) * t + ny * sd * 1.7;
-        if (x < 0.5 || y > 99.5) continue;
-        const [rx, ry] = iso(x, y), w = 2.2 + q() * 2.4;
-        put(x + y, `<ellipse cx="${f1(rx)}" cy="${f1(ry)}" rx="${f1(w)}" ry="${f1(w * 0.62)}" fill="#8c949a"/><ellipse cx="${f1(rx - w * 0.2)}" cy="${f1(ry - w * 0.25)}" rx="${f1(w * 0.65)}" ry="${f1(w * 0.38)}" fill="#c7cdd0"/>`);
+        `<path d="${d}" stroke="${Q.waterLt}" stroke-width="${f1(5 * wd)}" fill="none" stroke-dasharray="14 26 6 30" stroke-dashoffset="11" stroke-linecap="round" opacity=".45" class="map-flow"/>`;
+      if (banks) {
+        const q = rnd(rv.length * 7);
+        for (let i = 0; i < rv.length - 1; i++) for (let t = 0.15; t < 1; t += 0.28) {
+          const [x0, y0] = rv[i], [x1, y1] = rv[i + 1], len = Math.hypot(x1 - x0, y1 - y0) || 1, nx = -(y1 - y0) / len, ny = (x1 - x0) / len;
+          const sd = q() < 0.5 ? 1 : -1, x = x0 + (x1 - x0) * t + nx * sd * 1.7, y = y0 + (y1 - y0) * t + ny * sd * 1.7;
+          if (!onLand(x, y)) continue;
+          const [rx, ry] = iso(x, y), w = 2.2 + q() * 2.4;
+          put(x + y, `<ellipse cx="${f1(rx)}" cy="${f1(ry)}" rx="${f1(w)}" ry="${f1(w * 0.62)}" fill="#8c949a"/><ellipse cx="${f1(rx - w * 0.2)}" cy="${f1(ry - w * 0.25)}" rx="${f1(w * 0.65)}" ry="${f1(w * 0.38)}" fill="#c7cdd0"/>`);
+        }
       }
-    }
-    s += lakeIso(17, 27, 8.5, 3) + lakeIso(57, 17, 9, 5);
+      return o;
+    };
+    // The Orkhon rises in Övörkhangai (its waterfall drops off the front edge), passes
+    // Kharkhorin and flows north through Arkhangai past Khar Balgas; the Tamir joins it.
+    s += river([[30, 100], [38, 90], [48, 82], [58, 74], [64, 66], [70, 60]], 1, true);
+    s += river([[70, 52], [72, 44], [73, 34], [80, 24], [90, 14], [100, 8]], 1, true);
+    s += river([[0, 44], [14, 42], [28, 41], [44, 43], [58, 47], [71, 48]], 0.85, true);
+    s += lakeIso(16, 17, 8.5, 3) + lakeIso(68, 14, 9, 5);
     {
-      const [wx, wy] = iso(38, 100, 0), H = T * MS;
+      const [wx, wy] = iso(30, 100, 0), H = T * MS;
       s += `<path d="M${f1(wx - 9)} ${f1(wy + 2)} L${f1(wx + 9)} ${f1(wy - 2)} L${f1(wx + 11)} ${f1(wy + H + 20)} L${f1(wx - 11)} ${f1(wy + H + 24)}Z" fill="${Q.water}"/>` +
         `<path d="M${f1(wx - 9)} ${f1(wy + 2)} L${f1(wx - 3)} ${f1(wy)} L${f1(wx - 4)} ${f1(wy + H + 22)} L${f1(wx - 11)} ${f1(wy + H + 24)}Z" fill="${Q.waterLt}" opacity=".6"/>` +
         [-6, -2, 2, 6].map((dx, i) => `<path d="M${f1(wx + dx)} ${f1(wy + 1 - dx * 0.2)} V${f1(wy + H + 20)}" stroke="#ffffff" stroke-width="${i % 2 ? 1.4 : 2}" stroke-dasharray="${i % 2 ? '7 6' : '12 5'}" stroke-linecap="round" class="map-fall" style="animation-duration:${0.45 + i * 0.12}s" opacity=".9"/>`).join('') +
         `<ellipse class="map-foam" cx="${f1(wx)}" cy="${f1(wy + H + 26)}" rx="22" ry="6.5" fill="#ffffff" opacity=".95"/><ellipse class="map-foam" style="animation-delay:.5s" cx="${f1(wx + 12)}" cy="${f1(wy + H + 23)}" rx="11" ry="4.5" fill="#ffffff" opacity=".85"/><ellipse class="map-foam" style="animation-delay:.9s" cx="${f1(wx - 13)}" cy="${f1(wy + H + 24)}" rx="9" ry="4" fill="#ffffff" opacity=".85"/>`;
     }
+    // Khentii's rivers: the Onon in the north (Delüün Boldog) and the Kherlen, which the
+    // Tsenkher joins at Khödöö Aral.
+    s += river([[124, 16.5], [132, 20], [140, 19.5], [146, 21], [151.5, 20.5]], 0.85);
+    s += river([[118, 31], [121, 42], [126, 50], [134, 57], [144, 60], [151.5, 61]], 0.85);
+    s += river([[124, 63.5], [126, 59], [130, 54]], 0.7);
 
-    // ---- Khentii island (x 108..152, y 20..64) and the bridge to it.
-    const X0 = 108, X1 = 152, Y0 = 20, Y1 = 64;
-    s += plate(X0, Y0, X1, Y1, R2);
-    {
-      const r2 = rnd(57);
-      for (let i = 0; i < 14; i++) {
-        const x = X0 + r2() * 38, y = Y0 + r2() * 38, w = 3 + r2() * 6, d = 3 + r2() * 6;
-        s += poly([[x, y, 0], [Math.min(X1, x + w), y, 0], [Math.min(X1, x + w), Math.min(Y1, y + d), 0], [x, Math.min(Y1, y + d), 0]], [Q.grassA, Q.grassB, Q.grassC][i % 3], 'opacity=".55"');
-      }
-      [[124, 30, 5], [146, 44, 5], [118, 56, 4]].forEach(([x, y, rr], i) => {
-        const [hx, hy] = iso(x, y), gid = id + 'k' + i;
-        s += `<defs><radialGradient id="${gid}" cx=".4" cy=".35" r=".7"><stop offset="0" stop-color="${shade(Q.grass, 0.18)}"/><stop offset=".7" stop-color="${Q.grass}"/><stop offset="1" stop-color="${shade(Q.grass, -0.08)}"/></radialGradient></defs>`;
-        s += `<ellipse cx="${f1(hx)}" cy="${f1(hy)}" rx="${f1(1.2247 * rr * MS)}" ry="${f1(0.7071 * rr * MS)}" fill="url(#${gid})"/>`;
-      });
-      for (const rd of [[[108, 40], [116, 44], [126, 50], [136, 56]], [[126, 50], [132, 42], [137, 34]], [[90, 50], [96, 43], [100, 40]]]) {
-        const d = pathD(rd);
-        s += `<path d="${d}" stroke="${Q.pathEdge}" stroke-width="6.5" fill="none" stroke-linecap="round"/><path d="${d}" stroke="${Q.path}" stroke-width="4.5" fill="none" stroke-linecap="round"/>`;
-      }
-      // Kherlen (with the Tsenkher joining at Khödöö Aral) and the Onon.
-      const kherlen = [[116, 30], [120, 40], [128, 46], [138, 50], [146, 56], [152, 58]];
-      const tsenkher = [[130, 64], [133, 58], [138, 54]];
-      const onon = [[120, 24], [128, 26], [136, 27], [144, 26], [152, 25]];
-      for (const rv of [kherlen, tsenkher, onon]) {
-        const d = pathD(rv), wd = rv === tsenkher ? 0.7 : 0.85;
-        s += `<path d="${d}" stroke="${Q.shore}" stroke-width="${f1(16 * wd)}" fill="none" stroke-linecap="round"/><path d="${d}" stroke="${Q.water}" stroke-width="${f1(11 * wd)}" fill="none" stroke-linecap="round"/>` +
-          `<path d="${d}" stroke="${Q.waterDk}" stroke-width="${f1(4 * wd)}" fill="none" stroke-linecap="round" opacity=".55"/>` +
-          `<path d="${d}" stroke="#ffffff" stroke-width="1.3" fill="none" stroke-dasharray="1.5 6 4 17 2 9" stroke-linecap="round" opacity=".7" class="map-flow"/>`;
-      }
-      // Wooden bridge over the gap between the islands.
-      const by = 40, bw = 1.4;
-      let br = poly([[100, by - bw, 0], [108, by - bw, 0], [108, by + bw, 0], [100, by + bw, 0]], '#a4774a') +
-        poly([[100, by + bw, 0], [108, by + bw, 0], [108, by + bw, -0.5], [100, by + bw, -0.5]], '#7a5533');
-      for (let x = 100.6; x < 108; x += 0.9) { const [a1, a2] = iso(x, by - bw), [b1, b2] = iso(x, by + bw); br += `<path d="M${f1(a1)} ${f1(a2)} L${f1(b1)} ${f1(b2)}" stroke="#7a5533" stroke-width=".9"/>`; }
+    // Wooden bridges over the gaps between the islands (along x or along y).
+    const bridge = (ax, ay, bx, by) => {
+      const alongX = ay === by, bw = 1.4;
+      const P = (u, v, z = 0) => (alongX ? [u, v, z] : [v, u, z]);
+      const u0 = alongX ? ax : ay, u1 = alongX ? bx : by, c = alongX ? ay : ax;
+      let o = poly([P(u0, c - bw), P(u1, c - bw), P(u1, c + bw), P(u0, c + bw)], '#a4774a') +
+        poly([P(u0, c + bw), P(u1, c + bw), P(u1, c + bw, -0.5), P(u0, c + bw, -0.5)], '#7a5533');
+      const I = (p) => iso(p[0], p[1], p[2] || 0);
+      for (let u = u0 + 0.6; u < u1; u += 0.9) { const [a1, a2] = I(P(u, c - bw)), [b1, b2] = I(P(u, c + bw)); o += `<path d="M${f1(a1)} ${f1(a2)} L${f1(b1)} ${f1(b2)}" stroke="#7a5533" stroke-width=".9"/>`; }
       for (const sd of [-bw, bw]) {
-        const [a1, a2] = iso(100, by + sd, 1.1), [b1, b2] = iso(108, by + sd, 1.1);
-        br += `<path d="M${f1(a1)} ${f1(a2)} L${f1(b1)} ${f1(b2)}" stroke="#6b4b33" stroke-width="1.4"/>`;
-        for (let x = 100; x <= 108; x += 2) { const [c1, c2] = iso(x, by + sd, 0), [d1, d2] = iso(x, by + sd, 1.1); br += `<path d="M${f1(c1)} ${f1(c2)} L${f1(d1)} ${f1(d2)}" stroke="#6b4b33" stroke-width="1.2"/>`; }
+        const [a1, a2] = I(P(u0, c + sd, 1.1)), [b1, b2] = I(P(u1, c + sd, 1.1));
+        o += `<path d="M${f1(a1)} ${f1(a2)} L${f1(b1)} ${f1(b2)}" stroke="#6b4b33" stroke-width="1.4"/>`;
+        for (let u = u0; u <= u1 + 0.01; u += 2) { const [c1, c2] = I(P(u, c + sd, 0)), [d1, d2] = I(P(u, c + sd, 1.1)); o += `<path d="M${f1(c1)} ${f1(c2)} L${f1(d1)} ${f1(d2)}" stroke="#6b4b33" stroke-width="1.2"/>`; }
       }
-      s += br;
-    }
+      return o;
+    };
+    s += bridge(64, 52, 64, 60) + bridge(100, 32, 110, 32);
 
     // Mountains along the back edges, then forests at their feet.
-    [[6, 3, 7, 9, 1], [18, 2, 8, 12, 2], [31, 3, 7, 8, 3], [44, 2, 6, 7, 4], [86, 3, 7, 9, 5], [97, 6, 6, 8, 6], [3, 15, 7, 10, 7], [3, 38, 6, 7, 8], [3, 60, 7, 9, 9], [3, 82, 5, 6, 10], [70, 2, 6, 6, 11]].forEach(([x, y, rr, h, sd]) =>
+    [[6, 3, 7, 9, 1], [44, 2, 6, 7, 4], [86, 2, 6, 8, 5], [3, 34, 5, 7, 8], [3, 66, 6, 8, 9], [3, 86, 5, 6, 10]].forEach(([x, y, rr, h, sd]) =>
       put(x + y - 2, peak(x, y, rr, h, sd * 13, { snow: WINTER || h >= 8, lt: '#a9bde0', dk: '#5a6f9a' })));
-    const forest = (x0, y0, n, seed, conif) => { const q = rnd(seed); for (let i = 0; i < n; i++) { const x = x0 + q() * 12, y = y0 + q() * 10; put(x + y, conif || q() < 0.35 ? conifer(x, y, 0.8 + q() * 0.4) : treeIso(x, y, 0.8 + q() * 0.4)); } };
-    forest(24, 8, 22, 1, true); forest(8, 58, 18, 2, true); forest(84, 48, 16, 3); forest(16, 86, 14, 4); forest(82, 8, 16, 5, true); forest(8, 32, 14, 6, true); forest(62, 4, 14, 7); forest(36, 26, 12, 8); forest(86, 88, 12, 9); forest(8, 74, 10, 10); forest(90, 30, 10, 11); forest(66, 92, 8, 12); forest(48, 44, 6, 13);
-    // Tree rows along roads (as in city maps).
-    roads.forEach((rd, ri) => rd.forEach(([x, y], i) => { if (i % 1 === 0 && i < rd.length - 1) { const [nx, ny] = rd[i + 1]; for (let t = 0.1; t < 1; t += 0.22) for (const sd of [1, -1]) { const px = x + (nx - x) * t + 1.5 * sd, py = y + (ny - y) * t - 1.5 * sd; if (px > E0 - 1 && px < E1 + 1 && py > E0 - 1 && py < E1 + 1) continue; put(px + py, treeIso(px, py, 0.55, ri % 2 || WINTER ? Q.tree : '#7aa556')); } } }));
+    const forest = (x0, y0, n, seed, conif) => { const q = rnd(seed); for (let i = 0; i < n; i++) { const x = x0 + q() * 12, y = y0 + q() * 10; if (onLand(x, y)) put(x + y, conif || q() < 0.35 ? conifer(x, y, 0.8 + q() * 0.4) : treeIso(x, y, 0.8 + q() * 0.4)); } };
+    forest(30, 14, 16, 1, true); forest(4, 45, 10, 2, true); forest(84, 44, 12, 3); forest(8, 88, 12, 4); forest(90, 16, 8, 5, true); forest(6, 26, 8, 6, true); forest(40, 12, 10, 7);
+    forest(44, 60, 8, 9);
+    // Tree rows along the roads (as in city maps).
+    roads.forEach((rd, ri) => rd.forEach(([x, y], i) => { if (i < rd.length - 1) { const [nx, ny] = rd[i + 1]; for (let t = 0.1; t < 1; t += 0.22) for (const sd of [1, -1]) { const px = x + (nx - x) * t + 1.5 * sd, py = y + (ny - y) * t - 1.5 * sd; if (px > E0 - 1 && px < E1 + 1 && py > E0 - 1 && py < E1 + 1) continue; if (!onLand(px, py)) continue; put(px + py, treeIso(px, py, 0.55, ri % 2 || WINTER ? Q.tree : '#7aa556')); } } }));
 
-    // Terkhiin Tsagaan Lake: island with conifers; Khorgo volcano behind.
-    put(17 + 27, peak(17, 27, 2, 1.2, 77, WINTER ? { lt: '#f4f7fb', dk: '#b9c6da' } : { lt: '#9fb070', dk: '#6f8150' }) + conifer(16.4, 26.6, 0.6) + conifer(17.6, 27.4, 0.5));
-    put(26 + 13, peak(26, 13, 6.5, 6, 41, { top: 0.4, lt: '#b49a86', dk: '#7e655a', crater: '#4f4038' }));
-    // Taikhar Rock.
+    // Terkhiin Tsagaan Lake: island with conifers; Khorgo volcano on its eastern shore.
+    put(16 + 17, peak(16, 17, 2, 1.2, 77, WINTER ? { lt: '#f4f7fb', dk: '#b9c6da' } : { lt: '#9fb070', dk: '#6f8150' }) + conifer(15.4, 16.6, 0.6) + conifer(16.6, 17.4, 0.5));
+    put(28 + 8, peak(28, 8, 6, 6, 41, { top: 0.4, lt: '#b49a86', dk: '#7e655a', crater: '#4f4038' }));
+    // Taikhar Rock, on the north bank of the Tamir.
     {
-      const [tx, ty] = iso(28, 52), gid = id + 'tk';
-      put(28 + 52, `<defs><radialGradient id="${gid}" cx=".35" cy=".3" r=".8"><stop offset="0" stop-color="#e8e1d2"/><stop offset=".55" stop-color="#bdb3a1"/><stop offset="1" stop-color="#857b6c"/></radialGradient></defs>` +
+      const [tx, ty] = iso(40, 35), gid = id + 'tk';
+      put(40 + 35, `<defs><radialGradient id="${gid}" cx=".35" cy=".3" r=".8"><stop offset="0" stop-color="#e8e1d2"/><stop offset=".55" stop-color="#bdb3a1"/><stop offset="1" stop-color="#857b6c"/></radialGradient></defs>` +
         `<ellipse cx="${f1(tx + 6)}" cy="${f1(ty + 3)}" rx="30" ry="9" fill="#3d4a2c" opacity=".2"/>` +
         `<path d="M${f1(tx - 24)} ${f1(ty + 2)} Q${f1(tx - 30)} ${f1(ty - 14)} ${f1(tx - 16)} ${f1(ty - 24)} Q${f1(tx - 6)} ${f1(ty - 36)} ${f1(tx + 8)} ${f1(ty - 31)} Q${f1(tx + 24)} ${f1(ty - 27)} ${f1(tx + 25)} ${f1(ty - 12)} Q${f1(tx + 28)} ${f1(ty)} ${f1(tx + 18)} ${f1(ty + 4)} Q${f1(tx)} ${f1(ty + 9)} ${f1(tx - 24)} ${f1(ty + 2)}Z" fill="url(#${gid})"/>` +
         `<path d="M${f1(tx + 8)} ${f1(ty - 31)} Q${f1(tx + 24)} ${f1(ty - 27)} ${f1(tx + 25)} ${f1(ty - 12)} Q${f1(tx + 28)} ${f1(ty)} ${f1(tx + 18)} ${f1(ty + 4)} Q${f1(tx + 14)} ${f1(ty - 10)} ${f1(tx + 8)} ${f1(ty - 31)}Z" fill="#7a705f" opacity=".45"/>` +
@@ -997,54 +1001,55 @@
         `<ellipse cx="${f1(tx + 26)}" cy="${f1(ty + 4)}" rx="5" ry="3" fill="#a59b8b"/><ellipse cx="${f1(tx - 27)}" cy="${f1(ty + 4)}" rx="4" ry="2.4" fill="#a59b8b"/>`);
     }
     // Ugii Lake shore: gers and a flock.
-    [[46, 13, 1.1], [49.5, 9.5, 0.95], [44, 9, 0.8]].forEach(([x, y, k]) => put(x + y, gerIso(x, y, k)));
+    [[55, 9, 1.1], [58.5, 6, 0.95], [53, 5, 0.8]].forEach(([x, y, k]) => put(x + y, gerIso(x, y, k)));
     // Khöshöö Tsaidam steles.
-    [[74, 30], [79.5, 26]].forEach(([x, y]) => put(x + y, turtleIso(x, y, 0.7) + boxIso(x - 0.4, y - 0.25, 0.6, 0.8, 0.5, 4, '#b8b2a6')));
+    [[84, 31], [89.5, 27]].forEach(([x, y]) => put(x + y, turtleIso(x, y, 0.7) + boxIso(x - 0.4, y - 0.25, 0.6, 0.8, 0.5, 4, '#b8b2a6')));
     // Erdene Zuu: courtyard, walls with stupas, temples, gate.
     s += poly([[E0, E0, 0], [E1, E0, 0], [E1, E1, 0], [E0, E1, 0]], '#ddd6bd');
     s += poly([[E0 + 8, E1 - 1, 0], [E0 + 12, E1 - 1, 0], [E0 + 12, E0 + 8, 0], [E0 + 8, E0 + 8, 0]], Q.path);
     const stupaRow = (ax, ay, bx, by, nn) => { let o = ''; for (let i = 0; i <= nn; i++) { const x = ax + ((bx - ax) * i) / nn, y = ay + ((by - ay) * i) / nn; o += stupaIso(x, y, wh, 0.85); } return o; };
     put(E0 + E0 - 0.5, boxIso(E0, E0, 0, E1 - E0, wt, wh, Q.wall) + boxIso(E0, E0, 0, wt, E1 - E0, wh, Q.wall) + stupaRow(E0 + 0.35, E0 + 0.35, E1 - 0.35, E0 + 0.35, 9) + stupaRow(E0 + 0.35, E0 + 2.5, E0 + 0.35, E1 - 0.35, 8));
-    put(70 + 66, templeIso(66, 66.5, 4, 3, { roof: Q.roofG }) + templeIso(73.5, 66.5, 4, 3, { roof: Q.roofG }));
-    put(70 + 72, templeIso(68.5, 70.5, 6, 4.5, { tiers: 2, roof: Q.roofG, h: 2.6 }));
-    put(76 + 75.5, boxIso(75.5, 75.5, 0, 3, 2.5, 2.4, Q.wall) + boxIso(75.45, 75.45, 2.1, 3.1, 2.6, 0.4, '#9e3b2a'));
+    put(E0 + 8 + E0 + 4, templeIso(E0 + 4, E0 + 4.5, 4, 3, { roof: Q.roofG }) + templeIso(E0 + 11.5, E0 + 4.5, 4, 3, { roof: Q.roofG }));
+    put(E0 + 8 + E0 + 10, templeIso(E0 + 6.5, E0 + 8.5, 6, 4.5, { tiers: 2, roof: Q.roofG, h: 2.6 }));
+    put(E0 + 14 + E0 + 13.5, boxIso(E0 + 13.5, E0 + 13.5, 0, 3, 2.5, 2.4, Q.wall) + boxIso(E0 + 13.45, E0 + 13.45, 2.1, 3.1, 2.6, 0.4, '#9e3b2a'));
     put(E1 + E1 + 0.4, boxIso(E0, E1 - wt, 0, 8, wt, wh, Q.wall) + boxIso(E0 + 12, E1 - wt, 0, E1 - E0 - 12, wt, wh, Q.wall) + boxIso(E1 - wt, E0, 0, wt, E1 - E0, wh, Q.wall) +
       stupaRow(E0 + 0.35, E1 - 0.35, E0 + 7.6, E1 - 0.35, 3) + stupaRow(E0 + 12.4, E1 - 0.35, E1 - 0.35, E1 - 0.35, 3) + stupaRow(E1 - 0.35, E0 + 0.35, E1 - 0.35, E1 - 0.35, 9) +
       boxIso(E0 + 8.6, E1 - 1.2, 0, 2.8, 1.4, 1.6, '#c4553b') + roofIso(E0 + 8.6, E1 - 1.2, 1.6, 2.8, 1.4, 0.8, Q.roofG, 0.35));
-    // Karakorum: ruins, stone turtle, banner; Kharkhorin houses and gers.
-    put(52 + 76, boxIso(49, 74, 0, 2.2, 1.2, 1.6, Q.ruin) + boxIso(51.6, 75.4, 0, 3, 1, 0.8, Q.ruin) + boxIso(53.2, 72.8, 0, 1.2, 1.2, 2.4, Q.ruin) + boxIso(50.2, 77.4, 0, 1, 2.6, 1.1, Q.ruin));
-    put(58 + 86, turtleIso(58, 86, 0.8));
-    { const [px, py] = iso(50, 84, 0), [qx, qy] = iso(50, 84, 5); put(50 + 84, `<path d="M${f1(px)} ${f1(py)} L${f1(qx)} ${f1(qy)}" stroke="#6b4b33" stroke-width="1.6"/><path d="M${f1(qx - 3)} ${f1(qy + 4)} Q${f1(qx)} ${f1(qy + 11)} ${f1(qx + 3)} ${f1(qy + 4)}Z" fill="#f4f2ec"/><path d="M${f1(qx)} ${f1(qy + 6)} h9 l-2.5 3 l2.5 3 h-9Z" fill="${Q.roofR}"/>`); }
-    [[86, 86, 1.1], [89.5, 82, 0.95], [40, 92, 1.05], [43.6, 95, 0.9], [26, 74, 1], [20, 61, 0.9]].forEach(([x, y, k]) => put(x + y, gerIso(x, y, k)));
-    [[90, 70, 3, 2.4, '#5d8fa8'], [94, 66, 2.6, 2.2, Q.roofR], [92.5, 62, 2.4, 2, '#5d8fa8']].forEach(([x, y, w, d, c]) => put(x + y + 2, boxIso(x, y, 0, w, d, 1.8, Q.wall) + roofIso(x, y, 1.8, w, d, 0.9, c, 0.25)));
-    // Ovoo on a pass, with a blue khadag.
-    [[34, 38], [84, 40]].forEach(([x, y], i) => { const [tx, ty] = iso(x, y, 1.6); put(x + y, peak(x, y, 1, 1.5, 90 + i, { n: 7, lt: '#cfcac0', dk: '#8f8a80' }) + `<path d="M${f1(tx)} ${f1(ty)} v-9" stroke="#6b4b33" stroke-width="1.2"/><path d="M${f1(tx)} ${f1(ty - 8)} q6 2 9 6 M${f1(tx)} ${f1(ty - 6)} q-6 2 -7 6" stroke="#4a8fd4" stroke-width="1.8" fill="none"/>`); });
+    // Karakorum: the ruins just north of Erdene Zuu, its stone turtle and a banner.
+    put(76 + 64, boxIso(73, 62, 0, 2.2, 1.2, 1.6, Q.ruin) + boxIso(75.6, 63.4, 0, 3, 1, 0.8, Q.ruin) + boxIso(77.2, 60.8, 0, 1.2, 1.2, 2.4, Q.ruin) + boxIso(74.2, 65.2, 0, 1, 2.2, 1.1, Q.ruin));
+    put(82 + 64, turtleIso(82, 64, 0.8));
+    { const [px, py] = iso(80, 61.5, 0), [qx, qy] = iso(80, 61.5, 5); put(80 + 61.5, `<path d="M${f1(px)} ${f1(py)} L${f1(qx)} ${f1(qy)}" stroke="#6b4b33" stroke-width="1.6"/><path d="M${f1(qx - 3)} ${f1(qy + 4)} Q${f1(qx)} ${f1(qy + 11)} ${f1(qx + 3)} ${f1(qy + 4)}Z" fill="#f4f2ec"/><path d="M${f1(qx)} ${f1(qy + 6)} h9 l-2.5 3 l2.5 3 h-9Z" fill="${Q.roofR}"/>`); }
+    // Kharkhorin town: houses and gers east of the monastery; gers near the waterfall.
+    [[92, 92, 1.1], [95.5, 88, 0.95], [20, 92, 1.05], [23.6, 95, 0.9], [14, 66, 1], [36, 80, 0.9], [20, 46, 0.9]].forEach(([x, y, k]) => put(x + y, gerIso(x, y, k)));
+    [[91, 72, 3, 2.4, '#5d8fa8'], [95, 76, 2.6, 2.2, Q.roofR], [91.5, 80, 2.4, 2, '#5d8fa8']].forEach(([x, y, w, d, c]) => put(x + y + 2, boxIso(x, y, 0, w, d, 1.8, Q.wall) + roofIso(x, y, 1.8, w, d, 0.9, c, 0.25)));
+    // Ovoos on passes, with a blue khadag.
+    const ovoo = (x, y, seed) => { const [tx, ty] = iso(x, y, 1.6); return peak(x, y, 1, 1.5, seed, { n: 7, lt: '#cfcac0', dk: '#8f8a80' }) + `<path d="M${f1(tx)} ${f1(ty)} v-9" stroke="#6b4b33" stroke-width="1.2"/><path d="M${f1(tx)} ${f1(ty - 8)} q6 2 9 6 M${f1(tx)} ${f1(ty - 6)} q-6 2 -7 6" stroke="#4a8fd4" stroke-width="1.8" fill="none"/>`; };
+    put(48 + 25, ovoo(48, 25, 90)); put(76 + 48, ovoo(76, 48, 91));
     // Herds.
-    const flock = (x0, y0, n, seed) => { const q = rnd(seed); for (let i = 0; i < n; i++) { const x = x0 + q() * 6, y = y0 + q() * 5; put(x + y, sheep(x, y)); } };
-    flock(37, 44, 10, 31); flock(20, 63, 9, 32); flock(80, 76, 8, 33); flock(64, 52, 9, 34); flock(14, 40, 7, 35);
-    [[40, 40, Q.horse, 1], [42, 41.5, '#e9dcc0', 1], [44.5, 40.5, '#3a2a20', -1], [74, 52, '#3a2a20', -1], [92, 92, Q.horse, 1], [94, 90.5, '#e9dcc0', 1], [48, 54, Q.horse, -1]].forEach(([x, y, c, f]) => put(x + y, horseTiny(x, y, c, f)));
+    const flock = (x0, y0, n, seed) => { const q = rnd(seed); for (let i = 0; i < n; i++) { const x = x0 + q() * 6, y = y0 + q() * 5; if (onLand(x, y)) put(x + y, sheep(x, y)); } };
+    flock(20, 31, 9, 31); flock(8, 76, 9, 32); flock(90, 62, 6, 33); flock(52, 22, 8, 34); flock(24, 44, 7, 35); flock(140, 40, 9, 105);
+    [[30, 46, Q.horse, 1], [32, 47.5, '#e9dcc0', 1], [34.5, 46.5, '#3a2a20', -1], [80, 47, '#3a2a20', -1], [20, 86, Q.horse, 1], [22, 84.5, '#e9dcc0', 1], [52, 64, Q.horse, -1],
+      [132, 42, Q.horse, 1], [134.5, 43.5, '#e9dcc0', -1], [146, 50, '#3a2a20', 1]].forEach(([x, y, c, f]) => put(x + y, horseTiny(x, y, c, f)));
     // Birds over Ugii Lake.
-    { const [bx, by] = iso(57, 17, 9); put(0, `<g stroke="#4a5a40" stroke-width="1.2" fill="none" stroke-linecap="round">${[[0, 0], [12, -6], [24, -1], [-10, 8]].map(([dx, dy]) => `<path d="M${f1(bx + dx - 4)} ${f1(by + dy)} q2 -3 4 0 q2 -3 4 0"/>`).join('')}</g>`); }
+    { const [bx, by] = iso(68, 14, 9); put(0, `<g stroke="#4a5a40" stroke-width="1.2" fill="none" stroke-linecap="round">${[[0, 0], [12, -6], [24, -1], [-10, 8]].map(([dx, dy]) => `<path d="M${f1(bx + dx - 4)} ${f1(by + dy)} q2 -3 4 0 q2 -3 4 0"/>`).join('')}</g>`); }
 
-    // Khar Balgas: square earthen walls with a tall citadel mound.
+    // Khar Balgas: square earthen walls with a tall citadel mound, west of the Orkhon.
     {
-      const kx = 49, ky = 34, kw = 6, kc = '#cfae78';
+      const kx = 60, ky = 33, kw = 6, kc = '#cfae78';
       put(kx + ky + 1, boxIso(kx, ky, 0, kw, 0.8, 1.3, kc) + boxIso(kx, ky, 0, 0.8, kw, 1.3, kc));
       put(kx + ky + kw + 2, boxIso(kx + 2.2, ky + 2.2, 0, 2.4, 2.4, 2.8, '#c49d63') + boxIso(kx + 2.6, ky + 2.6, 2.8, 1.6, 1.6, 0.8, '#d6b884'));
       put(kx + ky + kw * 2, boxIso(kx, ky + kw - 0.8, 0, 2.5, 0.8, 1.3, kc) + boxIso(kx + 3.6, ky + kw - 0.8, 0, kw - 3.6, 0.8, 1.3, kc) + boxIso(kx + kw - 0.8, ky, 0, 0.8, kw, 1.3, kc));
     }
-    // Khentii island: Burkhan Khaldun with its ovoo and larch forest.
-    put(114 + 26, peak(114, 26, 5, 9.5, 101, WINTER ? { lt: '#a9c3b2', dk: '#36624a', snow: true } : { lt: '#86b56d', dk: '#3b6a46' }));
-    { const q = rnd(102); [[109, 31, 8, 6], [109, 47, 8, 8], [145, 33, 6, 6]].forEach(([x0, y0, w, d]) => { for (let i = 0; i < 9; i++) { const x = x0 + q() * w, y = y0 + q() * d; put(x + y, conifer(x, y, 0.7 + q() * 0.4)); } }); }
-    { const [tx, ty] = iso(112.5, 33, 1.6); put(112.5 + 33, peak(112.5, 33, 1, 1.5, 103, { n: 7, lt: '#cfcac0', dk: '#8f8a80' }) + `<path d="M${f1(tx)} ${f1(ty)} v-9" stroke="#6b4b33" stroke-width="1.2"/><path d="M${f1(tx)} ${f1(ty - 8)} q6 2 9 6 M${f1(tx)} ${f1(ty - 6)} q-6 2 -7 6" stroke="#4a8fd4" stroke-width="1.8" fill="none"/>`); }
+    // Khentii: Burkhan Khaldun with its ovoo and larch forest in the north-west.
+    put(118 + 25, peak(118, 25, 5, 9.5, 101, WINTER ? { lt: '#a9c3b2', dk: '#36624a', snow: true } : { lt: '#86b56d', dk: '#3b6a46' }));
+    { const q = rnd(102); [[111, 34, 6, 6], [111, 46, 6, 10], [146, 28, 5, 5]].forEach(([x0, y0, w, d]) => { for (let i = 0; i < 9; i++) { const x = x0 + q() * w, y = y0 + q() * d; if (onLand(x, y)) put(x + y, conifer(x, y, 0.7 + q() * 0.4)); } }); }
+    put(113.5 + 31, ovoo(113.5, 31, 103));
     // Delüün Boldog: a grassy hill on the Onon with a memorial stele.
-    put(140 + 32, peak(140, 32, 3.2, 2.2, 104, WINTER ? { lt: '#f4f7fb', dk: '#c0cbdc' } : { lt: '#a9cf6e', dk: '#6f9a48' }) + boxIso(139.6, 31.4, 2.1, 0.9, 0.9, 3.6, '#e2ddd0') + roofIso(139.6, 31.4, 5.7, 0.9, 0.9, 0.6, '#c8c1b0', 0.1));
-    // Khödöö Aral: the Secret History monument and the great camp nearby.
-    put(133.5 + 51.5, boxIso(132.8, 50.8, 0, 1.6, 1.6, 0.5, '#cfc9bb') + boxIso(133.2, 51.2, 0.5, 0.8, 0.8, 4.6, '#e6e1d4') + roofIso(133.2, 51.2, 5.1, 0.8, 0.8, 0.7, Q.roofR, 0.1));
-    [[124, 57, 1.3], [127.5, 59.5, 1], [121, 60, 0.9], [129, 55.5, 0.8], [147.5, 29.5, 0.9], [150, 33, 0.8]].forEach(([x, y, k]) => put(x + y, gerIso(x, y, k)));
-    { const [px, py] = iso(126, 54, 0), [qx, qy] = iso(126, 54, 5); put(126 + 54, `<path d="M${f1(px)} ${f1(py)} L${f1(qx)} ${f1(qy)}" stroke="#6b4b33" stroke-width="1.6"/><path d="M${f1(qx - 3)} ${f1(qy + 4)} Q${f1(qx)} ${f1(qy + 11)} ${f1(qx + 3)} ${f1(qy + 4)}Z" fill="#f4f2ec"/>`); }
-    flock(140, 40, 9, 105);
-    [[128, 37, Q.horse, 1], [130.5, 38.5, '#e9dcc0', -1], [146, 50, '#3a2a20', 1]].forEach(([x, y, c, f]) => put(x + y, horseTiny(x, y, c, f)));
+    put(144 + 25, peak(144, 25, 3.2, 2.2, 104, WINTER ? { lt: '#f4f7fb', dk: '#c0cbdc' } : { lt: '#a9cf6e', dk: '#6f9a48' }) + boxIso(143.6, 24.4, 2.1, 0.9, 0.9, 3.6, '#e2ddd0') + roofIso(143.6, 24.4, 5.7, 0.9, 0.9, 0.6, '#c8c1b0', 0.1));
+    // Khödöö Aral: the Secret History monument where the Tsenkher meets the Kherlen, and a camp.
+    put(132 + 59, boxIso(131.3, 58.3, 0, 1.6, 1.6, 0.5, '#cfc9bb') + boxIso(131.7, 58.7, 0.5, 0.8, 0.8, 4.6, '#e6e1d4') + roofIso(131.7, 58.7, 5.1, 0.8, 0.8, 0.7, Q.roofR, 0.1));
+    [[136, 49, 1.2], [139.5, 51.5, 1], [133.5, 46, 0.9], [148, 40, 0.9], [150.5, 43.5, 0.8]].forEach(([x, y, k]) => put(x + y, gerIso(x, y, k)));
+    { const [px, py] = iso(137, 46, 0), [qx, qy] = iso(137, 46, 5); put(137 + 46, `<path d="M${f1(px)} ${f1(py)} L${f1(qx)} ${f1(qy)}" stroke="#6b4b33" stroke-width="1.6"/><path d="M${f1(qx - 3)} ${f1(qy + 4)} Q${f1(qx)} ${f1(qy + 11)} ${f1(qx + 3)} ${f1(qy + 4)}Z" fill="#f4f2ec"/>`); }
 
     items.sort((a, b) => a[0] - b[0]);
     s += items.map((i) => i[1]).join('');
@@ -1063,7 +1068,7 @@
       for (let i = 0; i < 260; i++) fl += `<circle cx="${f1(q() * MAP_W)}" cy="${f1(q() * MAP_H)}" r="${f1(0.8 + q() * 2.2)}" opacity="${f1(0.45 + q() * 0.5)}"/>`;
       s += fl + '</g>';
     }
-    return wrap(MAP_W, MAP_H, s + `<g pointer-events="none"><filter id="${id}n" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch"/><feColorMatrix values="0 0 0 0 0.2  0 0 0 0 0.18  0 0 0 0 0.12  0 0 0 0.35 0"/></filter><rect width="${MAP_W}" height="${MAP_H}" filter="url(#${id}n)" opacity=".18"/></g>`, opts.label || 'Illustrated map of the heritage sites of Arkhangai, Uvurkhangai and Khentii', false);
+    return wrap(MAP_W, MAP_H, s + `<g pointer-events="none"><filter id="${id}n" x="0" y="0" width="100%" height="100%"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch"/><feColorMatrix values="0 0 0 0 0.2  0 0 0 0 0.18  0 0 0 0 0.12  0 0 0 0.35 0"/></filter><rect width="${MAP_W}" height="${MAP_H}" filter="url(#${id}n)" opacity=".18"/></g>`, opts.label || 'Illustrated map of the heritage sites of Arkhangai, Övörkhangai and Khentii', false);
   }
 
   // The horse from the GRIT logo (traced), facing left. Box 352.0 x 442.0.
@@ -1074,17 +1079,17 @@
 
   // Map positions for each story's pin.
   const MAP_PINS = {
-    terkh: { x: 17, y: 27, side: "left" },
-    taikhar: { x: 28, y: 52, side: "left" },
-    ugii: { x: 57, y: 17 },
-    orkhon: { x: 38, y: 99, side: "left" },
-    karakorum: { x: 56, y: 86, side: "left" },
-    erdenezuu: { x: 82, y: 63 },
-    khoshoo: { x: 77, y: 28 },
-    kharbalgas: { x: 52, y: 37 },
-    burkhan: { x: 114, y: 26, side: "left" },
-    deluun: { x: 140, y: 31.5 },
-    khudoo: { x: 133.5, y: 51.5 },
+    terkh: { x: 16, y: 17 },
+    taikhar: { x: 40, y: 35, side: "left" },
+    kharbalgas: { x: 63, y: 36 },
+    khoshoo: { x: 86, y: 29 },
+    ugii: { x: 68, y: 14 },
+    karakorum: { x: 77, y: 63, side: "left" },
+    erdenezuu: { x: 78, y: 78, side: "left" },
+    orkhon: { x: 30, y: 99, side: "left" },
+    burkhan: { x: 118, y: 25 },
+    deluun: { x: 144, y: 25, side: "left" },
+    khudoo: { x: 132, y: 59 },
   };
 
   // Static picture for the home-page project card (and the hero without JS).
